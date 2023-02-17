@@ -2,7 +2,7 @@
 
 import 'package:axol_rutas/supaBase.dart';
 import 'package:flutter/material.dart';
-import 'package:axol_rutas/theme/theme.dart';
+import 'package:axol_rutas/settings/theme.dart';
 import 'package:axol_rutas/pages/logup_page.dart';
 
 final _userController = TextEditingController();

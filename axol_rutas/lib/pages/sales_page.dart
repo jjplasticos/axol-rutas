@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:axol_rutas/theme/theme.dart';
+import 'package:axol_rutas/settings/theme.dart';
 import 'package:axol_rutas/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:axol_rutas/theme/format.dart';
+import 'package:axol_rutas/settings/format.dart';
 
 class SalesPage extends StatefulWidget {
   const SalesPage({super.key});
