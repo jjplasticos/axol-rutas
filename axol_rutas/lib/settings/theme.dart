@@ -48,6 +48,11 @@ class Typo {
       fontWeight: FontWeight.w600,
       fontSize: 22,
       color: ColorPalette.secondaryText);
+  static const bodyText4 = TextStyle(
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w600,
+      fontSize: 22,
+      color: ColorPalette.primaryText);
   static const labelText2 = TextStyle(
       fontFamily: 'Source Sans Pro',
       fontWeight: FontWeight.w400,

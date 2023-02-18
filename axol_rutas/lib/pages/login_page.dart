@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:axol_rutas/theme/theme.dart';
+import 'package:axol_rutas/settings/theme.dart';
 import 'package:axol_rutas/pages/logup_page.dart';
 import 'package:axol_rutas/supaBase.dart';
 import 'package:axol_rutas/pages/sales_page.dart';
