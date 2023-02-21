@@ -5,6 +5,7 @@ import 'package:axol_rutas/settings/theme.dart';
 import 'package:axol_rutas/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:axol_rutas/settings/format.dart';
+import 'package:axol_rutas/pages/sales_form.dart';
 
 class SalesPage extends StatefulWidget {
   const SalesPage({super.key});
@@ -23,7 +24,13 @@ class _SalesPageState extends State<SalesPage> {
     return Scaffold(
       backgroundColor: ColorPalette.primaryBackground,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      SalesForm(timePick: DateTime.now(), saleID: '0000')));
+        },
         backgroundColor: ColorPalette.primary,
         elevation: 8,
         // ignore: prefer_const_constructors
@@ -144,8 +151,9 @@ class _SalesPageState extends State<SalesPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      FormatNumber.decimal(
-                                          elementList['total_quantity']),
+                                      FormatNumber.decimal(double.parse(
+                                          elementList['total_quantity']
+                                              .toString())),
                                       style: Typo.bodyText3,
                                     ),
                                     Text(
@@ -171,8 +179,9 @@ class _SalesPageState extends State<SalesPage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          FormatNumber.decimal(
-                                              elementList['total_weight']),
+                                          FormatNumber.decimal(double.parse(
+                                              elementList['total_weight']
+                                                  .toString())),
                                           style: Typo.bodyText3,
                                         ),
                                         Text(
@@ -210,8 +219,9 @@ class _SalesPageState extends State<SalesPage> {
                                           style: Typo.bodyText3,
                                         ),
                                         Text(
-                                          FormatNumber.decimal(
-                                              elementList['total_price']),
+                                          FormatNumber.decimal(double.parse(
+                                              elementList['total_price']
+                                                  .toString())),
                                           style: Typo.bodyText3,
                                         ),
                                       ],

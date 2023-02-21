@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: EdgeInsetsDirectional.fromSTEB(24, 8, 24, 8),
                     child: TextFormField(
                       controller: _userController,
-                      autofocus: true,
+                      autofocus: false,
                       decoration: InputDecoration(
                         hintText: 'Correo',
                         hintStyle: Typo.hintText,
@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: EdgeInsetsDirectional.fromSTEB(24, 8, 24, 0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(double.infinity, 60),
+                        minimumSize: Size(double.infinity, 58),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12)),
                       ),

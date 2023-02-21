@@ -33,7 +33,9 @@ class _SalesPageState extends State<SalesForm> {
         backgroundColor: ColorPalette.primaryBackground,
         automaticallyImplyLeading: false,
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             // ignore: prefer_const_constructors
             icon: Icon(
               Icons.arrow_back_ios,
@@ -54,7 +56,7 @@ class _SalesPageState extends State<SalesForm> {
             padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
             child: TextFormField(
               controller: _clientController,
-              autofocus: true,
+              autofocus: false,
               decoration: InputDecoration(
                 hintText: 'Nombre del cliente',
                 hintStyle: Typo.hintText,
@@ -97,145 +99,109 @@ class _SalesPageState extends State<SalesForm> {
                       borderRadius: BorderRadius.circular(12))),
             ),
           ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-            child: Builder(
-              builder: (context) {
-                final List<Map> shoppingCart = [];
-                return ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: shoppingCart.length,
-                  itemBuilder: (context, index) {
-                    final shoppingCartItem = shoppingCart[index];
-                    return Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
-                        child: Container(
-                          width: double.infinity,
-                          height: 100,
-                          decoration: BoxDecoration(
-                              color: ColorPalette.secondaryBackground,
-                              borderRadius: BorderRadius.circular(12)),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
-                                child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        width: 200,
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              ColorPalette.secondaryBackground,
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(12)),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                                shoppingCartItem['code']
+          Expanded(
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+              child: Builder(
+                builder: (context) {
+                  final List<Map> shoppingCart = [];
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: shoppingCart.length,
+                    itemBuilder: (context, index) {
+                      final shoppingCartItem = shoppingCart[index];
+                      return Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
+                          child: Container(
+                            width: double.infinity,
+                            height: 100,
+                            decoration: BoxDecoration(
+                                color: ColorPalette.secondaryBackground,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      4, 0, 0, 0),
+                                  child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: 200,
+                                          height: 40,
+                                          decoration: BoxDecoration(
+                                            color: ColorPalette
+                                                .secondaryBackground,
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(12)),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text(
+                                                  shoppingCartItem['code']
+                                                      .toString(),
+                                                  style: Typo.bodyText1),
+                                              Text(
+                                                shoppingCartItem['description']
                                                     .toString(),
-                                                style: Typo.bodyText1),
-                                            Text(
-                                              shoppingCartItem['description']
-                                                  .toString(),
-                                              style: Typo.bodyText1,
-                                            )
-                                          ],
+                                                style: Typo.bodyText1,
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.more_vert,
-                                              color: ColorPalette.secondaryText,
-                                              size: 25))
-                                    ]),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.28,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                      color: ColorPalette.secondaryBackground,
-                                      borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(12)),
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          shoppingCartItem['quantity']
-                                              .toString(),
-                                          style: Typo.bodyText3,
-                                        ),
-                                        Text(
-                                          'Cantidad',
-                                          style: Typo.labelText2,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                        color:
-                                            ColorPalette.secondaryBackground),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              shoppingCartItem['weight']
-                                                  .toString(),
-                                              style: Typo.bodyText3,
-                                            ),
-                                            Text(
-                                              'kg',
-                                              style: Typo.bodyText3,
-                                            )
-                                          ],
-                                        ),
-                                        Text(
-                                          'Peso unitario',
-                                          style: Typo.labelText2,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: Icon(Icons.more_vert,
+                                                color:
+                                                    ColorPalette.secondaryText,
+                                                size: 25))
+                                      ]),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
                                       width: MediaQuery.of(context).size.width *
-                                          0.36,
+                                          0.28,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        color: ColorPalette.secondaryBackground,
+                                        borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(12)),
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            shoppingCartItem['quantity']
+                                                .toString(),
+                                            style: Typo.bodyText3,
+                                          ),
+                                          Text(
+                                            'Cantidad',
+                                            style: Typo.labelText2,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.3,
                                       height: 60,
                                       decoration: BoxDecoration(
                                           color:
-                                              ColorPalette.secondaryBackground,
-                                          borderRadius: BorderRadius.only(
-                                              bottomRight:
-                                                  Radius.circular(12))),
+                                              ColorPalette.secondaryBackground),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -247,30 +213,70 @@ class _SalesPageState extends State<SalesForm> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                '\$',
+                                                shoppingCartItem['weight']
+                                                    .toString(),
                                                 style: Typo.bodyText3,
                                               ),
                                               Text(
-                                                shoppingCartItem['price']
-                                                    .toString(),
+                                                'kg',
                                                 style: Typo.bodyText3,
                                               )
                                             ],
                                           ),
                                           Text(
-                                            'Precio unitario',
+                                            'Peso unitario',
                                             style: Typo.labelText2,
                                           )
                                         ],
-                                      ))
-                                ],
-                              )
-                            ],
-                          ),
-                        ));
-                  },
-                );
-              },
+                                      ),
+                                    ),
+                                    Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.36,
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                            color: ColorPalette
+                                                .secondaryBackground,
+                                            borderRadius: BorderRadius.only(
+                                                bottomRight:
+                                                    Radius.circular(12))),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  '\$',
+                                                  style: Typo.bodyText3,
+                                                ),
+                                                Text(
+                                                  shoppingCartItem['price']
+                                                      .toString(),
+                                                  style: Typo.bodyText3,
+                                                )
+                                              ],
+                                            ),
+                                            Text(
+                                              'Precio unitario',
+                                              style: Typo.labelText2,
+                                            )
+                                          ],
+                                        ))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ));
+                    },
+                  );
+                },
+              ),
             ),
           ),
           Row(
@@ -318,7 +324,21 @@ class _SalesPageState extends State<SalesForm> {
                 ],
               )
             ],
-          )
+          ),
+          Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(8, 16, 8, 8),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 60),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    backgroundColor: ColorPalette.primary),
+                child: Text(
+                  'Guardar',
+                  style: Typo.textButton,
+                ),
+                onPressed: () {},
+              ))
         ],
       ),
     );
