@@ -13,11 +13,21 @@ class ColorPalette {
 }
 
 class Typo {
+  static const title1 = TextStyle(
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w600,
+      fontSize: 22,
+      color: ColorPalette.primaryText);
   static const textButton = TextStyle(
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w600,
       fontSize: 20,
       color: ColorPalette.primaryText);
+  static const textField1 = TextStyle(
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w600,
+      fontSize: 14,
+      color: ColorPalette.secondaryText);
   static final hintText = TextStyle(
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w600,
@@ -28,11 +38,11 @@ class Typo {
       fontWeight: FontWeight.w400,
       fontSize: 14,
       color: ColorPalette.primaryText);
-  static const title1 = TextStyle(
-      fontFamily: 'Poppins',
-      fontWeight: FontWeight.w600,
-      fontSize: 22,
-      color: ColorPalette.primaryText);
+  static const labelText2 = TextStyle(
+      fontFamily: 'Source Sans Pro',
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      color: ColorPalette.secondaryText);
   static const bodyText1 = TextStyle(
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w600,
@@ -53,19 +63,14 @@ class Typo {
       fontWeight: FontWeight.w600,
       fontSize: 22,
       color: ColorPalette.primaryText);
-  static const labelText2 = TextStyle(
-      fontFamily: 'Source Sans Pro',
-      fontWeight: FontWeight.w400,
-      fontSize: 14,
-      color: ColorPalette.secondaryText);
-  static const textField1 = TextStyle(
-      fontFamily: 'Poppins',
-      fontWeight: FontWeight.w600,
-      fontSize: 14,
-      color: ColorPalette.secondaryText);
   static const bodyText5 = TextStyle(
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w600,
       fontSize: 16,
       color: ColorPalette.primaryText);
+  static const bodyText6 = TextStyle(
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+      color: ColorPalette.secondaryText);
 }
