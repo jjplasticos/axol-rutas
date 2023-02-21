@@ -63,4 +63,9 @@ class Typo {
       fontWeight: FontWeight.w600,
       fontSize: 14,
       color: ColorPalette.secondaryText);
+  static const bodyText5 = TextStyle(
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w600,
+      fontSize: 16,
+      color: ColorPalette.primaryText);
 }

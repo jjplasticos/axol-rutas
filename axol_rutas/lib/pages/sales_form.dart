@@ -86,7 +86,10 @@ class _SalesPageState extends State<SalesForm> {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                /*Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SalesPage()));*/
+              },
               child: Icon(
                 Icons.add_shopping_cart,
                 size: 30,
