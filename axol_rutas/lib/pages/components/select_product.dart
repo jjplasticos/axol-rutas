@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final _searchController = TextEditingController();
+List<Map<String,dynamic>> listData = [];
 
 @override
 void dispose() {
@@ -23,9 +24,13 @@ class _SelectProductState extends State<SelectProduct> {
       .from('inventory')
       .select<List<Map<String, dynamic>>>();
 
+  bool showList = false;
+
   @override
   Widget build(BuildContext context) {
-    bool showList = false;
+    
+    List<Map<String,dynamic>>? listData2 = [];
+    
     return Container(
       width: 303.5,
       height: 479.7,
@@ -46,13 +51,11 @@ class _SelectProductState extends State<SelectProduct> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.search,
-                      size: 15,
-                      color: ColorPalette.primaryText,
-                    ),
+                  ElevatedButton( //Botón de busqeuda.
+                    onPressed: () {
+                      //listData2 = listData;//searchInList(listData, _searchController.text).cast<Map<String, dynamic>>();
+                      
+                    },
                     style: ElevatedButton.styleFrom(
                         minimumSize: Size(50, 48),
                         shape: RoundedRectangleBorder(
@@ -60,12 +63,18 @@ class _SelectProductState extends State<SelectProduct> {
                                 topLeft: Radius.circular(8),
                                 bottomLeft: Radius.circular(8))),
                         backgroundColor: ColorPalette.primary),
+                    child: Icon(
+                      Icons.search,
+                      size: 15,
+                      color: ColorPalette.primaryText,
+                    ),
                   ),
                   Expanded(
                     child: TextFormField(
                       controller: _searchController,
                       autofocus: false,
                       obscureText: false,
+                      onChanged: null,
                       decoration: InputDecoration(
                           hintText: 'Buscar',
                           hintStyle: Typo.hintText,
@@ -75,12 +84,8 @@ class _SelectProductState extends State<SelectProduct> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.cancel,
-                      color: ColorPalette.secondaryText,
-                      size: 15,
-                    ),
+                    onPressed: () {
+                    },
                     style: ElevatedButton.styleFrom(
                         minimumSize: Size(50, 48),
                         shape: RoundedRectangleBorder(
@@ -88,6 +93,11 @@ class _SelectProductState extends State<SelectProduct> {
                                 topRight: Radius.circular(8),
                                 bottomRight: Radius.circular(8))),
                         backgroundColor: ColorPalette.secondaryBackground),
+                    child: Icon(
+                      Icons.cancel,
+                      color: ColorPalette.secondaryText,
+                      size: 15,
+                    ),
                   )
                 ],
               ),
@@ -100,9 +110,7 @@ class _SelectProductState extends State<SelectProduct> {
                   if (!snapshot.hasData) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  final listData = snapshot.data!;
-
-                  listData.forEach((element) {});
+                  listData = snapshot.data!;
                   return ListView.builder(
                       shrinkWrap: true,
                       itemCount: listData.length,
@@ -159,7 +167,7 @@ class _SelectProductState extends State<SelectProduct> {
                                                   Text('Stock: ',
                                                       style: Typo.bodyText6),
                                                   Text(
-                                                    elementList['stock'],
+                                                  elementList['stock'].toString(),
                                                     style: Typo.bodyText6,
                                                   )
                                                 ],
@@ -193,13 +201,11 @@ class _SelectProductState extends State<SelectProduct> {
             else
               Expanded(child: Builder(
                 builder: (context) {
-                  final listData = [];
-
                   return ListView.builder(
                       shrinkWrap: true,
-                      itemCount: listData.length,
+                      itemCount: listData2!.length,
                       itemBuilder: ((context, index) {
-                        final elementList = listData[index];
+                        final elementList = listData2![index];
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                           child: Container(
@@ -289,8 +295,19 @@ class _SelectProductState extends State<SelectProduct> {
   }
 }
 
-/*List searchInList(List<Map<String, dynamic>> listData) {
-  listData.forEach((element) {
-    element
-  });
-}*/
+List searchInList(List<Map<String, dynamic>> listData, String searchWord) {
+  List<Map<String, dynamic>> newList = [];
+
+  for (var element in listData) {
+    if(element['code'].toString() == searchWord){
+      newList.add(element);
+    }
+  }
+
+  return newList;
+}
+
+//Aún no se prueba esta función.
+void searchElements(String query){
+  final suggestions = listData.where((element) => element['code']);
+}

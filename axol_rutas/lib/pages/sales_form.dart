@@ -6,6 +6,7 @@ import 'package:axol_rutas/settings/format.dart';
 import 'package:axol_rutas/settings/jsonList.dart';
 import 'package:flutter/material.dart';
 import '../settings/theme.dart';
+import 'package:axol_rutas/pages/components/select_product.dart';
 
 final _clientController = TextEditingController();
 
@@ -86,9 +87,19 @@ class _SalesPageState extends State<SalesForm> {
           Padding(
             padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
             child: ElevatedButton(
-              onPressed: () {
-                /*Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SalesPage()));*/
+              onPressed: () async {
+                await showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  enableDrag: false,
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: MediaQuery.of(context).viewInsets,
+                      child: SelectProduct(),
+                    );
+                  },
+                ).then((value) => setState(() {}));
               },
               child: Icon(
                 Icons.add_shopping_cart,
