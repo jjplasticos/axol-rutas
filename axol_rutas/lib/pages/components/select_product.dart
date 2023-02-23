@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final _searchController = TextEditingController();
-List<Map<String,dynamic>> listData = [];
 
 @override
 void dispose() {
@@ -23,14 +22,34 @@ class _SelectProductState extends State<SelectProduct> {
   final _future = Supabase.instance.client
       .from('inventory')
       .select<List<Map<String, dynamic>>>();
+  List<Map<String, dynamic>> listData = [];
+  List<Map<String, dynamic>> _listProducts = [];
 
-  bool showList = false;
+  @override
+  void initState() {
+    _runFilter('');
+    super.initState();
+  }
+
+  void _runFilter(String enteredKeyboard) {
+    List<Map<String, dynamic>>? result = [];
+    if (enteredKeyboard.isEmpty) {
+      result = listData;
+    } else {
+      result = listData
+          .where((element) => element['code']
+              .toLowerCase()
+              .contains(enteredKeyboard.toLowerCase()))
+          .toList();
+    }
+
+    setState(() {
+      _listProducts = result!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    
-    List<Map<String,dynamic>>? listData2 = [];
-    
     return Container(
       width: 303.5,
       height: 479.7,
@@ -51,11 +70,9 @@ class _SelectProductState extends State<SelectProduct> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  ElevatedButton( //Botón de busqeuda.
-                    onPressed: () {
-                      //listData2 = listData;//searchInList(listData, _searchController.text).cast<Map<String, dynamic>>();
-                      
-                    },
+                  ElevatedButton(
+                    //Botón de busqeuda.
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                         minimumSize: Size(50, 48),
                         shape: RoundedRectangleBorder(
@@ -74,7 +91,7 @@ class _SelectProductState extends State<SelectProduct> {
                       controller: _searchController,
                       autofocus: false,
                       obscureText: false,
-                      onChanged: null,
+                      onChanged: (value) => _runFilter(value),
                       decoration: InputDecoration(
                           hintText: 'Buscar',
                           hintStyle: Typo.hintText,
@@ -85,6 +102,8 @@ class _SelectProductState extends State<SelectProduct> {
                   ),
                   ElevatedButton(
                     onPressed: () {
+                      _searchController.clear();
+                      _runFilter('');
                     },
                     style: ElevatedButton.styleFrom(
                         minimumSize: Size(50, 48),
@@ -102,192 +121,99 @@ class _SelectProductState extends State<SelectProduct> {
                 ],
               ),
             ),
-            if (showList == false)
-              Expanded(
-                  child: FutureBuilder<List<Map<String, dynamic>>>(
-                future: _future,
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  listData = snapshot.data!;
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: listData.length,
-                      itemBuilder: ((context, index) {
-                        final elementList = listData[index];
-                        return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: ColorPalette.secondaryBackground,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.75,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                              color: ColorPalette
-                                                  .secondaryBackground,
-                                              borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(12),
-                                                  topLeft:
-                                                      Radius.circular(12))),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Text(
-                                                elementList['code'],
-                                                style: Typo.bodyText6,
-                                              ),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text('Stock: ',
-                                                      style: Typo.bodyText6),
-                                                  Text(
-                                                  elementList['stock'].toString(),
-                                                    style: Typo.bodyText6,
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Text(
-                                          elementList['description'],
-                                          style: Typo.bodyText1,
-                                        )
-                                      ],
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.navigate_next,
-                                        color: ColorPalette.secondaryText,
-                                        size: 30,
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
+            Expanded(
+                child: FutureBuilder<List<Map<String, dynamic>>>(
+              future: _future,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                listData = snapshot.data!;
+                return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: _listProducts.length,
+                    itemBuilder: ((context, index) {
+                      final elementList = _listProducts[index];
+                      return Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                        child: Container(
+                          width: double.infinity,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: ColorPalette.secondaryBackground,
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                        );
-                      }));
-                },
-              ))
-            else
-              Expanded(child: Builder(
-                builder: (context) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: listData2!.length,
-                      itemBuilder: ((context, index) {
-                        final elementList = listData2![index];
-                        return Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: ColorPalette.secondaryBackground,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.75,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                              color: ColorPalette
-                                                  .secondaryBackground,
-                                              borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(12),
-                                                  topLeft:
-                                                      Radius.circular(12))),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Text(
-                                                elementList['code'],
-                                                style: Typo.bodyText6,
-                                              ),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text('Stock: ',
-                                                      style: Typo.bodyText6),
-                                                  Text(
-                                                    elementList['stock'],
-                                                    style: Typo.bodyText6,
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.75,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            color: ColorPalette
+                                                .secondaryBackground,
+                                            borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(12),
+                                                topLeft: Radius.circular(12))),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              elementList['code'],
+                                              style: Typo.bodyText6,
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text('Stock: ',
+                                                    style: Typo.bodyText6),
+                                                Text(
+                                                  elementList['stock']
+                                                      .toString(),
+                                                  style: Typo.bodyText6,
+                                                )
+                                              ],
+                                            )
+                                          ],
                                         ),
-                                        Text(
-                                          elementList['description'],
-                                          style: Typo.bodyText1,
-                                        )
-                                      ],
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(
-                                        Icons.navigate_next,
-                                        color: ColorPalette.secondaryText,
-                                        size: 30,
                                       ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
+                                      Text(
+                                        elementList['description'],
+                                        style: Typo.bodyText1,
+                                      )
+                                    ],
+                                  ),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.navigate_next,
+                                      color: ColorPalette.secondaryText,
+                                      size: 30,
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
                           ),
-                        );
-                      }));
-                },
-              ))
+                        ),
+                      );
+                    }));
+              },
+            ))
           ],
         ),
       ),
@@ -299,15 +225,10 @@ List searchInList(List<Map<String, dynamic>> listData, String searchWord) {
   List<Map<String, dynamic>> newList = [];
 
   for (var element in listData) {
-    if(element['code'].toString() == searchWord){
+    if (element['code'].toString() == searchWord) {
       newList.add(element);
     }
   }
 
   return newList;
-}
-
-//Aún no se prueba esta función.
-void searchElements(String query){
-  final suggestions = listData.where((element) => element['code']);
 }
