@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:axol_rutas/pages/components/select_product_form.dart';
 import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -64,7 +65,6 @@ class _SelectProductState extends State<SelectProduct> {
             Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                 child: Container(
-                  //color: ColorPalette.secondaryBackground,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: ColorPalette.secondaryBackground),
@@ -186,7 +186,29 @@ class _SelectProductState extends State<SelectProduct> {
                                         ],
                                       ),
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor: ColorPalette
+                                                  .primaryBackground,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Padding(
+                                                  padding:
+                                                      MediaQuery.of(context)
+                                                          .viewInsets,
+                                                  child: SelectProductForm(
+                                                    code: elementList['code'],
+                                                    description: elementList[
+                                                        'description'],
+                                                    stock: elementList['stock'],
+                                                    weight:
+                                                        elementList['weight'],
+                                                  ),
+                                                );
+                                              });
+                                        },
                                         icon: Icon(
                                           Icons.navigate_next,
                                           color: ColorPalette.secondaryText,
@@ -286,7 +308,29 @@ class _SelectProductState extends State<SelectProduct> {
                                         ],
                                       ),
                                       IconButton(
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor: ColorPalette
+                                                  .primaryBackground,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Padding(
+                                                  padding:
+                                                      MediaQuery.of(context)
+                                                          .viewInsets,
+                                                  child: SelectProductForm(
+                                                    code: elementList['code'],
+                                                    description: elementList[
+                                                        'description'],
+                                                    stock: elementList['stock'],
+                                                    weight:
+                                                        elementList['weight'],
+                                                  ),
+                                                );
+                                              }).whenComplete(() => null);
+                                        },
                                         icon: Icon(
                                           Icons.navigate_next,
                                           color: ColorPalette.secondaryText,

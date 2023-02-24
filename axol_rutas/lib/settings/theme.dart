@@ -26,7 +26,7 @@ class Typo {
   static const textField1 = TextStyle(
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w600,
-      fontSize: 14,
+      fontSize: 16,
       color: ColorPalette.secondaryText);
   static final hintText = TextStyle(
       fontFamily: 'Poppins',

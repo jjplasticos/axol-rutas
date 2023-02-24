@@ -71,44 +71,44 @@ class _SelectProductFormState extends State<SelectProductForm> {
               style: Typo.textField1,
               keyboardType: TextInputType.number,
             ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  width: 20,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: ColorPalette.secondaryText2,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(12),
-                      topLeft: Radius.circular(12),
+            Container(
+              decoration: BoxDecoration(
+                  color: ColorPalette.secondaryBackground,
+                  borderRadius: BorderRadius.circular(12)),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                    child: Text(
+                      '\$',
+                      textAlign: TextAlign.end,
+                      style: Typo.textField1,
                     ),
                   ),
-                  child: const Text('\$',
-                      textAlign: TextAlign.end, style: Typo.textField1),
-                ),
-                Expanded(
-                  child: TextFormField(
-                    controller: _priceController,
-                    autofocus: false,
-                    textCapitalization: TextCapitalization.none,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                        hintText: 'Precio',
-                        hintStyle: Typo.hintText,
-                        enabledBorder: const UnderlineInputBorder(
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(12),
-                            topRight: Radius.circular(12),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _priceController,
+                      autofocus: false,
+                      textCapitalization: TextCapitalization.none,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                          hintText: 'Precio',
+                          hintStyle: Typo.hintText,
+                          enabledBorder: const UnderlineInputBorder(
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(12),
+                              topRight: Radius.circular(12),
+                            ),
                           ),
-                        ),
-                        filled: true,
-                        fillColor: ColorPalette.secondaryBackground),
-                    style: Typo.textField1,
-                    keyboardType: TextInputType.number,
+                          filled: true,
+                          fillColor: ColorPalette.secondaryBackground),
+                      style: Typo.textField1,
+                      keyboardType: TextInputType.number,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
@@ -132,7 +132,7 @@ class _SelectProductFormState extends State<SelectProductForm> {
                         style: Typo.textButton,
                       ),
                       style: ElevatedButton.styleFrom(
-                          minimumSize: Size(190, 40),
+                          minimumSize: Size(190, 60),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12)),
                           backgroundColor: ColorPalette.primary),
@@ -146,7 +146,7 @@ class _SelectProductFormState extends State<SelectProductForm> {
                       },
                       child: Icon(Icons.keyboard_return, size: 30),
                       style: ElevatedButton.styleFrom(
-                          minimumSize: Size(80, 40),
+                          minimumSize: Size(80, 60),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12)),
                           backgroundColor: ColorPalette.secondary),
