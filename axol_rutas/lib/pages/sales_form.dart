@@ -26,6 +26,14 @@ class SalesForm extends StatefulWidget {
 }
 
 class _SalesPageState extends State<SalesForm> {
+  List<Map> shoppingCart = [];
+
+  void _closeModal(Map result) {
+    if (result['isEmpty'] == false) {
+      shoppingCart.add(result['value']);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +97,7 @@ class _SalesPageState extends State<SalesForm> {
             child: ElevatedButton(
               onPressed: () async {
                 await showModalBottomSheet(
+                  isDismissible: false,
                   isScrollControlled: true,
                   backgroundColor: Colors.transparent,
                   enableDrag: false,
@@ -99,7 +108,7 @@ class _SalesPageState extends State<SalesForm> {
                       child: SelectProduct(),
                     );
                   },
-                ).then((value) => setState(() {}));
+                ).then((value) => setState(() => _closeModal(value)));
               },
               child: Icon(
                 Icons.add_shopping_cart,
@@ -118,7 +127,6 @@ class _SalesPageState extends State<SalesForm> {
               padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
               child: Builder(
                 builder: (context) {
-                  final List<Map> shoppingCart = [];
                   return ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
@@ -129,7 +137,7 @@ class _SalesPageState extends State<SalesForm> {
                           padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
                           child: Container(
                             width: double.infinity,
-                            height: 100,
+                            height: 120,
                             decoration: BoxDecoration(
                                 color: ColorPalette.secondaryBackground,
                                 borderRadius: BorderRadius.circular(12)),
@@ -144,30 +152,32 @@ class _SalesPageState extends State<SalesForm> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Container(
-                                          width: 200,
-                                          height: 40,
-                                          decoration: BoxDecoration(
-                                            color: ColorPalette
-                                                .secondaryBackground,
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(12)),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Text(
-                                                  shoppingCartItem['code']
+                                        Expanded(
+                                          child: Container(
+                                            height: 40,
+                                            decoration: BoxDecoration(
+                                              color: ColorPalette
+                                                  .secondaryBackground,
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(12)),
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Text(
+                                                    shoppingCartItem['code']
+                                                        .toString(),
+                                                    style: Typo.bodyText1),
+                                                Text(
+                                                  shoppingCartItem[
+                                                          'description']
                                                       .toString(),
-                                                  style: Typo.bodyText1),
-                                              Text(
-                                                shoppingCartItem['description']
-                                                    .toString(),
-                                                style: Typo.bodyText1,
-                                              )
-                                            ],
+                                                  style: Typo.bodyText1,
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                         IconButton(
@@ -352,7 +362,7 @@ class _SalesPageState extends State<SalesForm> {
                   style: Typo.textButton,
                 ),
                 onPressed: () {},
-              ))
+              )),
         ],
       ),
     );

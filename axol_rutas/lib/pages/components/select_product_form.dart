@@ -126,7 +126,20 @@ class _SelectProductFormState extends State<SelectProductForm> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        const bool flag = false;
+                        final Map result;
+                        final Map<String, dynamic> value = {
+                          'code': widget.code,
+                          'description': widget.description,
+                          'quantity': _quantityController.text,
+                          'price': _priceController.text,
+                          'weight': widget.weight,
+                        };
+                        result = {'isEmpty': flag, 'value': value};
+                        Navigator.pop(context);
+                        Navigator.pop(context, result);
+                      },
                       child: Text(
                         'Agregar',
                         style: Typo.textButton,
@@ -142,7 +155,7 @@ class _SelectProductFormState extends State<SelectProductForm> {
                     padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                     child: ElevatedButton(
                       onPressed: () async {
-                        Navigator.pop(context);
+                        Navigator.pop(context, 'devolver algo');
                       },
                       child: Icon(Icons.keyboard_return, size: 30),
                       style: ElevatedButton.styleFrom(

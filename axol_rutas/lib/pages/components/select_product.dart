@@ -103,7 +103,7 @@ class _SelectProductState extends State<SelectProduct> {
                     ],
                   ),
                 )),
-            Visibility(
+            /*Visibility(
                 visible: !isVisible,
                 child: Expanded(
                     child: FutureBuilder<List<Map<String, dynamic>>>(
@@ -223,129 +223,143 @@ class _SelectProductState extends State<SelectProduct> {
                           );
                         }));
                   },
-                ))),
-            Visibility(
-                visible: true,
-                child: Expanded(
-                    child: FutureBuilder<List<Map<String, dynamic>>>(
-                  future: _future,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const Center(
-                          /*child: CircularProgressIndicator()*/);
-                    }
-                    listData = snapshot.data!;
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: _listProducts.length,
-                        itemBuilder: ((context, index) {
-                          final elementList = _listProducts[index];
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                            child: Container(
-                              width: double.infinity,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: ColorPalette.secondaryBackground,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
+                ))),*/
+            Expanded(
+                child: FutureBuilder<List<Map<String, dynamic>>>(
+              future: _future,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (snapshot.hasData) {
+                  print('hola mundo 3');
+                  //_runFilter('');
+                }
+                listData = snapshot.data!;
+                return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: _listProducts.length,
+                    itemBuilder: ((context, index) {
+                      final elementList = _listProducts[index];
+                      return Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                        child: Container(
+                          width: double.infinity,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: ColorPalette.secondaryBackground,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Row(
                                 mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
+                                  Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
                                                 0.75,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                                color: ColorPalette
-                                                    .secondaryBackground,
-                                                borderRadius: BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(12),
-                                                    topLeft:
-                                                        Radius.circular(12))),
-                                            child: Row(
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            color: ColorPalette
+                                                .secondaryBackground,
+                                            borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(12),
+                                                topLeft: Radius.circular(12))),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              elementList['code'],
+                                              style: Typo.bodyText6,
+                                            ),
+                                            Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
                                               children: [
+                                                Text('Stock: ',
+                                                    style: Typo.bodyText6),
                                                 Text(
-                                                  elementList['code'],
+                                                  elementList['stock']
+                                                      .toString(),
                                                   style: Typo.bodyText6,
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text('Stock: ',
-                                                        style: Typo.bodyText6),
-                                                    Text(
-                                                      elementList['stock']
-                                                          .toString(),
-                                                      style: Typo.bodyText6,
-                                                    )
-                                                  ],
                                                 )
                                               ],
-                                            ),
-                                          ),
-                                          Text(
-                                            elementList['description'],
-                                            style: Typo.bodyText1,
-                                          )
-                                        ],
-                                      ),
-                                      IconButton(
-                                        onPressed: () async {
-                                          await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor: ColorPalette
-                                                  .primaryBackground,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return Padding(
-                                                  padding:
-                                                      MediaQuery.of(context)
-                                                          .viewInsets,
-                                                  child: SelectProductForm(
-                                                    code: elementList['code'],
-                                                    description: elementList[
-                                                        'description'],
-                                                    stock: elementList['stock'],
-                                                    weight:
-                                                        elementList['weight'],
-                                                  ),
-                                                );
-                                              }).whenComplete(() => null);
-                                        },
-                                        icon: Icon(
-                                          Icons.navigate_next,
-                                          color: ColorPalette.secondaryText,
-                                          size: 30,
+                                            )
+                                          ],
                                         ),
+                                      ),
+                                      Text(
+                                        elementList['description'],
+                                        style: Typo.bodyText1,
                                       )
                                     ],
+                                  ),
+                                  IconButton(
+                                    onPressed: () async {
+                                      await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor:
+                                              ColorPalette.primaryBackground,
+                                          enableDrag: false,
+                                          context: context,
+                                          builder: (context) {
+                                            return Padding(
+                                              padding: MediaQuery.of(context)
+                                                  .viewInsets,
+                                              child: SelectProductForm(
+                                                code: elementList['code'],
+                                                description:
+                                                    elementList['description'],
+                                                stock: elementList['stock'],
+                                                weight: elementList['weight'],
+                                              ),
+                                            );
+                                          }).whenComplete(() => null);
+                                    },
+                                    icon: Icon(
+                                      Icons.navigate_next,
+                                      color: ColorPalette.secondaryText,
+                                      size: 30,
+                                    ),
                                   )
                                 ],
-                              ),
-                            ),
-                          );
-                        }));
-                  },
-                ))),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }));
+              },
+            )),
+            Padding(
+              padding: EdgeInsetsDirectional.all(8),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 60),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    backgroundColor: ColorPalette.secondary),
+                child: Text(
+                  'Cancelar',
+                  style: Typo.textButton,
+                ),
+                onPressed: () {
+                  const bool flag = true;
+                  final Map result = {'isEmpty': flag};
+                  Navigator.pop(context, result);
+                },
+              ),
+            )
           ],
         ),
       ),
