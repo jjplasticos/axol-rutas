@@ -5,13 +5,6 @@ import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-final _searchController = TextEditingController();
-
-@override
-void dispose() {
-  _searchController.dispose();
-}
-
 class SelectProduct extends StatefulWidget {
   const SelectProduct({super.key});
 
@@ -20,12 +13,20 @@ class SelectProduct extends StatefulWidget {
 }
 
 class _SelectProductState extends State<SelectProduct> {
+  final _searchController = TextEditingController();
   final _future = Supabase.instance.client
       .from('inventory')
       .select<List<Map<String, dynamic>>>();
   List<Map<String, dynamic>> listData = [];
   List<Map<String, dynamic>> _listProducts = [];
   bool isVisible = false;
+  int count = 0;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   void _runFilter(String enteredKeyboard) {
     List<Map<String, dynamic>>? result = [];
@@ -103,127 +104,6 @@ class _SelectProductState extends State<SelectProduct> {
                     ],
                   ),
                 )),
-            /*Visibility(
-                visible: !isVisible,
-                child: Expanded(
-                    child: FutureBuilder<List<Map<String, dynamic>>>(
-                  future: _future,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    final listData2 = snapshot.data!;
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: listData2.length,
-                        itemBuilder: ((context, index) {
-                          final elementList = listData2[index];
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                            child: Container(
-                              width: double.infinity,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: ColorPalette.secondaryBackground,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.75,
-                                            height: 30,
-                                            decoration: BoxDecoration(
-                                                color: ColorPalette
-                                                    .secondaryBackground,
-                                                borderRadius: BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(12),
-                                                    topLeft:
-                                                        Radius.circular(12))),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Text(
-                                                  elementList['code'],
-                                                  style: Typo.bodyText6,
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text('Stock: ',
-                                                        style: Typo.bodyText6),
-                                                    Text(
-                                                      elementList['stock']
-                                                          .toString(),
-                                                      style: Typo.bodyText6,
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          Text(
-                                            elementList['description'],
-                                            style: Typo.bodyText1,
-                                          )
-                                        ],
-                                      ),
-                                      IconButton(
-                                        onPressed: () async {
-                                          await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor: ColorPalette
-                                                  .primaryBackground,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return Padding(
-                                                  padding:
-                                                      MediaQuery.of(context)
-                                                          .viewInsets,
-                                                  child: SelectProductForm(
-                                                    code: elementList['code'],
-                                                    description: elementList[
-                                                        'description'],
-                                                    stock: elementList['stock'],
-                                                    weight:
-                                                        elementList['weight'],
-                                                  ),
-                                                );
-                                              });
-                                        },
-                                        icon: Icon(
-                                          Icons.navigate_next,
-                                          color: ColorPalette.secondaryText,
-                                          size: 30,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        }));
-                  },
-                ))),*/
             Expanded(
                 child: FutureBuilder<List<Map<String, dynamic>>>(
               future: _future,
@@ -231,11 +111,16 @@ class _SelectProductState extends State<SelectProduct> {
                 if (!snapshot.hasData) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (snapshot.hasData) {
-                  print('hola mundo 3');
-                  //_runFilter('');
+                if (snapshot.hasData && count < 3) {
+                  //print('hola mundo 3');
+                  count++;
                 }
-                listData = snapshot.data!;
+                if (count > 1) {
+                  listData = snapshot.data!;
+                } else {
+                  listData = snapshot.data!;
+                  _listProducts = snapshot.data!;
+                }
                 return ListView.builder(
                     shrinkWrap: true,
                     itemCount: _listProducts.length,
@@ -307,6 +192,7 @@ class _SelectProductState extends State<SelectProduct> {
                                   IconButton(
                                     onPressed: () async {
                                       await showModalBottomSheet(
+                                          isDismissible: false,
                                           isScrollControlled: true,
                                           backgroundColor:
                                               ColorPalette.primaryBackground,

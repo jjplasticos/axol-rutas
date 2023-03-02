@@ -3,15 +3,6 @@
 import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
 
-final _quantityController = TextEditingController();
-final _priceController = TextEditingController();
-
-@override
-void dispose() {
-  _quantityController.dispose();
-  _priceController.dispose();
-}
-
 class SelectProductForm extends StatefulWidget {
   const SelectProductForm(
       {super.key,
@@ -30,6 +21,16 @@ class SelectProductForm extends StatefulWidget {
 }
 
 class _SelectProductFormState extends State<SelectProductForm> {
+  final _quantityController = TextEditingController();
+  final _priceController = TextEditingController();
+
+  @override
+  void dispose() {
+    _quantityController.dispose();
+    _priceController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
