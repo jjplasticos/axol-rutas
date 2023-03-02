@@ -2,6 +2,7 @@
 
 import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SelectProductForm extends StatefulWidget {
   const SelectProductForm(
@@ -71,6 +72,9 @@ class _SelectProductFormState extends State<SelectProductForm> {
                   fillColor: ColorPalette.secondaryBackground),
               style: Typo.textField1,
               keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp('\\d*\\.?\\d*'))
+              ],
             ),
             Container(
               decoration: BoxDecoration(
