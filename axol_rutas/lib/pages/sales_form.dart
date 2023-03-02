@@ -34,6 +34,57 @@ class _SalesPageState extends State<SalesForm> {
     }
   }
 
+  String operatorList(List<Map> mapList, String type) {
+    double total = 0, valueA, valueB;
+    List listA = [], listB = [];
+    switch (type) {
+      case 'quantity':
+        {
+          listA = createList(mapList, type);
+          for (valueA in listA) {
+            total = total + valueA;
+          }
+        }
+        break;
+      case 'weight':
+        {
+          listA = createList(mapList, 'quantity');
+          listB = createList(mapList, 'weight');
+          for (int i = 0; i < listB.length; i++) {
+            valueA = listA.elementAt(i);
+            valueB = listB.elementAt(i);
+            total = total + (valueA * valueB);
+          }
+        }
+        break;
+      case 'price':
+        {
+          listA = createList(mapList, 'quantity');
+          listB = createList(mapList, 'price');
+          for (int i = 0; i < listB.length; i++) {
+            valueA = listA.elementAt(i);
+            valueB = listB.elementAt(i);
+            total = total + (valueA * valueB);
+          }
+        }
+        break;
+      default:
+        {}
+        break;
+    }
+
+    return total.toString();
+  }
+
+  List createList(List<Map> mapList, String type) {
+    Map value;
+    List newList = [];
+    for (value in mapList) {
+      newList.add(double.parse(value[type].toString()));
+    }
+    return newList;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -316,7 +367,7 @@ class _SalesPageState extends State<SalesForm> {
                     style: Typo.labelText1,
                   ),
                   Text(
-                    '0000',
+                    operatorList(shoppingCart, 'quantity'),
                     style: Typo.bodyText4,
                   )
                 ],
@@ -329,7 +380,7 @@ class _SalesPageState extends State<SalesForm> {
                     style: Typo.labelText1,
                   ),
                   Text(
-                    '0000',
+                    operatorList(shoppingCart, 'weight'),
                     style: Typo.bodyText4,
                   )
                 ],
@@ -342,7 +393,7 @@ class _SalesPageState extends State<SalesForm> {
                     style: Typo.labelText1,
                   ),
                   Text(
-                    '0000',
+                    operatorList(shoppingCart, 'price'),
                     style: Typo.bodyText4,
                   )
                 ],
