@@ -1,32 +1,40 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, use_build_context_synchronously
 
 import 'dart:convert';
 
+import 'package:axol_rutas/pages/sales_page.dart';
 import 'package:axol_rutas/settings/format.dart';
 import 'package:axol_rutas/settings/jsonList.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../settings/theme.dart';
 import 'package:axol_rutas/pages/components/select_product.dart';
 
-final _clientController = TextEditingController();
-
-@override
-void dispose() {
-  _clientController.dispose();
-}
-
 class SalesForm extends StatefulWidget {
-  const SalesForm({super.key, required this.timePick, required this.saleID});
+  const SalesForm(
+      {super.key,
+      required this.timePick,
+      required this.saleID,
+      required this.vendor});
 
   final DateTime timePick;
   final String saleID;
+  final String vendor;
 
   @override
   _SalesPageState createState() => _SalesPageState();
 }
 
 class _SalesPageState extends State<SalesForm> {
+  final supabase = Supabase.instance.client;
   List<Map> shoppingCart = [];
+
+  final _clientController = TextEditingController();
+
+  @override
+  void dispose() {
+    _clientController.dispose();
+  }
 
   void _closeModal(Map result) {
     if (result['isEmpty'] == false) {
@@ -412,7 +420,23 @@ class _SalesPageState extends State<SalesForm> {
                   'Guardar',
                   style: Typo.textButton,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  await supabase.from('sales').insert({
+                    'client_name': _clientController.text,
+                    'vendor': widget.vendor,
+                    //'time': widget.timePick,
+                    'total_price':
+                        double.tryParse(operatorList(shoppingCart, 'price')),
+                    'total_weight':
+                        double.tryParse(operatorList(shoppingCart, 'weight')),
+                    'total_quantity':
+                        double.tryParse(operatorList(shoppingCart, 'quantity'))
+                  });
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SalesPage()));
+                },
               )),
         ],
       ),

@@ -18,18 +18,29 @@ class _SalesPageState extends State<SalesPage> {
   final _future = Supabase.instance.client
       .from('sales')
       .select<List<Map<String, dynamic>>>();
+  /*List<Map<String, dynamic>> listData = [];
+  List<Map<String, dynamic>> listData2 = [];
+
+  @override
+  void setState(VoidCallback fn) {
+    listData2 = listData;
+    super.setState(fn);
+  }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalette.primaryBackground,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      SalesForm(timePick: DateTime.now(), saleID: '0000')));
+                  builder: (context) => SalesForm(
+                        timePick: DateTime.now(),
+                        saleID: '0000',
+                        vendor: 'Daniel',
+                      )));
         },
         backgroundColor: ColorPalette.primary,
         elevation: 8,
@@ -101,7 +112,7 @@ class _SalesPageState extends State<SalesPage> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           8, 8, 0, 0),
                                       child: Text(
-                                        elementList['client_name'],
+                                        elementList['client_name'].toString(),
                                         style: Typo.bodyText1,
                                       ),
                                     ),
@@ -113,11 +124,14 @@ class _SalesPageState extends State<SalesPage> {
                                             MainAxisAlignment.spaceAround,
                                         children: [
                                           Text(
-                                            FormatDate.dmy(elementList['time']),
+                                            FormatDate.dmy(
+                                                elementList['cerate_at']
+                                                    .toString()),
+                                            //elementList['created_at'],
                                             style: Typo.bodyText2,
                                           ),
                                           Text(
-                                            elementList['sale_id'],
+                                            elementList['sale_id'].toString(),
                                             style: Typo.bodyText2,
                                           ),
                                         ],

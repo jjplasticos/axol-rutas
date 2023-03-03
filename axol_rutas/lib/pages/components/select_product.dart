@@ -123,6 +123,7 @@ class _SelectProductState extends State<SelectProduct> {
                 }
                 return ListView.builder(
                     shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
                     itemCount: _listProducts.length,
                     itemBuilder: ((context, index) {
                       final elementList = _listProducts[index];
