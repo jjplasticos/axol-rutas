@@ -32,6 +32,40 @@ class _SelectProductFormState extends State<SelectProductForm> {
     super.dispose();
   }
 
+  bool textAllowed(String text) {
+    bool isAllowed = false;
+    if (double.tryParse(text) != null) {
+      isAllowed = true;
+    }
+    return isAllowed;
+  }
+
+  void _showAlertDialog(String textTitle, String textContent) {
+    showDialog(
+        context: context,
+        builder: (BuildContext) {
+          return AlertDialog(
+            title: Text(textTitle),
+            content: Text(textContent),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'OK',
+                    style: Typo.textButton,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: Size(190, 60),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      backgroundColor: ColorPalette.primary))
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -110,6 +144,10 @@ class _SelectProductFormState extends State<SelectProductForm> {
                           fillColor: ColorPalette.secondaryBackground),
                       style: Typo.textField1,
                       keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp('\\d*\\.?\\d*'))
+                      ],
                     ),
                   ),
                 ],
@@ -137,13 +175,27 @@ class _SelectProductFormState extends State<SelectProductForm> {
                         final Map<String, dynamic> value = {
                           'code': widget.code,
                           'description': widget.description,
-                          'quantity': _quantityController.text,
-                          'price': _priceController.text,
+                          'quantity': double.tryParse(_quantityController.text)
+                              .toString(),
+                          'price':
+                              double.tryParse(_priceController.text).toString(),
                           'weight': widget.weight,
                         };
                         result = {'isEmpty': flag, 'value': value};
-                        Navigator.pop(context);
-                        Navigator.pop(context, result);
+                        if (textAllowed(_quantityController.text) &&
+                            textAllowed(_priceController.text)) {
+                          Navigator.pop(context);
+                          Navigator.pop(context, result);
+                        } else {
+                          //Abrir ventana de alerta.
+                          if (textAllowed(_quantityController.text) == false) {
+                            _showAlertDialog(
+                                'Advertencia', 'La cantidad no es valida.');
+                          } else {
+                            _showAlertDialog(
+                                'Advertencia', 'El precio no es valido');
+                          }
+                        }
                       },
                       child: Text(
                         'Agregar',
@@ -160,7 +212,7 @@ class _SelectProductFormState extends State<SelectProductForm> {
                     padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                     child: ElevatedButton(
                       onPressed: () async {
-                        Navigator.pop(context, 'devolver algo');
+                        Navigator.pop(context);
                       },
                       child: Icon(Icons.keyboard_return, size: 30),
                       style: ElevatedButton.styleFrom(
