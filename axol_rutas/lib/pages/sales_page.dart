@@ -18,14 +18,6 @@ class _SalesPageState extends State<SalesPage> {
   final _future = Supabase.instance.client
       .from('sales')
       .select<List<Map<String, dynamic>>>();
-  /*List<Map<String, dynamic>> listData = [];
-  List<Map<String, dynamic>> listData2 = [];
-
-  @override
-  void setState(VoidCallback fn) {
-    listData2 = listData;
-    super.setState(fn);
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +36,6 @@ class _SalesPageState extends State<SalesPage> {
         },
         backgroundColor: ColorPalette.primary,
         elevation: 8,
-        // ignore: prefer_const_constructors
         child: Icon(
           Icons.add,
           color: ColorPalette.primaryText,
@@ -54,7 +45,6 @@ class _SalesPageState extends State<SalesPage> {
       appBar: AppBar(
         backgroundColor: ColorPalette.primaryBackground,
         automaticallyImplyLeading: false,
-        // ignore: prefer_const_constructors
         title: Text(
           'Ventas',
           style: Typo.title1,
@@ -73,7 +63,8 @@ class _SalesPageState extends State<SalesPage> {
                 return const Center(child: CircularProgressIndicator());
               }
               final listData = snapshot.data!;
-              return ListView.builder(
+              return Expanded(
+                  child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: listData.length,
                 itemBuilder: ((context, index) {
@@ -125,7 +116,7 @@ class _SalesPageState extends State<SalesPage> {
                                         children: [
                                           Text(
                                             FormatDate.dmy(
-                                                elementList['cerate_at']
+                                                elementList['created_at']
                                                     .toString()),
                                             //elementList['created_at'],
                                             style: Typo.bodyText2,
@@ -254,7 +245,7 @@ class _SalesPageState extends State<SalesPage> {
                     ),
                   );
                 }),
-              );
+              ));
             },
           )
         ],

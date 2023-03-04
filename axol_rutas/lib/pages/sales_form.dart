@@ -432,6 +432,13 @@ class _SalesPageState extends State<SalesForm> {
                     'total_quantity':
                         double.tryParse(operatorList(shoppingCart, 'quantity'))
                   });
+                  //Cambiar este bloque de codigo por lo necesario para restar
+                  //las cantidades de acuerdo al usuario conectado.
+                  await supabase
+                      .from('inventory')
+                      .update({'stock': 20})
+                      .eq('code', 'B5067')
+                      .eq('vendor', 'Daniel2');
                   Navigator.pop(context);
                   Navigator.pop(context);
                   Navigator.push(context,

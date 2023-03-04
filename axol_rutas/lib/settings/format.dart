@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:flutter/material.dart';
 
 class FormatDate {
@@ -6,7 +8,6 @@ class FormatDate {
     String newDate;
     listDate = dateSB.split('T');
     listDate = listDate.first.split('-');
-    // ignore: prefer_interpolation_to_compose_strings
     newDate = listDate.elementAt(2) +
         '/' +
         listDate.elementAt(1) +
