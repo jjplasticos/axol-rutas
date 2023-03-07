@@ -93,6 +93,24 @@ class _SalesPageState extends State<SalesForm> {
     return newList;
   }
 
+  Future<void> updateInventory(List<Map> mapList, String vendor) async {
+    Map element;
+    double total = 0;
+    for (element in mapList) {
+      await supabase
+          .from('inventory')
+          .select('stock')
+          .eq('vendor', vendor)
+          .eq('code', element['code']);
+      //total =
+      await supabase
+          .from('inventory')
+          .update({'stock': total})
+          .eq('code', 'B5067')
+          .eq('vendor', 'Daniel2');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,7 +129,7 @@ class _SalesPageState extends State<SalesForm> {
               size: 30,
             )),
         title: Text(
-          'Formuario de ventas',
+          'Formulario de ventas',
           style: Typo.title1,
         ),
         centerTitle: true,

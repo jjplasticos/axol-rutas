@@ -6,15 +6,6 @@ import 'package:axol_rutas/pages/logup_page.dart';
 import 'package:axol_rutas/supaBase.dart';
 import 'package:axol_rutas/pages/sales_page.dart';
 
-final _userController = TextEditingController();
-final _passWordController = TextEditingController();
-
-@override
-void dispose() {
-  _userController.dispose();
-  _passWordController.dispose();
-}
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -24,6 +15,23 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool obs = true;
+  final _userController = TextEditingController();
+  final _passWordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _userController.dispose();
+    _passWordController.dispose();
+  }
+
+  Icon setIconEye(bool obs) {
+    if (obs == true) {
+      return Icon(Icons.visibility_off);
+    } else {
+      return Icon(Icons.visibility);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,13 +137,5 @@ class _LoginPageState extends State<LoginPage> {
             )
           ],
         ));
-  }
-}
-
-Icon setIconEye(bool obs) {
-  if (obs == true) {
-    return Icon(Icons.visibility_off);
-  } else {
-    return Icon(Icons.visibility);
   }
 }
