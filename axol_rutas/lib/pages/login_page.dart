@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:axol_rutas/settings/theme.dart';
 import 'package:axol_rutas/pages/logup_page.dart';
-import 'package:axol_rutas/supaBase.dart';
 import 'package:axol_rutas/pages/sales_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,15 +15,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final supabase = Supabase.instance.client;
   bool obs = true;
   final _userController = TextEditingController();
   final _passWordController = TextEditingController();
 
   @override
   void dispose() {
-    super.dispose();
     _userController.dispose();
     _passWordController.dispose();
+    super.dispose();
   }
 
   Icon setIconEye(bool obs) {
@@ -31,6 +33,46 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       return Icon(Icons.visibility);
     }
+  }
+
+  void _login(String user, String password) async {
+    String message = '';
+    final userData = await supabase
+        .from('users')
+        .select<List<Map<String, dynamic>>>('user_name, password')
+        .eq('user_name', user);
+    if (userData.isNotEmpty) {
+      if (userData.first['password'] == password) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SalesPage()));
+      } else {
+        message = 'Contraseña incorrecta';
+      }
+    } else {
+      message = 'Usuario incorrecto';
+    }
+
+    if (message != '') {
+      final snackBar = SnackBar(content: Text(message as String));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  Future<void> login(String email, String password) async {
+    //final response = supabase.auth.SignIn();
+    //final sharedPreferences = await SharedPreferences.getInstance();
+    final result = await supabase.auth.signInWithPassword(
+      password: email,
+      email: password,
+    );
+
+    print(result.session!.accessToken);
+
+    /*if (result.user != null) {
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SalesPage()));
+    }*/
   }
 
   @override
@@ -120,11 +162,8 @@ class _LoginPageState extends State<LoginPage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12)),
                       ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SalesPage()));
+                      onPressed: () async {
+                        _login(_userController.text, _passWordController.text);
                       },
                       child: Text(
                         'Iniciar',

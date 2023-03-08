@@ -34,6 +34,7 @@ class _SalesPageState extends State<SalesForm> {
   @override
   void dispose() {
     _clientController.dispose();
+    super.dispose();
   }
 
   void _closeModal(Map result) {
