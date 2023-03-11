@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:axol_rutas/pages/login_page.dart';
+import 'package:axol_rutas/authentication/ui/screen/login_view.dart';
+import 'package:axol_rutas/views/splash_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Axol Rutas',
-      home: LoginPage(),
+      home: SplashView(),
     );
   }
 }
