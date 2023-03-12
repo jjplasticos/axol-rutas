@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:axol_rutas/authentication/ui/screen/login_view.dart';
+import 'package:axol_rutas/identities/user/view/screens/login_view.dart';
 import 'package:axol_rutas/views/splash_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

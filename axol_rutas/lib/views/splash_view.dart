@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:axol_rutas/user/view/screens/login_view.dart';
+import 'package:axol_rutas/identities/user/view/screens/login_view.dart';
 import 'package:axol_rutas/views/sales_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -101,30 +101,6 @@ class _LoginViewState extends State<LoginView> {
                 children: [
                   TextFieldUser(),
                   Padding(
-                    //---------------------Text field email--------------
-                    padding: EdgeInsetsDirectional.fromSTEB(24, 8, 24, 8),
-                    child: TextFormField(
-                      controller: _passWordController,
-                      obscureText: obs,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                        hintText: 'Contraseña',
-                        hintStyle: Typo.hintText,
-                        suffixIcon: IconButton(
-                          icon: setIconEye(obs),
-                          onPressed: () {
-                            setState(() {
-                              obs == false ? obs = true : obs = false;
-                            });
-                          },
-                        ),
-                        filled: true,
-                        fillColor: ColorPalette.secondaryBackground,
-                      ),
-                    ),
-                  ),
-                  Padding(
                     //---------------------Button Iniciar----------------
                     padding: EdgeInsetsDirectional.fromSTEB(24, 8, 24, 0),
                     child: ElevatedButton(
