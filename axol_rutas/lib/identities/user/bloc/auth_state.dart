@@ -1,29 +1,23 @@
-abstract class UserState {
-  UserState ();
-
-  bool iconState(bool isOpen){
-    return isOpen;
-  }
-
-  String loginState(){
-    return 'Estado de login';
-  }
+abstract class AuthState {
+  const AuthState(this.userName, this.password);
+  final String userName;
+  final String password;
 }
 
-class IconState extends UserState{
-  bool isOpen(){
-    return true;
-  }
-
-  bool isClose(){
-    return false;
-  }
+class LoginSuccessful extends AuthState {
+  const LoginSuccessful(super.userName, super.password);
+  @override
+  String toString() => 'Login successgul';
 }
 
-class AuthState extends UserState{
-  String log(){
-    return 'En registro';
-  }
+class LoginFailed extends AuthState {
+  LoginFailed(super.userName, super.password);
+  @override
+  String toString() => 'Login failed';
+}
 
-
+class LoginInitial extends AuthState {
+  LoginInitial(super.userName, super.password);
+  @override
+  String toString() => 'Initial login';
 }

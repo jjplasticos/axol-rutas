@@ -12,7 +12,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   //StreamSubscription<Data> _dataSubscription;
 
-  AuthBloc({required Data data})
+  AuthBloc({required Data data, required child})
       : _data = data,
         super(LoginInitial(_userName, _password)) {
     //TODO: implement event handlers
