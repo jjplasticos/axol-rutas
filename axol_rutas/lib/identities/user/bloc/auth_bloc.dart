@@ -1,19 +1,34 @@
-class Login {
-  Login(this.userName, this.password);
+import 'dart:async';
 
-  final String userName;
-  final String password;
+import 'package:axol_rutas/identities/user/bloc/auth_event.dart';
+import 'package:axol_rutas/identities/user/bloc/auth_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:axol_rutas/identities/user/repository/data.dart';
 
-  String loginLogic(){
-    String a = '$userName b';
-    return a;
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final Data _data;
+  static const String _password = '';
+  static const String _userName = '';
+
+  //StreamSubscription<Data> _dataSubscription;
+
+  AuthBloc({required Data data})
+      : _data = data,
+        super(LoginInitial(_userName, _password)) {
+    //TODO: implement event handlers
   }
-}
 
-class Otherclass{
-  void unaFuncion(){
-    Login nuevoLogin = Login('u','p');
-    String onPress;
-    onPress = nuevoLogin.loginLogic();
+  /*@override
+  Future<void> close() {
+    _dataSubscription.cancel();
+    return super.close();
+  }*/
+
+  void _onClick(CheckLogin event, Emitter<AuthState> emit) {
+    if (_data.data() == 'si') {
+      emit(LoginSuccessful('userName', 'password'));
+    } else {
+      emit(LoginFailed('userName', 'password'));
+    }
   }
 }
