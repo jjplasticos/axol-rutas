@@ -1,5 +1,10 @@
-class User {
-  User(this.name, this.uid, this.rol, this.password,);
+class UserModel {
+  UserModel(
+    this.name,
+    this.uid,
+    this.rol,
+    this.password,
+  );
 
   final String name;
   final String uid;
