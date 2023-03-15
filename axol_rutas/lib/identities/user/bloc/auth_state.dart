@@ -1,10 +1,16 @@
 abstract class AuthState {
-  const AuthState(this.userName, this.password);
-  final String userName;
-  final String password;
+  const AuthState();
 }
 
-class LoginSuccessful extends AuthState {
+class AuthUnitialized extends AuthState {}
+
+class AuthAuthenticated extends AuthState {}
+
+class AuthUnuauthenticated extends AuthState {}
+
+class AuthLoading extends AuthState {}
+
+/*class LoginSuccessful extends AuthState {
   const LoginSuccessful(super.userName, super.password);
   @override
   String toString() => 'Login successgul';
@@ -20,4 +26,4 @@ class LoginInitial extends AuthState {
   LoginInitial(super.userName, super.password);
   @override
   String toString() => 'Initial login';
-}
+}*/

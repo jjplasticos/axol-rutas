@@ -11,13 +11,18 @@ class AuthDB {
   final String ROL_COLUMN = 'rol';
   final String PASSWORD_USER = 'password';
 
-  Future<UserModel> getUser(String userSearch) async {
+  Future<UserModel?> getUser(String userSearch) async {
+    final UserModel? user;
     final userData = await supabase
         .from(TABLE)
         .select<List<Map<String, dynamic>>>('*')
         .eq(USER_COLUMN, userSearch);
-    var user = UserModel('name', 'uid', 'rol', 'password');
-    //user.name = userData.first[USER_COLUMN];
+    if (userData.isNotEmpty) {
+      user = UserModel(userData.first[USER_COLUMN], userData.first[ID_COLUMN],
+          userData.first[ROL_COLUMN], userData.first[PASSWORD_USER]);
+    } else {
+      user = null;
+    }
     return user;
   }
 }

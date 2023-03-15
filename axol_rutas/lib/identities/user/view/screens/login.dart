@@ -7,7 +7,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/auth_bloc.dart';
-import '../../repository/data.dart';
 import '../widgets/logo.dart';
 import '../widgets/text_field_user.dart';
 
@@ -19,9 +18,9 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Data dato = Data();
-    return BlocProvider(
-        create: (context) => AuthBloc(data: dato, child: Container));
+    //Data dato = Data();
+    return Container(); /*BlocProvider(
+        create: (context) => AuthBloc(data: dato, child: Container));*/
   }
 }
 

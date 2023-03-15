@@ -2,33 +2,37 @@ import 'dart:async';
 
 import 'package:axol_rutas/identities/user/bloc/auth_event.dart';
 import 'package:axol_rutas/identities/user/bloc/auth_state.dart';
+import 'package:axol_rutas/identities/user/repository/user_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:axol_rutas/identities/user/repository/data.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final Data _data;
-  static const String _password = '';
-  static const String _userName = '';
+  final UserRepo userRepo;
 
-  //StreamSubscription<Data> _dataSubscription;
+  AuthBloc(super.initialState, {required this.userRepo})
+      : assert(userRepo != null);
 
-  AuthBloc({required Data data, required child})
-      : _data = data,
-        super(LoginInitial(_userName, _password)) {
-    //TODO: implement event handlers
-  }
+  @override
+  AuthState get initialState => AuthUnitialized();
 
-  /*@override
-  Future<void> close() {
-    _dataSubscription.cancel();
-    return super.close();
-  }*/
+  @override
+  Stream<AuthState> mapEventToState(
+    AuthState currentState,
+    AuthEvent event,
+  ) async* {
+    if (event is AppStarted) {
+      final bool hasToken = await userRepo.hasToken();
 
-  void _onClick(CheckLogin event, Emitter<AuthState> emit) {
-    if (_data.data() == 'si') {
-      emit(LoginSuccessful('userName', 'password'));
-    } else {
-      emit(LoginFailed('userName', 'password'));
+      if (hasToken) {
+        yield AuthAuthenticated();
+      } else {
+        yield AuthUnuauthenticated();
+      }
+    }
+
+    if (event is LoggedIn) {
+      yield AuthLoading();
+      await userRepo.persistToken(event.token);
+      yield AuthUnuauthenticated();
     }
   }
 }
