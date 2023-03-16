@@ -63,7 +63,7 @@ class LoginBloc {
   void bloc() {
     if (_loginEvent is LoginButtonPressed) {
       //Loginca de LoginButtonPressed
-      _loginEvent.runtimeType;
+      _loginEvent;
     }
   }
 }
