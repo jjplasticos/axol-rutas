@@ -3,7 +3,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:axol_rutas/identities/user/model/user.dart';
 
-class AuthDB {
+class UserRepo {
   final supabase = Supabase.instance.client;
   final String TABLE = 'users';
   final String USER_COLUMN = 'user_name';

@@ -1,38 +1,35 @@
-import 'dart:async';
-
 import 'package:axol_rutas/identities/user/bloc/auth_event.dart';
 import 'package:axol_rutas/identities/user/bloc/auth_state.dart';
-import 'package:axol_rutas/identities/user/repository/user_repo.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final UserRepo userRepo;
+import '../repository/auth_repo.dart';
 
-  AuthBloc(super.initialState, {required this.userRepo})
-      : assert(userRepo != null);
+class AuthBloc {
+  late final UserRepo _userRepo;
+  late final AuthEvent _authEvent;
+  late final AuthState _authState;
 
-  @override
-  AuthState get initialState => AuthUnitialized();
+  set setUserRepo(UserRepo user) {
+    _userRepo = user;
+  }
 
-  @override
-  Stream<AuthState> mapEventToState(
-    AuthState currentState,
-    AuthEvent event,
-  ) async* {
-    if (event is AppStarted) {
-      final bool hasToken = await userRepo.hasToken();
+  set setAutEvent(AuthEvent event) {
+    _authEvent = event;
+  }
 
-      if (hasToken) {
-        yield AuthAuthenticated();
-      } else {
-        yield AuthUnuauthenticated();
-      }
+  AuthState get getAuthState {
+    bloc();
+    return _authState;
+  }
+
+  void bloc() {
+    if (_authEvent is AppStarted) {
+      //Logica de AppStarted.
     }
-
-    if (event is LoggedIn) {
-      yield AuthLoading();
-      await userRepo.persistToken(event.token);
-      yield AuthUnuauthenticated();
+    if (_authEvent is LoggedIn) {
+      //Logica de LoggedIn
+    }
+    if (_authEvent is LoggedOut) {
+      //Logica de LoggedOut
     }
   }
 }

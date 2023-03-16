@@ -1,4 +1,4 @@
-class UserRepo {
+/*class UserRepo {
   Future<String> auth(
       {required String userName, required String password}) async {
     await Future.delayed(const Duration(seconds: 1));
@@ -19,4 +19,4 @@ class UserRepo {
     await Future.delayed(const Duration(seconds: 1));
     return false;
   }
-}
+}*/

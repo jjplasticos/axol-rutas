@@ -5,7 +5,9 @@ import 'package:axol_rutas/identities/user/bloc/login_state.dart';
 import 'package:axol_rutas/identities/user/repository/user_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
+import '../repository/auth_repo.dart';
+
+/*class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final UserRepo userRepo;
   final AuthBloc authBloc;
 
@@ -14,10 +16,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       : assert(userRepo != null),
         assert(authBloc != null);
 
-  //@override
+  @override
   LoginState get initialState => LoginInitial();
 
-  //@override
+  @override
   Stream<LoginState> mapEventToState(
     LoginState currentState,
     LoginEvent event,
@@ -36,6 +38,32 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } catch (error) {
         yield LoginFailure(error: error.toString());
       }
+    }
+  }
+}*/
+
+class LoginBloc {
+  late final UserRepo _userRepo;
+  late final LoginEvent _loginEvent;
+  late final LoginState _loginState;
+
+  set setUserRepo(UserRepo user) {
+    _userRepo = user;
+  }
+
+  set setLoginEvent(LoginEvent event) {
+    _loginEvent = event;
+  }
+
+  LoginState get getLoginState {
+    bloc();
+    return _loginState;
+  }
+
+  void bloc() {
+    if (_loginEvent is LoginButtonPressed) {
+      //Loginca de LoginButtonPressed
+      _loginEvent.runtimeType;
     }
   }
 }
