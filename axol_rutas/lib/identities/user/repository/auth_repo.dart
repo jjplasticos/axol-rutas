@@ -18,8 +18,12 @@ class AuthDB {
         .select<List<Map<String, dynamic>>>('*')
         .eq(USER_COLUMN, userSearch);
     if (userData.isNotEmpty) {
-      user = UserModel(userData.first[USER_COLUMN], userData.first[ID_COLUMN],
-          userData.first[ROL_COLUMN], userData.first[PASSWORD_USER]);
+      user = UserModel(
+        name: userData.first[USER_COLUMN],
+        uid: userData.first[ID_COLUMN],
+        rol: userData.first[ROL_COLUMN],
+        password: userData.first[PASSWORD_USER],
+      );
     } else {
       user = null;
     }

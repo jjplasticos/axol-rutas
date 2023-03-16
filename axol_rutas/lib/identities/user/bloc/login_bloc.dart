@@ -27,15 +27,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       try {
         final token = await userRepo.auth(
-            userName: event.userName, password: event.password);
-
-        if (token != null) {
-          yield LoginInitial();
-        } else {
-          yield const LoginFailure(error: 'Error');
-        }
-
+          userName: event.userName,
+          password: event.password,
+        );
+        authBloc.add(LoggedIn(token: token));
         //authBloc.dispatch(LoggedIn(token: token));
+        yield LoginInitial();
       } catch (error) {
         yield LoginFailure(error: error.toString());
       }
