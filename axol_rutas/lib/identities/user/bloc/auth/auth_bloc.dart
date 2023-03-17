@@ -1,10 +1,11 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import '../../model/user.dart';
 import '../../repository/user_repo.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
 class AuthBloc {
-  late final String _stringValue;
   late final AuthEvent _authEvent;
   late final AuthState _authState;
 
@@ -12,31 +13,32 @@ class AuthBloc {
     _authEvent = event;
   }
 
-  set setStringValue(String string) {
-    _stringValue = string;
-  }
-
-  AuthState get getAuthState{
+  AuthState get getAuthState {
     bloc(_authEvent);
     return _authState;
   }
 
-  void bloc(AuthEvent authEvent) {
-    
-    if (_authEvent is AppStarted) {
+  void bloc(AuthEvent event) {
+    if (event is AppStarted) {
       //Logica de AppStarted.
+      _authState = AuthLoading();
     }
-    if (_authEvent is LoggedIn) {
+    if (event is LoggedIn) {
       //Logica de LoggedIn
-      UserRepo userRepo = UserRepo();
-      UserModel? userModel = userRepo.getUser(_stringValue) as UserModel;
-      if (userModel != null) {
-        print('Correcto');
+      LocalUser localUser = LocalUser();
+      DatabaseUser databaseUser = DatabaseUser();
+      UserModel authLocalUser = localUser.getLocalUser() as UserModel;
+      UserModel? authDatabaseUser =
+          databaseUser.readDbUser(authLocalUser.name) as UserModel;
+
+      if (authDatabaseUser != null) {
+        _authState = AuthAuthenticated();
+        localUser.setLocalUser(authLocalUser.name, authLocalUser.rol);
       } else {
-        print('error');
+        _authState = AuthUnuauthenticated();
       }
     }
-    if (_authEvent is LoggedOut) {
+    if (event is LoggedOut) {
       //Logica de LoggedOut
     }
   }

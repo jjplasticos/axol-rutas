@@ -48,7 +48,7 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: CupertinoActivityIndicator(),
+        child: CircularProgressIndicator(),
       ),
     );
   }

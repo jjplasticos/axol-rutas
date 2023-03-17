@@ -2,7 +2,7 @@ abstract class AuthState {
   const AuthState();
 }
 
-class AuthUnitialized extends AuthState {}
+//class AuthUnitialized extends AuthState {}
 
 class AuthAuthenticated extends AuthState {}
 
