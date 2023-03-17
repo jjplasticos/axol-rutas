@@ -1,6 +1,6 @@
-import 'auth_event.dart';
-import 'auth_state.dart';
-import 'auth_bloc.dart';
+import 'auth/auth_event.dart';
+import 'auth/auth_state.dart';
+import 'auth/auth_bloc.dart';
 
 class UserProvider {
   AuthState authBloc(AuthEvent authEvent) {
