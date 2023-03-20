@@ -1,45 +1,54 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../model/user.dart';
 import '../../repository/user_repo.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
-class AuthBloc {
-  late final AuthEvent _authEvent;
-  late final AuthState _authState;
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  AuthEvent _authEvent = AppStarted();
+  AuthState _authState = AuthUnitialized();
+
+  AuthBloc(super.initialState);
 
   set setAutEvent(AuthEvent event) {
     _authEvent = event;
   }
 
   AuthState get getAuthState {
-    bloc(_authEvent);
+    _authState = bloc(_authEvent) as AuthState;
+    print(_authState.toString());
     return _authState;
   }
 
-  void bloc(AuthEvent event) {
+  Future<AuthState> bloc(AuthEvent event) async {
+    AuthState state = AuthUnitialized();
     if (event is AppStarted) {
       //Logica de AppStarted.
-      _authState = AuthLoading();
+      state = AuthLoading();
     }
     if (event is LoggedIn) {
       //Logica de LoggedIn
       LocalUser localUser = LocalUser();
       DatabaseUser databaseUser = DatabaseUser();
-      UserModel authLocalUser = localUser.getLocalUser() as UserModel;
+      UserModel authLocalUser = await localUser.getLocalUser();
       UserModel? authDatabaseUser =
-          databaseUser.readDbUser(authLocalUser.name) as UserModel;
+          await databaseUser.readDbUser(authLocalUser.name);
 
       if (authDatabaseUser != null) {
-        _authState = AuthAuthenticated();
+        state = AuthAuthenticated();
         localUser.setLocalUser(authLocalUser.name, authLocalUser.rol);
       } else {
-        _authState = AuthUnuauthenticated();
+        state = AuthUnuauthenticated();
       }
+      //print(_authState.toString());
     }
     if (event is LoggedOut) {
       //Logica de LoggedOut
     }
+
+    return state;
   }
 }

@@ -6,17 +6,24 @@ import '../../bloc/login/login_bloc.dart';
 import '../../repository/user_repo.dart';
 import 'login_form.dart';
 
-/*class LoginPage extends StatefulWidget {
-  final UserRepo userRepo;
+class LoginPage extends StatefulWidget {
+  //final UserRepo userRepo;
 
-  LoginPage({super.key, required this.userRepo}) : assert(userRepo != null);
+  //LoginPage({super.key, required this.userRepo}) : assert(userRepo != null);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late LoginBloc _loginBloc;
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('Login page'),
+    );
+  }
+
+  /*late LoginBloc _loginBloc;
   late AuthBloc _authBloc;
 
   UserRepo get _userRepo => widget.userRepo;
@@ -48,5 +55,5 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     _loginBloc.dispose();
     super.dispose();
-  }
-}*/
+  }*/
+}
