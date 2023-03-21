@@ -8,7 +8,9 @@ import 'auth_event.dart';
 import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthEvent _authEvent = AppStarted();
+  AuthBloc(super.initialState);
+
+  /*AuthEvent _authEvent = AppStarted();
   AuthState _authState = AuthUnitialized();
 
   AuthBloc(super.initialState);
@@ -50,5 +52,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
 
     return state;
-  }
+  }*/
 }

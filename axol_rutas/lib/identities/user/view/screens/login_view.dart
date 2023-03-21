@@ -7,7 +7,7 @@ import 'package:axol_rutas/views/sales_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../bloc/auth/auth_bloc.dart';
+import '../../cubit/auth/auth_bloc.dart';
 import '../widgets/logo.dart';
 import '../widgets/text_field_user.dart';
 

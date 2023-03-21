@@ -1,7 +1,8 @@
-import 'package:axol_rutas/identities/user/bloc/auth/auth_bloc.dart';
-import 'package:axol_rutas/identities/user/bloc/auth/auth_event.dart';
-import 'package:axol_rutas/identities/user/bloc/auth/auth_state.dart';
-import 'package:axol_rutas/identities/user/bloc/user_provider.dart';
+import 'package:axol_rutas/identities/user/cubit/auth/auth_bloc.dart';
+import 'package:axol_rutas/identities/user/cubit/auth/auth_cubit.dart';
+import 'package:axol_rutas/identities/user/cubit/auth/auth_event.dart';
+import 'package:axol_rutas/identities/user/cubit/auth/auth_state.dart';
+import 'package:axol_rutas/identities/user/cubit/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,13 +39,41 @@ class _SplashPage extends State<SplashPage> {
         Navigator.pushReplacementNamed(context, '/LoginPage');
         print('Entro a Login page');
       }
+      
     }*/
 
-    return BlocBuilder<AuthBloc, AuthState>(
+    //BlocProvider<AuthCubit>(create: (context) => AuthCubit());
+    final state = context.watch<AuthCubit>().state;
+
+    return BlocBuilder<AuthCubit, AuthState>(
       builder: (BuildContext context, AuthState state) {
-        if (state is AuthUnitialized) {
-          bloc = BlocProvider.of<AuthBloc>(context);
-          bloc.add(LoggedIn());
+        if (state is AuthUnitializedState) {
+          return const Center(
+            child: Text('Inicio'),
+          );
+        }
+        if (state is AuthLoadingState) {
+          return const Center(
+            child: Text('Loading...'),
+          );
+          /*bloc = BlocProvider.of<AuthBloc>(context);
+          bloc.add(AppStarted());*/
+        } else if (state is AuthAuthenticatedState) {
+          return const Center(
+            child: Text('Autenticated!'),
+          );
+        } else if (state is AuthUnuauthenticatedState) {
+          return const Center(
+            child: Text('Unuauthenticated'),
+          );
+        } else if (state is AuthErrorState) {
+          return const Center(
+            child: Text('Error'),
+          );
+        } else {
+          return const Center(
+            child: Text('No paso nada.'),
+          );
         }
       },
     );

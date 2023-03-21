@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:axol_rutas/identities/user/cubit/auth/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:axol_rutas/views/splash_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'identities/sale/view/screens/sales_page.dart';
@@ -24,14 +26,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Axol Rutas',
-      home: SplashPage(),
-      routes: {
-        '/SplashPage': (context) => SplashPage(),
-        '/LoginPage': (context) => LoginPage(),
-        '/SalesPage': (context) => SalesPage(),
-      },
+    return BlocProvider(
+      create: (_) => AuthCubit(),
+      child: MaterialApp(
+        title: 'Axol Rutas',
+        home: SplashPage(),
+        routes: {
+          '/SplashPage': (context) => SplashPage(),
+          '/LoginPage': (context) => LoginPage(),
+          '/SalesPage': (context) => SalesPage(),
+        },
+      ),
     );
   }
 }

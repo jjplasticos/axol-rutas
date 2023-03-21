@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/auth/auth_bloc.dart';
-import '../../bloc/login/login_bloc.dart';
+import '../../cubit/auth/auth_bloc.dart';
+import '../../cubit/login/login_bloc.dart';
 import '../../repository/user_repo.dart';
 import 'login_form.dart';
 

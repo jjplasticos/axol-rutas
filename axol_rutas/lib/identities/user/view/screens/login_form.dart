@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/auth/auth_bloc.dart';
-import '../../bloc/login/login_bloc.dart';
-import '../../bloc/login/login_event.dart';
-import '../../bloc/login/login_state.dart';
+import '../../cubit/auth/auth_bloc.dart';
+import '../../cubit/login/login_bloc.dart';
+import '../../cubit/login/login_event.dart';
+import '../../cubit/login/login_state.dart';
 
 /*class LoginForm extends StatefulWidget {
   final LoginBloc loginBloc;

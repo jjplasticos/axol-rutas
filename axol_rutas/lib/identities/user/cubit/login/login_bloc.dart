@@ -1,5 +1,5 @@
-import 'package:axol_rutas/identities/user/bloc/login/login_event.dart';
-import 'package:axol_rutas/identities/user/bloc/login/login_state.dart';
+import 'package:axol_rutas/identities/user/cubit/login/login_event.dart';
+import 'package:axol_rutas/identities/user/cubit/login/login_state.dart';
 
 import '../../repository/user_repo.dart';
 
