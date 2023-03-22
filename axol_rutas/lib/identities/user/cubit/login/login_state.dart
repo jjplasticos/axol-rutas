@@ -1,16 +1,43 @@
-abstract class LoginState {
+// ignore_for_file: must_be_immutable
+
+import 'package:equatable/equatable.dart';
+
+abstract class LoginState extends Equatable {
   const LoginState();
 }
 
-class LoginInitial extends LoginState {}
-
-class LoginLoading extends LoginState {}
-
-class LoginFailure extends LoginState {
-  final String error;
-
-  const LoginFailure({required this.error});
+class LoginInitialState extends LoginState {
+  @override
+  String toString() => 'LoginInitialState';
 
   @override
-  String toString() => 'LoginFailure {error: $error}';
+  List<Object?> get props => [];
+}
+
+class LoginSuccessState extends LoginState {
+  @override
+  String toString() => 'LoginSuccessState';
+
+  @override
+  List<Object?> get props => [];
+}
+
+class LoginFailureState extends LoginState {
+  @override
+  String toString() => 'LoginFailure';
+
+  @override
+  List<Object?> get props => [];
+}
+
+class LoginErrorState extends LoginState {
+  String error;
+
+  LoginErrorState({required this.error});
+
+  @override
+  String toString() => 'Error: $error';
+
+  @override
+  List<Object?> get props => [error];
 }

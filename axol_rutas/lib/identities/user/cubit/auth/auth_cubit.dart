@@ -4,13 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../model/user.dart';
 import '../../repository/user_repo.dart';
-import 'auth_event.dart';
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthLoadingState()) {
-    getUser();
-  }
+  AuthCubit() : super(AuthLoadingState());
 
   void getUser() async {
     try {
@@ -26,7 +23,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthUnuauthenticatedState());
       }
     } catch (e) {
-      emit(AuthErrorState());
+      emit(AuthErrorState(error: e.toString()));
     }
   }
 }

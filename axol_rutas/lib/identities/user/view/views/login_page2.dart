@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../cubit/auth/auth_bloc.dart';
-import '../../cubit/login/login_bloc.dart';
 import '../../repository/user_repo.dart';
 import 'login_form.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage2 extends StatefulWidget {
   //final UserRepo userRepo;
 
   //LoginPage({super.key, required this.userRepo}) : assert(userRepo != null);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPage2> createState() => _LoginPage2State();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPage2State extends State<LoginPage2> {
   @override
   Widget build(BuildContext context) {
     return const Center(
