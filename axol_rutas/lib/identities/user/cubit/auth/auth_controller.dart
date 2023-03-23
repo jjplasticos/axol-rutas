@@ -18,9 +18,7 @@ class AuthController extends StatelessWidget {
         if (state is AuthLoadingState) {
           return const SplashView();
         } else if (state is AuthAuthenticatedState) {
-          return const Center(
-            child: HomePage()
-          );
+          return const Center(child: HomePage());
         } else if (state is AuthUnuauthenticatedState) {
           return const Center(child: LoginPage());
         } else if (state is AuthErrorState) {

@@ -1,46 +1,43 @@
+import 'package:axol_rutas/identities/user/cubit/login/password_visibility/password_visibility_controller.dart.dart';
+import 'package:axol_rutas/identities/user/cubit/login/password_visibility/password_visibility_cubit.dart';
 import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TextFieldPassWord extends StatefulWidget {
-  const TextFieldPassWord({super.key});
+import '../../cubit/login/password_visibility/password_visibility_state.dart';
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _TextFieldUser createState() => _TextFieldUser();
-}
+class TextFieldPassword extends StatelessWidget {
+  String textPassword;
 
-class _TextFieldUser extends State<TextFieldPassWord> {
-  final _passWordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _passWordController.dispose();
-    super.dispose();
-  }
+  TextFieldPassword({super.key, required this.textPassword});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(24, 8, 24, 8),
-      child: TextFormField(
-        controller: _passWordController,
-        //obscureText: obs,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          hintText: 'Contraseña',
-          hintStyle: Typo.hintText,
-          /*suffixIcon: IconButton(
-            //icon: setIconEye(obs),
-            /*onPressed: () {
-              setState(() {
-                obs == false ? obs = true : obs = false;
-              });
-            },*/
-          ),*/
-          filled: true,
-          fillColor: ColorPalette.secondaryBackground,
-        ),
-      ),
+    bool obs = true;
+
+    return BlocBuilder<PasswordVisibilityCubit, PasswordVisibilityState>(
+      builder: (context, state) {
+        return TextFormField(
+          obscureText: obs,
+          onChanged: (value) {
+            textPassword = value;
+          },
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            hintText: 'Contraseña',
+            hintStyle: Typo.hintText,
+            suffixIcon: IconButton(
+              icon: const PasswordVisibilityController(),
+              onPressed: () async {
+                context.read<PasswordVisibilityCubit>().visibility();
+                obs = await context.read<PasswordVisibilityCubit>().isVisible();
+              },
+            ),
+            filled: true,
+            fillColor: ColorPalette.secondaryBackground,
+          ),
+        );
+      },
     );
   }
 }

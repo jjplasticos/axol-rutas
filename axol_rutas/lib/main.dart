@@ -1,8 +1,8 @@
+import 'package:axol_rutas/identities/user/view/pages/home_page.dart';
+import 'package:axol_rutas/identities/user/view/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'identities/sale/view/screens/sales_page.dart';
 import 'identities/user/view/pages/auth_page.dart';
-import 'identities/user/view/views/login_page2.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,11 +22,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Axol Rutas',
-      home: AuthPage(),
+      home: const AuthPage(),
       routes: {
-        //'/SplashPage': (context) => SplashPage(),
-        '/LoginPage': (context) => LoginPage2(),
-        '/SalesPage': (context) => SalesPage(),
+        '/AuthPage': (context) => const AuthPage(),
+        '/HomePage': (context) => const HomePage(),
+        '/LoginPage': (context) => const LoginPage(),
       },
     );
   }
