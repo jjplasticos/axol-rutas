@@ -1,13 +1,6 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:axol_rutas/identities/user/cubit/auth/auth_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:axol_rutas/views/splash_view2.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'identities/sale/view/screens/sales_page.dart';
-import 'identities/user/cubit/auth/auth_controller.dart';
 import 'identities/user/view/pages/auth_page.dart';
 import 'identities/user/view/views/login_page2.dart';
 

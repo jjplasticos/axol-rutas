@@ -5,6 +5,7 @@ class TextFieldUser extends StatefulWidget {
   const TextFieldUser({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _TextFieldUser createState() => _TextFieldUser();
 }
 
@@ -20,7 +21,7 @@ class _TextFieldUser extends State<TextFieldUser> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(24, 8, 24, 8),
+      padding: const EdgeInsetsDirectional.fromSTEB(24, 8, 24, 8),
       child: TextFormField(
         controller: _userController,
         autofocus: false,

@@ -1,3 +1,4 @@
+import 'package:axol_rutas/identities/user/view/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +19,7 @@ class AuthController extends StatelessWidget {
           return const SplashView();
         } else if (state is AuthAuthenticatedState) {
           return const Center(
-            child: Text('Autenticated!'), //HomePage
+            child: HomePage()
           );
         } else if (state is AuthUnuauthenticatedState) {
           return const Center(child: LoginPage());

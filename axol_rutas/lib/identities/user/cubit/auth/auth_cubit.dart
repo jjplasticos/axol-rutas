@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../model/user.dart';
@@ -11,6 +9,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void getUser() async {
     try {
+      emit(AuthLoadingState());
       LocalUser localUser = LocalUser();
       DatabaseUser databaseUser = DatabaseUser();
       UserModel authLocalUser = await localUser.getLocalUser();

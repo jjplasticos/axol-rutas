@@ -5,6 +5,7 @@ class TextFieldPassWord extends StatefulWidget {
   const TextFieldPassWord({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _TextFieldUser createState() => _TextFieldUser();
 }
 
@@ -20,7 +21,7 @@ class _TextFieldUser extends State<TextFieldPassWord> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(24, 8, 24, 8),
+      padding: const EdgeInsetsDirectional.fromSTEB(24, 8, 24, 8),
       child: TextFormField(
         controller: _passWordController,
         //obscureText: obs,
@@ -29,12 +30,12 @@ class _TextFieldUser extends State<TextFieldPassWord> {
           hintText: 'Contraseña',
           hintStyle: Typo.hintText,
           /*suffixIcon: IconButton(
-            icon: setIconEye(obs),
-            onPressed: () {
+            //icon: setIconEye(obs),
+            /*onPressed: () {
               setState(() {
                 obs == false ? obs = true : obs = false;
               });
-            },
+            },*/
           ),*/
           filled: true,
           fillColor: ColorPalette.secondaryBackground,

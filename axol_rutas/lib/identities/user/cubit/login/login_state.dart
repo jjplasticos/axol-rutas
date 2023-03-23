@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:equatable/equatable.dart';
 
 abstract class LoginState extends Equatable {
@@ -31,9 +29,9 @@ class LoginFailureState extends LoginState {
 }
 
 class LoginErrorState extends LoginState {
-  String error;
+  final String error;
 
-  LoginErrorState({required this.error});
+  const LoginErrorState({required this.error});
 
   @override
   String toString() => 'Error: $error';

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Logo extends StatelessWidget {
-  const Logo({super.key, required this.width, required this.height});
-
-  final double width;
-  final double height;
+  const Logo({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Image.asset(
       'assets/images/axolLogo.png',
-      width: width,
-      height: height,
+      width: 250,
+      height: 250,
       fit: BoxFit.cover,
     );
   }
