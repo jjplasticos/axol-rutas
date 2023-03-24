@@ -13,12 +13,15 @@ class AuthController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
-      bloc: BlocProvider.of<AuthCubit>(context)..getUser(),
+      bloc: BlocProvider.of<AuthCubit>(context)..getUserState(),
       builder: (BuildContext context, AuthState state) {
         if (state is AuthLoadingState) {
           return const SplashView();
         } else if (state is AuthAuthenticatedState) {
-          return const Center(child: HomePage());
+          return Center(
+              child: HomePage(
+            user: state.user,
+          ));
         } else if (state is AuthUnuauthenticatedState) {
           return const Center(child: LoginPage());
         } else if (state is AuthErrorState) {

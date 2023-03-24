@@ -1,8 +1,11 @@
+import 'package:axol_rutas/identities/sale/view/pages/admin_page.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_cubit.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../sale/view/pages/sales_page.dart';
 
 class LoginController extends StatelessWidget {
   const LoginController({super.key});
@@ -12,10 +15,25 @@ class LoginController extends StatelessWidget {
     return BlocListener(
       listener: (context, state) {
         if (state is LoginFailureState) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('Hola mundo')));
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Usuario o contraseña invalida.')));
         } else if (state is LoginSuccessState) {
-          Navigator.popAndPushNamed(context, '/HomePage');
+          final rol = state.user.rol;
+          if (rol == 'admin') {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AdminPage(
+                          user: state.user,
+                        )));
+          } else if (rol == 'vendor') {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SalesPage(
+                          user: state.user,
+                        )));
+          }
         } else if (state is LoginErrorState) {
           if (kDebugMode) {
             print('LoginErrorState: ${state.error}');

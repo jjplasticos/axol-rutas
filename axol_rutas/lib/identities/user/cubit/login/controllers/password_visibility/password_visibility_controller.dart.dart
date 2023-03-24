@@ -1,5 +1,5 @@
-import 'package:axol_rutas/identities/user/cubit/login/password_visibility/password_visibility_cubit.dart';
-import 'package:axol_rutas/identities/user/cubit/login/password_visibility/password_visibility_state.dart';
+import 'package:axol_rutas/identities/user/cubit/login/controllers/password_visibility/password_visibility_cubit.dart';
+import 'package:axol_rutas/identities/user/cubit/login/controllers/password_visibility/password_visibility_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,3 +1,4 @@
+import 'package:axol_rutas/identities/user/model/user.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class LoginState extends Equatable {
@@ -13,11 +14,15 @@ class LoginInitialState extends LoginState {
 }
 
 class LoginSuccessState extends LoginState {
+  final UserModel user;
+
+  const LoginSuccessState({required this.user});
+
   @override
   String toString() => 'LoginSuccessState';
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [user];
 }
 
 class LoginFailureState extends LoginState {

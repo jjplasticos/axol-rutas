@@ -1,15 +1,14 @@
-import 'package:axol_rutas/identities/user/cubit/login/password_visibility/password_visibility_controller.dart.dart';
-import 'package:axol_rutas/identities/user/cubit/login/password_visibility/password_visibility_cubit.dart';
+import 'package:axol_rutas/identities/user/cubit/login/controllers/login_txt_cubit.dart';
+import 'package:axol_rutas/identities/user/cubit/login/controllers/password_visibility/password_visibility_controller.dart.dart';
+import 'package:axol_rutas/identities/user/cubit/login/controllers/password_visibility/password_visibility_cubit.dart';
 import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../cubit/login/password_visibility/password_visibility_state.dart';
+import '../../cubit/login/controllers/password_visibility/password_visibility_state.dart';
 
 class TextFieldPassword extends StatelessWidget {
-  String textPassword;
-
-  TextFieldPassword({super.key, required this.textPassword});
+  const TextFieldPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class TextFieldPassword extends StatelessWidget {
         return TextFormField(
           obscureText: obs,
           onChanged: (value) {
-            textPassword = value;
+            context.read<PasswordTxtCubit>().change(value);
           },
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),

@@ -7,7 +7,7 @@ import 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthLoadingState());
 
-  void getUser() async {
+  void getUserState() async {
     try {
       emit(AuthLoadingState());
       LocalUser localUser = LocalUser();
@@ -17,7 +17,7 @@ class AuthCubit extends Cubit<AuthState> {
           await databaseUser.readDbUser(authLocalUser.name);
 
       if (authDatabaseUser != null) {
-        emit(AuthAuthenticatedState());
+        emit(AuthAuthenticatedState(user: authDatabaseUser));
       } else {
         emit(AuthUnuauthenticatedState());
       }
@@ -25,4 +25,10 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthErrorState(error: e.toString()));
     }
   }
+
+  /*Future<UserModel> get getUser async {
+    UserModel user;
+
+    return user;
+  }*/
 }
