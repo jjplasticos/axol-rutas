@@ -1,0 +1,193 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:axol_rutas/identities/sale/model/sale.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../settings/format.dart';
+import '../../../../settings/theme.dart';
+
+class ListViewSales extends StatelessWidget {
+  final List<SaleModel> listData;
+  final String lbl_QUANTITY = 'Cantidad';
+  final String lbl_WEIGHT_UNIT = 'kg';
+  final String lbl_WEIGHT = 'Peso total';
+  final String lbl_PRICE = 'Precio total';
+
+  const ListViewSales({super.key, required this.listData});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: listData.length,
+      itemBuilder: ((context, index) {
+        final elementList = listData[index];
+        return Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
+          child: Container(
+            width: double.infinity,
+            height: 140,
+            decoration: BoxDecoration(
+                color: ColorPalette.secondaryBackground,
+                borderRadius: BorderRadius.circular(12)),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.75,
+                      height: 60,
+                      decoration: const BoxDecoration(
+                          color: ColorPalette.secondaryBackground,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(12),
+                          )),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                8, 8, 0, 0),
+                            child: Text(
+                              elementList.client.toString(),
+                              style: Typo.bodyText1,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 4, 0, 0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  FormatDate.dmy(elementList.time.toString()),
+                                  style: Typo.bodyText2,
+                                ),
+                                Text(
+                                  elementList.uid.toString(),
+                                  style: Typo.bodyText2,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.navigate_next,
+                          size: 30,
+                        ))
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.24,
+                      height: 80,
+                      decoration: const BoxDecoration(
+                        color: ColorPalette.secondaryBackground,
+                        borderRadius:
+                            BorderRadius.only(bottomLeft: Radius.circular(16)),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            FormatNumber.decimal(double.parse(
+                                elementList.totalQuantity.toString())),
+                            style: Typo.bodyText3,
+                          ),
+                          Text(
+                            lbl_QUANTITY,
+                            style: Typo.labelText2,
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      height: 80,
+                      decoration: const BoxDecoration(
+                        color: ColorPalette.secondaryBackground,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                FormatNumber.decimal(double.parse(
+                                    elementList.totalWeight.toString())),
+                                style: Typo.bodyText3,
+                              ),
+                              Text(
+                                lbl_WEIGHT_UNIT,
+                                style: Typo.bodyText3,
+                              ),
+                            ],
+                          ),
+                          Text(
+                            lbl_WEIGHT,
+                            style: Typo.labelText2,
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.38,
+                      height: 80,
+                      decoration: const BoxDecoration(
+                        color: ColorPalette.secondaryBackground,
+                        borderRadius:
+                            BorderRadius.only(bottomRight: Radius.circular(16)),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                '\$',
+                                style: Typo.bodyText3,
+                              ),
+                              Text(
+                                FormatNumber.decimal(double.parse(
+                                    elementList.totalPrice.toString())),
+                                style: Typo.bodyText3,
+                              ),
+                            ],
+                          ),
+                          Text(
+                            lbl_PRICE,
+                            style: Typo.labelText2,
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      }),
+    );
+  }
+}

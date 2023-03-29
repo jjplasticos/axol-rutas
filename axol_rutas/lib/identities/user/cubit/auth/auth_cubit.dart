@@ -25,10 +25,4 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthErrorState(error: e.toString()));
     }
   }
-
-  /*Future<UserModel> get getUser async {
-    UserModel user;
-
-    return user;
-  }*/
 }

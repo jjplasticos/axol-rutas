@@ -1,7 +1,4 @@
-class Sale {
-  Sale(this.uid, this.location, this.products, this.client, this.time,
-      this.totalQuantity, this.totalWeight, this.totalPrice);
-
+class SaleModel {
   final String uid;
   final String location;
   final List<Map<String, dynamic>> products;
@@ -10,4 +7,14 @@ class Sale {
   final double totalQuantity;
   final double totalWeight;
   final double totalPrice;
+
+  SaleModel(
+      {required this.uid,
+      required this.location,
+      required this.products,
+      required this.client,
+      required this.time,
+      required this.totalQuantity,
+      required this.totalWeight,
+      required this.totalPrice});
 }
