@@ -27,12 +27,8 @@ class LoginController extends StatelessWidget {
                           user: state.user,
                         )));
           } else if (rol == 'vendor') {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SalesPage(
-                          user: state.user,
-                        )));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const SalesPage()));
           }
         } else if (state is LoginErrorState) {
           if (kDebugMode) {

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../../../../settings/theme.dart';
+import 'iconbutton_return.dart';
 
 class AppBarSales extends StatelessWidget {
   final String title;
+  final IconButtonReturn? iconButton;
 
-  const AppBarSales({super.key, required this.title});
+  const AppBarSales({super.key, required this.title, required this.iconButton});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: ColorPalette.primaryBackground,
       automaticallyImplyLeading: false,
+      leading: iconButton,
       title: Text(
         title,
         style: Typo.title1,

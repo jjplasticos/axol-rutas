@@ -1,3 +1,4 @@
+import 'package:axol_rutas/identities/sale/bloc/salesList_controller.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../settings/theme.dart';
@@ -15,12 +16,12 @@ class SalesView extends StatelessWidget {
       backgroundColor: ColorPalette.primaryBackground,
       floatingActionButton: const FABtnAddSale(),
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: AppBarSales(title: TITLE),
+        preferredSize: Size.fromHeight(50),
+        child: AppBarSales(title: TITLE, iconButton: null),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
-        children: const [],
+        children: const [Expanded(child: SaleController())],
       ),
     );
   }

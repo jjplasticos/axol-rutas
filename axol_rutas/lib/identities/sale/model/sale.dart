@@ -1,12 +1,12 @@
 class SaleModel {
   final String uid;
   final String location;
-  final List<Map<String, dynamic>> products;
+  final String products;
   final String client;
   final String time;
-  final double totalQuantity;
-  final double totalWeight;
-  final double totalPrice;
+  final String totalQuantity;
+  final String totalWeight;
+  final String totalPrice;
 
   SaleModel(
       {required this.uid,

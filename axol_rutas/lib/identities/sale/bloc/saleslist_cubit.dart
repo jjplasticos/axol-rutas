@@ -13,6 +13,7 @@ class SalesListCubit extends Cubit<SalesListState> {
       final List<SaleModel> salesList = await databaseSales.readSalesList();
       emit(SListLoadedState(salesList: salesList));
     } catch (e) {
+      print('Entró aquí ');
       emit(SListErrorState(error: e.toString()));
     }
   }

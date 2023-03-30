@@ -2,6 +2,8 @@ import 'package:axol_rutas/identities/user/view/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../sale/view/pages/admin_page.dart';
+import '../../../sale/view/pages/sales_page.dart';
 import '../../view/pages/login_page.dart';
 import '../../view/views/splash_view.dart';
 import 'auth_cubit.dart';
@@ -18,10 +20,16 @@ class AuthController extends StatelessWidget {
         if (state is AuthLoadingState) {
           return const SplashView();
         } else if (state is AuthAuthenticatedState) {
-          return Center(
-              child: HomePage(
-            user: state.user,
-          ));
+          final rol = state.user.rol;
+          if (rol == 'admin') {
+            return AdminPage(
+              user: state.user,
+            );
+          } else if (rol == 'vendor') {
+            return const SalesPage();
+          } else {
+            return const Text('Error: no entro a ni una pagina.');
+          }
         } else if (state is AuthUnuauthenticatedState) {
           return const Center(child: LoginPage());
         } else if (state is AuthErrorState) {

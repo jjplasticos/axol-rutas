@@ -7,7 +7,7 @@ import '../model/sale.dart';
 
 abstract class SalesRepo {
   final String TABLE = 'sales';
-  final String UID = 'id';
+  final String UID = 'sale_id';
   final String LOCATION = 'location';
   final String PRODUCTS = 'product_list';
   final String CLIENT = 'client_name';
@@ -27,28 +27,31 @@ class DatabaseSales extends SalesRepo {
     Map<String, dynamic> element;
     List<SaleModel> newList = [];
     final String userName;
+    List salesList = [];
 
     final pref = await SharedPreferences.getInstance();
     userName = pref.getString(USER)!;
 
-    final salesList = await supabase
+    salesList = await supabase
         .from(TABLE)
-        .select<List<Map<String, dynamic>>>('*')
+        .select<List<Map<String, dynamic>>>()
         .eq(VENDOR, userName);
 
     if (salesList.isNotEmpty) {
       for (element in salesList) {
         sale = SaleModel(
-            uid: element[UID],
-            location: element[LOCATION],
-            products: element[PRODUCTS],
-            client: element[CLIENT],
-            time: element[TIME],
-            totalQuantity: element[TOTAL_QUANTITY],
-            totalWeight: element[TOTAL_WEIGHT],
-            totalPrice: element[TOTAL_PRICE]);
+            uid: element[UID].toString(),
+            location: element[LOCATION].toString(),
+            products: element[PRODUCTS].toString(),
+            client: element[CLIENT].toString(),
+            time: element[TIME].toString(),
+            totalQuantity: element[TOTAL_QUANTITY].toString(),
+            totalWeight: element[TOTAL_WEIGHT].toString(),
+            totalPrice: element[TOTAL_PRICE].toString());
         newList.add(sale);
       }
+    } else {
+      //print('empty....');
     }
 
     return newList;
