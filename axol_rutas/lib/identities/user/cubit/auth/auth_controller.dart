@@ -1,8 +1,7 @@
-import 'package:axol_rutas/identities/user/view/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../sale/view/pages/admin_page.dart';
+import '../../view/pages/admin_page.dart';
 import '../../../sale/view/pages/sales_page.dart';
 import '../../view/pages/login_page.dart';
 import '../../view/views/splash_view.dart';

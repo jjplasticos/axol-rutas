@@ -1,4 +1,4 @@
-import 'package:axol_rutas/identities/sale/bloc/saleslist_state.dart';
+import 'package:axol_rutas/identities/sale/cubit/saleslist_state.dart';
 import 'package:axol_rutas/identities/sale/model/sale.dart';
 import 'package:axol_rutas/identities/sale/repository/sales_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

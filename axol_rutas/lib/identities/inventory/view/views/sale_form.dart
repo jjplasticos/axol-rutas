@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../global_widgets/appbar_sales.dart';
-import '../../../../global_widgets/iconbutton_return.dart';
+import '../../../../global_widgets/appbar_global.dart';
+import '../../../../global_widgets/iconbutton_select.dart';
 import '../../../../settings/theme.dart';
 import '../widgets/sale_form/btn_add_product.dart';
 import '../widgets/sale_form/btn_save_sale.dart';
@@ -30,7 +30,11 @@ class SaleForm extends StatelessWidget {
       backgroundColor: ColorPalette.primaryBackground,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(50),
-        child: AppBarSales(title: TITLE, iconButton: IconButtonReturn()),
+        child: AppBarGlobal(
+            title: TITLE,
+            iconButton: IconButtonSelect(
+              iconName: 'return',
+            )),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,

@@ -1,7 +1,22 @@
-class Product {
-  Product(this.uid, this.attributes, this.quantity);
+class ProductModel {
+  final String code;
+  final String type;
+  final String packing;
+  final String capacity;
+  final String measure;
+  final String gauge;
+  final String description;
+  final String pices;
+  final String weight;
 
-  final String uid;
-  final Map<String,dynamic> attributes; 
-  final double quantity;
+  ProductModel(
+      {required this.capacity,
+      required this.code,
+      required this.description,
+      required this.gauge,
+      required this.measure,
+      required this.packing,
+      required this.pices,
+      required this.type,
+      required this.weight});
 }

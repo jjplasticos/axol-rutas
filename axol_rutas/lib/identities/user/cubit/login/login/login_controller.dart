@@ -1,4 +1,4 @@
-import 'package:axol_rutas/identities/sale/view/pages/admin_page.dart';
+import 'package:axol_rutas/identities/user/view/pages/admin_page.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_cubit.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_state.dart';
 import 'package:flutter/foundation.dart';

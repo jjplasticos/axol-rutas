@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../../settings/theme.dart';
-import 'iconbutton_return.dart';
+import 'iconbutton_select.dart';
 
-class AppBarSales extends StatelessWidget {
+class AppBarGlobal extends StatelessWidget {
   final String title;
-  final IconButtonReturn? iconButton;
+  final IconButtonSelect? iconButton;
 
-  const AppBarSales({super.key, required this.title, required this.iconButton});
+  const AppBarGlobal(
+      {super.key, required this.title, required this.iconButton});
 
   @override
   Widget build(BuildContext context) {

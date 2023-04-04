@@ -1,7 +1,7 @@
-import 'package:axol_rutas/identities/sale/bloc/salesList_controller.dart';
+import 'package:axol_rutas/identities/sale/cubit/salesList_controller.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../global_widgets/appbar_sales.dart';
+import '../../../../global_widgets/appbar_global.dart';
 import '../../../../settings/theme.dart';
 import '../widgets/sales_widget/fabutton_add_sale.dart';
 
@@ -17,7 +17,7 @@ class SalesView extends StatelessWidget {
       floatingActionButton: const FABtnAddSale(),
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(50),
-        child: AppBarSales(title: TITLE, iconButton: null),
+        child: AppBarGlobal(title: TITLE, iconButton: null),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,

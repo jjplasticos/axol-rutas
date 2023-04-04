@@ -1,12 +1,12 @@
-import 'package:axol_rutas/identities/sale/bloc/saleslist_cubit.dart';
-import 'package:axol_rutas/identities/sale/bloc/saleslist_state.dart';
+import 'package:axol_rutas/identities/sale/cubit/saleslist_cubit.dart';
+import 'package:axol_rutas/identities/sale/cubit/saleslist_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../view/widgets/sales_widget/listview_sales.dart';
 
 class SaleController extends StatelessWidget {
-  final String emptyState = 'Error: No se recibió estado';
+  final String EMPTY = 'Error: No se recibió estado';
 
   const SaleController({super.key});
 
@@ -21,7 +21,7 @@ class SaleController extends StatelessWidget {
         } else if (state is SListErrorState) {
           return Text(state.toString());
         } else {
-          return Text(emptyState);
+          return Text(EMPTY);
         }
       },
       bloc: BlocProvider.of<SalesListCubit>(context)..getSalesList(),
