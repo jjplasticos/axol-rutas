@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../settings/theme.dart';
+import '../../../../../settings/theme.dart';
 
 class TxtForm extends StatelessWidget {
   const TxtForm({super.key});

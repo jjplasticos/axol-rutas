@@ -3,8 +3,8 @@
 import 'package:axol_rutas/identities/sale/model/sale.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../settings/format.dart';
-import '../../../../settings/theme.dart';
+import '../../../../../settings/format.dart';
+import '../../../../../settings/theme.dart';
 
 class ListViewSales extends StatelessWidget {
   final List<SaleModel> listData;

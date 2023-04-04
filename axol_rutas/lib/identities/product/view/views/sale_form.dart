@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../../global_widgets/appbar_sales.dart';
+import '../../../../global_widgets/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
-import '../widgets/appbar_sales.dart';
-import '../widgets/btn_add_product.dart';
-import '../widgets/btn_save_sale.dart';
-import '../widgets/iconbutton_return.dart';
-import '../widgets/lbl_results_form.dart';
-import '../widgets/listview_products.dart';
-import '../widgets/txt_form.dart';
+import '../widgets/sale_form/btn_add_product.dart';
+import '../widgets/sale_form/btn_save_sale.dart';
+import '../widgets/sale_form/lbl_results_form.dart';
+import '../widgets/sale_form/listview_products.dart';
+import '../widgets/sale_form/txt_form.dart';
 
 class SaleForm extends StatelessWidget {
   final String timePick;
