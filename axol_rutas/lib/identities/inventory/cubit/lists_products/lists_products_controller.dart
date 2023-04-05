@@ -1,10 +1,10 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:axol_rutas/identities/inventory/cubit/lists_products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../view/widgets/product_finder/listview_product_finder.dart';
+import '../../view/widgets/product_finder/listview_product_finder.dart';
+import 'lists_products_cubit.dart';
 import 'lists_products_state.dart';
 
 class ProductsFinderController extends StatelessWidget {

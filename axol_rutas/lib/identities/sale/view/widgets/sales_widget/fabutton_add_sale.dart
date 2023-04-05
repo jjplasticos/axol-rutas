@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../settings/theme.dart';
+import '../../../../inventory/view/pages/shoppingcart_page.dart';
 
 class FABtnAddSale extends StatelessWidget {
   const FABtnAddSale({super.key});
@@ -9,7 +10,8 @@ class FABtnAddSale extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: () async {
-        //Pasa al popup de SalesForm
+        await Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ShoppingCartPage()));
       },
       backgroundColor: ColorPalette.primary,
       elevation: 8,

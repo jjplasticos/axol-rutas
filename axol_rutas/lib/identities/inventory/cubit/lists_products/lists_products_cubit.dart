@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../repository/inventory_repo.dart';
+import '../../repository/inventory_repo.dart';
 import 'lists_products_state.dart';
 
 class ProductsListCubit extends Cubit<ListsProductsState> {

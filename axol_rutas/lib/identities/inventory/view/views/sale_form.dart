@@ -13,14 +13,8 @@ import '../widgets/sale_form/txt_form.dart';
 
 class SaleForm extends StatelessWidget {
   final String timePick;
-  final String saleID;
-  final String vendor;
 
-  const SaleForm(
-      {super.key,
-      required this.timePick,
-      required this.saleID,
-      required this.vendor});
+  const SaleForm({super.key, required this.timePick});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +44,7 @@ class SaleForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(timePick, style: Typo.labelText1),
-                Text(saleID, style: Typo.labelText1)
+                //Text(saleID, style: Typo.labelText1)
               ],
             ),
           ),
