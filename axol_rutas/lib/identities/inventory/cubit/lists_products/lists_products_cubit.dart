@@ -10,7 +10,8 @@ class ProductsListCubit extends Cubit<ListsProductsState> {
     try {
       emit(LoadingState());
       DatabaseInventory databaseInventory = DatabaseInventory();
-      final List productsList = await databaseInventory.readInventoryProducts();
+      final List<Map<String, String>> productsList =
+          await databaseInventory.readInventoryProducts();
       emit(LoadedState(inventoryProducts: productsList));
     } catch (e) {
       emit(ErrorState(error: e.toString()));

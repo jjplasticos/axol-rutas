@@ -1,43 +1,31 @@
-import 'package:shared_preferences/shared_preferences.dart';
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../model/product.dart';
 
 abstract class ProductRepo {
-  final String TABLE = 'sales';
-  final String UID = 'sale_id';
-  final String LOCATION = 'location';
-  final String PRODUCTS = 'product_list';
-  final String CLIENT = 'client_name';
-  final String TIME = 'time';
-  final String TOTAL_QUANTITY = 'total_quantity';
-  final String TOTAL_WEIGHT = 'total_weight';
-  final String TOTAL_PRICE = 'total_price';
-  final String VENDOR = 'vendor';
-  final String USER = 'user_name';
+  final String TABLE = 'products';
+  final String CODE = 'code';
+  final String PRODUCT = 'attributes';
 }
 
-class DatabaseSales extends ProductRepo {
+class DatabaseProducts extends ProductRepo {
   final supabase = Supabase.instance.client;
 
-  Future<List<ProductModel>> readProductList() async {
+  Future<List> readProductList(List<String> codeList) async {
     ProductModel product;
     Map<String, dynamic> element;
-    List<ProductModel> newList = [];
-    final String userName;
+    List<String> newList = [];
     List productList = [];
 
-    final pref = await SharedPreferences.getInstance();
-    userName = pref.getString(USER)!;
+    productList = await supabase.from(TABLE).select().in_(CODE, codeList);
 
-    /*salesList = await supabase
-        .from(TABLE)
-        .select<List<Map<String, dynamic>>>()
-        .eq(VENDOR, userName);
+    if (productList.isNotEmpty) {
+      for (element in productList) {
+        newList.add(element[PRODUCT]);
 
-    if (salesList.isNotEmpty) {
-      for (element in salesList) {
-        sale = SaleModel(
+        /*sale = SaleModel(
             uid: element[UID].toString(),
             location: element[LOCATION].toString(),
             products: element[PRODUCTS].toString(),
@@ -46,11 +34,11 @@ class DatabaseSales extends ProductRepo {
             totalQuantity: element[TOTAL_QUANTITY].toString(),
             totalWeight: element[TOTAL_WEIGHT].toString(),
             totalPrice: element[TOTAL_PRICE].toString());
-        newList.add(sale);
+        newList.add(sale);*/
       }
     } else {
       //print('empty....');
-    }*/
+    }
 
     return newList;
   }

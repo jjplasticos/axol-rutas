@@ -13,7 +13,7 @@ class LoadingState extends ListsProductsState {
 }
 
 class LoadedState extends ListsProductsState {
-  final List inventoryProducts;
+  final List<Map<String, String>> inventoryProducts;
 
   LoadedState({required this.inventoryProducts});
 

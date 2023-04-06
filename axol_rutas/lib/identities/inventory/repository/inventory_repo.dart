@@ -16,10 +16,10 @@ abstract class ProductRepo {
 class DatabaseInventory extends ProductRepo {
   final supabase = Supabase.instance.client;
 
-  Future<List<Map>> readInventoryProducts() async {
-    Map<String, dynamic> productElement;
+  Future<List<Map<String, String>>> readInventoryProducts() async {
+    Map<String, String> productElement;
     Map<String, dynamic> element;
-    List<Map<String, dynamic>> productsList = [];
+    List<Map<String, String>> productsList = [];
     final List inventoryList = await readInventory();
 
     if (inventoryList.isNotEmpty) {
