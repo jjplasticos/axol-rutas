@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:axol_rutas/identities/inventory/repository/inventory_repo.dart';
+import 'package:axol_rutas/identities/product/repository/product_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,10 +14,19 @@ class BtnAddProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DatabaseProducts databaseProducts = DatabaseProducts();
     return Column(children: [
       ElevatedButton(
         onPressed: () async {
-          context.read<NavShoppingcartCubit>().pressBtnShoppingcart();
+          //context.read<NavShoppingcartCubit>().pressBtnShoppingcart();
+          //Pruebas:
+          String element;
+          Map elementList;
+          final List list =
+              await databaseProducts.readProductList(['B5067', 'B4041']);
+          elementList = list.first;
+          //Imprime el valor contenido en measure
+          print(elementList['measure']);
         },
         style: ElevatedButton.styleFrom(
             backgroundColor: ColorPalette.tertiary,

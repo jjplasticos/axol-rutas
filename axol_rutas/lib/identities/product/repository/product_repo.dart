@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:convert';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../model/product.dart';
@@ -13,10 +15,10 @@ abstract class ProductRepo {
 class DatabaseProducts extends ProductRepo {
   final supabase = Supabase.instance.client;
 
-  Future<List> readProductList(List<String> codeList) async {
+  Future<List<Map>> readProductList(List<String> codeList) async {
     ProductModel product;
     Map<String, dynamic> element;
-    List<String> newList = [];
+    List<Map> newList = [];
     List productList = [];
 
     productList = await supabase.from(TABLE).select().in_(CODE, codeList);
@@ -24,6 +26,7 @@ class DatabaseProducts extends ProductRepo {
     if (productList.isNotEmpty) {
       for (element in productList) {
         newList.add(element[PRODUCT]);
+        print(element[PRODUCT].toString());
 
         /*sale = SaleModel(
             uid: element[UID].toString(),

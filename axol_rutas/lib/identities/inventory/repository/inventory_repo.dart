@@ -49,6 +49,20 @@ class DatabaseInventory extends ProductRepo {
     return inventoryDetails;
   }
 
+  Future<List<String>> readInventoryCodes() async {
+    List<String> codes = [];
+    Map<String, dynamic> element;
+    final List inventoryList = await readInventory();
+
+    if (inventoryList.isNotEmpty) {
+      for (element in inventoryList) {
+        codes.add(element[CODE].toString());
+      }
+    }
+
+    return codes;
+  }
+
   Future<List> readInventory() async {
     List<Map<String, dynamic>> productsList = [];
     final String userName;
