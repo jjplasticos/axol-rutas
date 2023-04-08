@@ -8,6 +8,7 @@ class ProductModel {
   final String description;
   final String pices;
   final String weight;
+  final String filetValues;
 
   ProductModel(
       {required this.capacity,
@@ -18,5 +19,6 @@ class ProductModel {
       required this.packing,
       required this.pices,
       required this.type,
-      required this.weight});
+      required this.weight,
+      required this.filetValues});
 }

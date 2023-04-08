@@ -1,9 +1,10 @@
+import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../settings/theme.dart';
 
 class ListviewProductFinder extends StatelessWidget {
-  final List<Map> products;
+  final List<Map<String,dynamic>> products;
 
   const ListviewProductFinder({super.key, required this.products});
 
@@ -15,6 +16,7 @@ class ListviewProductFinder extends StatelessWidget {
         itemCount: products.length,
         itemBuilder: ((context, index) {
           final elementList = products[index];
+          final ProductModel elementProduct = elementList['ProductModel'];
           return Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
             child: Container(
@@ -48,7 +50,7 @@ class ListviewProductFinder extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
-                                  elementList['code'],
+                                  elementProduct.code,
                                   style: Typo.bodyText6,
                                 ),
                                 Row(
@@ -57,7 +59,7 @@ class ListviewProductFinder extends StatelessWidget {
                                     const Text('Stock: ',
                                         style: Typo.bodyText6),
                                     Text(
-                                      elementList['stock'].toString(),
+                                      elementList['Stock'].toString(),
                                       style: Typo.bodyText6,
                                     )
                                   ],
@@ -66,7 +68,7 @@ class ListviewProductFinder extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            elementList['description'],
+                            elementProduct.description,
                             style: Typo.bodyText1,
                           )
                         ],

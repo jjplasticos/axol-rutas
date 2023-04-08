@@ -8,20 +8,22 @@ import 'lists_products_cubit.dart';
 import 'lists_products_state.dart';
 
 class ProductsFinderController extends StatelessWidget {
-  const ProductsFinderController({super.key});
+  final String filter;
+
+  const ProductsFinderController({super.key, required this.filter});
 
   @override
   Widget build(BuildContext context) {
     const String EMPTY = 'Error: No se recibió estado.';
     return BlocBuilder<ProductsListCubit, ListsProductsState>(
-      bloc: BlocProvider.of<ProductsListCubit>(context)..productsInventory(),
+      bloc: BlocProvider.of<ProductsListCubit>(context)..productsInventory(filter),
       builder: (BuildContext context, ListsProductsState state) {
         if (state is LoadingState) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is LoadedState) {
           return ListviewProductFinder(products: state.inventoryProducts);
         } else if (state is ErrorState) {
-          return Text(state.toString());
+          return Text(state.toString()); 
         } else {
           return const Text(EMPTY);
         }
@@ -42,7 +44,7 @@ class ProductsShoppingcartController extends StatelessWidget {
         if (state is LoadingState) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is LoadedState) {
-          return ListviewProductFinder(products: []);
+          return ListviewProductFinder(products: state.inventoryProducts);
         } else if (state is ErrorState) {
           return Text(state.toString());
         } else {

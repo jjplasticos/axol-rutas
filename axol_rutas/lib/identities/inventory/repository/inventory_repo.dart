@@ -16,22 +16,17 @@ abstract class ProductRepo {
 class DatabaseInventory extends ProductRepo {
   final supabase = Supabase.instance.client;
 
-  Future<List<Map<String, String>>> readInventoryProducts() async {
-    Map<String, String> productElement;
+  Future<Map<String, String>> readInventoryProducts() async {
+    Map<String, String> productsMap = {};
     Map<String, dynamic> element;
-    List<Map<String, String>> productsList = [];
     final List inventoryList = await readInventory();
 
     if (inventoryList.isNotEmpty) {
       for (element in inventoryList) {
-        productElement = {
-          STOCK: element[STOCK].toString(),
-          CODE: element[CODE].toString(),
-        };
-        productsList.add(productElement);
+        productsMap[element[CODE].toString()] = element[STOCK].toString();
       }
     } else {}
-    return productsList;
+    return productsMap;
   }
 
   Future<Map<String, dynamic>> readInventoryDetails() async {
@@ -59,7 +54,6 @@ class DatabaseInventory extends ProductRepo {
         codes.add(element[CODE].toString());
       }
     }
-
     return codes;
   }
 
@@ -73,7 +67,8 @@ class DatabaseInventory extends ProductRepo {
     inventoryList = await supabase
         .from(TABLE)
         .select<List<Map<String, dynamic>>>()
-        .eq(MANAGER, userName);
+        .eq(NAME, userName);
+        //.like(CODE, '%50%');
     return inventoryList;
   }
 }

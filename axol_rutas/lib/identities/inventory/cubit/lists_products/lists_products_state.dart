@@ -1,3 +1,4 @@
+import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class ListsProductsState extends Equatable {}
@@ -13,7 +14,7 @@ class LoadingState extends ListsProductsState {
 }
 
 class LoadedState extends ListsProductsState {
-  final List<Map<String, String>> inventoryProducts;
+  final List<Map<String,dynamic>> inventoryProducts;
 
   LoadedState({required this.inventoryProducts});
 

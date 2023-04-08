@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, use_build_context_synchronously
 
-import 'dart:convert';
-
 import 'package:axol_rutas/views/sales_view.dart';
 import 'package:axol_rutas/settings/format.dart';
 import 'package:axol_rutas/settings/jsonList.dart';

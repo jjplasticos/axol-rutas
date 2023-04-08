@@ -44,7 +44,6 @@ class SaleForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(timePick, style: Typo.labelText1),
-                //Text(saleID, style: Typo.labelText1)
               ],
             ),
           ),

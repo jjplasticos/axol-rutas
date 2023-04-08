@@ -1,7 +1,4 @@
 // ignore_for_file: non_constant_identifier_names
-
-import 'dart:convert';
-
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../model/product.dart';
@@ -26,18 +23,6 @@ class DatabaseProducts extends ProductRepo {
     if (productList.isNotEmpty) {
       for (element in productList) {
         newList.add(element[PRODUCT]);
-        print(element[PRODUCT].toString());
-
-        /*sale = SaleModel(
-            uid: element[UID].toString(),
-            location: element[LOCATION].toString(),
-            products: element[PRODUCTS].toString(),
-            client: element[CLIENT].toString(),
-            time: element[TIME].toString(),
-            totalQuantity: element[TOTAL_QUANTITY].toString(),
-            totalWeight: element[TOTAL_WEIGHT].toString(),
-            totalPrice: element[TOTAL_PRICE].toString());
-        newList.add(sale);*/
       }
     } else {
       //print('empty....');

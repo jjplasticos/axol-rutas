@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:axol_rutas/identities/inventory/repository/inventory_repo.dart';
 import 'package:axol_rutas/identities/product/repository/product_repo.dart';
@@ -6,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../settings/theme.dart';
-import '../../../cubit/nav_shoppingcart/nav_shoppingcart_controller.dart';
-import '../../../cubit/nav_shoppingcart/nav_shoppingcart_cubit.dart';
+import '../../pages/product_fider_page.dart';
 
 class BtnAddProduct extends StatelessWidget {
   const BtnAddProduct({super.key});
@@ -19,14 +17,19 @@ class BtnAddProduct extends StatelessWidget {
       ElevatedButton(
         onPressed: () async {
           //context.read<NavShoppingcartCubit>().pressBtnShoppingcart();
-          //Pruebas:
-          String element;
-          Map elementList;
-          final List list =
-              await databaseProducts.readProductList(['B5067', 'B4041']);
-          elementList = list.first;
-          //Imprime el valor contenido en measure
-          print(elementList['measure']);
+          showModalBottomSheet(
+            isDismissible: false,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            enableDrag: false,
+            context: context,
+            builder: (context) {
+              return Padding(
+                padding: MediaQuery.of(context).viewInsets,
+                child: const ProdctFinderPage(),
+              );
+            },
+          );
         },
         style: ElevatedButton.styleFrom(
             backgroundColor: ColorPalette.tertiary,
@@ -39,7 +42,7 @@ class BtnAddProduct extends StatelessWidget {
           color: ColorPalette.primaryText,
         ),
       ),
-      const BtnShoppingcartController(),
+      //const BtnShoppingcartController(),
     ]);
   }
 }
