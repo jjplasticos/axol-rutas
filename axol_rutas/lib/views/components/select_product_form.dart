@@ -14,8 +14,8 @@ class SelectProductForm extends StatefulWidget {
 
   final String code;
   final String description;
-  final double stock;
-  final double weight;
+  final String stock;
+  final String weight;
 
   @override
   _SelectProductFormState createState() => _SelectProductFormState();

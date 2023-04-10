@@ -2,9 +2,10 @@ import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../settings/theme.dart';
+import '../../pages/product_form_page.dart';
 
 class ListviewProductFinder extends StatelessWidget {
-  final List<Map<String,dynamic>> products;
+  final List<Map<String, dynamic>> products;
 
   const ListviewProductFinder({super.key, required this.products});
 
@@ -75,7 +76,7 @@ class ListviewProductFinder extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () async {
-                          /*await showModalBottomSheet(
+                          await showModalBottomSheet(
                               isDismissible: false,
                               isScrollControlled: true,
                               backgroundColor: ColorPalette.primaryBackground,
@@ -84,14 +85,14 @@ class ListviewProductFinder extends StatelessWidget {
                               builder: (context) {
                                 return Padding(
                                   padding: MediaQuery.of(context).viewInsets,
-                                  child: SelectProductForm(
+                                  child: ProductFormPage(
                                     code: elementList['code'],
                                     description: elementList['description'],
                                     stock: elementList['stock'],
                                     weight: elementList['weight'],
                                   ),
                                 );
-                              }).whenComplete(() => null);*/
+                              });
                         },
                         icon: const Icon(
                           Icons.navigate_next,

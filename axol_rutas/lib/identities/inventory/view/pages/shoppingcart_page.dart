@@ -12,7 +12,6 @@ class ShoppingCartPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ProductsListCubit()),
-        //BlocProvider(create: (_) => NavShoppingcartCubit()),
       ],
       child: SaleForm(timePick: DateTime.now().toString()),
     );
