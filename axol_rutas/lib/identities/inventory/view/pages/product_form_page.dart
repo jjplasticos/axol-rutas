@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../views/components/select_product_form.dart';
+import '../../cubit/shoppingcart_txt_cubit.dart';
+import '../views/product_form.dart';
 
 class ProductFormPage extends StatelessWidget {
   final String code;
@@ -20,9 +21,10 @@ class ProductFormPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        //BlocProvider(create: (_) => ProductsListCubit()),
+        BlocProvider(create: (_) => TxtQuantityCubit()),
+        BlocProvider(create: (_) => TxtPriceCubit()),
       ],
-      child: SelectProductForm(
+      child: ProductForm(
         code: code,
         description: description,
         stock: stock,

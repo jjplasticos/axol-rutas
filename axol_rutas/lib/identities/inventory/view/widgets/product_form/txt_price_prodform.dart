@@ -1,5 +1,7 @@
+import 'package:axol_rutas/identities/inventory/cubit/shoppingcart_txt_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/theme.dart';
 
@@ -25,10 +27,12 @@ class TextFieldPrice extends StatelessWidget {
           ),
           Expanded(
             child: TextFormField(
-              //controller: _priceController,
               autofocus: false,
               textCapitalization: TextCapitalization.none,
               obscureText: false,
+              onChanged: (value) {
+                context.read<TxtPriceCubit>().change(value);
+              },
               decoration: InputDecoration(
                   hintText: 'Precio',
                   hintStyle: Typo.hintText,

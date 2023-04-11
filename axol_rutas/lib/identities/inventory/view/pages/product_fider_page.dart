@@ -14,7 +14,6 @@ class ProdctFinderPage extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ProductsListCubit()),
         BlocProvider(create: (_) => FinderTxtCubit()),
-        //BlocProvider(create: (_) => NavShoppingcartCubit()),
       ],
       child: const ProductFinder(),
     );

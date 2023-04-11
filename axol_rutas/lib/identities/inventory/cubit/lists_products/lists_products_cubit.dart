@@ -20,7 +20,8 @@ class ProductsListCubit extends Cubit<ListsProductsState> {
           await databaseInventory.readInventoryProducts();
       final List<String> codes = await databaseInventory.readInventoryCodes();
       mapProducts = await productsToProducts(codes, filter);
-      final List newCodes = codes.where((element) => mapProducts.containsKey(element)).toList();
+      final List newCodes =
+          codes.where((element) => mapProducts.containsKey(element)).toList();
       for (code in newCodes) {
         productWithStock = {
           'ProductModel': mapProducts[code],
@@ -29,16 +30,7 @@ class ProductsListCubit extends Cubit<ListsProductsState> {
         inventoryList.add(productWithStock);
       }
 
-      emit(LoadedState(inventoryProducts: inventoryList));
-    } catch (e) {
-      emit(ErrorState(error: e.toString()));
-    }
-  }
-
-  void productsShoppingCart() async {
-    try {
-      emit(LoadingState());
-      emit(LoadedState(inventoryProducts: []));
+      emit(LoadedState(products: inventoryList));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }
@@ -64,13 +56,44 @@ class ProductsListCubit extends Cubit<ListsProductsState> {
           type: element['type'],
           weight: element['weight'],
           pices: element['pices'],
-          filetValues: element['code'] + '//' + element['description'] + '//' + element['packing']);
+          filetValues: element['code'] +
+              '//' +
+              element['description'] +
+              '//' +
+              element['packing']);
       productMap[productModel.code.toString()] = productModel;
     }
-    final Map<String, ProductModel> result = Map.fromEntries(
-        productMap.entries.where((entry) => entry.value.filetValues.toLowerCase().contains(filter.toLowerCase())));
-    //print(result.toString());
+    final Map<String, ProductModel> result = Map.fromEntries(productMap.entries
+        .where((entry) => entry.value.filetValues
+            .toLowerCase()
+            .contains(filter.toLowerCase())));
 
     return result;
+  }
+
+  void productsShoppingCart() async {
+    final List<Map<String, dynamic>> shoppingcart;
+    final bool isStarting;
+    try {
+      isStarting = await LocalShoppingcart().isStartingShoppingCart();
+      print(isStarting);
+      if (isStarting == true) {
+        emit(InitialState());
+        //LocalShoppingcart().clearShoppingCart();
+      }
+      emit(LoadingState());
+      shoppingcart = await LocalShoppingcart().readShoppingCart();
+      emit(LoadedState(products: shoppingcart));
+    } catch (e) {
+      emit(ErrorState(error: e.toString()));
+    }
+  }
+
+  void closeShoppingCart() async {
+    try {
+      emit(CloseState());
+    } catch (e) {
+      emit(ErrorState(error: e.toString()));
+    }
   }
 }

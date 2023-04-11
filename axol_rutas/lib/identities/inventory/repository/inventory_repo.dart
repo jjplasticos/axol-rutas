@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -11,6 +12,10 @@ abstract class ProductRepo {
   final String CODE = 'code';
   final String NAME = 'name';
   final String SHOPPINGCART = 'shoppingcart';
+  final String DESCRIPTION = 'description';
+  final String WEIGHT = 'weight';
+  final String PRICE = 'price';
+  final String QUANTITY = 'quantity';
 }
 
 class DatabaseInventory extends ProductRepo {
@@ -68,22 +73,68 @@ class DatabaseInventory extends ProductRepo {
         .from(TABLE)
         .select<List<Map<String, dynamic>>>()
         .eq(NAME, userName);
-        //.like(CODE, '%50%');
     return inventoryList;
   }
 }
 
 class LocalShoppingcart extends ProductRepo {
-  Future<List> readShoppingCart() async {
-    List<String> listProducts;
+  Future<List<Map<String, dynamic>>> readShoppingCart() async {
+    List<String>? products;
+    List<String> picesProduct;
+    String product;
     List<Map<String, String>> shoppingCart = [];
+    Map<String, String> productMap;
 
     final pref = await SharedPreferences.getInstance();
-    listProducts = pref.getStringList(SHOPPINGCART)!;
-    //separar lista de string para hacer lista de maps.
+    products = pref.getStringList(SHOPPINGCART);
+    if (products != null) {
+      for (product in products) {
+        picesProduct = product.split('/d/');
+        productMap = {
+          CODE: picesProduct.elementAt(0),
+          DESCRIPTION: picesProduct.elementAt(1),
+          WEIGHT: picesProduct.elementAt(2),
+          QUANTITY: picesProduct.elementAt(3),
+          PRICE: picesProduct.elementAt(4)
+        };
+        shoppingCart.add(productMap);
+      }
+    }
 
     return shoppingCart;
   }
 
-  void writeShoppingCart() async {}
+  void writeShoppingCart(ProductModel productModel, double quntity,
+      double price, double weight) async {
+    List<String>? products;
+    String newProduct;
+
+    final pref = await SharedPreferences.getInstance();
+    products = pref.getStringList(SHOPPINGCART);
+    products ??= [];
+    newProduct =
+        '${productModel.code}/d/${productModel.description}/d/$weight/d/$quntity/d/$price';
+    products.add(newProduct);
+    pref.setStringList(SHOPPINGCART, products);
+  }
+
+  void clearShoppingCart() async {
+    final pref = await SharedPreferences.getInstance();
+    pref.remove(SHOPPINGCART);
+  }
+
+  Future<bool> isStartingShoppingCart() async {
+    List<String>? verifyList;
+    bool isStarting;
+
+    final pref = await SharedPreferences.getInstance();
+    verifyList = pref.getStringList(SHOPPINGCART);
+    if (verifyList == null) {
+      isStarting = true;
+    } else {
+      isStarting = false;
+    }
+
+    return isStarting;
+  }
 }

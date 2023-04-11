@@ -18,6 +18,12 @@ class BtnSaveSale extends StatelessWidget {
         style: Typo.textButton,
       ),
       onPressed: () async {
+        /*final pref = await SharedPreferences.getInstance();
+        pref.setString('prueba', 'hola mundo');
+        pref.remove('prueba');
+        final varLocalPrueba = pref.getString('prueba');
+        print(varLocalPrueba);*/
+
         /*await supabase.from('sales').insert({
                     'client_name': _clientController.text,
                     'vendor': widget.vendor,

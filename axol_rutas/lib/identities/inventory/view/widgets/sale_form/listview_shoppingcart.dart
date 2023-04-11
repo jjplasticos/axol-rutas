@@ -1,14 +1,22 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 import '../../../../../../settings/theme.dart';
 
-class ListviewProducts extends StatelessWidget {
-  final List shoppingCart;
+class ListviewShoppingcart extends StatelessWidget {
+  final List<Map<String, dynamic>> shoppingCart;
 
-  const ListviewProducts({super.key, required this.shoppingCart});
+  const ListviewShoppingcart({super.key, required this.shoppingCart});
 
   @override
   Widget build(BuildContext context) {
+    const String CODE = 'code';
+    const String DESCRIPTION = 'description';
+    const String WEIGHT = 'weight';
+    const String QUANTITY = 'quantity';
+    const String PRICE = 'price';
+
     return ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
@@ -45,10 +53,10 @@ class ListviewProducts extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(shoppingCartItem['code'].toString(),
+                                  Text(shoppingCartItem[CODE],
                                       style: Typo.bodyText1),
                                   Text(
-                                    shoppingCartItem['description'].toString(),
+                                    shoppingCartItem[DESCRIPTION],
                                     style: Typo.bodyText1,
                                   )
                                 ],
@@ -78,7 +86,7 @@ class ListviewProducts extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              shoppingCartItem['quantity'].toString(),
+                              shoppingCartItem[QUANTITY],
                               style: Typo.bodyText3,
                             ),
                             const Text(
@@ -102,7 +110,7 @@ class ListviewProducts extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  shoppingCartItem['weight'].toString(),
+                                  shoppingCartItem[WEIGHT],
                                   style: Typo.bodyText3,
                                 ),
                                 const Text(
@@ -138,7 +146,7 @@ class ListviewProducts extends StatelessWidget {
                                     style: Typo.bodyText3,
                                   ),
                                   Text(
-                                    shoppingCartItem['price'].toString(),
+                                    shoppingCartItem[PRICE],
                                     style: Typo.bodyText3,
                                   )
                                 ],

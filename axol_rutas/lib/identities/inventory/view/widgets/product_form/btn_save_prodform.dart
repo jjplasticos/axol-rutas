@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/theme.dart';
+import '../../../cubit/lists_products/lists_products_cubit.dart';
 
 class ButtonSaveProdform extends StatelessWidget {
   const ButtonSaveProdform({super.key});
@@ -9,28 +11,9 @@ class ButtonSaveProdform extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
-        /*const bool flag = false;
-        final Map result;
-        final Map<String, dynamic> value = {
-          'code': widget.code,
-          'description': widget.description,
-          'quantity': double.tryParse(_quantityController.text).toString(),
-          'price': double.tryParse(_priceController.text).toString(),
-          'weight': widget.weight,
-        };
-        result = {'isEmpty': flag, 'value': value};
-        if (textAllowed(_quantityController.text) &&
-            textAllowed(_priceController.text)) {
-          Navigator.pop(context);
-          Navigator.pop(context, result);
-        } else {
-          //Abrir ventana de alerta.
-          if (textAllowed(_quantityController.text) == false) {
-            _showAlertDialog('Advertencia', 'La cantidad no es valida.');
-          } else {
-            _showAlertDialog('Advertencia', 'El precio no es valido');
-          }
-        }*/
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+        context.read<ProductsListCubit>().productsShoppingCart();
       },
       style: ElevatedButton.styleFrom(
           minimumSize: const Size(190, 60),

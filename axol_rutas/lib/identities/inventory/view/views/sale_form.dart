@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import '../../../../global_widgets/appbar_global.dart';
 import '../../../../global_widgets/iconbutton_select.dart';
 import '../../../../settings/theme.dart';
+import '../../cubit/lists_products/lists_products_controller.dart';
 import '../widgets/sale_form/btn_add_product.dart';
 import '../widgets/sale_form/btn_save_sale.dart';
 import '../widgets/sale_form/lbl_results_form.dart';
-import '../widgets/sale_form/listview_products.dart';
 import '../widgets/sale_form/txt_form.dart';
 
 class SaleForm extends StatelessWidget {
@@ -50,17 +50,10 @@ class SaleForm extends StatelessWidget {
           const Padding(
               padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: BtnAddProduct()),
-          Expanded(
+          const Expanded(
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-              child: Builder(
-                builder: (context) {
-                  return const ListviewProducts(
-                    shoppingCart: [],
-                  );
-                },
-              ),
-            ),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                child: ProductsShoppingcartController()),
           ),
           const LblResultsForm(
               resultPrice: '', resultQuantity: '', resultWeight: ''),

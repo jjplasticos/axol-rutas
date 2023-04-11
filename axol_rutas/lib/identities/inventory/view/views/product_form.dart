@@ -6,8 +6,8 @@ import '../widgets/product_form/btn_save_prodform.dart';
 import '../widgets/product_form/txt_price_prodform.dart';
 import '../widgets/product_form/txt_quantity_prodform.dart';
 
-class SelectProductForm extends StatelessWidget {
-  const SelectProductForm(
+class ProductForm extends StatelessWidget {
+  const ProductForm(
       {super.key,
       required this.code,
       required this.description,
@@ -16,8 +16,8 @@ class SelectProductForm extends StatelessWidget {
 
   final String code;
   final String description;
-  final double stock;
-  final double weight;
+  final String stock;
+  final String weight;
 
   @override
   Widget build(BuildContext context) {

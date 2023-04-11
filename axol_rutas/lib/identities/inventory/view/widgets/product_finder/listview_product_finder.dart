@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:flutter/material.dart';
 
@@ -11,13 +13,17 @@ class ListviewProductFinder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const String STOCK = 'Stock';
+    const String PRODUCT_MODEL = 'ProductModel';
+    const String LBL_STOCK = 'Stock: ';
+
     return ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         itemCount: products.length,
         itemBuilder: ((context, index) {
           final elementList = products[index];
-          final ProductModel elementProduct = elementList['ProductModel'];
+          final ProductModel elementProduct = elementList[PRODUCT_MODEL];
           return Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
             child: Container(
@@ -57,10 +63,10 @@ class ListviewProductFinder extends StatelessWidget {
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    const Text('Stock: ',
+                                    const Text(LBL_STOCK,
                                         style: Typo.bodyText6),
                                     Text(
-                                      elementList['Stock'].toString(),
+                                      elementList[STOCK].toString(),
                                       style: Typo.bodyText6,
                                     )
                                   ],
@@ -86,10 +92,10 @@ class ListviewProductFinder extends StatelessWidget {
                                 return Padding(
                                   padding: MediaQuery.of(context).viewInsets,
                                   child: ProductFormPage(
-                                    code: elementList['code'],
-                                    description: elementList['description'],
-                                    stock: elementList['stock'],
-                                    weight: elementList['weight'],
+                                    code: elementProduct.code,
+                                    description: elementProduct.description,
+                                    stock: elementList[STOCK],
+                                    weight: elementProduct.weight,
                                   ),
                                 );
                               });

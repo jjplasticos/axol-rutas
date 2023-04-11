@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/theme.dart';
+import '../../../cubit/shoppingcart_txt_cubit.dart';
 
 class TextFieldQuantity extends StatelessWidget {
   const TextFieldQuantity({super.key});
@@ -9,9 +11,11 @@ class TextFieldQuantity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      //controller: _quantityController,
       autofocus: false,
       obscureText: false,
+      onChanged: (value) {
+        context.read<TxtQuantityCubit>().change(value);
+      },
       decoration: InputDecoration(
           hintText: 'Cantidad',
           hintStyle: Typo.hintText,
