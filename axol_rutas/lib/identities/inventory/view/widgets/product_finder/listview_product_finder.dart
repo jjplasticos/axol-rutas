@@ -92,10 +92,8 @@ class ListviewProductFinder extends StatelessWidget {
                                 return Padding(
                                   padding: MediaQuery.of(context).viewInsets,
                                   child: ProductFormPage(
-                                    code: elementProduct.code,
-                                    description: elementProduct.description,
+                                    productModel: elementProduct,
                                     stock: elementList[STOCK],
-                                    weight: elementProduct.weight,
                                   ),
                                 );
                               });

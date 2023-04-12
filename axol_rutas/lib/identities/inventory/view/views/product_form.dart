@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../../../../settings/theme.dart';
+import '../../../product/model/product.dart';
 import '../widgets/product_form/btn_return_prodform.dart';
 import '../widgets/product_form/btn_save_prodform.dart';
 import '../widgets/product_form/txt_price_prodform.dart';
 import '../widgets/product_form/txt_quantity_prodform.dart';
 
 class ProductForm extends StatelessWidget {
-  const ProductForm(
-      {super.key,
-      required this.code,
-      required this.description,
-      required this.stock,
-      required this.weight});
-
-  final String code;
-  final String description;
+  final ProductModel productModel;
   final String stock;
-  final String weight;
+
+  const ProductForm(
+      {super.key, required this.productModel, required this.stock});
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +36,8 @@ class ProductForm extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(code, style: Typo.labelText1),
-                  Text(description, style: Typo.labelText1),
+                  Text(productModel.code, style: Typo.labelText1),
+                  Text(productModel.description, style: Typo.labelText1),
                 ],
               ),
             ),
@@ -61,11 +56,11 @@ class ProductForm extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
+                children: [
                   Expanded(
-                    child: ButtonSaveProdform(),
+                    child: ButtonSaveProdform(productModel: productModel),
                   ),
-                  Padding(
+                  const Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                       child: ButtonReturnProdform()),
                 ],

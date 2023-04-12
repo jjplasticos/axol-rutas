@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../settings/theme.dart';
+import '../identities/inventory/repository/inventory_repo.dart';
 
 class IconButtonSelect extends StatelessWidget {
   final String? iconName;
@@ -23,6 +24,7 @@ class IconButtonSelect extends StatelessWidget {
       return IconButton(
           onPressed: () {
             Navigator.pop(context);
+            //LocalShoppingcart().clearShoppingCart();
           },
           icon: const Icon(
             Icons.menu,

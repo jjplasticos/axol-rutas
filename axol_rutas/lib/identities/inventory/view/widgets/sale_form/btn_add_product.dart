@@ -24,7 +24,7 @@ class BtnAddProduct extends StatelessWidget {
               child: const ProdctFinderPage(),
             );
           },
-        );
+        ).then((value) => null);
       },
       style: ElevatedButton.styleFrom(
           backgroundColor: ColorPalette.tertiary,

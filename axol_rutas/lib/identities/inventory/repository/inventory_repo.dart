@@ -104,7 +104,7 @@ class LocalShoppingcart extends ProductRepo {
     return shoppingCart;
   }
 
-  void writeShoppingCart(ProductModel productModel, double quntity,
+  void writeShoppingCart(ProductModel productModel, double quantity,
       double price, double weight) async {
     List<String>? products;
     String newProduct;
@@ -113,7 +113,7 @@ class LocalShoppingcart extends ProductRepo {
     products = pref.getStringList(SHOPPINGCART);
     products ??= [];
     newProduct =
-        '${productModel.code}/d/${productModel.description}/d/$weight/d/$quntity/d/$price';
+        '${productModel.code}/d/${productModel.description}/d/$weight/d/$quantity/d/$price';
     products.add(newProduct);
     pref.setStringList(SHOPPINGCART, products);
   }

@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../product/model/product.dart';
+import '../../cubit/lists_products/lists_products_cubit.dart';
+import '../../cubit/save_products/save_products_cubit.dart';
 import '../../cubit/shoppingcart_txt_cubit.dart';
 import '../views/product_form.dart';
 
 class ProductFormPage extends StatelessWidget {
-  final String code;
-  final String description;
+  final ProductModel productModel;
   final String stock;
-  final String weight;
 
   const ProductFormPage(
-      {super.key,
-      required this.code,
-      required this.description,
-      required this.stock,
-      required this.weight});
+      {super.key, required this.stock, required this.productModel});
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +20,10 @@ class ProductFormPage extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => TxtQuantityCubit()),
         BlocProvider(create: (_) => TxtPriceCubit()),
+        BlocProvider(create: (_) => SaveProductsCubit()),
+        BlocProvider(create: (_) => ProductsListCubit()),
       ],
-      child: ProductForm(
-        code: code,
-        description: description,
-        stock: stock,
-        weight: weight,
-      ),
+      child: ProductForm(productModel: productModel, stock: stock),
     );
   }
 }
