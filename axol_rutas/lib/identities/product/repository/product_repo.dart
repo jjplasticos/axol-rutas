@@ -24,8 +24,6 @@ class DatabaseProducts extends ProductRepo {
       for (element in productList) {
         newList.add(element[PRODUCT]);
       }
-    } else {
-      //print('empty....');
     }
 
     return newList;

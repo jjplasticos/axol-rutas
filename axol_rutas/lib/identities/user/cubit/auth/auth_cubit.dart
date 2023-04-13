@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../inventory/repository/inventory_repo.dart';
 import '../../model/user.dart';
 import '../../repository/user_repo.dart';
 import 'auth_state.dart';
@@ -12,7 +11,6 @@ class AuthCubit extends Cubit<AuthState> {
   void getUserState() async {
     try {
       emit(AuthLoadingState());
-      LocalShoppingcart().clearShoppingCart();
       final pref = await SharedPreferences.getInstance();
       print(pref.getStringList('shoppingcart'));
       LocalUser localUser = LocalUser();

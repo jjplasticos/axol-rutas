@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../settings/theme.dart';
-import '../../../../inventory/view/pages/shoppingcart_page.dart';
+import '../../../../shoppingcart/view/views/shoppingcart_view.dart';
 
 class FABtnAddSale extends StatelessWidget {
   const FABtnAddSale({super.key});
@@ -11,7 +11,7 @@ class FABtnAddSale extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () async {
         await Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const ShoppingCartPage()));
+            MaterialPageRoute(builder: (context) => const ShoppingCartView()));
       },
       backgroundColor: ColorPalette.primary,
       elevation: 8,
