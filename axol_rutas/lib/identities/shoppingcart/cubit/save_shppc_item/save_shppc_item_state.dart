@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../model/shoppingcart_item.dart';
+
 abstract class SaveShppcItemState extends Equatable {}
 
 class InitialState extends SaveShppcItemState {
@@ -17,8 +19,10 @@ class EntryFailure extends SaveShppcItemState {
 }
 
 class EntrySucces extends SaveShppcItemState {
+  final List<ShoppingcartItemModel> shoppingcart;
+  EntrySucces({required this.shoppingcart});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [shoppingcart];
 }
 
 class ErrorState extends SaveShppcItemState {

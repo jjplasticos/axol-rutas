@@ -1,10 +1,9 @@
 import 'package:axol_rutas/identities/product/model/product.dart';
-import 'package:axol_rutas/identities/shoppingcart/cubit/shoppingcart_cubit.dart';
-import 'package:axol_rutas/settings/jsonList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/theme.dart';
+import '../../../cubit/save_shppc_item/save_shppc_item_cubit.dart';
 import '../../../cubit/shoppingcart_txt_cubit.dart';
 import '../../../model/shoppingcart_item.dart';
 
@@ -23,21 +22,13 @@ class ButtonSaveProdform extends StatelessWidget {
   Widget build(BuildContext context) {
     String quantity;
     String price;
-    ShoppingcartItemModel shoppingcartItem;
-
     return ElevatedButton(
       onPressed: () async {
         quantity = context.read<TxtQuantityCubit>().state;
         price = context.read<TxtPriceCubit>().state;
-        if (double.parse(quantity) <= stock) {
-          shoppingcartItem = ShoppingcartItemModel(
-              product: product,
-              quantity: double.parse(quantity),
-              price: double.parse(price));
-          shoppingcart.add(shoppingcartItem);
-          Navigator.pop(context);
-          Navigator.pop(context, shoppingcart);
-        } else {}
+        context
+            .read<SaveShppcItemCubit>()
+            .runVerification(quantity, price, stock, shoppingcart, product);
       },
       style: ElevatedButton.styleFrom(
           minimumSize: const Size(190, 60),

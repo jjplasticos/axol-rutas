@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../settings/theme.dart';
 import '../../../product/model/product.dart';
 import '../../cubit/product_finder/product_finder_cubit.dart';
+import '../../cubit/save_shppc_item/save_shppc_item_cubit.dart';
 import '../../cubit/shoppingcart_cubit.dart';
 import '../../cubit/shoppingcart_txt_cubit.dart';
 import '../../model/shoppingcart_item.dart';
+import '../controllers/btn_save_shppcitem_controller.dart';
 import '../widgets/product_form/btn_return_prodform.dart';
 import '../widgets/product_form/btn_save_prodform.dart';
 import '../widgets/product_form/txt_price_prodform.dart';
@@ -31,6 +33,7 @@ class ProductFormView extends StatelessWidget {
           BlocProvider(create: (_) => TxtPriceCubit()),
           BlocProvider(create: (_) => ProductFinderCubit()),
           BlocProvider(create: (_) => ShoppingcartCubit()),
+          BlocProvider(create: (_) => SaveShppcItemCubit()),
         ],
         child: Container(
           width: 300,
@@ -75,16 +78,18 @@ class ProductFormView extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ButtonSaveProdform(
-                            product: product,
-                            shoppingcart: shoppingcart,
-                            stock: double.parse(stock)),
+                          product: product,
+                          shoppingcart: shoppingcart,
+                          stock: double.parse(stock),
+                        ),
                       ),
                       const Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 0),
                           child: ButtonReturnProdform()),
                     ],
                   ),
-                )
+                ),
+                const BtnSaveShppcItemController(),
               ],
             ),
           ),
