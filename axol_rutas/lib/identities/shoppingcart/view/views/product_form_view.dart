@@ -18,12 +18,18 @@ class ProductFormView extends StatelessWidget {
   final ProductModel product;
   final String stock;
   final List<ShoppingcartItemModel> shoppingcart;
+  final String initialQuantity;
+  final String initnialPrice;
+  final int action;
 
   const ProductFormView(
       {super.key,
       required this.stock,
       required this.product,
-      required this.shoppingcart});
+      required this.shoppingcart,
+      required this.initialQuantity,
+      required this.initnialPrice,
+      required this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +66,12 @@ class ProductFormView extends StatelessWidget {
                     ],
                   ),
                 ),
-                const TextFieldQuantity(),
-                const TextFieldPrice(),
+                TextFieldQuantity(
+                  initialQuantity: initialQuantity,
+                ),
+                TextFieldPrice(
+                  initialPrice: initnialPrice,
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -81,6 +91,7 @@ class ProductFormView extends StatelessWidget {
                           product: product,
                           shoppingcart: shoppingcart,
                           stock: double.parse(stock),
+                          action: action,
                         ),
                       ),
                       const Padding(

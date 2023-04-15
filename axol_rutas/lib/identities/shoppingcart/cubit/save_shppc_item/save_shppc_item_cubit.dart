@@ -9,8 +9,13 @@ import 'save_shppc_item_state.dart';
 class SaveShppcItemCubit extends Cubit<SaveShppcItemState> {
   SaveShppcItemCubit() : super(InitialState());
 
-  void runVerification(String quantity, String price, double stock,
-      List<ShoppingcartItemModel> shoppingcart, final ProductModel product) {
+  void runVerification(
+      String quantity,
+      String price,
+      double stock,
+      List<ShoppingcartItemModel> shoppingcart,
+      ProductModel product,
+      int action) {
     const String MESSAGE1 = 'No puede ingresar una canitdad mayor al stock.';
     const String MESSAGE2 = 'Valor de cantidad invalido.';
     const String MESSAGE3 = 'Valor de precio invalido.';
@@ -22,7 +27,18 @@ class SaveShppcItemCubit extends Cubit<SaveShppcItemState> {
         if (numPrice != null) {
           shoppingcartItem = ShoppingcartItemModel(
               product: product, quantity: numQuantity, price: numPrice);
-          shoppingcart.add(shoppingcartItem);
+          switch (action) {
+            case 0:
+              {
+                shoppingcart.add(shoppingcartItem);
+              }
+              break;
+            case 1:
+              {
+                //Actualiza item de la lista.
+              }
+              break;
+          }
           emit(InitialState());
           if (numQuantity > stock) {
             emit(EntryFailure(errorMessage: MESSAGE1));

@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -73,5 +74,22 @@ class DatabaseProductFinder extends InventoryRepo {
         .select<List<Map<String, dynamic>>>()
         .eq(NAME, userName);
     return inventoryList;
+  }
+
+  Future<String> getStock(ProductModel product) async {
+    final String userName;
+    final String stock;
+    final List list;
+    final pref = await SharedPreferences.getInstance();
+
+    userName = pref.getString(USER)!;
+    list = await supabase
+        .from(TABLE)
+        .select(STOCK)
+        .eq(NAME, userName)
+        .eq(CODE, product.code);
+    stock = list.first[STOCK].toString();
+
+    return stock;
   }
 }

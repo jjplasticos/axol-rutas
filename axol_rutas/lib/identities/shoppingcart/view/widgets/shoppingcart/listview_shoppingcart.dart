@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../settings/theme.dart';
 import '../../../model/shoppingcart_item.dart';
+import '../../views/options_shppcitem_view.dart';
 
 class ListviewShoppingcart extends StatelessWidget {
   final List<ShoppingcartItemModel> shoppingCart;
@@ -59,7 +60,25 @@ class ListviewShoppingcart extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await showModalBottomSheet(
+                                    isDismissible: false,
+                                    isScrollControlled: true,
+                                    backgroundColor:
+                                        ColorPalette.primaryBackground,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return Padding(
+                                        padding:
+                                            MediaQuery.of(context).viewInsets,
+                                        child: OptionsShppcitemView(
+                                          shoppingcart: shoppingCart,
+                                          index: index,
+                                        ),
+                                      );
+                                    });
+                              },
                               icon: const Icon(Icons.more_vert,
                                   color: ColorPalette.secondaryText, size: 25))
                         ]),

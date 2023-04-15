@@ -11,12 +11,14 @@ class ButtonSaveProdform extends StatelessWidget {
   final ProductModel product;
   final List<ShoppingcartItemModel> shoppingcart;
   final double stock;
+  final int action;
 
   const ButtonSaveProdform(
       {super.key,
       required this.product,
       required this.shoppingcart,
-      required this.stock});
+      required this.stock,
+      required this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,8 @@ class ButtonSaveProdform extends StatelessWidget {
       onPressed: () async {
         quantity = context.read<TxtQuantityCubit>().state;
         price = context.read<TxtPriceCubit>().state;
-        context
-            .read<SaveShppcItemCubit>()
-            .runVerification(quantity, price, stock, shoppingcart, product);
+        context.read<SaveShppcItemCubit>().runVerification(
+            quantity, price, stock, shoppingcart, product, action);
       },
       style: ElevatedButton.styleFrom(
           minimumSize: const Size(190, 60),

@@ -19,6 +19,8 @@ class ListviewProductFinder extends StatelessWidget {
     const String STOCK = 'Stock';
     const String PRODUCT_MODEL = 'ProductModel';
     const String LBL_STOCK = 'Stock: ';
+    const String INITIAL_Q = '';
+    const String INITIAL_P = '';
 
     return ListView.builder(
         shrinkWrap: true,
@@ -98,6 +100,10 @@ class ListviewProductFinder extends StatelessWidget {
                                     product: elementProduct,
                                     stock: elementList[STOCK],
                                     shoppingcart: shoppingcart,
+                                    initialQuantity: INITIAL_Q,
+                                    initnialPrice: INITIAL_P,
+                                    action:
+                                        0, //Acción 0: para guardar nuevo item.
                                   ),
                                 );
                               });

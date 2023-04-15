@@ -6,11 +6,14 @@ import '../../../../../settings/theme.dart';
 import '../../../cubit/shoppingcart_txt_cubit.dart';
 
 class TextFieldQuantity extends StatelessWidget {
-  const TextFieldQuantity({super.key});
+  final String initialQuantity;
+
+  const TextFieldQuantity({super.key, required this.initialQuantity});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialQuantity,
       autofocus: false,
       obscureText: false,
       onChanged: (value) {

@@ -6,7 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../settings/theme.dart';
 
 class TextFieldPrice extends StatelessWidget {
-  const TextFieldPrice({super.key});
+  final String initialPrice;
+  const TextFieldPrice({super.key, required this.initialPrice});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class TextFieldPrice extends StatelessWidget {
           ),
           Expanded(
             child: TextFormField(
+              initialValue: initialPrice,
               autofocus: false,
               textCapitalization: TextCapitalization.none,
               obscureText: false,
