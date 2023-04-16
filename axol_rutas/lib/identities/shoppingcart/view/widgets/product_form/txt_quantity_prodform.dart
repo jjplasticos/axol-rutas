@@ -12,6 +12,7 @@ class TextFieldQuantity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<TxtQuantityCubit>().change(initialQuantity);
     return TextFormField(
       initialValue: initialQuantity,
       autofocus: false,

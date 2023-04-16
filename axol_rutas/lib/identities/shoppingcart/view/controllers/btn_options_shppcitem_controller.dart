@@ -14,7 +14,7 @@ class BtnOptionsShppcItemController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<OptionsShppcItemCubit, OptionsShppcItemState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is EditState) {
           final ShoppingcartItemModel item =
               state.shoppingcart.elementAt(state.index);
@@ -33,14 +33,16 @@ class BtnOptionsShppcItemController extends StatelessWidget {
                     shoppingcart: state.shoppingcart,
                     initialQuantity: item.quantity.toString(),
                     initnialPrice: item.price.toString(),
-                    action: 1, //Acción 1: para editar item.
+                    //Acción 1: para editar item.
+                    act: 1,
+                    index: state.index,
                   ),
                 );
               });
         } else if (state is DeleteState) {
-          //Delete
+          Navigator.pop(context, state.shoppingcart);
         } else if (state is CancelState) {
-          //Cancel
+          Navigator.pop(context, state.shoppingcart);
         } else if (state is ErrorState) {
           if (kDebugMode) {
             print(state.toString());

@@ -1,4 +1,5 @@
 import 'package:axol_rutas/identities/product/model/product.dart';
+import 'package:axol_rutas/identities/shoppingcart/cubit/shoppingcart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,14 +12,15 @@ class ButtonSaveProdform extends StatelessWidget {
   final ProductModel product;
   final List<ShoppingcartItemModel> shoppingcart;
   final double stock;
-  final int action;
+  final int act;
+  final int index;
 
   const ButtonSaveProdform(
       {super.key,
       required this.product,
       required this.shoppingcart,
       required this.stock,
-      required this.action});
+      required this.act, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,8 @@ class ButtonSaveProdform extends StatelessWidget {
         quantity = context.read<TxtQuantityCubit>().state;
         price = context.read<TxtPriceCubit>().state;
         context.read<SaveShppcItemCubit>().runVerification(
-            quantity, price, stock, shoppingcart, product, action);
+            quantity, price, stock, shoppingcart, product, index, act);
+        
       },
       style: ElevatedButton.styleFrom(
           minimumSize: const Size(190, 60),

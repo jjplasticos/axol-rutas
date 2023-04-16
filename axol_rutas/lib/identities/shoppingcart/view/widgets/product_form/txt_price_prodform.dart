@@ -11,6 +11,7 @@ class TextFieldPrice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<TxtPriceCubit>().change(initialPrice);
     return Container(
       decoration: BoxDecoration(
           color: ColorPalette.secondaryBackground,

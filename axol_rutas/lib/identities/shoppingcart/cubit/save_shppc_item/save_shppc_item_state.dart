@@ -20,8 +20,10 @@ class EntryFailure extends SaveShppcItemState {
 
 class EntrySucces extends SaveShppcItemState {
   final List<ShoppingcartItemModel> shoppingcart;
+
   EntrySucces({required this.shoppingcart});
   @override
+
   List<Object?> get props => [shoppingcart];
 }
 

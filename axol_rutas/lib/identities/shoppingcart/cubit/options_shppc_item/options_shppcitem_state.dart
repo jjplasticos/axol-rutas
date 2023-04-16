@@ -21,13 +21,19 @@ class EditState extends OptionsShppcItemState {
 }
 
 class DeleteState extends OptionsShppcItemState {
+  final List<ShoppingcartItemModel> shoppingcart;
+  final int index;
+  DeleteState(
+      {required this.shoppingcart, required this.index});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [shoppingcart, index];
 }
 
 class CancelState extends OptionsShppcItemState {
+  final List<ShoppingcartItemModel> shoppingcart;
+  CancelState({required this.shoppingcart});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [shoppingcart];
 }
 
 class ErrorState extends OptionsShppcItemState {

@@ -1,8 +1,11 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../settings/theme.dart';
+import '../../../cubit/save_shppc_item/save_shppc_item_cubit.dart';
+import '../../../cubit/shoppingcart_cubit.dart';
 import '../../../model/shoppingcart_item.dart';
 import '../../views/options_shppcitem_view.dart';
 
@@ -77,7 +80,11 @@ class ListviewShoppingcart extends StatelessWidget {
                                           index: index,
                                         ),
                                       );
-                                    });
+                                    }).then((value) {
+                                  context
+                                      .read<ShoppingcartCubit>()
+                                      .returnShoppingcart(value);
+                                });
                               },
                               icon: const Icon(Icons.more_vert,
                                   color: ColorPalette.secondaryText, size: 25))

@@ -15,19 +15,21 @@ class SaveShppcItemCubit extends Cubit<SaveShppcItemState> {
       double stock,
       List<ShoppingcartItemModel> shoppingcart,
       ProductModel product,
-      int action) {
+      int index,
+      int act) {
     const String MESSAGE1 = 'No puede ingresar una canitdad mayor al stock.';
     const String MESSAGE2 = 'Valor de cantidad invalido.';
     const String MESSAGE3 = 'Valor de precio invalido.';
     ShoppingcartItemModel shoppingcartItem;
     try {
+      emit(InitialState());
       final double? numQuantity = double.tryParse(quantity);
       final double? numPrice = double.tryParse(price);
       if (numQuantity != null) {
         if (numPrice != null) {
           shoppingcartItem = ShoppingcartItemModel(
               product: product, quantity: numQuantity, price: numPrice);
-          switch (action) {
+          switch (act) {
             case 0:
               {
                 shoppingcart.add(shoppingcartItem);
@@ -35,11 +37,11 @@ class SaveShppcItemCubit extends Cubit<SaveShppcItemState> {
               break;
             case 1:
               {
-                //Actualiza item de la lista.
+                shoppingcart.removeAt(index);
+                shoppingcart.insert(index, shoppingcartItem);
               }
               break;
           }
-          emit(InitialState());
           if (numQuantity > stock) {
             emit(EntryFailure(errorMessage: MESSAGE1));
           } else {

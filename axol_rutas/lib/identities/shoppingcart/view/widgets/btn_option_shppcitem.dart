@@ -40,10 +40,14 @@ class BtnOptionShppcItem extends StatelessWidget {
             }
             break;
           case 1:
-            {}
+            {
+              context.read<OptionsShppcItemCubit>().delete(shoppingcart, index);
+            }
             break;
           case 2:
-            {}
+            {
+              context.read<OptionsShppcItemCubit>().cancel(shoppingcart);
+            }
             break;
           default:
             {}

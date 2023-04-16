@@ -102,8 +102,9 @@ class ListviewProductFinder extends StatelessWidget {
                                     shoppingcart: shoppingcart,
                                     initialQuantity: INITIAL_Q,
                                     initnialPrice: INITIAL_P,
-                                    action:
-                                        0, //Acción 0: para guardar nuevo item.
+                                    //Acción 0: para guardar nuevo item.
+                                    act: 0,
+                                    index: 0,
                                   ),
                                 );
                               });

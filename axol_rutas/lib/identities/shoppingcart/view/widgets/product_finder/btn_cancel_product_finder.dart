@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/theme.dart';
+import '../../../model/shoppingcart_item.dart';
 
 class BtnCancelProductFinder extends StatelessWidget {
-  const BtnCancelProductFinder({super.key});
+  final List<ShoppingcartItemModel> shoppingcart;
+  
+  const BtnCancelProductFinder({super.key, required this.shoppingcart});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +22,9 @@ class BtnCancelProductFinder extends StatelessWidget {
           style: Typo.textButton,
         ),
         onPressed: () {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(shoppingcart);
         },
       ),
-      //const BtnCancelProductFinderController(),
     ]);
   }
 }

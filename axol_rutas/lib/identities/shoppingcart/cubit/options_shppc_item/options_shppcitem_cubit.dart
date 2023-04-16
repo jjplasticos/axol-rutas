@@ -1,4 +1,3 @@
-import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:axol_rutas/identities/shoppingcart/model/shoppingcart_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,22 +16,23 @@ class OptionsShppcItemCubit extends Cubit<OptionsShppcItemState> {
       emit(EditState(stock: stock, shoppingcart: shoppingcart, index: index));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
-    }
+    } 
   }
 
-  void delete() {
+  void delete(List<ShoppingcartItemModel> shoppingcart, int index) {
     try {
       emit(InitialState());
-      emit(DeleteState());
+      shoppingcart.removeAt(index);
+      emit(DeleteState(shoppingcart: shoppingcart, index: index));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }
   }
 
-  void cancel() {
+  void cancel(List<ShoppingcartItemModel> shoppingcart) {
     try {
       emit(InitialState());
-      emit(CancelState());
+      emit(CancelState(shoppingcart: shoppingcart));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }

@@ -48,9 +48,9 @@ class ProdctFinderView extends StatelessWidget {
                   filter: '',
                   shoppingcart: shoppingcart,
                 )),
-                const Padding(
-                  padding: EdgeInsetsDirectional.all(8),
-                  child: BtnCancelProductFinder(),
+                Padding(
+                  padding: const EdgeInsetsDirectional.all(8),
+                  child: BtnCancelProductFinder(shoppingcart: shoppingcart),
                 )
               ],
             ),
