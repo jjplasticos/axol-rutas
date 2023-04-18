@@ -7,13 +7,13 @@ import '../../../../global_widgets/appbar_global.dart';
 import '../../../../global_widgets/iconbutton_select.dart';
 import '../../../../settings/theme.dart';
 import '../../cubit/product_finder/product_finder_cubit.dart';
-import '../../cubit/save_shppc_item/save_shppc_item_cubit.dart';
 import '../../cubit/shoppingcart_cubit.dart';
+import '../../cubit/shoppingcart_txt_cubit.dart';
 import '../controllers/listview_shoppingcart_controller.dart';
 import '../widgets/shoppingcart/btn_add_product.dart';
 import '../widgets/shoppingcart/btn_save_sale.dart';
 import '../widgets/shoppingcart/lbl_results_form.dart';
-import '../widgets/shoppingcart/txt_form.dart';
+import '../widgets/shoppingcart/txt_customer_name.dart';
 
 class ShoppingCartView extends StatelessWidget {
   const ShoppingCartView({super.key});
@@ -27,6 +27,7 @@ class ShoppingCartView extends StatelessWidget {
         providers: [
           BlocProvider(create: (_) => ProductFinderCubit()),
           BlocProvider(create: (_) => ShoppingcartCubit()),
+          BlocProvider(create: (_) => TxtCustomerNameCubit()),
         ],
         child: Scaffold(
           backgroundColor: ColorPalette.primaryBackground,
@@ -43,7 +44,7 @@ class ShoppingCartView extends StatelessWidget {
             children: [
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                child: TxtForm(),
+                child: TxtCustomerName(),
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
@@ -58,16 +59,20 @@ class ShoppingCartView extends StatelessWidget {
               const Padding(
                   padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
                   child: BtnAddProduct()),
-              const Expanded(
+              const ListviewShoppingcartController(),
+              /*const Expanded(
                 child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                     child: ListviewShoppingcartController()),
               ),
               const LblResultsForm(
-                  resultPrice: '', resultQuantity: '', resultWeight: ''),
-              const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8, 16, 8, 8),
-                  child: BtnSaveSale()),
+                  resultPrice: '', resultQuantity: '', resultWeight: ''),*/
+              Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(8, 16, 8, 8),
+                  child: BtnSaveSale(
+                    timePick: timePick,
+                    shoppingcart: context.read<ShoppingcartCubit>().state,
+                  )),
             ],
           ),
         ));

@@ -27,3 +27,11 @@ class TxtPriceCubit extends Cubit<String> {
     emit(text);
   }
 }
+
+class TxtCustomerNameCubit extends Cubit<String> {
+  TxtCustomerNameCubit() : super('');
+
+  void change(String text) {
+    emit(text);
+  }
+}

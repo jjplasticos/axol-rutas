@@ -1,7 +1,9 @@
+import '../../shoppingcart/model/shoppingcart_item.dart';
+
 class SaleModel {
   final String uid;
   final String location;
-  final String products;
+  final List<ShoppingcartItemModel> products;
   final String client;
   final String time;
   final String totalQuantity;
