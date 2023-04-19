@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../model/shoppingcart_item.dart';
+import '../../model/shoppingcart_models.dart';
 
 abstract class SaveShppcItemState extends Equatable {}
 
@@ -23,7 +23,6 @@ class EntrySucces extends SaveShppcItemState {
 
   EntrySucces({required this.shoppingcart});
   @override
-
   List<Object?> get props => [shoppingcart];
 }
 

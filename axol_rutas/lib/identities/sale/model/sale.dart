@@ -1,4 +1,4 @@
-import '../../shoppingcart/model/shoppingcart_item.dart';
+import '../../shoppingcart/model/shoppingcart_models.dart';
 
 class SaleModel {
   final String uid;

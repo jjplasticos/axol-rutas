@@ -59,20 +59,12 @@ class ShoppingCartView extends StatelessWidget {
               const Padding(
                   padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
                   child: BtnAddProduct()),
-              const ListviewShoppingcartController(),
-              /*const Expanded(
-                child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                    child: ListviewShoppingcartController()),
+              const Expanded(
+                child: ListviewShoppingcartController(),
               ),
-              const LblResultsForm(
-                  resultPrice: '', resultQuantity: '', resultWeight: ''),*/
               Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(8, 16, 8, 8),
-                  child: BtnSaveSale(
-                    timePick: timePick,
-                    shoppingcart: context.read<ShoppingcartCubit>().state,
-                  )),
+                  child: BtnSaveSale(timePick: timePick)),
             ],
           ),
         ));

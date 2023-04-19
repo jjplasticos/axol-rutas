@@ -47,7 +47,7 @@ class DatabaseProducts extends ProductRepo {
     productList = await supabase.from(TABLE).select().eq(CODE, code);
 
     if (productList.isNotEmpty) {
-      element = productList.first();
+      element = productList.first;
       product = ProductModel(
           capacity: element[JSON_CAPACITY],
           code: element[JSON_CODE],

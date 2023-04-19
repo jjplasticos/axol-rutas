@@ -1,11 +1,9 @@
-import 'package:axol_rutas/identities/shoppingcart/cubit/save_shppc_item/save_shppc_item_cubit.dart';
 import 'package:axol_rutas/identities/shoppingcart/cubit/shoppingcart_cubit.dart';
-import 'package:axol_rutas/identities/product/repository/product_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../settings/theme.dart';
-import '../../../model/shoppingcart_item.dart';
+import '../../../model/shoppingcart_models.dart';
 import '../../views/product_fider_view.dart';
 
 class BtnAddProduct extends StatelessWidget {
@@ -16,7 +14,7 @@ class BtnAddProduct extends StatelessWidget {
     List<ShoppingcartItemModel> shoppingcart;
     return ElevatedButton(
       onPressed: () async {
-        shoppingcart = context.read<ShoppingcartCubit>().state;
+        shoppingcart = context.read<ShoppingcartCubit>().state.shoppingcart;
         showModalBottomSheet(
           isDismissible: false,
           isScrollControlled: true,

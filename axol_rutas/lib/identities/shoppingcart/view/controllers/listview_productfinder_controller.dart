@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubit/product_finder/product_finder_cubit.dart';
 import '../../cubit/product_finder/product_finder_state.dart';
-import '../../model/shoppingcart_item.dart';
+import '../../model/shoppingcart_models.dart';
 import '../../view/widgets/product_finder/listview_product_finder.dart';
 
 class ListviewProductFinderController extends StatelessWidget {

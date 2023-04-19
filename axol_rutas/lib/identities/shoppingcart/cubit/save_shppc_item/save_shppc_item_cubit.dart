@@ -3,7 +3,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../product/model/product.dart';
-import '../../model/shoppingcart_item.dart';
+import '../../model/shoppingcart_models.dart';
 import 'save_shppc_item_state.dart';
 
 class SaveShppcItemCubit extends Cubit<SaveShppcItemState> {

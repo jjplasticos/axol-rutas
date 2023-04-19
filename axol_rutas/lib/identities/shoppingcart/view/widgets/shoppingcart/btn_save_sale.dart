@@ -6,14 +6,13 @@ import 'package:geolocator/geolocator.dart';
 
 import '../../../../../../settings/theme.dart';
 import '../../../../sale/repository/sales_repo.dart';
+import '../../../cubit/shoppingcart_cubit.dart';
 import '../../../cubit/shoppingcart_txt_cubit.dart';
-import '../../../model/shoppingcart_item.dart';
+import '../../../model/shoppingcart_models.dart';
 
 class BtnSaveSale extends StatelessWidget {
   final String timePick;
-  final List<ShoppingcartItemModel> shoppingcart;
-  const BtnSaveSale(
-      {super.key, required this.timePick, required this.shoppingcart});
+  const BtnSaveSale({super.key, required this.timePick});
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +27,26 @@ class BtnSaveSale extends StatelessWidget {
         style: Typo.textButton,
       ),
       onPressed: () async {
+        final ShoppingcartResultsModel shoppingcartResults =
+            context.read<ShoppingcartCubit>().state;
         final String customerName = context.read<TxtCustomerNameCubit>().state;
         Position position = await Geolocator.getCurrentPosition();
         SaleModel sale = SaleModel(
             uid: const Uuid().v4(),
             location: '${position.latitude},${position.longitude}',
-            products: shoppingcart,
+            products: shoppingcartResults.shoppingcart,
             client: customerName,
             time: timePick,
-            totalQuantity: 'totalQuantity',
-            totalWeight: 'totalWeight',
-            totalPrice: 'totalPrice');
+            totalQuantity: shoppingcartResults.totalQuantity.toString(),
+            totalWeight: shoppingcartResults.totalWeight.toString(),
+            totalPrice: shoppingcartResults.totalPrice.toString());
         DatabaseSales().writeSale(sale);
+        Navigator.pop(context);
+        /*
+        Falta validar el text field del nombre del cliente.
+        */
+
+        /*********************************************************************/
       },
     );
   }

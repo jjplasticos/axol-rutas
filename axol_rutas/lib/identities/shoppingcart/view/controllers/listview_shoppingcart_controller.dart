@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubit/shoppingcart_cubit.dart';
-import '../../model/shoppingcart_item.dart';
+import '../../model/shoppingcart_models.dart';
 import '../widgets/shoppingcart/lbl_results_form.dart';
 import '../widgets/shoppingcart/listview_shoppingcart.dart';
 
@@ -11,34 +11,22 @@ class ListviewShoppingcartController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ShoppingcartCubit, List<ShoppingcartItemModel>>(
+    return BlocBuilder<ShoppingcartCubit, ShoppingcartResultsModel>(
         bloc: context.read<ShoppingcartCubit>(),
-        builder: (context, shoppingcart) {
-          double totalPrice = 0;
-          double totalQuantity = 0;
-          double totalWeight = 0;
-          for (var element in shoppingcart) {
-            totalPrice = totalPrice + (element.price * element.quantity);
-            totalQuantity = totalQuantity + element.quantity;
-            totalWeight = totalWeight +
-                (element.quantity * double.parse(element.product.weight));
-          }
+        builder: (context, state) {
           return Column(children: [
             Expanded(
               child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                   child: ListviewShoppingcart(
-                    shoppingCart: shoppingcart,
+                    shoppingCart: state.shoppingcart,
                   )),
             ),
             LblResultsForm(
-                resultPrice: totalPrice.toString(),
-                resultQuantity: totalQuantity.toString(),
-                resultWeight: totalWeight.toString()),
+                resultPrice: state.totalPrice.toString(),
+                resultQuantity: state.totalQuantity.toString(),
+                resultWeight: state.totalWeight.toString()),
           ]);
-          /*ListviewShoppingcart(
-            shoppingCart: shoppingcart,
-          );*/
         });
   }
 }

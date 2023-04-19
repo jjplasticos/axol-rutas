@@ -1,4 +1,4 @@
-import 'package:axol_rutas/identities/shoppingcart/model/shoppingcart_item.dart';
+import 'package:axol_rutas/identities/shoppingcart/model/shoppingcart_models.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class OptionsShppcItemState extends Equatable {}
@@ -23,8 +23,7 @@ class EditState extends OptionsShppcItemState {
 class DeleteState extends OptionsShppcItemState {
   final List<ShoppingcartItemModel> shoppingcart;
   final int index;
-  DeleteState(
-      {required this.shoppingcart, required this.index});
+  DeleteState({required this.shoppingcart, required this.index});
   @override
   List<Object?> get props => [shoppingcart, index];
 }

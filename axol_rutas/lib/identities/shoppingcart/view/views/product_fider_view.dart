@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../settings/theme.dart';
 import '../../cubit/product_finder/product_finder_cubit.dart';
 import '../../cubit/shoppingcart_txt_cubit.dart';
-import '../../model/shoppingcart_item.dart';
+import '../../model/shoppingcart_models.dart';
 import '../controllers/listview_productfinder_controller.dart';
 import '../widgets/product_finder/btn_cancel_product_finder.dart';
 import '../widgets/product_finder/txt_finder.dart';

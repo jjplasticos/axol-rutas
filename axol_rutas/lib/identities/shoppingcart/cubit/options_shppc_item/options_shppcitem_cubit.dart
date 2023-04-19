@@ -1,4 +1,4 @@
-import 'package:axol_rutas/identities/shoppingcart/model/shoppingcart_item.dart';
+import 'package:axol_rutas/identities/shoppingcart/model/shoppingcart_models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../repository/inventory_repo.dart';
@@ -16,7 +16,7 @@ class OptionsShppcItemCubit extends Cubit<OptionsShppcItemState> {
       emit(EditState(stock: stock, shoppingcart: shoppingcart, index: index));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
-    } 
+    }
   }
 
   void delete(List<ShoppingcartItemModel> shoppingcart, int index) {

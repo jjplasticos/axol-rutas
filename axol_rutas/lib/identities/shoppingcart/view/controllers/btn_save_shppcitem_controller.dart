@@ -14,7 +14,6 @@ class BtnSaveShppcItemController extends StatelessWidget {
         if (state is EntrySucces) {
           Navigator.pop(context);
           Navigator.pop(context, state.shoppingcart);
-          //context.read<SaveShppcItemCubit>().close();
         } else if (state is EntryFailure) {
           showDialog(
             context: context,

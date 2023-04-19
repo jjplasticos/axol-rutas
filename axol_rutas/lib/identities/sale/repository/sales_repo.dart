@@ -1,11 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:convert';
+
 import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../product/repository/product_repo.dart';
-import '../../shoppingcart/model/shoppingcart_item.dart';
+import '../../shoppingcart/model/shoppingcart_models.dart';
 import '../model/sale.dart';
 
 abstract class SalesRepo {
@@ -37,7 +39,7 @@ class DatabaseSales extends SalesRepo {
     List<SaleModel> newList = [];
     final String userName;
     List salesList = [];
-    Map<String, String> productsDB;
+    Map<String, dynamic> productsDB;
     List<ShoppingcartItemModel> productsSale;
     ShoppingcartItemModel shoppingcartItem;
     ProductModel? product;
@@ -56,7 +58,7 @@ class DatabaseSales extends SalesRepo {
       productsSale = [];
       for (element in salesList) {
         //-----Extracción de lista de productos
-        productsDB = element[PRODUCTS];
+        productsDB = jsonDecode(jsonEncode(element[PRODUCTS]));
         productsDB.forEach((key, value) async {
           product = await DatabaseProducts().readProduct(key);
           quantity = value.split('//').first;
@@ -70,7 +72,7 @@ class DatabaseSales extends SalesRepo {
         //----------
 
         sale = SaleModel(
-            uid: element[UUID].toString(),
+            uid: element[UUID].toString().split('-').first,
             location: element[LOCATION].toString(),
             products: productsSale,
             client: element[CLIENT].toString(),
@@ -97,7 +99,7 @@ class DatabaseSales extends SalesRepo {
       products[element.product.code] = '${element.quantity}//${element.price}';
     }
 
-    supabase.from(TABLE).insert({
+    await supabase.from(TABLE).insert({
       UUID: sale.uid,
       CLIENT: sale.client,
       TIME: sale.time,

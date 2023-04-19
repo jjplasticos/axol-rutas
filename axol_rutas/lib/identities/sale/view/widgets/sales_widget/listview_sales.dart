@@ -59,23 +59,26 @@ class ListViewSales extends StatelessWidget {
                               style: Typo.bodyText1,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0, 4, 0, 0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  FormatDate.dmy(elementList.time.toString()),
-                                  style: Typo.bodyText2,
-                                ),
-                                Text(
-                                  elementList.uid.toString(),
-                                  style: Typo.bodyText2,
-                                ),
-                              ],
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 4, 0, 0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    FormatDate.dmy(elementList.time.toString()),
+                                    style: Typo.bodyText2,
+                                  ),
+                                  Text(
+                                    elementList.uid.toString(),
+                                    style: Typo.bodyText2,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),

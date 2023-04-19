@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../settings/theme.dart';
-import '../../../model/shoppingcart_item.dart';
+import '../../../model/shoppingcart_models.dart';
 
 class BtnCancelProductFinder extends StatelessWidget {
   final List<ShoppingcartItemModel> shoppingcart;
-  
+
   const BtnCancelProductFinder({super.key, required this.shoppingcart});
 
   @override

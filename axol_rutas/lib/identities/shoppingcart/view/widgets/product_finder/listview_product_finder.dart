@@ -4,7 +4,7 @@ import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../settings/theme.dart';
-import '../../../model/shoppingcart_item.dart';
+import '../../../model/shoppingcart_models.dart';
 import '../../views/product_form_view.dart';
 
 class ListviewProductFinder extends StatelessWidget {

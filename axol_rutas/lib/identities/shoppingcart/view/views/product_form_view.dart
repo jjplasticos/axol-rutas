@@ -7,7 +7,7 @@ import '../../cubit/product_finder/product_finder_cubit.dart';
 import '../../cubit/save_shppc_item/save_shppc_item_cubit.dart';
 import '../../cubit/shoppingcart_cubit.dart';
 import '../../cubit/shoppingcart_txt_cubit.dart';
-import '../../model/shoppingcart_item.dart';
+import '../../model/shoppingcart_models.dart';
 import '../controllers/btn_save_shppcitem_controller.dart';
 import '../widgets/product_form/btn_return_prodform.dart';
 import '../widgets/product_form/btn_save_prodform.dart';
@@ -30,7 +30,8 @@ class ProductFormView extends StatelessWidget {
       required this.shoppingcart,
       required this.initialQuantity,
       required this.initnialPrice,
-      required this.act, required this.index});
+      required this.act,
+      required this.index});
 
   @override
   Widget build(BuildContext context) {
