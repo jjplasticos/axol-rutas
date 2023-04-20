@@ -49,15 +49,15 @@ class DatabaseProducts extends ProductRepo {
     if (productList.isNotEmpty) {
       element = productList.first;
       product = ProductModel(
-          capacity: element[JSON_CAPACITY],
-          code: element[JSON_CODE],
-          description: element[JSON_DESCRIPTION],
-          gauge: element[JSON_GAUGE],
-          measure: element[JSON_MASURE],
-          packing: element[JSON_PACKING],
-          pices: element[JSON_PIECES],
-          type: element[JSON_TYPE],
-          weight: element[JSON_WEIGHT],
+          capacity: element[JSON_CAPACITY].toString(),
+          code: element[JSON_CODE].toString(),
+          description: element[JSON_DESCRIPTION].toString(),
+          gauge: element[JSON_GAUGE].toString(),
+          measure: element[JSON_MASURE].toString(),
+          packing: element[JSON_PACKING].toString(),
+          pices: element[JSON_PIECES].toString(),
+          type: element[JSON_TYPE].toString(),
+          weight: element[JSON_WEIGHT].toString(),
           filetValues: '');
     }
 

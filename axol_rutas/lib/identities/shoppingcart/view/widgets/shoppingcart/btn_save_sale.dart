@@ -1,11 +1,8 @@
-import 'package:axol_rutas/identities/sale/model/sale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uuid/uuid.dart';
-import 'package:geolocator/geolocator.dart';
 
 import '../../../../../../settings/theme.dart';
-import '../../../../sale/repository/sales_repo.dart';
+import '../../../cubit/save_shoppingcart/save_shoppingcart_cubit.dart';
 import '../../../cubit/shoppingcart_cubit.dart';
 import '../../../cubit/shoppingcart_txt_cubit.dart';
 import '../../../model/shoppingcart_models.dart';
@@ -30,23 +27,9 @@ class BtnSaveSale extends StatelessWidget {
         final ShoppingcartResultsModel shoppingcartResults =
             context.read<ShoppingcartCubit>().state;
         final String customerName = context.read<TxtCustomerNameCubit>().state;
-        Position position = await Geolocator.getCurrentPosition();
-        SaleModel sale = SaleModel(
-            uid: const Uuid().v4(),
-            location: '${position.latitude},${position.longitude}',
-            products: shoppingcartResults.shoppingcart,
-            client: customerName,
-            time: timePick,
-            totalQuantity: shoppingcartResults.totalQuantity.toString(),
-            totalWeight: shoppingcartResults.totalWeight.toString(),
-            totalPrice: shoppingcartResults.totalPrice.toString());
-        DatabaseSales().writeSale(sale);
-        Navigator.pop(context);
-        /*
-        Falta validar el text field del nombre del cliente.
-        */
-
-        /*********************************************************************/
+        context
+            .read<SaveShoppingcartCubit>()
+            .verification(customerName, shoppingcartResults, timePick);
       },
     );
   }

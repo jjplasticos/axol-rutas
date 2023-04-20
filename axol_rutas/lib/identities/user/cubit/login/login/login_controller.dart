@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../sale/view/pages/sales_page.dart';
+import '../../../../sale/view/views/sales_view.dart';
 
 class LoginController extends StatelessWidget {
   const LoginController({super.key});
@@ -28,7 +28,7 @@ class LoginController extends StatelessWidget {
                         )));
           } else if (rol == 'vendor') {
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const SalesPage()));
+                MaterialPageRoute(builder: (context) => const SalesView()));
           }
         } else if (state is LoginErrorState) {
           if (kDebugMode) {

@@ -3,7 +3,7 @@ import '../../shoppingcart/model/shoppingcart_models.dart';
 class SaleModel {
   final String uid;
   final String location;
-  final List<ShoppingcartItemModel> products;
+  final Map<String, dynamic> products;
   final String client;
   final String time;
   final String totalQuantity;

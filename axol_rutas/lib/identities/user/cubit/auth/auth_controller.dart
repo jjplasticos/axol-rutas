@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../sale/view/views/sales_view.dart';
 import '../../view/pages/admin_page.dart';
-import '../../../sale/view/pages/sales_page.dart';
 import '../../view/pages/login_page.dart';
 import '../../view/views/splash_view.dart';
 import 'auth_cubit.dart';
@@ -25,7 +25,7 @@ class AuthController extends StatelessWidget {
               user: state.user,
             );
           } else if (rol == 'vendor') {
-            return const SalesPage();
+            return const SalesView();
           } else {
             return const Text('Error: no entro a ni una pagina.');
           }

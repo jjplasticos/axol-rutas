@@ -1,7 +1,7 @@
 import 'package:axol_rutas/identities/shoppingcart/model/shoppingcart_models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../repository/inventory_repo.dart';
+import '../../../inventory/repository/inventory_repo.dart';
 import 'options_shppcitem_state.dart';
 
 class OptionsShppcItemCubit extends Cubit<OptionsShppcItemState> {
@@ -11,7 +11,7 @@ class OptionsShppcItemCubit extends Cubit<OptionsShppcItemState> {
     final String stock;
     try {
       emit(InitialState());
-      stock = await DatabaseProductFinder()
+      stock = await FetchInventory()
           .getStock(shoppingcart.elementAt(index).product);
       emit(EditState(stock: stock, shoppingcart: shoppingcart, index: index));
     } catch (e) {

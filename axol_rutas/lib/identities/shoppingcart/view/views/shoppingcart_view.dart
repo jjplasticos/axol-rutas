@@ -7,12 +7,13 @@ import '../../../../global_widgets/appbar_global.dart';
 import '../../../../global_widgets/iconbutton_select.dart';
 import '../../../../settings/theme.dart';
 import '../../cubit/product_finder/product_finder_cubit.dart';
+import '../../cubit/save_shoppingcart/save_shoppingcart_cubit.dart';
 import '../../cubit/shoppingcart_cubit.dart';
 import '../../cubit/shoppingcart_txt_cubit.dart';
+import '../controllers/btn_save_shoppingcart_controller.dart';
 import '../controllers/listview_shoppingcart_controller.dart';
 import '../widgets/shoppingcart/btn_add_product.dart';
 import '../widgets/shoppingcart/btn_save_sale.dart';
-import '../widgets/shoppingcart/lbl_results_form.dart';
 import '../widgets/shoppingcart/txt_customer_name.dart';
 
 class ShoppingCartView extends StatelessWidget {
@@ -28,6 +29,7 @@ class ShoppingCartView extends StatelessWidget {
           BlocProvider(create: (_) => ProductFinderCubit()),
           BlocProvider(create: (_) => ShoppingcartCubit()),
           BlocProvider(create: (_) => TxtCustomerNameCubit()),
+          BlocProvider(create: (_) => SaveShoppingcartCubit()),
         ],
         child: Scaffold(
           backgroundColor: ColorPalette.primaryBackground,
@@ -65,6 +67,7 @@ class ShoppingCartView extends StatelessWidget {
               Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(8, 16, 8, 8),
                   child: BtnSaveSale(timePick: timePick)),
+              const BtnSaveShoppingcartController(),
             ],
           ),
         ));

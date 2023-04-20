@@ -2,7 +2,7 @@ import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:axol_rutas/identities/product/repository/product_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../repository/inventory_repo.dart';
+import '../../../inventory/repository/inventory_repo.dart';
 import 'product_finder_state.dart';
 
 class ProductFinderCubit extends Cubit<ProductFinderState> {
@@ -15,7 +15,7 @@ class ProductFinderCubit extends Cubit<ProductFinderState> {
     Map<String, dynamic> productWithStock;
     try {
       emit(LoadingState());
-      DatabaseProductFinder databaseInventory = DatabaseProductFinder();
+      FetchInventory databaseInventory = FetchInventory();
       final Map<String, String> mapSotcks =
           await databaseInventory.readInventoryProducts();
       final List<String> codes = await databaseInventory.readInventoryCodes();

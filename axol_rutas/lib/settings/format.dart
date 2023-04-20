@@ -1,18 +1,11 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
-
-import 'package:flutter/material.dart';
-
 class FormatDate {
   static String dmy(String dateSB) {
     List<String> listDate;
     String newDate;
     listDate = dateSB.split('T');
     listDate = listDate.first.split('-');
-    newDate = listDate.elementAt(2) +
-        '/' +
-        listDate.elementAt(1) +
-        '/' +
-        listDate.elementAt(0);
+    newDate =
+        '${listDate.elementAt(2)}/${listDate.elementAt(1)}/${listDate.elementAt(0)}';
     return newDate;
   }
 }
@@ -25,7 +18,7 @@ class FormatNumber {
     partList = number.toString().split('.');
     partList[0] = partList[0].replaceAll(re, ',');
     if (partList.length > 1) {
-      newNumber = partList[0] + '.' + partList[1];
+      newNumber = '${partList[0]}.${partList[1]}';
     } else {
       newNumber = partList[0];
     }

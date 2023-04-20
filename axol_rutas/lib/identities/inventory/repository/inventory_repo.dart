@@ -4,6 +4,8 @@ import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../shoppingcart/model/shoppingcart_models.dart';
+
 abstract class InventoryRepo {
   final String TABLE = 'inventory';
   final String STOCK = 'stock';
@@ -16,11 +18,10 @@ abstract class InventoryRepo {
   final String WEIGHT = 'weight';
   final String PRICE = 'price';
   final String QUANTITY = 'quantity';
+  final supabase = Supabase.instance.client;
 }
 
-class DatabaseProductFinder extends InventoryRepo {
-  final supabase = Supabase.instance.client;
-
+class FetchInventory extends InventoryRepo {
   Future<Map<String, String>> readInventoryProducts() async {
     Map<String, String> productsMap = {};
     Map<String, dynamic> element;
@@ -91,5 +92,40 @@ class DatabaseProductFinder extends InventoryRepo {
     stock = list.first[STOCK].toString();
 
     return stock;
+  }
+
+  Future<bool> checkAllStock(List<ShoppingcartItemModel> shoppingcart) async {
+    Map<String, double> shppcRedux = {};
+    ShoppingcartItemModel element;
+    Map<String, dynamic> element2;
+    for (element in shoppingcart) {
+      if (shppcRedux.containsKey(element.product.code)) {
+        shppcRedux[element.product.code] =
+            shppcRedux[element.product.code]! + element.quantity;
+      } else {
+        shppcRedux[element.product.code] = element.quantity;
+      }
+    }
+
+    final List inventoryList = await readInventory();
+    //Continuar aquí **********************************************************
+    if (inventoryList.isNotEmpty) {
+      inventoryList.every((element) => false);
+      for (element2 in inventoryList) {
+        shppcRedux.forEach((key, value) {});
+      }
+    }
+  }
+}
+
+class UpdateInventory extends InventoryRepo {
+  void updateStock(double newStock, String code) async {
+    final pref = await SharedPreferences.getInstance();
+    final String userName = pref.getString(USER)!;
+    supabase
+        .from(TABLE)
+        .update({STOCK: newStock.toString()})
+        .eq(NAME, userName)
+        .eq(CODE, code);
   }
 }

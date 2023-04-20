@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../settings/theme.dart';
-import '../identities/shoppingcart/repository/inventory_repo.dart';
+import '../identities/inventory/repository/inventory_repo.dart';
 
 class IconButtonSelect extends StatelessWidget {
   final String? iconName;

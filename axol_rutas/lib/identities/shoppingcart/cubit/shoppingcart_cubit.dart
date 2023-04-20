@@ -31,7 +31,3 @@ class ShoppingcartCubit extends Cubit<ShoppingcartResultsModel> {
     emit(shoppingcartResults);
   }
 }
-
-/*
-Agregar cambiar state por un map que contenga List<ShoppingcartItemModel> y los resultados de los totales.
- */
