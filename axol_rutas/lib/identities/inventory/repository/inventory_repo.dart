@@ -96,9 +96,14 @@ class FetchInventory extends InventoryRepo {
 
   Future<bool> checkAllStock(List<ShoppingcartItemModel> shoppingcart) async {
     Map<String, double> shppcRedux = {};
-    ShoppingcartItemModel element;
-    Map<String, dynamic> element2;
-    for (element in shoppingcart) {
+    Map<String, dynamic> inventoryMapDB = {};
+    List<String> codesDB = [], codesRedux = [];
+    bool isExist = true;
+    String stockString;
+    double stock;
+
+    //Factoriza shoppingcart para no repetir las claves.
+    for (var element in shoppingcart) {
       if (shppcRedux.containsKey(element.product.code)) {
         shppcRedux[element.product.code] =
             shppcRedux[element.product.code]! + element.quantity;
@@ -107,14 +112,39 @@ class FetchInventory extends InventoryRepo {
       }
     }
 
-    final List inventoryList = await readInventory();
-    //Continuar aquí **********************************************************
-    if (inventoryList.isNotEmpty) {
-      inventoryList.every((element) => false);
-      for (element2 in inventoryList) {
-        shppcRedux.forEach((key, value) {});
+    //Obtiente todo el inventario del usuario desde la base de datos.
+    final List inventoryListDB = await readInventory();
+
+    //Organiza en una lista las claves de inventoryListDB, si su stock es menor
+    //a cero, no los agrega a la lista.
+    for (var element in inventoryListDB) {
+      if (element[STOCK] > 0) {
+        codesDB.add(element[CODE].toString());
+      }
+      inventoryMapDB[element[CODE]] = element[STOCK];
+    }
+    //Enlista las claves de shppcRedux.
+    shppcRedux.forEach((key, value) {
+      codesRedux.add(key);
+    });
+
+    //Compara las claves de las listas, si codesDB no contiene una de codesREdux,
+    //retorna false.
+    for (int i = 0; isExist == true && i < codesRedux.length; i++) {
+      if (codesDB.contains(codesRedux.elementAt(i))) {
+        stockString = inventoryMapDB[codesRedux.elementAt(i)].toString();
+        stock = double.parse(stockString);
+        if (stock >= shppcRedux[codesRedux.elementAt(i)]!) {
+          isExist == true;
+        } else {
+          isExist = false;
+        }
+      } else {
+        isExist = false;
       }
     }
+
+    return (isExist);
   }
 }
 
@@ -122,9 +152,9 @@ class UpdateInventory extends InventoryRepo {
   void updateStock(double newStock, String code) async {
     final pref = await SharedPreferences.getInstance();
     final String userName = pref.getString(USER)!;
-    supabase
+    await supabase
         .from(TABLE)
-        .update({STOCK: newStock.toString()})
+        .update({STOCK: newStock})
         .eq(NAME, userName)
         .eq(CODE, code);
   }

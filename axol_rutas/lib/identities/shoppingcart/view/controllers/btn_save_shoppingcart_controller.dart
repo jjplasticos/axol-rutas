@@ -12,7 +12,8 @@ class BtnSaveShoppingcartController extends StatelessWidget {
     return BlocListener(
       listener: (context, state) {
         if (state is EntrySucces) {
-          Navigator.pop(context);
+          //Navigator.pop(context);
+          Navigator.of(context).pop();
         } else if (state is EntryFailure) {
           showDialog(
             context: context,
