@@ -12,7 +12,7 @@ class SalesListCubit extends Cubit<SalesListState> {
       emit(SListInitialState());
       emit(SListLoadingState());
       DatabaseSales databaseSales = DatabaseSales();
-      final List<SaleModel> salesList = await databaseSales.readSalesList();
+      List<SaleModel> salesList = await databaseSales.readSalesList();
       emit(SListLoadedState(salesList: salesList));
     } catch (e) {
       emit(SListErrorState(error: e.toString()));
