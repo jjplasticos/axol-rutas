@@ -6,6 +6,7 @@ import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../settings/format.dart';
 import '../../product/repository/product_repo.dart';
 import '../../shoppingcart/model/shoppingcart_models.dart';
 import '../model/sale.dart';
@@ -33,18 +34,15 @@ abstract class SalesRepo {
 class DatabaseSales extends SalesRepo {
   final supabase = Supabase.instance.client;
 
-  Future<List<SaleModel>> readSalesList() async {
+  Future<List<SaleModel>> readSalesList(String filter) async {
     SaleModel sale;
     Map<String, dynamic> element;
     List<SaleModel> newList = [];
+    List<SaleModel> filterSales = [];
+    final List<SaleModel> finalSales;
     final String userName;
     List salesList = [];
     Map<String, dynamic> productsDB;
-    List<ShoppingcartItemModel> productsSale;
-    ShoppingcartItemModel shoppingcartItem;
-    ProductModel? product;
-    String quantity;
-    String price;
 
     final pref = await SharedPreferences.getInstance();
     userName = pref.getString(USER)!;
@@ -55,21 +53,9 @@ class DatabaseSales extends SalesRepo {
         .eq(VENDOR, userName);
 
     if (salesList.isNotEmpty) {
-      productsSale = [];
       for (element in salesList) {
-        //-----Extracción de lista de productos
+        //Extracción de lista de productos
         productsDB = jsonDecode(jsonEncode(element[PRODUCTS]));
-        /*productsDB.forEach((key, value) async {
-          product = await DatabaseProducts().readProduct(key);
-          quantity = value.split('//').first;
-          price = value.split('//').last;
-          shoppingcartItem = ShoppingcartItemModel(
-              product: product!,
-              quantity: double.parse(quantity),
-              price: double.parse(price));
-          productsSale.add(shoppingcartItem);
-        });*/
-        //----------
 
         sale = SaleModel(
             uid: element[UUID].toString().split('-').first,
@@ -82,22 +68,53 @@ class DatabaseSales extends SalesRepo {
             totalPrice: element[TOTAL_PRICE].toString());
         newList.add(sale);
       }
-    } else {
-      //print('empty....');
     }
 
-    return newList;
+    bool isContain = false;
+    if (filter != '') {
+      for (var item in newList) {
+        isContain = false;
+        item.products.forEach((key, value) {
+          if (value.toString().toLowerCase().contains(filter.toLowerCase())) {
+            isContain = true;
+          }
+        });
+        if (item.client.toLowerCase().contains(filter.toLowerCase()) ||
+            FormatDate.dmy(item.time.toString())
+                .toLowerCase()
+                .contains(filter.toLowerCase())) {
+          isContain = true;
+        }
+        if (isContain) {
+          filterSales.add(item);
+        }
+      }
+      finalSales = filterSales;
+    } else {
+      finalSales = newList;
+    }
+
+    return finalSales;
+  }
+
+  Future<bool> checkExistSale(String id) async {
+    final bool isExist;
+    final List salesDB;
+
+    salesDB = await supabase.from(TABLE).select().eq(UUID, id);
+    if (salesDB.isNotEmpty) {
+      isExist = true;
+    } else {
+      isExist = false;
+    }
+
+    return isExist;
   }
 
   void writeSale(SaleModel sale) async {
     final String userName;
     final pref = await SharedPreferences.getInstance();
     userName = pref.getString(USER)!;
-    //Map<String, String> products = {};
-
-    /*for (var element in sale.products) {
-      products[element.product.code] = '${element.quantity}//${element.price}';
-    }*/
 
     await supabase.from(TABLE).insert({
       UUID: sale.uid,

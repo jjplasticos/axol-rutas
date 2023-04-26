@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../settings/format.dart';
 import '../../../../../settings/theme.dart';
+import '../../views/sale_details_view.dart';
 
 class ListViewSales extends StatelessWidget {
   final List<SaleModel> listData;
@@ -83,7 +84,16 @@ class ListViewSales extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context_) =>
+                                          SaleDetailsView(sale: elementList)))
+                              .then((value) {
+                            //context.read<SalesListCubit>().getSalesList('');
+                          });
+                        },
                         icon: const Icon(
                           Icons.navigate_next,
                           size: 30,

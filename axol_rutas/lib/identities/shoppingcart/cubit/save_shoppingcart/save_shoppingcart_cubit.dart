@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:uuid/uuid.dart';
@@ -24,6 +25,8 @@ class SaveShoppingcartCubit extends Cubit<SaveShoppingcartState> {
     final List<ShoppingcartItemModel> shoppingcart =
         shoppingcartResults.shoppingcart;
     double updatedStock;
+    final String idSale = const Uuid().v4();
+    final bool isExistSale;
 
     try {
       emit(InitialState());
@@ -54,10 +57,10 @@ class SaveShoppingcartCubit extends Cubit<SaveShoppingcartState> {
         Map<String, dynamic> products = {};
         for (var element in shoppingcartResults.shoppingcart) {
           products[element.product.code] =
-              '${element.quantity}//${element.price}';
+              '${element.quantity}//${element.price}//${element.product.description}';
         }
         SaleModel sale = SaleModel(
-            uid: const Uuid().v4(),
+            uid: idSale,
             location: '${position.latitude},${position.longitude}',
             products: products,
             client: customerName,
@@ -66,6 +69,16 @@ class SaveShoppingcartCubit extends Cubit<SaveShoppingcartState> {
             totalWeight: shoppingcartResults.totalWeight.toString(),
             totalPrice: shoppingcartResults.totalPrice.toString());
         DatabaseSales().writeSale(sale);
+        isExistSale = await DatabaseSales().checkExistSale(idSale);
+        if (isExistSale == true) {
+          if (kDebugMode) {
+            print('Ya esta la venta en la base de datos');
+          }
+        } else {
+          if (kDebugMode) {
+            print('Aun no esta la venta en la base de datos');
+          }
+        }
         emit(EntrySucces(shoppingcartResults: shoppingcartResults));
 
         //Si algunas de las validaciones no son correctas... emite EntryFilure.

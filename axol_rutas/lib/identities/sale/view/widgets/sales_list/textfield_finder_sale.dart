@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/theme.dart';
-import '../../../cubit/product_finder/product_finder_cubit.dart';
-import '../../../cubit/shoppingcart_txt_cubit.dart';
+import '../../../cubit/sales_list/saleslist_cubit.dart';
+import '../../../cubit/textfield_finder_sale_cubit.dart';
 
-class TextFieldFinder extends StatelessWidget {
-  const TextFieldFinder({super.key});
+class TextFieldFinderSale extends StatelessWidget {
+  const TextFieldFinderSale({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final txtValue = context.watch<FinderTxtCubit>().state;
+    final txtValue = context.watch<TextFieldFinderSaleCubit>().state;
     final controller = TextEditingController()
       ..text = txtValue
       ..selection = TextSelection.collapsed(offset: txtValue.length);
@@ -26,8 +26,8 @@ class TextFieldFinder extends StatelessWidget {
               autofocus: false,
               obscureText: false,
               onChanged: (value) {
-                context.read<FinderTxtCubit>().change(value);
-                context.read<ProductFinderCubit>().productsInventory(value);
+                context.read<TextFieldFinderSaleCubit>().change(value);
+                context.read<SalesListCubit>().getSalesList(value);
               },
               decoration: InputDecoration(
                   hintText: 'Buscar',
@@ -46,7 +46,8 @@ class TextFieldFinder extends StatelessWidget {
             Icons.cancel,
           ),
           onPressed: () {
-            context.read<FinderTxtCubit>().clear();
+            context.read<TextFieldFinderSaleCubit>().clear();
+            context.read<SalesListCubit>().getSalesList('');
           },
         )
       ],

@@ -19,7 +19,7 @@ class DatabaseProducts extends ProductRepo {
   final String JSON_MASURE = 'measure';
   final String JSON_PACKING = 'packing';
   final String JSON_CAPACITY = 'capacity';
-  final String JSON_DESCRIPTION = 'capacity';
+  final String JSON_DESCRIPTION = 'description';
 
   final supabase = Supabase.instance.client;
 
@@ -45,9 +45,8 @@ class DatabaseProducts extends ProductRepo {
     List productList = [];
 
     productList = await supabase.from(TABLE).select().eq(CODE, code);
-
     if (productList.isNotEmpty) {
-      element = productList.first;
+      element = productList.first[PRODUCT];
       product = ProductModel(
           capacity: element[JSON_CAPACITY].toString(),
           code: element[JSON_CODE].toString(),

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/theme.dart';
 import '../../../../shoppingcart/view/views/shoppingcart_view.dart';
-import '../../../cubit/saleslist_cubit.dart';
+import '../../../cubit/sales_list/saleslist_cubit.dart';
 
 class FABtnAddSale extends StatelessWidget {
   const FABtnAddSale({super.key});
@@ -16,7 +16,7 @@ class FABtnAddSale extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context_) => const ShoppingCartView())).then((value) {
-          context.read<SalesListCubit>().getSalesList();
+          context.read<SalesListCubit>().getSalesList('');
         });
       },
       backgroundColor: ColorPalette.primary,

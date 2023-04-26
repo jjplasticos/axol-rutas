@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../view/widgets/sales_widget/listview_sales.dart';
-import 'saleslist_cubit.dart';
-import 'saleslist_state.dart';
+import '../widgets/sales_list/listview_sales.dart';
+import '../../cubit/sales_list/saleslist_cubit.dart';
+import '../../cubit/sales_list/saleslist_state.dart';
 
 class SaleController extends StatelessWidget {
   final String EMPTY = 'Error: No se recibió estado';
@@ -15,8 +15,7 @@ class SaleController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SalesListCubit, SalesListState>(
-      //bloc: BlocProvider.of<SalesListCubit>(context)..getSalesList(),
-      bloc: context.read<SalesListCubit>()..getSalesList(),
+      bloc: context.read<SalesListCubit>()..getSalesList(''),
       builder: (context, state) {
         if (state is SListLoadingState) {
           return const Center(child: CircularProgressIndicator());

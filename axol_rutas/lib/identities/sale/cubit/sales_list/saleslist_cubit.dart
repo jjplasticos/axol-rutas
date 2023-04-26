@@ -7,12 +7,12 @@ import 'saleslist_state.dart';
 class SalesListCubit extends Cubit<SalesListState> {
   SalesListCubit() : super(SListInitialState());
 
-  void getSalesList() async {
+  void getSalesList(String filter) async {
     try {
       emit(SListInitialState());
       emit(SListLoadingState());
       DatabaseSales databaseSales = DatabaseSales();
-      List<SaleModel> salesList = await databaseSales.readSalesList();
+      List<SaleModel> salesList = await databaseSales.readSalesList(filter);
       emit(SListLoadedState(salesList: salesList));
     } catch (e) {
       emit(SListErrorState(error: e.toString()));

@@ -1,11 +1,13 @@
-import 'package:axol_rutas/identities/sale/cubit/saleslist_controller.dart';
+import 'package:axol_rutas/identities/sale/view/controllers/saleslist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../global_widgets/appbar_global.dart';
 import '../../../../settings/theme.dart';
-import '../../cubit/saleslist_cubit.dart';
-import '../widgets/sales_widget/fabutton_add_sale.dart';
+import '../../cubit/sales_list/saleslist_cubit.dart';
+import '../../cubit/textfield_finder_sale_cubit.dart';
+import '../widgets/sales_list/fabutton_add_sale.dart';
+import '../widgets/sales_list/textfield_finder_sale.dart';
 
 class SalesView extends StatelessWidget {
   const SalesView({super.key});
@@ -14,8 +16,11 @@ class SalesView extends StatelessWidget {
   Widget build(BuildContext context) {
     const String TITLE = 'Ventas';
 
-    return BlocProvider<SalesListCubit>(
-      create: (_) => SalesListCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => SalesListCubit()),
+        BlocProvider(create: (_) => TextFieldFinderSaleCubit()),
+      ],
       child: Scaffold(
         backgroundColor: ColorPalette.primaryBackground,
         floatingActionButton: const FABtnAddSale(),
@@ -25,7 +30,16 @@ class SalesView extends StatelessWidget {
         ),
         body: Column(
           mainAxisSize: MainAxisSize.max,
-          children: const [Expanded(child: SaleController())],
+          children: [
+            Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: ColorPalette.secondaryBackground),
+                    child: const TextFieldFinderSale())),
+            const Expanded(child: SaleController())
+          ],
         ),
       ),
     );

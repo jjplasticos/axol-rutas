@@ -1,5 +1,9 @@
+import 'package:axol_rutas/identities/product/model/product.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../product/repository/product_repo.dart';
+import '../../sale/model/sale.dart';
 import '../model/shoppingcart_models.dart';
 
 class ShoppingcartCubit extends Cubit<ShoppingcartResultsModel> {
@@ -29,5 +33,36 @@ class ShoppingcartCubit extends Cubit<ShoppingcartResultsModel> {
         totalWeight: totalWeight);
 
     emit(shoppingcartResults);
+  }
+
+  void saleToShoppingcart(SaleModel sale) async {
+    final ShoppingcartResultsModel shoppingcartResults;
+    List<ShoppingcartItemModel> shoppingcart = [];
+    List<String> listStrings;
+    ProductModel product;
+
+    try {
+      emit(initialState);
+      sale.products.forEach((key, value) async {
+        listStrings = value.toString().split('//');
+        product = (await DatabaseProducts().readProduct(key))!;
+        //print(product.description);
+        shoppingcart.add(ShoppingcartItemModel(
+            product: product,
+            quantity: double.parse(listStrings.elementAt(0)),
+            price: double.parse(listStrings.elementAt(1))));
+      });
+      shoppingcartResults = ShoppingcartResultsModel(
+        shoppingcart: shoppingcart,
+        totalQuantity: double.parse(sale.totalQuantity),
+        totalPrice: double.parse(sale.totalPrice),
+        totalWeight: double.parse(sale.totalWeight),
+      );
+      emit(shoppingcartResults);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error en saleToShoppingcart: $e');
+      }
+    }
   }
 }
