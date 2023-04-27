@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../global_widgets/appbar_global.dart';
-import '../../../../global_widgets/iconbutton_select.dart';
+import '../../../../global_widgets/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
 import '../../cubit/product_finder/product_finder_cubit.dart';
 import '../../cubit/save_shoppingcart/save_shoppingcart_cubit.dart';
@@ -37,7 +37,7 @@ class ShoppingCartView extends StatelessWidget {
             preferredSize: Size.fromHeight(50),
             child: AppBarGlobal(
                 title: TITLE,
-                iconButton: IconButtonSelect(
+                iconButton: IconButtonReturn(
                   iconName: 'return',
                 )),
           ),

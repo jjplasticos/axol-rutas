@@ -6,6 +6,7 @@ import '../../../../global_widgets/appbar_global.dart';
 import '../../../../settings/theme.dart';
 import '../../cubit/sales_list/saleslist_cubit.dart';
 import '../../cubit/textfield_finder_sale_cubit.dart';
+import '../widgets/sale_detail/labels_sale_details.dart';
 import '../widgets/sales_list/fabutton_add_sale.dart';
 import '../widgets/sales_list/textfield_finder_sale.dart';
 
@@ -38,7 +39,7 @@ class SalesView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                         color: ColorPalette.secondaryBackground),
                     child: const TextFieldFinderSale())),
-            const Expanded(child: SaleController())
+            const Expanded(child: SaleController()),
           ],
         ),
       ),

@@ -112,7 +112,6 @@ class _SelectProductState extends State<SelectProduct> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (snapshot.hasData && count < 3) {
-                  //print('hola mundo 3');
                   count++;
                 }
                 if (count > 1) {

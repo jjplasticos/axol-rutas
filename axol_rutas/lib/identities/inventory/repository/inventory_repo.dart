@@ -149,7 +149,7 @@ class FetchInventory extends InventoryRepo {
 }
 
 class UpdateInventory extends InventoryRepo {
-  void updateStock(double newStock, String code) async {
+  Future<void> updateStock(double newStock, String code) async {
     final pref = await SharedPreferences.getInstance();
     final String userName = pref.getString(USER)!;
     await supabase

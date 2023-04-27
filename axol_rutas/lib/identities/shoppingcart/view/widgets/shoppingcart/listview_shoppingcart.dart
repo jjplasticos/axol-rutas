@@ -1,17 +1,17 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../settings/theme.dart';
-import '../../../cubit/shoppingcart_cubit.dart';
 import '../../../model/shoppingcart_models.dart';
-import '../../views/options_shppcitem_view.dart';
+import 'icon_button_shppcitem.dart';
 
 class ListviewShoppingcart extends StatelessWidget {
   final List<ShoppingcartItemModel> shoppingCart;
+  final bool isIconEditVisible;
 
-  const ListviewShoppingcart({super.key, required this.shoppingCart});
+  const ListviewShoppingcart(
+      {super.key, required this.shoppingCart, required this.isIconEditVisible});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,9 @@ class ListviewShoppingcart extends StatelessWidget {
                               decoration: const BoxDecoration(
                                 color: ColorPalette.secondaryBackground,
                                 borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(12)),
+                                  topLeft: Radius.circular(12),
+                                  topRight: Radius.circular(12),
+                                ),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -61,7 +63,11 @@ class ListviewShoppingcart extends StatelessWidget {
                               ),
                             ),
                           ),
-                          IconButton(
+                          IconButtonShppcItem(
+                              isVisible: isIconEditVisible,
+                              index: index,
+                              shoppingcart: shoppingCart),
+                          /*IconButton(
                               onPressed: () async {
                                 await showModalBottomSheet(
                                     isDismissible: false,
@@ -86,7 +92,7 @@ class ListviewShoppingcart extends StatelessWidget {
                                 });
                               },
                               icon: const Icon(Icons.more_vert,
-                                  color: ColorPalette.secondaryText, size: 25))
+                                  color: ColorPalette.secondaryText, size: 25))*/
                         ]),
                   ),
                   Row(

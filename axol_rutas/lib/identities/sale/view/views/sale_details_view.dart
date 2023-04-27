@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../global_widgets/appbar_global.dart';
-import '../../../../global_widgets/iconbutton_select.dart';
+import '../../../../global_widgets/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
 import '../../../shoppingcart/cubit/shoppingcart_cubit.dart';
 import '../controllers/lisview_saledetails_controller.dart';
+import '../widgets/sale_detail/labels_sale_details.dart';
 
 class SaleDetailsView extends StatelessWidget {
   final SaleModel sale;
@@ -28,16 +29,25 @@ class SaleDetailsView extends StatelessWidget {
           preferredSize: Size.fromHeight(50),
           child: AppBarGlobal(
               title: TITLE,
-              iconButton: IconButtonSelect(
+              iconButton: IconButtonReturn(
                 iconName: 'return',
               )),
         ),
         body: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 0),
+              child: LabelsSaleDetails(
+                time: sale.time,
+                uid: sale.uid,
+                location: sale.location,
+                custumer: sale.client,
+              ),
+            ),
             Expanded(
               child: ListViewSaeleDetailsController(sale: sale),
-            )
+            ),
           ],
         ),
       ),

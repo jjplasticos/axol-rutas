@@ -35,23 +35,28 @@ class ShoppingcartCubit extends Cubit<ShoppingcartResultsModel> {
     emit(shoppingcartResults);
   }
 
-  void saleToShoppingcart(SaleModel sale) async {
+  Future<void> saleToShoppingcart(SaleModel sale) async {
     final ShoppingcartResultsModel shoppingcartResults;
-    List<ShoppingcartItemModel> shoppingcart = [];
+    List<ShoppingcartItemModel> shoppingcart;
     List<String> listStrings;
     ProductModel product;
+    List<Future> futures = []; //Lista de futuros.
 
     try {
-      emit(initialState);
+      shoppingcart = [];
       sale.products.forEach((key, value) async {
-        listStrings = value.toString().split('//');
-        product = (await DatabaseProducts().readProduct(key))!;
-        //print(product.description);
-        shoppingcart.add(ShoppingcartItemModel(
-            product: product,
-            quantity: double.parse(listStrings.elementAt(0)),
-            price: double.parse(listStrings.elementAt(1))));
+        futures.add(DatabaseProducts()
+            .readProduct(value.toString().split('//').elementAt(0))
+            .then((value2) {
+          listStrings = value.toString().split('//');
+          product = value2!;
+          shoppingcart.add(ShoppingcartItemModel(
+              product: product,
+              quantity: double.parse(listStrings.elementAt(1)),
+              price: double.parse(listStrings.elementAt(2))));
+        }));
       });
+      await Future.wait(futures); //Espera a que se completen los futuros.
       shoppingcartResults = ShoppingcartResultsModel(
         shoppingcart: shoppingcart,
         totalQuantity: double.parse(sale.totalQuantity),

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../../settings/theme.dart';
-import '../identities/inventory/repository/inventory_repo.dart';
 
-class IconButtonSelect extends StatelessWidget {
+class IconButtonReturn extends StatelessWidget {
   final String? iconName;
 
-  const IconButtonSelect({super.key, required this.iconName});
+  const IconButtonReturn({super.key, required this.iconName});
 
   @override
   Widget build(BuildContext context) {

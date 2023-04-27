@@ -20,6 +20,7 @@ class ListviewShoppingcartController extends StatelessWidget {
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                   child: ListviewShoppingcart(
                     shoppingCart: state.shoppingcart,
+                    isIconEditVisible: true,
                   )),
             ),
             LblResultsForm(

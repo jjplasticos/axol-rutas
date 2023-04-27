@@ -25,7 +25,7 @@ class AuthController extends StatelessWidget {
               user: state.user,
             );
           } else if (rol == 'vendor') {
-            return const SalesView();
+            return SalesView();
           } else {
             return const Text('Error: no entro a ni una pagina.');
           }

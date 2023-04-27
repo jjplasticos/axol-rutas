@@ -49,15 +49,22 @@ class SaveShoppingcartCubit extends Cubit<SaveShoppingcartState> {
         for (var element in shoppingcart) {
           updatedStock = double.parse(stockInventory[element.product.code]!) -
               element.quantity;
-          UpdateInventory().updateStock(updatedStock, element.product.code);
+          stockInventory[element.product.code] = updatedStock.toString();
         }
+        await Future.forEach(stockInventory.entries, (entry) async {
+          await UpdateInventory()
+              .updateStock(double.parse(entry.value), entry.key);
+        });
+
         //Crea un objeto sale con los datos de la venta, para luego ser enviado
         //con en el estado EntrySucces.
         Position position = await Geolocator.getCurrentPosition();
         Map<String, dynamic> products = {};
+        int i = 0;
         for (var element in shoppingcartResults.shoppingcart) {
-          products[element.product.code] =
-              '${element.quantity}//${element.price}//${element.product.description}';
+          products[i.toString()] =
+              '${element.product.code}//${element.quantity}//${element.price}//${element.product.description}';
+          i++;
         }
         SaleModel sale = SaleModel(
             uid: idSale,

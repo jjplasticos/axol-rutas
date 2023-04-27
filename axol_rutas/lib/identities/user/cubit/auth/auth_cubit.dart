@@ -11,8 +11,8 @@ class AuthCubit extends Cubit<AuthState> {
   void getUserState() async {
     try {
       emit(AuthLoadingState());
-      final pref = await SharedPreferences.getInstance();
-      print(pref.getStringList('shoppingcart'));
+      //final pref = await SharedPreferences.getInstance();
+      //print(pref.getStringList('shoppingcart'));
       LocalUser localUser = LocalUser();
       DatabaseUser databaseUser = DatabaseUser();
       UserModel authLocalUser = await localUser.getLocalUser();

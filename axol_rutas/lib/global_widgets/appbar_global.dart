@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../../settings/theme.dart';
-import 'iconbutton_select.dart';
+import 'iconbutton_return.dart';
 
 class AppBarGlobal extends StatelessWidget {
   final String title;
-  final IconButtonSelect? iconButton;
+  final IconButtonReturn? iconButton;
 
   const AppBarGlobal(
       {super.key, required this.title, required this.iconButton});
