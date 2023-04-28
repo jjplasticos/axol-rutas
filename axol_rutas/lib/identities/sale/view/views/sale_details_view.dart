@@ -4,11 +4,13 @@ import 'package:axol_rutas/identities/sale/model/sale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../global_widgets/appbar_global.dart';
-import '../../../../global_widgets/iconbutton_return.dart';
+import '../../../../global_widgets/appbar/appbar_global.dart';
+import '../../../../global_widgets/appbar/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
 import '../../../shoppingcart/cubit/shoppingcart_cubit.dart';
+import '../../cubit/options_edit_sale/options_edit_sale_cubit.dart';
 import '../controllers/lisview_saledetails_controller.dart';
+import '../controllers/options_edit_sale_controller.dart';
 import '../widgets/sale_detail/labels_sale_details.dart';
 
 class SaleDetailsView extends StatelessWidget {
@@ -22,16 +24,18 @@ class SaleDetailsView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ShoppingcartCubit()),
+        BlocProvider(create: (_) => OptionsEditSaleCubit()),
       ],
       child: Scaffold(
         backgroundColor: ColorPalette.primaryBackground,
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(50),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
           child: AppBarGlobal(
               title: TITLE,
-              iconButton: IconButtonReturn(
+              iconButton: const IconButtonReturn(
                 iconName: 'return',
-              )),
+              ),
+              iconActions: ['1//${sale.uid}']),
         ),
         body: Column(
           mainAxisSize: MainAxisSize.max,
@@ -48,6 +52,7 @@ class SaleDetailsView extends StatelessWidget {
             Expanded(
               child: ListViewSaeleDetailsController(sale: sale),
             ),
+            const OptionsEditSaleController(),
           ],
         ),
       ),

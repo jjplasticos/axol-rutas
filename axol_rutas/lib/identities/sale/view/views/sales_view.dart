@@ -2,7 +2,8 @@ import 'package:axol_rutas/identities/sale/view/controllers/saleslist_controller
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../global_widgets/appbar_global.dart';
+import '../../../../global_widgets/appbar/appbar_global.dart';
+import '../../../../global_widgets/bottom_navigation_bar/navigation_bar_global.dart';
 import '../../../../settings/theme.dart';
 import '../../cubit/sales_list/saleslist_cubit.dart';
 import '../../cubit/textfield_finder_sale_cubit.dart';
@@ -23,26 +24,27 @@ class SalesView extends StatelessWidget {
         BlocProvider(create: (_) => TextFieldFinderSaleCubit()),
       ],
       child: Scaffold(
-        backgroundColor: ColorPalette.primaryBackground,
-        floatingActionButton: const FABtnAddSale(),
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(50),
-          child: AppBarGlobal(title: TITLE, iconButton: null),
-        ),
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: ColorPalette.secondaryBackground),
-                    child: const TextFieldFinderSale())),
-            const Expanded(child: SaleController()),
-          ],
-        ),
-      ),
+          backgroundColor: ColorPalette.primaryBackground,
+          floatingActionButton: const FABtnAddSale(),
+          appBar: const PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child:
+                AppBarGlobal(title: TITLE, iconButton: null, iconActions: []),
+          ),
+          body: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                  child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: ColorPalette.secondaryBackground),
+                      child: const TextFieldFinderSale())),
+              const Expanded(child: SaleController()),
+            ],
+          ),
+          bottomNavigationBar: const NavigationBarGlobal(currentIndex: 0)),
     );
   }
 }

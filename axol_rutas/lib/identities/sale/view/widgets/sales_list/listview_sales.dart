@@ -2,9 +2,11 @@
 
 import 'package:axol_rutas/identities/sale/model/sale.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/format.dart';
 import '../../../../../settings/theme.dart';
+import '../../../cubit/sales_list/saleslist_cubit.dart';
 import '../../views/sale_details_view.dart';
 
 class ListViewSales extends StatelessWidget {
@@ -73,7 +75,7 @@ class ListViewSales extends StatelessWidget {
                                     style: Typo.bodyText2,
                                   ),
                                   Text(
-                                    elementList.uid.toString(),
+                                    elementList.uid.toString().split('-').first,
                                     style: Typo.bodyText2,
                                   ),
                                 ],
@@ -91,7 +93,7 @@ class ListViewSales extends StatelessWidget {
                                       builder: (context_) =>
                                           SaleDetailsView(sale: elementList)))
                               .then((value) {
-                            //context.read<SalesListCubit>().getSalesList('');
+                            context.read<SalesListCubit>().getSalesList('');
                           });
                         },
                         icon: const Icon(

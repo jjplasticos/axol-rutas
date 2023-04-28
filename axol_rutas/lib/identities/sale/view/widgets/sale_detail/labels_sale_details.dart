@@ -29,7 +29,7 @@ class LabelsSaleDetails extends StatelessWidget {
           children: [
             Text(FormatDate.dmy(time), style: Typo.labelText1),
             LinkLocation(location: location),
-            Text(uid, style: Typo.labelText1),
+            Text(uid.split('-').first, style: Typo.labelText1),
           ],
         )
       ],

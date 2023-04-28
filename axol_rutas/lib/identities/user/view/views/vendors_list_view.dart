@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../global_widgets/appbar_global.dart';
-import '../../../../global_widgets/iconbutton_return.dart';
+import '../../../../global_widgets/appbar/appbar_global.dart';
+import '../../../../global_widgets/appbar/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
 
 class VendorsListView extends StatelessWidget {
@@ -16,7 +16,10 @@ class VendorsListView extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: AppBarGlobal(
-            title: title, iconButton: IconButtonReturn(iconName: 'menu')),
+          title: title,
+          iconButton: IconButtonReturn(iconName: 'menu'),
+          iconActions: [],
+        ),
       ),
     );
   }

@@ -58,7 +58,7 @@ class DatabaseSales extends SalesRepo {
         productsDB = jsonDecode(jsonEncode(element[PRODUCTS]));
 
         sale = SaleModel(
-            uid: element[UUID].toString().split('-').first,
+            uid: element[UUID].toString(),
             location: element[LOCATION].toString(),
             products: productsDB,
             client: element[CLIENT].toString(),
@@ -127,5 +127,9 @@ class DatabaseSales extends SalesRepo {
       TOTAL_WEIGHT: sale.totalWeight,
       PRODUCTS: sale.products,
     });
+  }
+
+  Future<void> deleteSale(String id) async {
+    await supabase.from(TABLE).delete().eq(UUID, id);
   }
 }
