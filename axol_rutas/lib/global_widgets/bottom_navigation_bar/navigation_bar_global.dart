@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../identities/inventory/view/views/inventory_view.dart';
+import '../../identities/sale/view/views/sales_view.dart';
 import '../../settings/theme.dart';
-import '../../views/sales_view.dart';
 
 class NavigationBarGlobal extends StatelessWidget {
   final int currentIndex;
@@ -36,6 +37,13 @@ class NavigationBarGlobal extends StatelessWidget {
             }
             break;
           case 1:
+            if (currentIndex != value) {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const InventoryView()),
+              );
+            }
             break;
           default:
         }

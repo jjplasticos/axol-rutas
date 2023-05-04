@@ -1,23 +1,31 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:axol_rutas/identities/inventory/model/inventory.dart';
 import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../product/repository/product_repo.dart';
 import '../../shoppingcart/model/shoppingcart_models.dart';
 
 abstract class InventoryRepo {
+  //Tabla
   final String TABLE = 'inventory';
+  //--Columnas
   final String STOCK = 'stock';
   final String MANAGER = 'retail_manager';
-  final String USER = 'user_name';
   final String CODE = 'code';
   final String NAME = 'name';
+  final String UID = 'uid';
+  //Memoria local
+  final String USER = 'user_name';
+  //Otros
   final String SHOPPINGCART = 'shoppingcart';
   final String DESCRIPTION = 'description';
   final String WEIGHT = 'weight';
   final String PRICE = 'price';
   final String QUANTITY = 'quantity';
+  //Instancia a la base de datos
   final supabase = Supabase.instance.client;
 }
 
@@ -145,6 +153,45 @@ class FetchInventory extends InventoryRepo {
     }
 
     return (isExist);
+  }
+
+  Future<List<InventoryModel>> getInventory() async {
+    List<InventoryModel> inventory = [];
+    InventoryModel inventoryModel;
+    final List inventoryList = await readInventory();
+    final List<Map> products;
+    List<String> codes = [];
+    Map product;
+
+    if (inventoryList.isNotEmpty) {
+      for (var element in inventoryList) {
+        if (double.tryParse(element[STOCK].toString()) != null) {
+          if (double.parse(element[STOCK].toString()) > 0) {
+            codes.add(element[CODE]);
+          }
+        }
+      }
+
+      products = await DatabaseProducts().readProductList(codes);
+
+      for (var element in inventoryList) {
+        if (double.tryParse(element[STOCK].toString()) != null) {
+          if (double.parse(element[STOCK].toString()) > 0) {
+            product = products.elementAt(
+                products.indexWhere((value) => value[CODE] == element[CODE]));
+            inventoryModel = InventoryModel(
+                uid: element[UID].toString(),
+                name: element[NAME].toString(),
+                retailManager: element[MANAGER].toString(),
+                code: element[CODE].toString(),
+                stock: element[STOCK].toString(),
+                properties: product);
+            inventory.add(inventoryModel);
+          }
+        }
+      }
+    }
+    return inventory;
   }
 }
 
