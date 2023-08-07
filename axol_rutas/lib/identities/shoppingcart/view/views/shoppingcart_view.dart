@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../global_widgets/appbar/appbar_global.dart';
 import '../../../../global_widgets/appbar/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
+import '../../cubit/customer_select/custselc_cubit/custselec_cubit.dart';
 import '../../cubit/product_finder/product_finder_cubit.dart';
 import '../../cubit/save_shoppingcart/save_shoppingcart_cubit.dart';
 import '../../cubit/shoppingcart_cubit.dart';
@@ -17,7 +18,8 @@ import '../widgets/shoppingcart/btn_save_sale.dart';
 import '../widgets/shoppingcart/txt_customer_name.dart';
 
 class ShoppingCartView extends StatelessWidget {
-  const ShoppingCartView({super.key});
+  final String customerName;
+  const ShoppingCartView({super.key, required this.customerName});
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +48,9 @@ class ShoppingCartView extends StatelessWidget {
           body: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                child: TxtCustomerName(),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                child: TxtCustomerName(customer: customerName),
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),

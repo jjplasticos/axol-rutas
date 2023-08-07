@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/theme.dart';
-import '../../../../shoppingcart/view/views/shoppingcart_view.dart';
+import '../../../../shoppingcart/cubit/shoppingcart_view_cubit/shoppingcart_view_cubit.dart';
+import '../../../../shoppingcart/view/controllers/shppc_view_controller.dart';
 import '../../../cubit/sales_list/saleslist_cubit.dart';
 
 class FABtnAddSale extends StatelessWidget {
@@ -15,7 +16,11 @@ class FABtnAddSale extends StatelessWidget {
         await Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context_) => const ShoppingCartView())).then((value) {
+              builder: (context_) => BlocProvider(
+                create: (_) => ShoppingcartViewCubit(),
+                child: const ShppcViewController(),
+              ),
+            )).then((value) {
           context.read<SalesListCubit>().getSalesList('');
         });
       },
