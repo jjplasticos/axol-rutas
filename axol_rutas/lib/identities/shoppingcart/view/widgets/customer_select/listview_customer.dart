@@ -71,7 +71,7 @@ class ListviewCustomer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text('Validación: '),
-                        rcCard.validation[RouteCustomerModel.pStatus] == true
+                        rcCard.validation[RouteCustomerModel.pStatus] == false
                             ? const Icon(Icons.check_box_outline_blank_outlined)
                             : const Icon(Icons.check_box_outlined)
                       ],

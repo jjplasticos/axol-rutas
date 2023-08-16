@@ -1,4 +1,5 @@
 import 'package:axol_rutas/identities/shoppingcart/view/controllers/rc_select_controller.dart';
+import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,9 +38,14 @@ class TxtCustomerName extends StatelessWidget {
           }
         });
       },
-      child: Row(children: [
-        Text(customer),
-        const Icon(Icons.keyboard_arrow_down),
+      style: OutlinedButton.styleFrom(
+        backgroundColor: ColorPalette.secondaryBackground,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+        Text(customer, style: Typo.bodyText1),
+        const Icon(Icons.keyboard_arrow_down, color: ColorPalette.secondaryText),
       ]),
     );
     /*TextFormField(
