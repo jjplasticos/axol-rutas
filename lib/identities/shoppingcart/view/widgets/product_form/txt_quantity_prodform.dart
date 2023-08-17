@@ -21,7 +21,7 @@ class TextFieldQuantity extends StatelessWidget {
         context.read<TxtQuantityCubit>().change(value);
       },
       decoration: InputDecoration(
-          hintText: 'Cantidad',
+          hintText: 'Cantidad *en prueba*',
           hintStyle: Typo.hintText,
           enabledBorder:
               UnderlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -30,7 +30,7 @@ class TextFieldQuantity extends StatelessWidget {
       style: Typo.textField1,
       keyboardType: TextInputType.number,
       inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp('\\d*\\.?\\d*'))
+        FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$'))
       ],
     );
   }
