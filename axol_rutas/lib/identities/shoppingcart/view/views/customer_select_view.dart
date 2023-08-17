@@ -28,13 +28,24 @@ class CustomerSelectView extends StatelessWidget {
           child: Column(
             children: [
               FinderCustomer(rcList: rcList),
-              Visibility(visible: isLoading, child: const LinearProgressIndicator()),
+              Visibility(
+                  visible: isLoading, child: const LinearProgressIndicator()),
               Expanded(child: ListviewCustomer(listData: rcList)),
+              const SizedBox(height: 8),
               OutlinedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('Cancelar'),
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: ColorPalette.secondary,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  minimumSize: const Size(double.infinity, 60),
+                ),
+                child: const Text(
+                  'Cancelar',
+                  style: Typo.textButton,
+                ),
               )
             ],
           ),

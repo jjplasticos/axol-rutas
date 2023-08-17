@@ -24,7 +24,8 @@ class ListviewCustomer extends StatelessWidget {
               },
               child: Container(
                 width: double.infinity,
-                height: 200,
+                height: 160,
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: ColorPalette.secondaryBackground,
                   borderRadius: BorderRadius.circular(12),
@@ -33,47 +34,82 @@ class ListviewCustomer extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(rcCard.id.toString()),
-                        Text(rcCard.name),
+                        Text(
+                          rcCard.id.toString(),
+                          style: Typo.bodyText1,
+                        ),
+                        Text(
+                          rcCard.name,
+                          style: Typo.bodyText1,
+                        ),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Dirección: '),
-                        Text(rcCard.address[RouteCustomerModel.pAddress]),
+                        const Text(
+                          'Dirección: ',
+                          style: Typo.bodyText6,
+                        ),
+                        Text(rcCard.address[RouteCustomerModel.pAddress],
+                            style: Typo.bodyText6),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Colonia: '),
-                        Text(rcCard.address[RouteCustomerModel.pHood]),
+                        const Text(
+                          'Colonia: ',
+                          style: Typo.bodyText6,
+                        ),
+                        Text(
+                          rcCard.address[RouteCustomerModel.pHood],
+                          style: Typo.bodyText6,
+                        ),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Municipio: '),
-                        Text(rcCard.address[RouteCustomerModel.pTown]),
+                        const Text(
+                          'Municipio: ',
+                          style: Typo.bodyText6,
+                        ),
+                        Text(
+                          rcCard.address[RouteCustomerModel.pTown],
+                          style: Typo.bodyText6,
+                        ),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Estado: '),
-                        Text(rcCard.address[RouteCustomerModel.pCountry]),
+                        const Text(
+                          'Estado: ',
+                          style: Typo.bodyText6,
+                        ),
+                        Text(
+                          rcCard.address[RouteCustomerModel.pCountry],
+                          style: Typo.bodyText6,
+                        ),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Validación: '),
+                        const Text(
+                          'Validación: ',
+                          style: Typo.bodyText6,
+                        ),
                         rcCard.validation[RouteCustomerModel.pStatus] == false
-                            ? const Icon(Icons.check_box_outline_blank_outlined)
-                            : const Icon(Icons.check_box_outlined)
+                            ? const Icon(
+                                Icons.check_box_outline_blank_outlined,
+                                color: ColorPalette.secondaryText,
+                              )
+                            : const Icon(Icons.check_box_outlined,
+                                color: ColorPalette.secondaryText)
                       ],
                     ),
                   ],

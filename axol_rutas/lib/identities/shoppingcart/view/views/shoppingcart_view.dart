@@ -50,7 +50,7 @@ class ShoppingCartView extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                child: TxtCustomerName(customer: customerName),
+                child: BtnCustomerName(customer: customerName),
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),

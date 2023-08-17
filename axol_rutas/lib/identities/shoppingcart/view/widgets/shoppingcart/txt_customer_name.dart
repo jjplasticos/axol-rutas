@@ -5,13 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../cubit/customer_select/custselc_cubit/custselec_cubit.dart';
 import '../../../cubit/customer_select/finder_customer_cubit.dart';
+import '../../../cubit/shoppingcart_txt_cubit.dart';
 import '../../../cubit/shoppingcart_view_cubit/shoppingcart_view_cubit.dart';
 import '../../../model/route_customer_model.dart';
 
-class TxtCustomerName extends StatelessWidget {
+class BtnCustomerName extends StatelessWidget {
   final String customer;
 
-  const TxtCustomerName({super.key, required this.customer});
+  const BtnCustomerName({super.key, required this.customer});
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +29,14 @@ class TxtCustomerName extends StatelessWidget {
               BlocProvider(create: (_) => CustselecCubit()),
               BlocProvider(create: (_) => FinderCustomerCubit()),
             ], 
-            child: RcSelectController(),
+            child: const RcSelectController(),
           ), 
         ).then((value) {
           final RouteCustomerModel rcModel;
           if (value != null) {
             rcModel = value;
             context.read<ShoppingcartViewCubit>().load(rcModel.name);
+            context.read<TxtCustomerNameCubit>().change(rcModel.name);
           }
         });
       },
