@@ -31,7 +31,7 @@ class ButtonSaveProdform extends StatelessWidget {
         quantity = context.read<TxtQuantityCubit>().state;
         price = context.read<TxtPriceCubit>().state;
         context.read<SaveShppcItemCubit>().runVerification(
-            quantity, price, stock, shoppingcart, product, index, act);
+            double.parse(quantity), price, stock, shoppingcart, product, index, act);
       },
       style: ElevatedButton.styleFrom(
           minimumSize: const Size(190, 60),

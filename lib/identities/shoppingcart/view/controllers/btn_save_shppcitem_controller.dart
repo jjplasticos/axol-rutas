@@ -29,7 +29,7 @@ class BtnSaveShppcItemController extends StatelessWidget {
             ),
           );
         } else if (state is ErrorState) {
-          print(state.error);
+          //print(state.error);
         }
       },
       bloc: context.read<SaveShppcItemCubit>(),

@@ -10,7 +10,7 @@ class SaveShppcItemCubit extends Cubit<SaveShppcItemState> {
   SaveShppcItemCubit() : super(InitialState());
 
   void runVerification(
-      String quantity,
+      double quantity,
       String price,
       double stock,
       List<ShoppingcartItemModel> shoppingcart,
@@ -23,7 +23,7 @@ class SaveShppcItemCubit extends Cubit<SaveShppcItemState> {
     ShoppingcartItemModel shoppingcartItem;
     try {
       emit(InitialState());
-      final double? numQuantity = double.tryParse(quantity);
+      final double? numQuantity = quantity;
       final double? numPrice = double.tryParse(price);
       if (numQuantity != null) {
         if (numPrice != null) {
