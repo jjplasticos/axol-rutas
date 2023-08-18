@@ -23,7 +23,7 @@ class ShoppingCartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String TITLE = 'Formulario de venta';
+    const String TITLE = 'Formulario de ventas';
     final String timePick = DateTime.now().toString();
 
     return MultiBlocProvider(
