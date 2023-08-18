@@ -16,7 +16,7 @@ class SalesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String TITLE = 'Ventas';
+    const String TITLE = 'Venta';
 
     return MultiBlocProvider(
       providers: [
