@@ -18,20 +18,18 @@ class ProductFormView extends StatelessWidget {
   final ProductModel product;
   final String stock;
   final List<ShoppingcartItemModel> shoppingcart;
-  final String initialQuantity;
-  final String initnialPrice;
   final int act;
   final int index;
+  final bool isLoading;
 
   const ProductFormView(
       {super.key,
       required this.stock,
       required this.product,
       required this.shoppingcart,
-      required this.initialQuantity,
-      required this.initnialPrice,
       required this.act,
-      required this.index});
+      required this.index,
+      required this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +55,12 @@ class ProductFormView extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Visibility(
+                    visible: isLoading,
+                    replacement: const SizedBox(
+                      height: 4,
+                    ),
+                    child: const CircularProgressIndicator()),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                   child: Row(
@@ -69,10 +73,10 @@ class ProductFormView extends StatelessWidget {
                   ),
                 ),
                 TextFieldQuantity(
-                  initialQuantity: initialQuantity,
+                  initialQuantity: '',
                 ),
                 TextFieldPrice(
-                  initialPrice: initnialPrice,
+                  initialPrice: '',
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,

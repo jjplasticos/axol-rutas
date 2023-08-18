@@ -2,9 +2,12 @@
 
 import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/theme.dart';
+import '../../../cubit/shppcitem_form/shppcitem_view_cubit.dart';
 import '../../../model/shoppingcart_models.dart';
+import '../../controllers/shppcitem_view_controller.dart';
 import '../../views/product_form_view.dart';
 
 class ListviewProductFinder extends StatelessWidget {
@@ -96,16 +99,23 @@ class ListviewProductFinder extends StatelessWidget {
                               builder: (context) {
                                 return Padding(
                                   padding: MediaQuery.of(context).viewInsets,
-                                  child: ProductFormView(
+                                  child: BlocProvider(
+                                    create: (_) => ShppcitemViewCubit(), 
+                                    child: ShppcitemViewController(
+                                      act: 0,
+                                      index: 0,
+                                      product: elementProduct,
+                                      shoppingcart: shoppingcart,
+                                      stock: elementList[STOCK],
+                                    ),)
+                                   /*ProductFormView(
                                     product: elementProduct,
                                     stock: elementList[STOCK],
                                     shoppingcart: shoppingcart,
-                                    initialQuantity: INITIAL_Q,
-                                    initnialPrice: INITIAL_P,
                                     //Acción 0: para guardar nuevo item.
                                     act: 0,
                                     index: 0,
-                                  ),
+                                  ),*/
                                 );
                               });
                         },

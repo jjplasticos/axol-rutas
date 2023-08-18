@@ -31,8 +31,9 @@ class BtnOptionsShppcItemController extends StatelessWidget {
                     product: item.product,
                     stock: state.stock,
                     shoppingcart: state.shoppingcart,
-                    initialQuantity: item.quantity.toString(),
-                    initnialPrice: item.price.toString(),
+                    isLoading: false,
+                    /*initialQuantity: item.quantity.toString(),
+                    initnialPrice: item.price.toString(),*/
                     //Acción 1: para editar item.
                     act: 1,
                     index: state.index,
