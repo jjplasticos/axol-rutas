@@ -6,7 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../settings/theme.dart';
 import '../../cubit/options_shppc_item/options_shppcitem_cubit.dart';
 import '../../cubit/options_shppc_item/options_shppcitem_state.dart';
-import '../views/product_form_view.dart';
+import '../../cubit/shppcitem_form/shppcitem_form_cubit.dart';
+import '../../cubit/shppcitem_form/shppcitem_view_cubit.dart';
+import 'shppcitem_view_controller.dart';
 
 class BtnOptionsShppcItemController extends StatelessWidget {
   const BtnOptionsShppcItemController({super.key});
@@ -26,19 +28,20 @@ class BtnOptionsShppcItemController extends StatelessWidget {
               context: context,
               builder: (context) {
                 return Padding(
-                  padding: MediaQuery.of(context).viewInsets,
-                  child: ProductFormView(
-                    product: item.product,
-                    stock: state.stock,
-                    shoppingcart: state.shoppingcart,
-                    isLoading: false,
-                    /*initialQuantity: item.quantity.toString(),
-                    initnialPrice: item.price.toString(),*/
-                    //Acción 1: para editar item.
-                    act: 1,
-                    index: state.index,
-                  ),
-                );
+                    padding: MediaQuery.of(context).viewInsets,
+                    child: MultiBlocProvider(
+                      providers: [
+                        BlocProvider(create: (_) => ShppcitemViewCubit()),
+                        BlocProvider(create: (_) => ShppcitemFormCubit()),
+                      ],
+                      child: ShppcitemViewController(
+                        act: 1,
+                        index: state.index,
+                        shoppingcart: state.shoppingcart,
+                        product: item.product,
+                        stock: double.parse(state.stock),
+                      ),
+                    ));
               });
         } else if (state is DeleteState) {
           Navigator.pop(context, state.shoppingcart);

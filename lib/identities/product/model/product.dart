@@ -21,4 +21,16 @@ class ProductModel {
       required this.type,
       required this.weight,
       required this.filetValues});
+
+  static ProductModel empty() => ProductModel(
+    capacity: '', 
+    code: '', 
+    description: '', 
+    gauge: '', 
+    measure: '', 
+    packing: '', 
+    pices: '', 
+    type: '', 
+    weight: '', 
+    filetValues: '',);
 }

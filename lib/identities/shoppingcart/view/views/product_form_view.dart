@@ -2,21 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../settings/theme.dart';
-import '../../../product/model/product.dart';
 import '../../cubit/product_finder/product_finder_cubit.dart';
-import '../../cubit/save_shppc_item/save_shppc_item_cubit.dart';
 import '../../cubit/shoppingcart_cubit.dart';
-import '../../cubit/shoppingcart_txt_cubit.dart';
+import '../../cubit/shppcitem_form/shppcitem_form_cubit.dart';
 import '../../model/shoppingcart_models.dart';
-import '../controllers/btn_save_shppcitem_controller.dart';
+import '../../model/shppcitem_form_model.dart';
 import '../widgets/product_form/btn_return_prodform.dart';
 import '../widgets/product_form/btn_save_prodform.dart';
 import '../widgets/product_form/txt_price_prodform.dart';
 import '../widgets/product_form/txt_quantity_prodform.dart';
 
 class ProductFormView extends StatelessWidget {
-  final ProductModel product;
-  final String stock;
   final List<ShoppingcartItemModel> shoppingcart;
   final int act;
   final int index;
@@ -24,8 +20,6 @@ class ProductFormView extends StatelessWidget {
 
   const ProductFormView(
       {super.key,
-      required this.stock,
-      required this.product,
       required this.shoppingcart,
       required this.act,
       required this.index,
@@ -33,13 +27,11 @@ class ProductFormView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ShppcitemFormModel form = context.read<ShppcitemFormCubit>().state;
     return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => TxtQuantityCubit()),
-          BlocProvider(create: (_) => TxtPriceCubit()),
           BlocProvider(create: (_) => ProductFinderCubit()),
           BlocProvider(create: (_) => ShoppingcartCubit()),
-          BlocProvider(create: (_) => SaveShppcItemCubit()),
         ],
         child: Container(
           width: 300,
@@ -67,23 +59,21 @@ class ProductFormView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(product.code, style: Typo.labelText1),
-                      Text(product.description, style: Typo.labelText1),
+                      Text(form.product.code, style: Typo.bodyText5),
+                      Text(form.product.description, style: Typo.bodyText5),
                     ],
                   ),
                 ),
-                TextFieldQuantity(
-                  initialQuantity: '',
-                ),
-                TextFieldPrice(
-                  initialPrice: '',
-                ),
+                // ignore: prefer_const_constructors
+                TextFieldQuantity(),
+                // ignore: prefer_const_constructors
+                TextFieldPrice(),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Existencias: ', style: Typo.labelText1),
-                    Text(stock.toString(), style: Typo.bodyText5),
+                    const Text('Existencias: ', style: Typo.bodyText5),
+                    Text(form.stock.toString(), style: Typo.bodyText5),
                   ],
                 ),
                 Padding(
@@ -94,9 +84,7 @@ class ProductFormView extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ButtonSaveProdform(
-                          product: product,
                           shoppingcart: shoppingcart,
-                          stock: double.parse(stock),
                           act: act,
                           index: index,
                         ),
@@ -107,7 +95,6 @@ class ProductFormView extends StatelessWidget {
                     ],
                   ),
                 ),
-                const BtnSaveShppcItemController(),
               ],
             ),
           ),

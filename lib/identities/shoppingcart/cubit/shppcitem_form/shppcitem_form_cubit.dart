@@ -1,12 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../global_models/validation_form_model.dart';
+import '../../../product/model/product.dart';
 import '../../model/shppcitem_form_model.dart';
 
 class ShppcitemFormCubit extends Cubit<ShppcitemFormModel> {
   ShppcitemFormCubit() : super(ShppcitemFormModel.empty());
 
-  Future<void> change(String text, int position, int elementForm) async {
+  Future<void> changeTextfield(
+      String text, int position, int elementForm) async {
     ShppcitemFormModel form = state;
     if (elementForm == 0) {
       form.quantity.value = text;
@@ -22,6 +24,20 @@ class ShppcitemFormCubit extends Cubit<ShppcitemFormModel> {
     emit(form);
   }
 
+  Future<void> changeProduct(ProductModel product) async {
+    ShppcitemFormModel form = state;
+    form.product = product;
+    emit(ShppcitemFormModel.empty());
+    emit(form);
+  }
+
+  Future<void> changeStock(double stock) async {
+    ShppcitemFormModel form = state;
+    form.stock = stock;
+    emit(ShppcitemFormModel.empty());
+    emit(form);
+  }
+
   Future<void> allValidate() async {
     ShppcitemFormModel form = state;
     form = _validQuantity(form);
@@ -32,9 +48,13 @@ class ShppcitemFormCubit extends Cubit<ShppcitemFormModel> {
 
   ShppcitemFormModel _validQuantity(ShppcitemFormModel shppcitemForm) {
     ShppcitemFormModel newForm = shppcitemForm;
-    if (newForm.quantity.value == '') {
+    double? quantNum = double.tryParse(newForm.quantity.value);
+    if (newForm.quantity.value == '' || quantNum == 0) {
       newForm.quantity.validation =
           ValidationFormModel(isValid: false, errorMessage: 'Dato no valido');
+    } else if (quantNum! > newForm.stock) {
+      newForm.quantity.validation = ValidationFormModel(
+          isValid: false, errorMessage: 'Stock insuficiente');
     } else {
       newForm.quantity.validation = ValidationFormModel.trueValid();
     }
@@ -43,7 +63,7 @@ class ShppcitemFormCubit extends Cubit<ShppcitemFormModel> {
 
   ShppcitemFormModel _validPrice(ShppcitemFormModel shppcitemForm) {
     ShppcitemFormModel newForm = shppcitemForm;
-    if (newForm.price.value == '') {
+    if (newForm.price.value == '' || double.parse(newForm.price.value) == 0) {
       newForm.price.validation =
           ValidationFormModel(isValid: false, errorMessage: 'Dato no valido');
     } else {

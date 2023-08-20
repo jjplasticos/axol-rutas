@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../global_widgets/appbar/appbar_global.dart';
 import '../../../../global_widgets/appbar/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
-import '../../cubit/customer_select/custselc_cubit/custselec_cubit.dart';
 import '../../cubit/product_finder/product_finder_cubit.dart';
 import '../../cubit/save_shoppingcart/save_shoppingcart_cubit.dart';
 import '../../cubit/shoppingcart_cubit.dart';

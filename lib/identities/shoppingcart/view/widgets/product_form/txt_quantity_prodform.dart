@@ -4,14 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../global_models/textfield_form_model.dart';
 import '../../../../../settings/theme.dart';
-import '../../../cubit/shoppingcart_txt_cubit.dart';
 import '../../../cubit/shppcitem_form/shppcitem_form_cubit.dart';
+import '../../../cubit/shppcitem_form/shppcitem_view_cubit.dart';
 import '../../../model/shppcitem_form_model.dart';
 
 class TextFieldQuantity extends StatelessWidget {
-  final String initialQuantity;
-
-  const TextFieldQuantity({super.key, required this.initialQuantity});
+  const TextFieldQuantity({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,36 +20,47 @@ class TextFieldQuantity extends StatelessWidget {
     txtController.value = TextEditingValue(
         text: textfieldForm.value,
         selection: TextSelection.collapsed(offset: textfieldForm.position));
-    return TextFormField(
-      initialValue: initialQuantity,
-      autofocus: false,
-      obscureText: false,
-      onChanged: (value) {
-        //context.read<TxtQuantityCubit>().change(value);
-        context
-            .read<ShppcitemFormCubit>()
-            .change(value, txtController.selection.base.offset, 0);
-      },
-      decoration: InputDecoration(
-        hintText: 'Cantidad *en prueba*',
-        hintStyle: Typo.hintText,
-        enabledBorder:
-            UnderlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        filled: true,
-        isDense: true,
-        fillColor: ColorPalette.secondaryBackground,
-        errorStyle: const TextStyle(height: 0.3),
-        errorText: textfieldForm.validation.isValid
-            ? null
-            : textfieldForm.validation.errorMessage,
-        errorBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.red)),
+    return Container(
+      decoration: BoxDecoration(
+          color: ColorPalette.secondaryBackground,
+          borderRadius: BorderRadius.circular(8)),
+      child: TextField(
+        controller: txtController,
+        onChanged: (value) {
+          //context.read<TxtQuantityCubit>().change(value);
+          context
+              .read<ShppcitemFormCubit>()
+              .changeTextfield(value, txtController.selection.base.offset, 0);
+        },
+        onSubmitted: (value) {
+          context
+              .read<ShppcitemFormCubit>()
+              .changeTextfield(value, txtController.selection.base.offset, 0);
+          context.read<ShppcitemViewCubit>().load();
+        },
+        decoration: InputDecoration(
+          hintText: 'Cantidad',
+          hintStyle: Typo.hintText,
+          border:
+              UnderlineInputBorder(borderRadius: BorderRadius.circular(8)),
+          filled: true,
+          isDense: true,
+          fillColor: ColorPalette.secondaryBackground,
+          errorStyle: const TextStyle(height: 0.3),
+          errorText: textfieldForm.validation.isValid
+              ? null
+              : textfieldForm.validation.errorMessage,
+          errorBorder: UnderlineInputBorder(
+              borderSide: const BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.circular(8)
+              ),
+        ),
+        style: Typo.textField1,
+        keyboardType: TextInputType.number,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$'))
+        ],
       ),
-      style: Typo.textField1,
-      keyboardType: TextInputType.number,
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$'))
-      ],
     );
   }
 }
