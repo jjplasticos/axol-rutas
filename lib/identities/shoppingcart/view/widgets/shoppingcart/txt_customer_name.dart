@@ -11,14 +11,16 @@ import '../../../model/route_customer_model.dart';
 
 class BtnCustomerName extends StatelessWidget {
   final String customer;
+  final bool? isLoading;
 
-  const BtnCustomerName({super.key, required this.customer});
+  const BtnCustomerName({super.key, required this.customer, this.isLoading});
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: (){
-        showModalBottomSheet(
+        if (isLoading == null || isLoading == false) {
+          showModalBottomSheet(
           isDismissible: false,
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
@@ -39,6 +41,7 @@ class BtnCustomerName extends StatelessWidget {
             context.read<TxtCustomerNameCubit>().change(rcModel.name);
           }
         });
+        }
       },
       style: OutlinedButton.styleFrom(
         backgroundColor: ColorPalette.secondaryBackground,

@@ -7,31 +7,34 @@ import '../../../model/shoppingcart_models.dart';
 import '../../views/product_fider_view.dart';
 
 class BtnAddProduct extends StatelessWidget {
-  const BtnAddProduct({super.key});
+  final bool? isLoading;
+  const BtnAddProduct({super.key, this.isLoading});
 
   @override
   Widget build(BuildContext context) {
     List<ShoppingcartItemModel> shoppingcart;
     return ElevatedButton(
       onPressed: () async {
-        shoppingcart = context.read<ShoppingcartCubit>().state.shoppingcart;
-        showModalBottomSheet(
-          isDismissible: false,
-          isScrollControlled: true,
-          backgroundColor: Colors.transparent,
-          enableDrag: false,
-          context: context,
-          builder: (context) {
-            return Padding(
-              padding: MediaQuery.of(context).viewInsets,
-              child: ProdctFinderView(
-                shoppingcart: shoppingcart,
-              ),
-            );
-          },
-        ).then((value) {
-          context.read<ShoppingcartCubit>().returnShoppingcart(value);
-        });
+        if (isLoading == null || isLoading == false) {
+          shoppingcart = context.read<ShoppingcartCubit>().state.shoppingcart;
+          showModalBottomSheet(
+            isDismissible: false,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            enableDrag: false,
+            context: context,
+            builder: (context) {
+              return Padding(
+                padding: MediaQuery.of(context).viewInsets,
+                child: ProdctFinderView(
+                  shoppingcart: shoppingcart,
+                ),
+              );
+            },
+          ).then((value) {
+            context.read<ShoppingcartCubit>().returnShoppingcart(value);
+          });
+        }
       },
       style: ElevatedButton.styleFrom(
           backgroundColor: ColorPalette.tertiary,

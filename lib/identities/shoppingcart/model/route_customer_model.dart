@@ -26,4 +26,13 @@ class RouteCustomerModel {
   //-----Validation-----
   static const String pStatus = 'status';
   static const String pAdminUser = 'user';
+
+  static RouteCustomerModel empty() => const RouteCustomerModel(
+    id: -1,
+    address: {},
+    location: '',
+    name: '',
+    validation: {},
+    vendor: '',
+  );
 }

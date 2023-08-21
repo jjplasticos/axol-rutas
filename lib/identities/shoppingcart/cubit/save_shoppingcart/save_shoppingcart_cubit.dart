@@ -30,6 +30,7 @@ class SaveShoppingcartCubit extends Cubit<SaveShoppingcartState> {
 
     try {
       emit(InitialState());
+      emit(LoadingState());
 
       //Valida si las cantidades de stock no serán menores a cero una vez se
       //actualice.
@@ -41,6 +42,8 @@ class SaveShoppingcartCubit extends Cubit<SaveShoppingcartState> {
       } else {
         isCustomerNotEmpty = false;
       }
+
+      Position position = await _determinePosition();
 
       //Si las validaciones son correctas... emite EntrySucces.
       if (isUpgradable == true && isCustomerNotEmpty == true) {
@@ -58,7 +61,7 @@ class SaveShoppingcartCubit extends Cubit<SaveShoppingcartState> {
 
         //Crea un objeto sale con los datos de la venta, para luego ser enviado
         //con en el estado EntrySucces.
-        Position position = await Geolocator.getCurrentPosition();
+        
         Map<String, dynamic> products = {};
         int i = 0;
         for (var element in shoppingcartResults.shoppingcart) {
@@ -100,4 +103,41 @@ class SaveShoppingcartCubit extends Cubit<SaveShoppingcartState> {
       emit(ErrorState(error: e.toString()));
     }
   }
+}
+
+Future<Position> _determinePosition() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+
+  // Test if location services are enabled.
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    // Location services are not enabled don't continue
+    // accessing the position and request users of the 
+    // App to enable the location services.
+    return Future.error('Location services are disabled.');
+  }
+
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      // Permissions are denied, next time you could try
+      // requesting permissions again (this is also where
+      // Android's shouldShowRequestPermissionRationale 
+      // returned true. According to Android guidelines
+      // your App should show an explanatory UI now.
+      return Future.error('Location permissions are denied');
+    }
+  }
+  
+  if (permission == LocationPermission.deniedForever) {
+    // Permissions are denied forever, handle appropriately. 
+    return Future.error(
+      'Location permissions are permanently denied, we cannot request permissions.');
+  } 
+
+  // When we reach here, permissions are granted and we can
+  // continue accessing the position of the device.
+  return await Geolocator.getCurrentPosition();
 }

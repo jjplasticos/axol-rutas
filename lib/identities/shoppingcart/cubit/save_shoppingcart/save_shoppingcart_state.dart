@@ -9,6 +9,11 @@ class InitialState extends SaveShoppingcartState {
   List<Object?> get props => [];
 }
 
+class LoadingState extends SaveShoppingcartState {
+  @override
+  List<Object?> get props => [];
+}
+
 class EntryFailure extends SaveShoppingcartState {
   final String errorMessage;
 

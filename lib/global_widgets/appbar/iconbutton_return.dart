@@ -4,15 +4,18 @@ import '../../../../../settings/theme.dart';
 
 class IconButtonReturn extends StatelessWidget {
   final String? iconName;
+  final bool? isLoading;
 
-  const IconButtonReturn({super.key, required this.iconName});
+  const IconButtonReturn({super.key, required this.iconName, this.isLoading});
 
   @override
   Widget build(BuildContext context) {
     if (iconName == 'return') {
       return IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            if (isLoading == null || isLoading == false) {
+                Navigator.pop(context);
+            }
           },
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -22,8 +25,9 @@ class IconButtonReturn extends StatelessWidget {
     } else if (iconName == 'menu') {
       return IconButton(
           onPressed: () {
-            Navigator.pop(context);
-            //LocalShoppingcart().clearShoppingCart();
+            if (isLoading == null || isLoading == false) {
+              Navigator.pop(context);
+            }
           },
           icon: const Icon(
             Icons.menu,
