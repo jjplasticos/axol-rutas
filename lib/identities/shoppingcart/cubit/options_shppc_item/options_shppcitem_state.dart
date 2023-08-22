@@ -8,7 +8,20 @@ class InitialState extends OptionsShppcItemState {
   List<Object?> get props => [];
 }
 
-class EditState extends OptionsShppcItemState {
+class LoadingState extends OptionsShppcItemState {
+  @override
+  List<Object?> get props => [];
+}
+
+class LoadedState extends OptionsShppcItemState {
+  final bool isGetStock;
+  final double stock;
+  LoadedState({required this.stock, required this.isGetStock});
+  @override
+  List<Object?> get props => [stock, isGetStock];
+}
+
+/*class EditState extends OptionsShppcItemState {
   final String stock;
   final List<ShoppingcartItemModel> shoppingcart;
   final int index;
@@ -33,7 +46,8 @@ class CancelState extends OptionsShppcItemState {
   CancelState({required this.shoppingcart});
   @override
   List<Object?> get props => [shoppingcart];
-}
+}*/
+
 
 class ErrorState extends OptionsShppcItemState {
   final String error;

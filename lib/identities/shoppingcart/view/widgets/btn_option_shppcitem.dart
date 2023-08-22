@@ -11,6 +11,7 @@ class BtnOptionShppcItem extends StatelessWidget {
   final int action;
   final int index;
   final List<ShoppingcartItemModel> shoppingcart;
+  final double? stock;
 
   const BtnOptionShppcItem(
       {super.key,
@@ -18,7 +19,8 @@ class BtnOptionShppcItem extends StatelessWidget {
       required this.color,
       required this.action,
       required this.shoppingcart,
-      required this.index});
+      required this.index, 
+      this.stock});
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +38,18 @@ class BtnOptionShppcItem extends StatelessWidget {
         switch (action) {
           case 0:
             {
-              context.read<OptionsShppcItemCubit>().edit(shoppingcart, index);
+              context.read<OptionsShppcItemCubit>().getStock(shoppingcart, index);
             }
             break;
           case 1:
             {
-              context.read<OptionsShppcItemCubit>().delete(shoppingcart, index);
+              shoppingcart.removeAt(index);
+              Navigator.pop(context, shoppingcart);
             }
             break;
           case 2:
             {
-              context.read<OptionsShppcItemCubit>().cancel(shoppingcart);
+              Navigator.pop(context, shoppingcart);
             }
             break;
           default:

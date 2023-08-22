@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,12 +9,9 @@ import '../../../../settings/theme.dart';
 import '../../cubit/product_finder/product_finder_cubit.dart';
 import '../../cubit/save_shoppingcart/save_shoppingcart_cubit.dart';
 import '../../cubit/shoppingcart/shppc_cubit.dart';
-import '../../cubit/shoppingcart_cubit.dart';
-import '../../cubit/shoppingcart_txt_cubit.dart';
 import '../../model/route_customer_model.dart';
 import '../../model/shppc_view_model.dart';
-import '../controllers/btn_save_shoppingcart_controller.dart';
-import '../controllers/listview_shoppingcart_controller.dart';
+import '../controllers/b___tn_save_shoppingcart_controller.dart';
 import '../widgets/shoppingcart/btn_add_product.dart';
 import '../widgets/shoppingcart/btn_save_sale.dart';
 import '../widgets/shoppingcart/lbl_results_form.dart';
@@ -31,21 +28,14 @@ class ShoppingCartView extends StatelessWidget {
     final ShppcViewModel shppcView = context.read<ShppcCubit>().state;
     final RouteCustomerModel rc = shppcView.routeCustomer;
     final String customer;
-    final DateTime dateTime = shppcView.dateTime;
+    final DateTime time = shppcView.dateTime;
     if (rc.id > -1) {
       customer = '${rc.id}: ${rc.name}';
     } else {
       customer = 'Seleccione un cliente';
     }
 
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => ProductFinderCubit()),
-          //BlocProvider(create: (_) => ShoppingcartCubit()),
-          //BlocProvider(create: (_) => TxtCustomerNameCubit()),
-          BlocProvider(create: (_) => SaveShoppingcartCubit()),
-        ],
-        child: Scaffold(
+    return Scaffold(
           backgroundColor: ColorPalette.primaryBackground,
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(50),
@@ -78,7 +68,7 @@ class ShoppingCartView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('${dateTime.day}/${dateTime.month}/${dateTime.year}',
+                    Text('${time.day}/${time.month}/${time.year} ${time.hour}:${time.minute}',
                         style: Typo.labelText1),
                   ],
                 ),
@@ -88,7 +78,7 @@ class ShoppingCartView extends StatelessWidget {
                   child: BtnAddProduct()),
               Expanded(
                 child: Column(children: [
-                  const Expanded(
+                   Expanded(
                     child: Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
@@ -106,9 +96,9 @@ class ShoppingCartView extends StatelessWidget {
               Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(8, 16, 8, 8),
                   child: BtnSaveSale(isLoading: isLoading)),
-              const BtnSaveShoppingcartController(),
+              //const BtnSaveShoppingcartController(),
             ],
           ),
-        ));
+        );
   }
 }

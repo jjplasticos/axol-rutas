@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../settings/theme.dart';
+import '../../../cubit/shoppingcart/shppc_cubit.dart';
+import '../../../cubit/shoppingcart/shppc_view_cubit.dart';
 import '../../../model/shoppingcart_models.dart';
 import '../../views/product_fider_view.dart';
 
@@ -12,11 +14,10 @@ class BtnAddProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ShoppingcartItemModel> shoppingcart;
+    List<ShoppingcartItemModel> shoppingcart = context.read<ShppcCubit>().state.shoppingcart;
     return ElevatedButton(
       onPressed: () async {
-        if (isLoading == null || isLoading == false) {
-          shoppingcart = context.read<ShoppingcartCubit>().state.shoppingcart;
+        if (isLoading == null || isLoading == false) { 
           showModalBottomSheet(
             isDismissible: false,
             isScrollControlled: true,
@@ -32,7 +33,9 @@ class BtnAddProduct extends StatelessWidget {
               );
             },
           ).then((value) {
-            context.read<ShoppingcartCubit>().returnShoppingcart(value);
+            context.read<ShppcCubit>().changeShppc(value);
+            context.read<ShppcViewCubit>().load();
+          //context.read<ShoppingcartCubit>().returnShoppingcart(value);
           });
         }
       },
