@@ -1,3 +1,4 @@
+import 'package:axol_rutas/identities/shoppingcart/cubit/shoppingcart/shppc_cubit.dart';
 import 'package:axol_rutas/identities/shoppingcart/view/controllers/rc_select_controller.dart';
 import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../cubit/customer_select/custselc_cubit/custselec_cubit.dart';
 import '../../../cubit/customer_select/finder_customer_cubit.dart';
-import '../../../cubit/shoppingcart_txt_cubit.dart';
-import '../../../cubit/shoppingcart_view_cubit/shoppingcart_view_cubit.dart';
+import '../../../cubit/shoppingcart/shppc_view_cubit.dart';
 import '../../../model/route_customer_model.dart';
 
 class BtnCustomerName extends StatelessWidget {
@@ -37,8 +37,10 @@ class BtnCustomerName extends StatelessWidget {
           final RouteCustomerModel rcModel;
           if (value != null) {
             rcModel = value;
-            context.read<ShoppingcartViewCubit>().load(rcModel.name);
-            context.read<TxtCustomerNameCubit>().change(rcModel.name);
+            context.read<ShppcCubit>().changeCustomer(rcModel);
+            context.read<ShppcViewCubit>().load();
+            //context.read<ShoppingcartViewCubit>().load(rcModel.name);
+            //context.read<TxtCustomerNameCubit>().change(rcModel.name);
           }
         });
         }

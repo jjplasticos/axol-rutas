@@ -5,7 +5,7 @@ import 'shppc_view_state.dart';
 class ShppcViewCubit extends Cubit<ShppcViewState> {
   ShppcViewCubit() : super(InitialState());
 
-  Future<void> load(String customerName) async {
+  Future<void> load() async {
     try {
       emit(InitialState());
       emit(LoadingState());

@@ -12,10 +12,13 @@ import '../../cubit/shoppingcart/shppc_cubit.dart';
 import '../../cubit/shoppingcart_cubit.dart';
 import '../../cubit/shoppingcart_txt_cubit.dart';
 import '../../model/route_customer_model.dart';
+import '../../model/shppc_view_model.dart';
 import '../controllers/btn_save_shoppingcart_controller.dart';
 import '../controllers/listview_shoppingcart_controller.dart';
 import '../widgets/shoppingcart/btn_add_product.dart';
 import '../widgets/shoppingcart/btn_save_sale.dart';
+import '../widgets/shoppingcart/lbl_results_form.dart';
+import '../widgets/shoppingcart/listview_shoppingcart.dart';
 import '../widgets/shoppingcart/txt_customer_name.dart';
 
 class ShoppingCartView extends StatelessWidget {
@@ -25,9 +28,10 @@ class ShoppingCartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String TITLE = 'Formulario de ventas';
-    final String timePick = DateTime.now().toString();
-    final RouteCustomerModel rc = context.read<ShppcCubit>().state.routeCustomer;
+    final ShppcViewModel shppcView = context.read<ShppcCubit>().state;
+    final RouteCustomerModel rc = shppcView.routeCustomer;
     final String customer;
+    final DateTime dateTime = shppcView.dateTime;
     if (rc.id > -1) {
       customer = '${rc.id}: ${rc.name}';
     } else {
@@ -37,8 +41,8 @@ class ShoppingCartView extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => ProductFinderCubit()),
-          BlocProvider(create: (_) => ShoppingcartCubit()),
-          BlocProvider(create: (_) => TxtCustomerNameCubit()),
+          //BlocProvider(create: (_) => ShoppingcartCubit()),
+          //BlocProvider(create: (_) => TxtCustomerNameCubit()),
           BlocProvider(create: (_) => SaveShoppingcartCubit()),
         ],
         child: Scaffold(
@@ -58,12 +62,15 @@ class ShoppingCartView extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Visibility(
-                visible: isLoading,
-                replacement: const SizedBox(height: 4),
-                child: const LinearProgressIndicator()),
+                  visible: isLoading,
+                  replacement: const SizedBox(height: 4),
+                  child: const LinearProgressIndicator()),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                child: BtnCustomerName(customer: customer, isLoading: isLoading,),
+                child: BtnCustomerName(
+                  customer: customer,
+                  isLoading: isLoading,
+                ),
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
@@ -71,19 +78,34 @@ class ShoppingCartView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(timePick, style: Typo.labelText1),
+                    Text('${dateTime.day}/${dateTime.month}/${dateTime.year}',
+                        style: Typo.labelText1),
                   ],
                 ),
               ),
               const Padding(
                   padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
                   child: BtnAddProduct()),
-              const Expanded(
-                child: ListviewShoppingcartController(),
+              Expanded(
+                child: Column(children: [
+                  const Expanded(
+                    child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: ListviewShoppingcart(
+                          isIconEditVisible: true,
+                        )),
+                  ),
+                  LblResultsForm(
+                      resultPrice: shppcView.totalPrice.toString(),
+                      resultQuantity: shppcView.totalQuantity.toString(),
+                      resultWeight: shppcView.totalWeight.toString()),
+                ]),
+                //ListviewShoppingcartController(),
               ),
               Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(8, 16, 8, 8),
-                  child: BtnSaveSale(timePick: timePick)),
+                  child: BtnSaveSale(isLoading: isLoading)),
               const BtnSaveShoppingcartController(),
             ],
           ),

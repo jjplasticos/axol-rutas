@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:axol_rutas/identities/shoppingcart/view/views/shoppingcart_view.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +13,22 @@ class ShoppingcartController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShppcViewCubit, ShppcViewState>(
+      bloc: context.read<ShppcViewCubit>()..load(),
       listener: (context, state) {
-        
+        if (state is ErrorState) {
+          final snackBar = SnackBar(content: Text(state.error));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
       },
       builder: (context, state) {
         if (state is LoadingState) {
-          return ShoppingCartView();
+          return ShoppingCartView(isLoading: true,);
+        } else if (state is LoadedState) {
+          return ShoppingCartView(isLoading: false);
+        } else if (state is ErrorState) {
+          return ShoppingCartView(isLoading: false);
+        } else {
+          return Text('Sin estado', style: TextStyle(color: Colors.red));
         }
       },
       );

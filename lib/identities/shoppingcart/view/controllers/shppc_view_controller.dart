@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,9 +17,9 @@ class ShppcViewController extends StatelessWidget {
         bloc: context.read<ShoppingcartViewCubit>()..load('Sleccione un cliente'),
         builder: (context, state) {
           if (state is LoadingState) {
-            return const ShoppingCartView(customerName: '');
+            return ShoppingCartView(isLoading: true,);
           } else if (state is LoadedState) {
-            return ShoppingCartView(customerName: state.customerName,);
+            return ShoppingCartView(isLoading: false,);
           } else if (state is ErrorState) {
             return Text(state.error, style: Typo.labelText1,);
           } else {

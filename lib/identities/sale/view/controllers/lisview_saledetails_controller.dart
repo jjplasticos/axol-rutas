@@ -22,7 +22,7 @@ class ListViewSaeleDetailsController extends StatelessWidget {
               child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                   child: ListviewShoppingcart(
-                    shoppingCart: state.shoppingcart,
+                    //shoppingCart: state.shoppingcart,
                     isIconEditVisible: false,
                   )),
             ),

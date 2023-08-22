@@ -1,26 +1,28 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../settings/theme.dart';
+import '../../../cubit/shoppingcart/shppc_cubit.dart';
 import '../../../model/shoppingcart_models.dart';
 import 'icon_button_shppcitem.dart';
 
 class ListviewShoppingcart extends StatelessWidget {
-  final List<ShoppingcartItemModel> shoppingCart;
   final bool isIconEditVisible;
 
-  const ListviewShoppingcart(
-      {super.key, required this.shoppingCart, required this.isIconEditVisible});
+  const ListviewShoppingcart({super.key, required this.isIconEditVisible});
 
   @override
   Widget build(BuildContext context) {
+    final List<ShoppingcartItemModel> shoppingcart =
+        context.read<ShppcCubit>().state.shoppingcart;
     return ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
-      itemCount: shoppingCart.length,
+      itemCount: shoppingcart.length,
       itemBuilder: (context, index) {
-        final shoppingCartItem = shoppingCart[index];
+        final shoppingCartItem = shoppingcart[index];
         return Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
             child: Container(
@@ -66,7 +68,7 @@ class ListviewShoppingcart extends StatelessWidget {
                           IconButtonShppcItem(
                               isVisible: isIconEditVisible,
                               index: index,
-                              shoppingcart: shoppingCart),
+                              shoppingcart: shoppingcart),
                           /*IconButton(
                               onPressed: () async {
                                 await showModalBottomSheet(

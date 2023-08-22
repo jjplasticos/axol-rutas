@@ -6,7 +6,7 @@ import '../../model/shoppingcart_models.dart';
 import '../widgets/shoppingcart/lbl_results_form.dart';
 import '../widgets/shoppingcart/listview_shoppingcart.dart';
 
-class ListviewShoppingcartController extends StatelessWidget {
+/*class ListviewShoppingcartController extends StatelessWidget {
   const ListviewShoppingcartController({super.key});
 
   @override
@@ -30,4 +30,4 @@ class ListviewShoppingcartController extends StatelessWidget {
           ]);
         });
   }
-}
+}*/
