@@ -1,5 +1,3 @@
-import '../../shoppingcart/model/shoppingcart_models.dart';
-
 class SaleModel {
   final String uid;
   final String location;
@@ -19,4 +17,14 @@ class SaleModel {
       required this.totalQuantity,
       required this.totalWeight,
       required this.totalPrice});
+
+  static SaleModel empty() => SaleModel(
+    uid: '', 
+    location: '', 
+    products: {}, 
+    client: '', 
+    time: '', 
+    totalQuantity: '', 
+    totalWeight: '', 
+    totalPrice: '');
 }

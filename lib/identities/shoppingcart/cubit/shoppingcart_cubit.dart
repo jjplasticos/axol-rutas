@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../product/repository/product_repo.dart';
-import '../../sale/model/sale.dart';
+import '../../sale/model/sale_model.dart';
 import '../model/shoppingcart_models.dart';
 
 class ShoppingcartCubit extends Cubit<ShoppingcartResultsModel> {

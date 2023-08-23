@@ -1,11 +1,15 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:axol_rutas/identities/sale/model/sale.dart';
+import 'package:axol_rutas/identities/sale/cubit/options_edit_sale/options_edit_sale_cubit.dart';
+import 'package:axol_rutas/identities/sale/model/sale_model.dart';
+import 'package:axol_rutas/identities/sale/view/controllers/sale_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/format.dart';
 import '../../../../../settings/theme.dart';
+import '../../../../shoppingcart/cubit/shoppingcart/shppc_cubit.dart';
+import '../../../cubit/sale_detail/sale_detail_cubit.dart';
 import '../../../cubit/sales_list/saleslist_cubit.dart';
 import '../../views/sale_details_view.dart';
 
@@ -25,6 +29,8 @@ class ListViewSales extends StatelessWidget {
       itemCount: listData.length,
       itemBuilder: ((context, index) {
         final elementList = listData[index];
+        final DateTime time =
+            DateTime.fromMillisecondsSinceEpoch(int.parse(elementList.time));
         return Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
           child: Container(
@@ -71,7 +77,8 @@ class ListViewSales extends StatelessWidget {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Text(
-                                    FormatDate.dmy(elementList.time.toString()),
+                                    '${time.day}/${time.month}/${time.year} ${time.hour}:${time.minute}',
+                                    //FormatDate.dmy(elementList.time.toString()),
                                     style: Typo.bodyText2,
                                   ),
                                   Text(
@@ -88,11 +95,19 @@ class ListViewSales extends StatelessWidget {
                     IconButton(
                         onPressed: () async {
                           await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context_) =>
-                                          SaleDetailsView(sale: elementList)))
-                              .then((value) {
+                              context,
+                              MaterialPageRoute(
+                                builder: (context_) =>
+                                    MultiBlocProvider(
+                                      providers: [
+                                        BlocProvider(create: (_) => SaleDetailCubit()),
+                                        BlocProvider(create: (_) => OptionsEditSaleCubit()),
+                                        //BlocProvider(create: (_) => ShppcCubit()),
+                                      ] ,
+                                      child: SaleDetailController(sale: elementList),
+                                      )
+                                    //SaleDetailsView(sale: elementList),
+                              )).then((value) {
                             context.read<SalesListCubit>().getSalesList('');
                           });
                         },

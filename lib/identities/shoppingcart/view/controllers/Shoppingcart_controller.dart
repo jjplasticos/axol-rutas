@@ -19,6 +19,11 @@ class ShoppingcartController extends StatelessWidget {
           final snackBar = SnackBar(content: Text(state.error));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
+        if (state is LoadedState) {
+          if (state.isSaved == true) {
+            Navigator.pop(context);
+          }
+        }
       },
       builder: (context, state) {
         if (state is LoadingState) {

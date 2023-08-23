@@ -5,20 +5,21 @@ import '../../../../../settings/theme.dart';
 import 'link_location.dart';
 
 class LabelsSaleDetails extends StatelessWidget {
-  final String time;
+  final String dateTime;
   final String uid;
   final String location;
   final String custumer;
 
   const LabelsSaleDetails(
       {super.key,
-      required this.time,
+      required this.dateTime,
       required this.uid,
       required this.location,
       required this.custumer});
 
   @override
   Widget build(BuildContext context) {
+    final DateTime time = DateTime.fromMillisecondsSinceEpoch(int.parse(dateTime));
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
@@ -27,7 +28,8 @@ class LabelsSaleDetails extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(FormatDate.dmy(time), style: Typo.labelText1),
+            Text('${time.day}/${time.month}/${time.year} ${time.hour}:${time.minute}',
+            style: Typo.labelText1),
             LinkLocation(location: location),
             Text(uid.split('-').first, style: Typo.labelText1),
           ],

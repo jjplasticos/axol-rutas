@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../inventory/repository/inventory_repo.dart';
-import '../../../sale/model/sale.dart';
+import '../../../sale/model/sale_model.dart';
 import '../../../sale/repository/sales_repo.dart';
 import '../../model/shoppingcart_models.dart';
 import 'save_shoppingcart_state.dart';

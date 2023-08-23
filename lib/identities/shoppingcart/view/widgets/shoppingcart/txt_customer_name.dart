@@ -39,8 +39,6 @@ class BtnCustomerName extends StatelessWidget {
             rcModel = value;
             context.read<ShppcCubit>().changeCustomer(rcModel);
             context.read<ShppcViewCubit>().load();
-            //context.read<ShoppingcartViewCubit>().load(rcModel.name);
-            //context.read<TxtCustomerNameCubit>().change(rcModel.name);
           }
         });
         }
@@ -55,18 +53,5 @@ class BtnCustomerName extends StatelessWidget {
         const Icon(Icons.keyboard_arrow_down, color: ColorPalette.secondaryText),
       ]),
     );
-    /*TextFormField(
-      onChanged: (value) {
-        context.read<TxtCustomerNameCubit>().change(value);
-      },
-      autofocus: false,
-      decoration: InputDecoration(
-        hintText: 'Nombre del cliente',
-        hintStyle: Typo.hintText,
-        border: UnderlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        filled: true,
-        fillColor: ColorPalette.secondaryBackground,
-      ),
-    );*/
   }
 }

@@ -9,7 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../settings/format.dart';
 import '../../product/repository/product_repo.dart';
 import '../../shoppingcart/model/shoppingcart_models.dart';
-import '../model/sale.dart';
+import '../model/sale_model.dart';
 
 abstract class SalesRepo {
   //--Base de datos
@@ -71,8 +71,12 @@ class DatabaseSales extends SalesRepo {
     }
 
     bool isContain = false;
+    DateTime time;
+    String timeText;
     if (filter != '') {
       for (var item in newList) {
+        time = DateTime.fromMillisecondsSinceEpoch(int.parse(item.time));
+        timeText = '${time.day}/${time.month}/${time.year}';
         isContain = false;
         item.products.forEach((key, value) {
           if (value.toString().toLowerCase().contains(filter.toLowerCase())) {
@@ -80,9 +84,7 @@ class DatabaseSales extends SalesRepo {
           }
         });
         if (item.client.toLowerCase().contains(filter.toLowerCase()) ||
-            FormatDate.dmy(item.time.toString())
-                .toLowerCase()
-                .contains(filter.toLowerCase())) {
+            timeText.contains(filter.toLowerCase())) {
           isContain = true;
         }
         if (isContain) {

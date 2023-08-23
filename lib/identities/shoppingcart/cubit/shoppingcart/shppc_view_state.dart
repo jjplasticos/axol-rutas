@@ -13,8 +13,10 @@ class LoadingState extends ShppcViewState {
 }
 
 class LoadedState extends ShppcViewState {
+  final bool isSaved;
+  LoadedState({required this.isSaved});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [isSaved];
 }
 
 class ErrorState extends ShppcViewState {
