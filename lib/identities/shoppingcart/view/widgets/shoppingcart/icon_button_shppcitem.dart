@@ -14,43 +14,47 @@ class IconButtonShppcItem extends StatelessWidget {
   final bool isVisible;
   final List<ShoppingcartItemModel> shoppingcart;
   final int index;
+  final bool? isLoading;
 
   const IconButtonShppcItem(
       {super.key,
       required this.isVisible,
       required this.shoppingcart,
-      required this.index});
+      required this.index,
+      this.isLoading});
 
   @override
   Widget build(BuildContext context) {
     if (isVisible) {
       return IconButton(
           onPressed: () async {
-            await showModalBottomSheet(
-                isDismissible: false,
-                isScrollControlled: true,
-                backgroundColor: ColorPalette.primaryBackground,
-                enableDrag: false,
-                context: context,
-                builder: (context) {
-                  return Padding(
-                    padding: MediaQuery.of(context).viewInsets,
-                    child: BlocProvider(
-                        create: (_) => OptionsShppcItemCubit(),
-                        child: BtnOptionsShppcItemController(
-                          index: index,
-                          shoppingcart: shoppingcart,
-                        )),
-                    /*OptionsShppcitemView(
+            if (isLoading == null || isLoading == false) {
+              await showModalBottomSheet(
+                  isDismissible: false,
+                  isScrollControlled: true,
+                  backgroundColor: ColorPalette.primaryBackground,
+                  enableDrag: false,
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: MediaQuery.of(context).viewInsets,
+                      child: BlocProvider(
+                          create: (_) => OptionsShppcItemCubit(),
+                          child: BtnOptionsShppcItemController(
+                            index: index,
+                            shoppingcart: shoppingcart,
+                          )),
+                      /*OptionsShppcitemView(
                       shoppingcart: shoppingcart,
                       index: index,
                     ),*/
-                  );
-                }).then((value) {
-              context.read<ShppcCubit>().changeShppc(value);
-              context.read<ShppcViewCubit>().load();
-              //context.read<ShoppingcartCubit>().returnShoppingcart(value);
-            });
+                    );
+                  }).then((value) {
+                context.read<ShppcCubit>().changeShppc(value);
+                context.read<ShppcViewCubit>().load();
+                //context.read<ShoppingcartCubit>().returnShoppingcart(value);
+              });
+            }
           },
           icon: const Icon(Icons.more_vert,
               color: ColorPalette.secondaryText, size: 25));

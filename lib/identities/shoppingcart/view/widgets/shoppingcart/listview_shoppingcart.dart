@@ -10,8 +10,9 @@ import 'icon_button_shppcitem.dart';
 
 class ListviewShoppingcart extends StatelessWidget {
   final bool isIconEditVisible;
+  final bool? isLoading;
 
-  const ListviewShoppingcart({super.key, required this.isIconEditVisible});
+  const ListviewShoppingcart({super.key, required this.isIconEditVisible, this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -68,33 +69,9 @@ class ListviewShoppingcart extends StatelessWidget {
                           IconButtonShppcItem(
                               isVisible: isIconEditVisible,
                               index: index,
-                              shoppingcart: shoppingcart),
-                          /*IconButton(
-                              onPressed: () async {
-                                await showModalBottomSheet(
-                                    isDismissible: false,
-                                    isScrollControlled: true,
-                                    backgroundColor:
-                                        ColorPalette.primaryBackground,
-                                    enableDrag: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return Padding(
-                                        padding:
-                                            MediaQuery.of(context).viewInsets,
-                                        child: OptionsShppcitemView(
-                                          shoppingcart: shoppingCart,
-                                          index: index,
-                                        ),
-                                      );
-                                    }).then((value) {
-                                  context
-                                      .read<ShoppingcartCubit>()
-                                      .returnShoppingcart(value);
-                                });
-                              },
-                              icon: const Icon(Icons.more_vert,
-                                  color: ColorPalette.secondaryText, size: 25))*/
+                              shoppingcart: shoppingcart,
+                              isLoading: isLoading,
+                              ),
                         ]),
                   ),
                   Row(

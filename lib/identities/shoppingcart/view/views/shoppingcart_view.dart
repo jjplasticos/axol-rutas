@@ -73,9 +73,11 @@ class ShoppingCartView extends StatelessWidget {
                   ],
                 ),
               ),
-              const Padding(
+              Padding(
                   padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
-                  child: BtnAddProduct()),
+                  child: BtnAddProduct(
+                    isLoading: isLoading,
+                  )),
               Expanded(
                 child: Column(children: [
                    Expanded(
@@ -84,6 +86,7 @@ class ShoppingCartView extends StatelessWidget {
                             EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: ListviewShoppingcart(
                           isIconEditVisible: true,
+                          isLoading: isLoading,
                         )),
                   ),
                   LblResultsForm(

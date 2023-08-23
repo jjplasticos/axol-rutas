@@ -81,8 +81,8 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
           totalQuantity: shppc.totalQuantity.toString(),
           totalWeight: shppc.totalWeight.toString(),
           totalPrice: shppc.totalPrice.toString());
-      DatabaseSales().writeSale(sale);
-      isExistSale = await DatabaseSales().checkExistSale(idSale);
+      await DatabaseSales().writeSale(sale);
+      //isExistSale = await DatabaseSales().checkExistSale(idSale);
       /*if (isExistSale == true) {
         if (kDebugMode) {
           print('Ya esta la venta en la base de datos');

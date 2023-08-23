@@ -111,7 +111,7 @@ class DatabaseSales extends SalesRepo {
     return isExist;
   }
 
-  void writeSale(SaleModel sale) async {
+  Future<void> writeSale(SaleModel sale) async {
     final String userName;
     final pref = await SharedPreferences.getInstance();
     userName = pref.getString(USER)!;
