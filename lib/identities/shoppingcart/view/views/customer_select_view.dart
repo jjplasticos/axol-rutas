@@ -32,21 +32,41 @@ class CustomerSelectView extends StatelessWidget {
                   visible: isLoading, child: const LinearProgressIndicator()),
               Expanded(child: ListviewCustomer(listData: rcList)),
               const SizedBox(height: 8),
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                style: OutlinedButton.styleFrom(
-                  backgroundColor: ColorPalette.secondary,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                  minimumSize: const Size(double.infinity, 60),
-                ),
-                child: const Text(
-                  'Cancelar',
-                  style: Typo.textButton,
-                ),
-              )
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: OutlinedButton.styleFrom(
+                          backgroundColor: ColorPalette.primary,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          minimumSize: const Size(60, 60),
+                          maximumSize: const Size(double.infinity, 60)),
+                      child: const Text(
+                        'Cancelar',
+                        style: Typo.textButton,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8,),
+                  OutlinedButton(
+                    onPressed: () {},
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: ColorPalette.primary,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      minimumSize: const Size(60, 60),
+                    ),
+                    child: const Icon(
+                      Icons.add,
+                      color: ColorPalette.primaryText,
+                      ),
+                  ),
+                ],
+              ),
             ],
           ),
         ));
