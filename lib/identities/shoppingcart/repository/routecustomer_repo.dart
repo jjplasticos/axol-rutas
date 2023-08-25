@@ -57,6 +57,26 @@ class RoutecustomerRepo {
     return exist;
   }
 
+  Future<void> availableId() async {
+    List<Map<String,dynamic>> customerIdDB = [];
+    List<int> listId = [];
+    int newId = -1;
+    customerIdDB =
+        await _supabase.from(_table).select<List<Map<String,dynamic>>>(_id);
+    for (var element in customerIdDB){
+      listId.add(int.parse(element[_id].toString()));
+    }
+    listId.sort((a, b) => a.compareTo(b));
+    for (int i = 1; i <= listId.length; i++) {
+      if (listId.contains(i) == false) {
+        listId.add(i);
+        newId = i;
+        i = listId.length + 1;
+      }
+    }
+    print(newId); //Sguir con que devuelva la nueva id.
+  }
+
   Future<void> insertRc(RouteCustomerModel routcustomer) async {
     await _supabase.from(_table).insert({
       _id: routcustomer.id,

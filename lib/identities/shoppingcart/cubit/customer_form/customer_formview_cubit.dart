@@ -18,4 +18,15 @@ class CustomerFormviewCubit extends Cubit<CustomerFormviewState> {
       emit(ErrorState(error: e.toString()));
     }
   }
+
+  Future<void> save(String vendor) async {
+    try{
+      
+      emit(InitialState());
+      emit(LoadingState());
+      emit(LoadedState(vendor: vendor));
+    } catch (e) {
+      emit(ErrorState(error: e.toString()));
+    }
+  }
 }

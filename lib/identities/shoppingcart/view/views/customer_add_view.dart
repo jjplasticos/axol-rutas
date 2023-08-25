@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../settings/theme.dart';
 import '../../cubit/customer_form/customer_form_cubit.dart';
+import '../../repository/routecustomer_repo.dart';
 import '../widgets/customer_select/textfield_customer.dart';
 
 class CustomerAddView extends StatelessWidget {
@@ -115,6 +116,7 @@ class CustomerAddView extends StatelessWidget {
                         Expanded(
                           child: OutlinedButton(
                             onPressed: () {
+                              RoutecustomerRepo().availableId();
                               context.read<CustomerFormCubit>().allValidate();
                               context.read<CustomerFormviewCubit>().load();
                             },

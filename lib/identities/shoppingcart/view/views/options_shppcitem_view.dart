@@ -1,10 +1,7 @@
 import 'package:axol_rutas/identities/shoppingcart/model/shoppingcart_models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../settings/theme.dart';
-import '../../cubit/options_shppc_item/options_shppcitem_cubit.dart';
-import '../controllers/btn_options_shppcitem_controller.dart';
 import '../widgets/btn_option_shppcitem.dart';
 
 class OptionsShppcitemView extends StatelessWidget {
