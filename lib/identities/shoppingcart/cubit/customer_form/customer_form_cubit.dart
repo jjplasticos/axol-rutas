@@ -40,7 +40,27 @@ class CustomerFormCubit extends Cubit<AddcustomerFormModel> {
   Future<void> changeVendor(String vendor) async {
     AddcustomerFormModel form = state;
     form.vendor = vendor;
-  }  
+    emit(AddcustomerFormModel.empty());
+    emit(form);
+  }
+
+  Future<void> changeFocus(int focus) async {
+    AddcustomerFormModel form = state;
+    form.focus = focus;
+    emit(AddcustomerFormModel.empty());
+    emit(form);
+  }
+
+  Future<void> allValidate() async {
+    AddcustomerFormModel form = state;
+    form = _validName(form);
+    form = _validAddress(form);
+    form = _validHood(form);
+    form = _validTown(form);
+    form = _validCountry(form);
+    emit(AddcustomerFormModel.empty());
+    emit(form);
+  }
 
   AddcustomerFormModel _validName(AddcustomerFormModel rcForm) {
     AddcustomerFormModel form = rcForm;
@@ -89,10 +109,10 @@ class CustomerFormCubit extends Cubit<AddcustomerFormModel> {
   AddcustomerFormModel _validCountry(AddcustomerFormModel rcForm) {
     AddcustomerFormModel form = rcForm;
     if (form.country.value == '') {
-      form.town.validation =
+      form.country.validation =
           ValidationFormModel(isValid: false, errorMessage: 'Dato no valido');
     } else {
-      form.town.validation = ValidationFormModel.trueValid();
+      form.country.validation = ValidationFormModel.trueValid();
     }
     return form;
   }

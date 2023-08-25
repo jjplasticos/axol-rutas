@@ -7,6 +7,7 @@ class AddcustomerFormModel {
   TextfieldFormModel town;
   TextfieldFormModel country;
   String vendor;
+  int focus;
 
   AddcustomerFormModel({
     required this.address,
@@ -15,6 +16,7 @@ class AddcustomerFormModel {
     required this.name,
     required this.town,
     required this.vendor,
+    required this.focus,
   });
 
   static AddcustomerFormModel empty() => AddcustomerFormModel(
@@ -24,5 +26,6 @@ class AddcustomerFormModel {
         name: TextfieldFormModel.initial(),
         town: TextfieldFormModel.initial(),
         vendor: '',
+        focus: -1,
       );
 }

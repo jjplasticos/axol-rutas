@@ -18,39 +18,38 @@ class BtnCustomerName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: (){
+      onPressed: () {
         if (isLoading == null || isLoading == false) {
           showModalBottomSheet(
-          isDismissible: false,
-          isScrollControlled: true,
-          backgroundColor: Colors.transparent,
-          enableDrag: false,
-          context: context,
-          builder:(context) => MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (_) => CustselecCubit()),
-              BlocProvider(create: (_) => FinderCustomerCubit()),
-            ], 
-            child: const RcSelectController(),
-          ), 
-        ).then((value) {
-          final RouteCustomerModel rcModel;
-          if (value != null) {
-            rcModel = value;
-            context.read<ShppcCubit>().changeCustomer(rcModel);
-            context.read<ShppcViewCubit>().load();
-          }
-        });
+            isDismissible: false,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            enableDrag: false,
+            context: context,
+            builder: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => CustselecCubit()),
+                BlocProvider(create: (_) => FinderCustomerCubit()),
+              ],
+              child: const RcSelectController(),
+            ),
+          ).then((value) {
+            final RouteCustomerModel rcModel;
+            if (value != null) {
+              rcModel = value;
+              context.read<ShppcCubit>().changeCustomer(rcModel);
+              context.read<ShppcViewCubit>().load();
+            }
+          });
         }
       },
       style: OutlinedButton.styleFrom(
         backgroundColor: ColorPalette.secondaryBackground,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Text(customer, style: Typo.bodyText1),
-        const Icon(Icons.keyboard_arrow_down, color: ColorPalette.secondaryText),
+        const Icon(Icons.keyboard_arrow_down,
+            color: ColorPalette.secondaryText),
       ]),
     );
   }

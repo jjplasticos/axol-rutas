@@ -10,17 +10,29 @@ class RcAddController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CustomerFormviewCubit, CustomerFormviewState>(
+    return BlocConsumer<CustomerFormviewCubit, CustomerFormviewState>(
         bloc: context.read<CustomerFormviewCubit>()..load(),
+        listener: (context, state) {
+          if (state is ErrorState) {
+            final snackBar = SnackBar(content: Text(state.error));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        },
         builder: (context, state) {
           if (state is LoadingState) {
-            return CustomerAddView();
+            // ignore: prefer_const_constructors
+            return CustomerAddView(
+              vendor: '',
+              isLoading: true,
+            );
           } else if (state is LoadedState) {
-            return CustomerSelectView(rcList: state.rcList, isLoading: false,);
-          } else if (state is ErrorState) {
-            return Text(state.error, style: Typo.labelText1,);
+            return CustomerAddView(
+              vendor: state.vendor,
+              isLoading: false,
+            );
           } else {
-            return const Text('No accedio a algun estado', style: Typo.labelText1,);
+            // ignore: prefer_const_constructors
+            return CustomerAddView(vendor: '', isLoading: false);
           }
         });
   }

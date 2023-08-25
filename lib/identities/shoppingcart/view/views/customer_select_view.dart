@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../settings/theme.dart';
+import '../../cubit/customer_form/customer_form_cubit.dart';
+import '../../cubit/customer_form/customer_formview_cubit.dart';
 import '../../model/route_customer_model.dart';
+import '../controllers/rc_add_controller.dart';
 import '../widgets/customer_select/finder_customer.dart';
 import '../widgets/customer_select/listview_customer.dart';
 
@@ -51,9 +55,36 @@ class CustomerSelectView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8,),
+                  const SizedBox(
+                    width: 8,
+                  ),
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (isLoading == false) {
+                        showModalBottomSheet(
+                          isDismissible: false,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          enableDrag: false,
+                          context: context,
+                          builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider(create: (_) => CustomerFormCubit()),
+                              BlocProvider(
+                                  create: (_) => CustomerFormviewCubit()),
+                            ],
+                            child: const RcAddController(),
+                          ),
+                        ).then((value) {
+                          final RouteCustomerModel rcModel;
+                          if (value != null) {
+                            rcModel = value;
+                            //context.read<ShppcCubit>().changeCustomer(rcModel);
+                            //context.read<ShppcViewCubit>().load();
+                          }
+                        });
+                      }
+                    },
                     style: OutlinedButton.styleFrom(
                       backgroundColor: ColorPalette.primary,
                       shape: RoundedRectangleBorder(
@@ -63,7 +94,7 @@ class CustomerSelectView extends StatelessWidget {
                     child: const Icon(
                       Icons.add,
                       color: ColorPalette.primaryText,
-                      ),
+                    ),
                   ),
                 ],
               ),

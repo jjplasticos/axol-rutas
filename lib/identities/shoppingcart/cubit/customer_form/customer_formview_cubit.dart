@@ -10,11 +10,10 @@ class CustomerFormviewCubit extends Cubit<CustomerFormviewState> {
   Future<void> load() async {
     try {
       UserModel vendor;
-      String txtVendor;
       emit(InitialState());
       emit(LoadingState());
       vendor = await LocalUser().getLocalUser();
-      emit(LoadedState());
+      emit(LoadedState(vendor: vendor.name));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }

@@ -13,7 +13,7 @@ import '../widgets/shoppingcart/btn_add_product.dart';
 import '../widgets/shoppingcart/btn_save_sale.dart';
 import '../widgets/shoppingcart/lbl_results_form.dart';
 import '../widgets/shoppingcart/listview_shoppingcart.dart';
-import '../widgets/shoppingcart/txt_customer_name.dart';
+import '../widgets/shoppingcart/btn_customer_name.dart';
 
 class ShoppingCartView extends StatelessWidget {
   final bool isLoading;

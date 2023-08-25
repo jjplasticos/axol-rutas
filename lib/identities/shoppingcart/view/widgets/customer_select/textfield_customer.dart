@@ -1,4 +1,5 @@
 import 'package:axol_rutas/identities/shoppingcart/cubit/customer_form/customer_formview_cubit.dart';
+import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,16 +22,18 @@ class TextfieldCustomer extends StatelessWidget {
     this.inputFormatter,
     required this.keyFormElement,
     this.isFocus,
-    this.width, required this.isLoading,
+    this.width,
+    required this.isLoading,
   });
 
   @override
   Widget build(BuildContext context) {
-    AddcustomerFormModel currentForm;
+    //AddcustomerFormModel currentForm;
     TextEditingController textController = TextEditingController();
     FocusNode focusNode = FocusNode();
     AddcustomerFormModel form = context.read<CustomerFormCubit>().state;
     TextfieldFormModel textfieldForm = TextfieldFormModel.initial();
+    int nextFocus = keyFormElement + 1;
     if (keyFormElement == 0) {
       textfieldForm = form.name;
     } else if (keyFormElement == 1) {
@@ -52,40 +55,46 @@ class TextfieldCustomer extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label),
-        SizedBox(
-            height: 40,
-            width: width ?? 300,
-            child: TextField(
-              enabled: isLoading,
-              inputFormatters: inputFormatter,
-              focusNode: focusNode,
-              controller: textController,
-              decoration: InputDecoration(
-                isDense: true,
-                errorStyle: const TextStyle(height: 0.3),
-                errorText: textfieldForm.validation.isValid
-                    ? null
-                    : textfieldForm.validation.errorMessage,
-                errorBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red)),
-              ),
-              onSubmitted: (value) {
-                context.read<CustomerFormCubit>().changeTextfield(
-                      keyFormElement,
-                      value,
-                      textController.selection.base.offset,
-                    );
-                context.read<CustomerFormviewCubit>().load();
-              },
-              onChanged: (value) {
-                context.read<CustomerFormCubit>().changeTextfield(
-                      keyFormElement,
-                      value,
-                      textController.selection.base.offset,
-                    );
-              },
-            ))
+        Text(label, style: Typo.bodyText6,),
+        const SizedBox(
+          width: 8,
+        ),
+        Expanded(
+          child: SizedBox(
+              height: 40,
+              width: width ?? double.infinity,
+              child: TextField(
+                enabled: !isLoading,
+                inputFormatters: inputFormatter,
+                focusNode: focusNode,
+                controller: textController,
+                decoration: InputDecoration(
+                  isDense: true,
+                  errorStyle: const TextStyle(height: 0.3),
+                  errorText: textfieldForm.validation.isValid
+                      ? null
+                      : textfieldForm.validation.errorMessage,
+                  errorBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red)),
+                ),
+                onSubmitted: (value) {
+                  context.read<CustomerFormCubit>().changeTextfield(
+                        keyFormElement,
+                        value,
+                        textController.selection.base.offset,
+                      );
+                  context.read<CustomerFormCubit>().changeFocus(nextFocus);
+                  context.read<CustomerFormviewCubit>().load();
+                },
+                onChanged: (value) {
+                  context.read<CustomerFormCubit>().changeTextfield(
+                        keyFormElement,
+                        value,
+                        textController.selection.base.offset,
+                      );
+                },
+              )),
+        ),
       ],
     );
   }

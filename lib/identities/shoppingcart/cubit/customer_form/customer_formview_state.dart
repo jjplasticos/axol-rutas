@@ -13,8 +13,10 @@ class LoadingState extends CustomerFormviewState {
 }
 
 class LoadedState extends CustomerFormviewState {
+  final String vendor;
+  LoadedState({required this.vendor});
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [vendor];
 }
 
 class ErrorState extends CustomerFormviewState {
