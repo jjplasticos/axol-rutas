@@ -13,6 +13,7 @@ class CustselecCubit extends Cubit<CustselecState> {
       emit(InitialState());
       emit(LoadingState(rcList: currentList));
       rcListDB = await RoutecustomerRepo().fetchRcList(inText);
+      rcListDB.sort((a, b) => a.id.compareTo(b.id));
       emit(LoadedState(rcList: rcListDB));
     } catch (e) {
       emit(ErrorState(error: e.toString()));

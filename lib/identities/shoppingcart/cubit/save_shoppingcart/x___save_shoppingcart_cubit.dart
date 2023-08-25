@@ -9,9 +9,9 @@ import '../../../inventory/repository/inventory_repo.dart';
 import '../../../sale/model/sale_model.dart';
 import '../../../sale/repository/sales_repo.dart';
 import '../../model/shoppingcart_models.dart';
-import 'save_shoppingcart_state.dart';
+import 'x___save_shoppingcart_state.dart';
 
-class SaveShoppingcartCubit extends Cubit<SaveShoppingcartState> {
+/*class SaveShoppingcartCubit extends Cubit<SaveShoppingcartState> {
   SaveShoppingcartCubit() : super(InitialState());
 
   void verification(String customerName,
@@ -140,4 +140,4 @@ Future<Position> _determinePosition() async {
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
   return await Geolocator.getCurrentPosition();
-}
+}*/

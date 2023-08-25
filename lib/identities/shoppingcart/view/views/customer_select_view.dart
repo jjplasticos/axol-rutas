@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../settings/theme.dart';
 import '../../cubit/customer_form/customer_form_cubit.dart';
 import '../../cubit/customer_form/customer_formview_cubit.dart';
+import '../../cubit/customer_select/custselc_cubit/custselec_cubit.dart';
 import '../../model/route_customer_model.dart';
 import '../controllers/rc_add_controller.dart';
 import '../widgets/customer_select/finder_customer.dart';
@@ -76,11 +77,8 @@ class CustomerSelectView extends StatelessWidget {
                             child: const RcAddController(),
                           ),
                         ).then((value) {
-                          final RouteCustomerModel rcModel;
-                          if (value != null) {
-                            rcModel = value;
-                            //context.read<ShppcCubit>().changeCustomer(rcModel);
-                            //context.read<ShppcViewCubit>().load();
+                          if (value == true) {
+                            context.read<CustselecCubit>().load('', rcList);
                           }
                         });
                       }

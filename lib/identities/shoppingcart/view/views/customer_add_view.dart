@@ -1,9 +1,11 @@
 import 'package:axol_rutas/identities/shoppingcart/cubit/customer_form/customer_formview_cubit.dart';
+import 'package:axol_rutas/identities/shoppingcart/model/addcustomer_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../settings/theme.dart';
 import '../../cubit/customer_form/customer_form_cubit.dart';
+import '../../model/route_customer_model.dart';
 import '../../repository/routecustomer_repo.dart';
 import '../widgets/customer_select/textfield_customer.dart';
 
@@ -15,6 +17,8 @@ class CustomerAddView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AddcustomerFormModel currentForm;
+    RouteCustomerModel rc;
     int focus = context.read<CustomerFormCubit>().state.focus;
     return Container(
         width: 300,
@@ -118,7 +122,31 @@ class CustomerAddView extends StatelessWidget {
                             onPressed: () {
                               RoutecustomerRepo().availableId();
                               context.read<CustomerFormCubit>().allValidate();
-                              context.read<CustomerFormviewCubit>().load();
+                              currentForm =
+                                  context.read<CustomerFormCubit>().state;
+                              rc = RouteCustomerModel(
+                                id: -1,
+                                name: currentForm.name.value,
+                                location: '',
+                                address: {
+                                  RouteCustomerModel.pAddress:
+                                      currentForm.address.value,
+                                  RouteCustomerModel.pHood:
+                                      currentForm.hood.value,
+                                  RouteCustomerModel.pTown:
+                                      currentForm.town.value,
+                                  RouteCustomerModel.pCountry:
+                                      currentForm.country.value,
+                                },
+                                validation: {
+                                  RouteCustomerModel.pStatus: false,
+                                  RouteCustomerModel.pAdminUser: '',
+                                },
+                                vendor: vendor,
+                              );
+                              context
+                                  .read<CustomerFormviewCubit>()
+                                  .save(vendor, rc);
                             },
                             style: OutlinedButton.styleFrom(
                                 backgroundColor: ColorPalette.primary,

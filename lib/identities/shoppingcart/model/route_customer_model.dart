@@ -1,12 +1,12 @@
 class RouteCustomerModel {
-  final int id;
-  final String name;
-  final String location;
-  final String vendor;
-  final Map<String, dynamic> address;
-  final Map<String, dynamic> validation;
+  int id;
+  String name;
+  String location;
+  String vendor;
+  Map<String, dynamic> address;
+  Map<String, dynamic> validation;
 
-  const RouteCustomerModel(
+  RouteCustomerModel(
       {required this.id,
       required this.name,
       required this.location,
@@ -27,7 +27,7 @@ class RouteCustomerModel {
   static const String pStatus = 'status';
   static const String pAdminUser = 'user';
 
-  static RouteCustomerModel empty() => const RouteCustomerModel(
+  static RouteCustomerModel empty() => RouteCustomerModel(
     id: -1,
     address: {},
     location: '',

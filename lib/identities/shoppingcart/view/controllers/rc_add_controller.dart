@@ -17,6 +17,9 @@ class RcAddController extends StatelessWidget {
             final snackBar = SnackBar(content: Text(state.error));
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
+          if (state is SavedState) {
+            Navigator.pop(context, true);
+          }
         },
         builder: (context, state) {
           if (state is LoadingState) {

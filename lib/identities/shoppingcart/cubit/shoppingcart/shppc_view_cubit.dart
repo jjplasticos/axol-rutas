@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../inventory/repository/inventory_repo.dart';
+import '../../../location/repository/location_repo.dart';
 import '../../../sale/model/sale_model.dart';
 import '../../../sale/repository/sales_repo.dart';
 import '../../model/shppc_view_model.dart';
@@ -43,7 +44,7 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
         throw Exception('Seleccione un cliente valido.');
       }
 
-      Position position = await _determinePosition();
+      Position position = await LocationRepo().determinePosition();
 
       //Actualiza el inventario de la base de datos
       stockInventory = await FetchInventory().readInventoryProducts();
@@ -59,7 +60,7 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
       int i = 0;
       for (var element in shppc.shoppingcart) {
         products[i.toString()] =
-            '${element.product.code}//${element.quantity}//${element.price}//${element.product.description}';
+            '${element.product.code}//${element.quantity}//${element.product.weight}//${element.price}//${element.product.description}';
         i++;
       }
       SaleModel sale = SaleModel(
@@ -85,7 +86,7 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
     }
   }
 
-  Future<Position> _determinePosition() async {
+  /*Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -120,5 +121,5 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition();
-  }
+  }*/
 }

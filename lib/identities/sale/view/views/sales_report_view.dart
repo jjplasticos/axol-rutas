@@ -1,22 +1,15 @@
-// ignore_for_file: constant_identifier_names
-
-import 'package:axol_rutas/identities/sale/model/sale_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../global_widgets/appbar/appbar_global.dart';
 import '../../../../global_widgets/appbar/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
-import '../../../shoppingcart/view/widgets/shoppingcart/lbl_results_form.dart';
-import '../controllers/options_edit_sale_controller.dart';
-import '../widgets/sale_detail/labels_sale_details.dart';
-import '../widgets/sale_detail/listview_saledetail.dart';
 
-class SaleDetailsView extends StatelessWidget {
+class SalesReportView extends StatelessWidget {
   final SaleModel sale;
   final bool? isLoading;
   //final List<ShoppingcartItemModel> shppc;
 
-  const SaleDetailsView({super.key, required this.sale, this.isLoading});
+  const SalesReportView({super.key, required this.sale, this.isLoading});
 
   @override
   Widget build(BuildContext context) {

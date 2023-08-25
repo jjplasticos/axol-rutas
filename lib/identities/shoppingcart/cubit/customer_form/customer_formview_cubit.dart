@@ -1,7 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 
+import '../../../location/repository/location_repo.dart';
 import '../../../user/model/user.dart';
 import '../../../user/repository/user_repo.dart';
+import '../../model/route_customer_model.dart';
+import '../../repository/routecustomer_repo.dart';
 import 'customer_formview_state.dart';
 
 class CustomerFormviewCubit extends Cubit<CustomerFormviewState> {
@@ -19,12 +23,19 @@ class CustomerFormviewCubit extends Cubit<CustomerFormviewState> {
     }
   }
 
-  Future<void> save(String vendor) async {
+  Future<void> save(String vendor, RouteCustomerModel rc) async {
     try{
-      
+      int newId;
+      Position position;
       emit(InitialState());
       emit(LoadingState());
+      newId = await RoutecustomerRepo().availableId();
+      rc.id = newId;
+      position = await LocationRepo().determinePosition();
+      rc.location = '${position.latitude},${position.longitude}';
+      await RoutecustomerRepo().insertRc(rc);
       emit(LoadedState(vendor: vendor));
+      emit(SavedState());
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }

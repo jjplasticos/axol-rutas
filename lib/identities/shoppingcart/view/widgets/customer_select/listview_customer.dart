@@ -47,7 +47,7 @@ class ListviewCustomer extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const Text(
                           'Dirección: ',
@@ -58,7 +58,7 @@ class ListviewCustomer extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const Text(
                           'Colonia: ',
@@ -71,7 +71,7 @@ class ListviewCustomer extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const Text(
                           'Municipio: ',
@@ -84,7 +84,7 @@ class ListviewCustomer extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const Text(
                           'Estado: ',
@@ -97,7 +97,7 @@ class ListviewCustomer extends StatelessWidget {
                       ],
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const Text(
                           'Validación: ',

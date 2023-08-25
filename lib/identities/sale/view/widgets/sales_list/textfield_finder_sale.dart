@@ -21,11 +21,15 @@ class TextFieldFinderSale extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-            child: TextFormField(
+            child: TextField(
               controller: controller,
               autofocus: false,
               obscureText: false,
               onChanged: (value) {
+                context.read<TextFieldFinderSaleCubit>().change(value);
+                //context.read<SalesListCubit>().getSalesList(value);
+              },
+              onSubmitted: (value) {
                 context.read<TextFieldFinderSaleCubit>().change(value);
                 context.read<SalesListCubit>().getSalesList(value);
               },

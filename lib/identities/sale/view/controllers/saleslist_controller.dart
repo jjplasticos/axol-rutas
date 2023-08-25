@@ -18,7 +18,12 @@ class SaleController extends StatelessWidget {
       bloc: context.read<SalesListCubit>()..getSalesList(''),
       builder: (context, state) {
         if (state is SListLoadingState) {
-          return const Center(child: LinearProgressIndicator());
+          return const Column(
+            children: [
+              LinearProgressIndicator(),
+              Expanded(child: ListViewSales(listData: [])),
+            ],
+          );
         } else if (state is SListLoadedState) {
           return ListViewSales(listData: state.salesList);
         } else if (state is SListErrorState) {

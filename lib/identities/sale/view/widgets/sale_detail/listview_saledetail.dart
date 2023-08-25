@@ -2,22 +2,26 @@ import 'package:flutter/material.dart';
 
 import '../../../../../settings/theme.dart';
 import '../../../../shoppingcart/model/shoppingcart_models.dart';
+import '../../../model/sale_model.dart';
 
 class ListviewSaleDetail extends StatelessWidget {
   final bool? isLoading;
-  final List<ShoppingcartItemModel> shoppingcart;
+  //final List<ShoppingcartItemModel> shoppingcart;
+  final SaleModel sale;
 
-  const ListviewSaleDetail({super.key, this.isLoading, required this.shoppingcart});
+  const ListviewSaleDetail({super.key, this.isLoading, required this.sale});
 
   @override
   Widget build(BuildContext context) {
-    //List<ShoppingcartItemModel> shoppingcart = sale.products
+    List itemList = sale.products.values.toList();
+
     return ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
-      itemCount: shoppingcart.length,
+      //itemCount: shoppingcart.length,
+      itemCount: itemList.length,
       itemBuilder: (context, index) {
-        final shoppingCartItem = shoppingcart[index];
+        final item = itemList[index].toString().split('//');
         return Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
             child: Container(
@@ -50,22 +54,16 @@ class ListviewSaleDetail extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(shoppingCartItem.product.code,
+                                  Text(item.elementAt(0),
                                       style: Typo.bodyText1),
                                   Text(
-                                    shoppingCartItem.product.description,
+                                    item.elementAt(4),
                                     style: Typo.bodyText1,
                                   )
                                 ],
                               ),
                             ),
                           ),
-                          /*IconButtonShppcItem(
-                              isVisible: isIconEditVisible,
-                              index: index,
-                              shoppingcart: shoppingcart,
-                              isLoading: isLoading,
-                              ),*/
                         ]),
                   ),
                   Row(
@@ -85,7 +83,7 @@ class ListviewSaleDetail extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              shoppingCartItem.quantity.toString(),
+                              item.elementAt(1),
                               style: Typo.bodyText3,
                             ),
                             const Text(
@@ -109,7 +107,7 @@ class ListviewSaleDetail extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  shoppingCartItem.product.weight,
+                                  item.elementAt(2),
                                   style: Typo.bodyText3,
                                 ),
                                 const Text(
@@ -145,7 +143,7 @@ class ListviewSaleDetail extends StatelessWidget {
                                     style: Typo.bodyText3,
                                   ),
                                   Text(
-                                    shoppingCartItem.price.toString(),
+                                    item.elementAt(3),
                                     style: Typo.bodyText3,
                                   )
                                 ],

@@ -57,7 +57,7 @@ class RoutecustomerRepo {
     return exist;
   }
 
-  Future<void> availableId() async {
+  Future<int> availableId() async {
     List<Map<String,dynamic>> customerIdDB = [];
     List<int> listId = [];
     int newId = -1;
@@ -74,7 +74,7 @@ class RoutecustomerRepo {
         i = listId.length + 1;
       }
     }
-    print(newId); //Sguir con que devuelva la nueva id.
+    return newId;
   }
 
   Future<void> insertRc(RouteCustomerModel routcustomer) async {

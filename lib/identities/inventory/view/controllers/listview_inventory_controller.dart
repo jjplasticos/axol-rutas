@@ -16,7 +16,12 @@ class ListviewInventoryController extends StatelessWidget {
       bloc: context.read<ListviewInventoryCubit>()..loadInventory(),
       builder: (context, state) {
         if (state is LoadingState) {
-          return const Center(child: CircularProgressIndicator());
+          return const Column(
+            children: [
+              LinearProgressIndicator(),
+              Expanded(child: ListviewInventory(listData: [])),
+            ],
+          );
         } else if (state is LoadedState) {
           return ListviewInventory(listData: state.inventory);
           //return ListViewSales(listData: state.salesList);
