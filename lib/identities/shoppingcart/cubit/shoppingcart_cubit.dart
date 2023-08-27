@@ -44,7 +44,7 @@ class ShoppingcartCubit extends Cubit<ShoppingcartResultsModel> {
 
     try {
       shoppingcart = [];
-      sale.products.forEach((key, value) async {
+      sale.itemsShppc.forEach((key, value) async {
         futures.add(DatabaseProducts()
             .readProduct(value.toString().split('//').elementAt(0))
             .then((value2) {

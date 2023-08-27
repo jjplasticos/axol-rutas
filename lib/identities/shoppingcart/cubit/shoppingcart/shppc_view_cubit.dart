@@ -66,7 +66,7 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
       SaleModel sale = SaleModel(
           uid: idSale,
           location: '${position.latitude},${position.longitude}',
-          products: products,
+          itemsShppc: products,
           client: '${shppc.routeCustomer.id}: ${shppc.routeCustomer.name}',
           time: shppc.dateTime.millisecondsSinceEpoch.toString(),
           totalQuantity: shppc.totalQuantity.toString(),

@@ -13,7 +13,7 @@ class ListviewSaleDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List itemList = sale.products.values.toList();
+    List itemList = sale.itemsShppc.values.toList();
 
     return ListView.builder(
       shrinkWrap: true,

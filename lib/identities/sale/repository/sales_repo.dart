@@ -1,8 +1,7 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'dart:convert';
 
 import 'package:axol_rutas/identities/product/model/product.dart';
+import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -10,24 +9,25 @@ import '../../../settings/format.dart';
 import '../../product/repository/product_repo.dart';
 import '../../shoppingcart/model/shoppingcart_models.dart';
 import '../model/sale_model.dart';
+import '../model/srep_form_model.dart';
 
 abstract class SalesRepo {
   //--Base de datos
   //Tabla
-  final String TABLE = 'sales';
+  final String _table = 'sales';
   //Columnas
-  final String UUID = 'id';
-  final String LOCATION = 'location';
-  final String PRODUCTS = 'product_list';
-  final String CLIENT = 'client_name';
-  final String TIME = 'time';
-  final String TOTAL_QUANTITY = 'total_quantity';
-  final String TOTAL_WEIGHT = 'total_weight';
-  final String TOTAL_PRICE = 'total_price';
-  final String VENDOR = 'vendor';
+  final String _id = 'id';
+  final String _locaction = 'location';
+  final String _product = 'product_list';
+  final String _client = 'client_name';
+  final String _time = 'time';
+  final String _totalQuantity = 'total_quantity';
+  final String _totalWeight = 'total_weight';
+  final String _totalPrice = 'total_price';
+  final String _vendor = 'vendor';
   //----
   //--Datos locales
-  final String USER = 'user_name';
+  final String _user = 'user_name';
   //----
 }
 
@@ -45,31 +45,30 @@ class DatabaseSales extends SalesRepo {
     Map<String, dynamic> productsDB;
 
     final pref = await SharedPreferences.getInstance();
-    userName = pref.getString(USER)!;
+    userName = pref.getString(_user)!;
 
     salesList = await supabase
-        .from(TABLE)
+        .from(_table)
         .select<List<Map<String, dynamic>>>()
-        .eq(VENDOR, userName);
+        .eq(_vendor, userName);
 
     if (salesList.isNotEmpty) {
       for (element in salesList) {
         //Extracción de lista de productos
-        productsDB = jsonDecode(jsonEncode(element[PRODUCTS]));
+        productsDB = jsonDecode(jsonEncode(element[_product]));
 
         sale = SaleModel(
-            uid: element[UUID].toString(),
-            location: element[LOCATION].toString(),
-            products: productsDB,
-            client: element[CLIENT].toString(),
-            time: element[TIME].toString(),
-            totalQuantity: element[TOTAL_QUANTITY].toString(),
-            totalWeight: element[TOTAL_WEIGHT].toString(),
-            totalPrice: element[TOTAL_PRICE].toString());
+            uid: element[_id].toString(),
+            location: element[_locaction].toString(),
+            itemsShppc: productsDB,
+            client: element[_client].toString(),
+            time: element[_time].toString(),
+            totalQuantity: element[_totalQuantity].toString(),
+            totalWeight: element[_totalWeight].toString(),
+            totalPrice: element[_totalPrice].toString());
         newList.add(sale);
       }
     }
-
     bool isContain = false;
     DateTime time;
     String timeText;
@@ -78,7 +77,7 @@ class DatabaseSales extends SalesRepo {
         time = DateTime.fromMillisecondsSinceEpoch(int.parse(item.time));
         timeText = '${time.day}/${time.month}/${time.year}';
         isContain = false;
-        item.products.forEach((key, value) {
+        item.itemsShppc.forEach((key, value) {
           if (value.toString().toLowerCase().contains(filter.toLowerCase())) {
             isContain = true;
           }
@@ -99,11 +98,72 @@ class DatabaseSales extends SalesRepo {
     return finalSales;
   }
 
+  Future<List<SaleModel>> readListReport(SRepFormModel form) async {
+    SaleModel sale;
+    Map<String, dynamic> element;
+    List<SaleModel> saleList = [];
+    final String userName;
+    List<Map<String, dynamic>> salesDB = [];
+    Map<String, dynamic> productsDB;
+    final String finder = form.finder.text;
+    int startTime = 0;
+    int endTime = 32503708800000;
+    DateTime startDate;
+    DateTime endDate;
+
+    final pref = await SharedPreferences.getInstance();
+    userName = pref.getString(_user)!;
+
+    if (form.isTime) {
+      startDate = DateTime(form.time.year, form.time.month, form.time.day);
+      endDate = DateTime(form.time.year, form.time.month, form.time.day + 1);
+      startTime = startDate.millisecondsSinceEpoch;
+      endTime = endDate.millisecond;
+    }
+    if (finder == '') {
+      salesDB = await supabase
+          .from(_table)
+          .select<List<Map<String, dynamic>>>()
+          .eq(_vendor, userName)
+          .lte(_time, startTime)
+          .gte(_time, endTime)
+          .order(_time, ascending: true);
+    } else {
+      salesDB = await supabase
+          .from(_table)
+          .select<List<Map<String, dynamic>>>()
+          .eq(_vendor, userName)
+          .ilike(_client, '%$finder%')
+          .ilike(_product, '%$finder%')
+          .lte(_time, startTime)
+          .gte(_time, endTime)
+          .order(_time, ascending: true);
+    }
+
+    if (salesDB.isNotEmpty) {
+      for (element in salesDB) {
+        //Extracción de lista de productos
+        productsDB = jsonDecode(jsonEncode(element[_product]));
+        sale = SaleModel(
+            uid: element[_id].toString(),
+            location: element[_locaction].toString(),
+            itemsShppc: productsDB,
+            client: element[_client].toString(),
+            time: element[_time].toString(),
+            totalQuantity: element[_totalQuantity].toString(),
+            totalWeight: element[_totalWeight].toString(),
+            totalPrice: element[_totalPrice].toString());
+        saleList.add(sale);
+      }
+    }
+    return saleList;
+  }
+
   Future<bool> checkExistSale(String id) async {
     final bool isExist;
     final List salesDB;
 
-    salesDB = await supabase.from(TABLE).select().eq(UUID, id);
+    salesDB = await supabase.from(_table).select().eq(_id, id);
     if (salesDB.isNotEmpty) {
       isExist = true;
     } else {
@@ -116,22 +176,24 @@ class DatabaseSales extends SalesRepo {
   Future<void> writeSale(SaleModel sale) async {
     final String userName;
     final pref = await SharedPreferences.getInstance();
-    userName = pref.getString(USER)!;
+    userName = pref.getString(_user)!;
 
-    await supabase.from(TABLE).insert({
-      UUID: sale.uid,
-      CLIENT: sale.client,
-      TIME: sale.time,
-      LOCATION: sale.location,
-      VENDOR: userName,
-      TOTAL_PRICE: sale.totalPrice,
-      TOTAL_QUANTITY: sale.totalQuantity,
-      TOTAL_WEIGHT: sale.totalWeight,
-      PRODUCTS: sale.products,
+    await supabase.from(_table).insert({
+      _id: sale.uid,
+      _client: sale.client,
+      _time: sale.time,
+      _locaction: sale.location,
+      _vendor: userName,
+      _totalPrice: sale.totalPrice,
+      _totalQuantity: sale.totalQuantity,
+      _totalWeight: sale.totalWeight,
+      _product: sale.itemsShppc,
     });
   }
 
   Future<void> deleteSale(String id) async {
-    await supabase.from(TABLE).delete().eq(UUID, id);
+    await supabase.from(_table).delete().eq(_id, id);
   }
+
+  read() {}
 }

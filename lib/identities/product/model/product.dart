@@ -6,7 +6,7 @@ class ProductModel {
   final String measure;
   final String gauge;
   final String description;
-  final String pices;
+  final String pieces;
   final String weight;
   final String filetValues;
 
@@ -17,7 +17,7 @@ class ProductModel {
       required this.gauge,
       required this.measure,
       required this.packing,
-      required this.pices,
+      required this.pieces,
       required this.type,
       required this.weight,
       required this.filetValues});
@@ -29,7 +29,7 @@ class ProductModel {
     gauge: '', 
     measure: '', 
     packing: '', 
-    pices: '', 
+    pieces: '', 
     type: '', 
     weight: '', 
     filetValues: '',);
