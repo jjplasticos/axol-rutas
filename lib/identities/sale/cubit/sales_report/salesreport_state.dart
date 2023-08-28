@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../model/sale_model.dart';
+import '../../model/sale_report_model.dart';
 
 abstract class SalesReportState extends Equatable {}
 
@@ -15,10 +15,10 @@ class LoadingState extends SalesReportState {
 }
 
 class LoadedState extends SalesReportState {
-  final List<SaleModel> saleList;
-  LoadedState({required this.saleList});
+  final List<SaleReportModel> saleReport;
+  LoadedState({required this.saleReport});
   @override
-  List<Object?> get props => [saleList];
+  List<Object?> get props => [saleReport];
 }
 
 class ErrorState extends SalesReportState {
