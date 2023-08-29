@@ -19,7 +19,19 @@ class TimeFilterSRep extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            showDatePicker(
+              context: context, 
+              initialDate: DateTime.now(), 
+              firstDate: DateTime(2000), 
+              lastDate: DateTime.now(),
+              ).then((value) {
+                if (value != null) {
+                  context.read<SRepFormCubit>().changeTime(value);
+                  context.read<SalesReportCubit>().load(form);
+                }
+              });
+          },
           child: Text(lblTime),
         ),
         Switch(

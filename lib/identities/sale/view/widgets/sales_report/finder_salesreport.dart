@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/theme.dart';
+import '../../../cubit/sales_report/salesreport_cubit.dart';
+import '../../../cubit/sales_report/srep_form_cubit.dart';
+import '../../../model/srep_form_model.dart';
 
 class FinderSalesReport extends StatelessWidget {
   const FinderSalesReport({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final finder = context.read<SRepFormCubit>().state.finder;
+    final TextEditingController controller = TextEditingController()
+      ..text = finder.text
+      ..selection = TextSelection.collapsed(offset: finder.position);
+    SRepFormModel form;
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
@@ -18,14 +27,18 @@ class FinderSalesReport extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
               child: TextField(
-                //controller: controller,
+                controller: controller,
                 onChanged: (value) {
-                  //context.read<TextFieldFinderSaleCubit>().change(value);
-                  //context.read<SalesListCubit>().getSalesList(value);
+                  context
+                      .read<SRepFormCubit>()
+                      .changeFinder(value, controller.selection.base.offset);
                 },
                 onSubmitted: (value) {
-                  //context.read<TextFieldFinderSaleCubit>().change(value);
-                  //context.read<SalesListCubit>().getSalesList(value);
+                  context
+                      .read<SRepFormCubit>()
+                      .changeFinder(value, controller.selection.base.offset);
+                  form = context.read<SRepFormCubit>().state;
+                  context.read<SalesReportCubit>().load(form);
                 },
                 decoration: InputDecoration(
                     hintText: 'Buscar',
@@ -44,8 +57,11 @@ class FinderSalesReport extends StatelessWidget {
               Icons.cancel,
             ),
             onPressed: () {
-              //context.read<TextFieldFinderSaleCubit>().clear();
-              //context.read<SalesListCubit>().getSalesList('');
+              context
+                      .read<SRepFormCubit>()
+                      .changeFinder('', 0);
+                  form = context.read<SRepFormCubit>().state;
+                  context.read<SalesReportCubit>().load(form);
             },
           )
         ],

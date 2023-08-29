@@ -3,9 +3,9 @@ import '../../product/model/product.dart';
 class SaleReportModel {
   final ProductModel product;
   final DateTime dateTime;
-  int quantitySold;
-  final int unitPrice;
-  int totalPrice;
+  double quantitySold;
+  final double unitPrice;
+  double totalPrice;
   
   SaleReportModel({
     required this.product,

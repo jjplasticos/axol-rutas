@@ -118,27 +118,36 @@ class DatabaseSales extends SalesRepo {
       startDate = DateTime(form.time.year, form.time.month, form.time.day);
       endDate = DateTime(form.time.year, form.time.month, form.time.day + 1);
       startTime = startDate.millisecondsSinceEpoch;
-      endTime = endDate.millisecond;
+      endTime = endDate.millisecondsSinceEpoch;
     }
-    if (finder == '') {
-      salesDB = await supabase
-          .from(_table)
-          .select<List<Map<String, dynamic>>>()
-          .eq(_vendor, userName)
-          .lte(_time, startTime)
-          .gte(_time, endTime)
-          .order(_time, ascending: true);
+    salesDB = await supabase
+        .from(_table)
+        .select<List<Map<String, dynamic>>>()
+        .eq(_vendor, userName)
+        .lte(_time, endTime)
+        .gte(_time, startTime)
+        .order(_time, ascending: true);
+    /*if (finder != '') {
+      for (var saleIn in salesDB) {
+        final Map<String, dynamic> mapProduct = saleIn[_product];
+        final List listProduct = mapProduct.values.toList();
+        for (var element in listProduct) {
+          if (element.toString().contains(finder) == false) {
+            ///////////////
+          }
+        }
+      }
     } else {
-      salesDB = await supabase
+      /*salesDB = await supabase
           .from(_table)
           .select<List<Map<String, dynamic>>>()
           .eq(_vendor, userName)
-          .ilike(_client, '%$finder%')
-          .ilike(_product, '%$finder%')
-          .lte(_time, startTime)
-          .gte(_time, endTime)
-          .order(_time, ascending: true);
-    }
+          //.ilike(_client, '%$finder%')
+          //.ilike('$_product:', '%$finder%')
+          .lte(_time, endTime)
+          .gte(_time, startTime)
+          .order(_time, ascending: true);*/
+    }*/
 
     if (salesDB.isNotEmpty) {
       for (element in salesDB) {

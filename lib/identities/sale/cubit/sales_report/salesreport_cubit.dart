@@ -23,6 +23,8 @@ class SalesReportCubit extends Cubit<SalesReportState> {
       SaleReportModel saleReport;
       List<String> item;
       int index;
+      final String finder = form.finder.text.toLowerCase();
+      List<SaleReportModel> finalSRepList = [];
 
       emit(InitialState());
       emit(LoadingState());
@@ -46,37 +48,57 @@ class SalesReportCubit extends Cubit<SalesReportState> {
           //si la lista de reporte de ventas no contiene la clave y no es la misma cantidad...
           if (sRepList.where((x) => x.product.code == item[0]).isNotEmpty) {
             index = sRepList.indexWhere((x) => x.product.code == item[0]);
-            if (sRepList.elementAt(index).unitPrice == int.parse(item[3])) {
+            if (sRepList.elementAt(index).unitPrice == double.parse(item[3])) {
               //Suma la cantidad de itemShppc a la cantidad del item del reporte de ventas.
-              sRepList[index].quantitySold = sRepList[index].quantitySold + int.parse(item[1]);
-              sRepList[index].totalPrice = sRepList[index].quantitySold * sRepList[index].unitPrice;
+              sRepList[index].quantitySold =
+                  sRepList[index].quantitySold + double.parse(item[1]);
+              sRepList[index].totalPrice =
+                  sRepList[index].quantitySold * sRepList[index].unitPrice;
             } else {
               //Si no, crea e inserta un nuevo item para el reporte de ventas.
               product = productsDB.where((x) => x.code == item.first).first;
               saleReport = SaleReportModel(
-                product: product, 
-                dateTime: DateTime.fromMillisecondsSinceEpoch(int.parse(saleIn.time)), 
-                quantitySold: int.parse(item[1]), 
-                unitPrice: int.parse(item[3]), 
-                totalPrice: int.parse(item[1] * int.parse(item[3])),
-                );
+                product: product,
+                dateTime:
+                    DateTime.fromMillisecondsSinceEpoch(int.parse(saleIn.time)),
+                quantitySold: double.parse(item[1]),
+                unitPrice: double.parse(item[3]),
+                totalPrice: double.parse(item[1]) * double.parse(item[3]),
+              );
               sRepList.add(saleReport);
             }
           } else {
             product = productsDB.where((x) => x.code == item.first).first;
-              saleReport = SaleReportModel(
-                product: product, 
-                dateTime: DateTime.fromMillisecondsSinceEpoch(int.parse(saleIn.time)), 
-                quantitySold: int.parse(item[1]), 
-                unitPrice: int.parse(item[3]), 
-                totalPrice: int.parse(item[1] * int.parse(item[3])),
-                );
-              sRepList.add(saleReport);
+            saleReport = SaleReportModel(
+              product: product,
+              dateTime:
+                  DateTime.fromMillisecondsSinceEpoch(int.parse(saleIn.time)),
+              quantitySold: double.parse(item[1]),
+              unitPrice: double.parse(item[3]),
+              totalPrice: double.parse(item[1]) * double.parse(item[3]),
+            );
+            sRepList.add(saleReport);
           }
         }
       }
-    
-      emit(LoadedState(saleReport: sRepList));
+      if (finder != '') {
+        for (var element in sRepList) {
+          if (element.product.capacity.toLowerCase() == finder ||
+              element.product.code.toLowerCase() == finder ||
+              element.product.description.toLowerCase() == finder ||
+              element.product.gauge.toLowerCase() == finder ||
+              element.product.measure.toLowerCase() == finder ||
+              element.product.packing.toLowerCase() == finder ||
+              element.product.pieces.toLowerCase() == finder ||
+              element.product.type.toLowerCase() == finder ||
+              element.product.weight.toLowerCase() == finder) {
+                finalSRepList.add(element);
+              }
+        }
+      } else {
+        finalSRepList = sRepList;
+      }
+      emit(LoadedState(saleReport: finalSRepList));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }

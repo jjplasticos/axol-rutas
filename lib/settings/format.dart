@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class FormatDate {
   static String dmy(String dateSB) {
     List<String> listDate;
@@ -7,6 +9,12 @@ class FormatDate {
     newDate =
         '${listDate.elementAt(2)}/${listDate.elementAt(1)}/${listDate.elementAt(0)}';
     return newDate;
+  }
+
+  static String ddmmyyyy(DateTime date){
+    String dateText;
+    dateText = '${date.day}/${date.month}/${date.year}';
+    return dateText;
   }
 }
 
@@ -24,5 +32,16 @@ class FormatNumber {
     }
 
     return newNumber;
+  }
+
+  static String format2dec(double number) {
+    String finalNumber;
+    if (number == number.toInt()) {
+      finalNumber = NumberFormat('#,##0', 'en_US').format(number);
+    } else {
+      finalNumber = NumberFormat('#,##0.00', 'en_US').format(number);
+    }
+    
+    return finalNumber;
   }
 }

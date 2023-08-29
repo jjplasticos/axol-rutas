@@ -14,7 +14,8 @@ class SalesReportView extends StatelessWidget {
   final bool isLoading;
   final List<SaleReportModel> saleReport;
 
-  const SalesReportView({super.key, required this.isLoading, required this.saleReport});
+  const SalesReportView(
+      {super.key, required this.isLoading, required this.saleReport});
 
   @override
   Widget build(BuildContext context) {
@@ -25,24 +26,29 @@ class SalesReportView extends StatelessWidget {
           preferredSize: Size.fromHeight(50),
           child: AppBarGlobal(title: TITLE, iconButton: null, iconActions: []),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            children: [
-              // ignore: prefer_const_constructors
-              FinderSalesReport(),
-              // ignore: prefer_const_constructors
-              TimeFilterSRep(),
-              Visibility(
-                visible: isLoading,
-                replacement: const SizedBox(
-                  height: 4,
-                ),
-                child: const LinearProgressIndicator(),
+        body: Column(
+          children: [
+            Visibility(
+              visible: isLoading,
+              replacement: const SizedBox(
+                height: 4,
               ),
-              ListviewSalesReport(listData: saleReport),
-            ],
-          ),
+              child: const LinearProgressIndicator(),
+            ),
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  // ignore: prefer_const_constructors
+                  FinderSalesReport(),
+                  // ignore: prefer_const_constructors
+                  TimeFilterSRep(),
+                  ListviewSalesReport(listData: saleReport),
+                ],
+              ),
+            ))
+          ],
         ),
         bottomNavigationBar: const NavigationBarGlobal(currentIndex: 2));
   }
