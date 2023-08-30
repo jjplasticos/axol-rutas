@@ -1,5 +1,5 @@
 import 'package:axol_rutas/identities/user/cubit/login/controllers/login_txt_cubit.dart';
-import 'package:axol_rutas/identities/user/cubit/login/login/login_controller.dart';
+import 'package:axol_rutas/identities/user/view/controller/login_controller.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

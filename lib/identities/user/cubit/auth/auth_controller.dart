@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../sale/view/views/sales_view.dart';
+import '../../view/controller/login_controller.dart';
 import '../../view/pages/admin_page.dart';
 import '../../view/pages/login_page.dart';
 import '../../view/views/splash_view.dart';
+import '../login/login/login_cubit.dart';
+import '../login/login_form_cubit.dart';
 import 'auth_cubit.dart';
 import 'auth_state.dart';
 
@@ -25,12 +28,22 @@ class AuthController extends StatelessWidget {
               user: state.user,
             );
           } else if (rol == 'vendor') {
+            // ignore: prefer_const_constructors
             return SalesView();
           } else {
             return const Text('Error: no entro a ni una pagina.');
           }
         } else if (state is AuthUnuauthenticatedState) {
-          return const Center(child: LoginPage());
+          return Center(
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => LoginFormCubit()),
+                BlocProvider(create: (_) => LoginCubit())
+              ],
+              child: const LoginController(),
+            )
+           //LoginPage()
+           );
         } else if (state is AuthErrorState) {
           return Center(
             child: Text(state.toString()),

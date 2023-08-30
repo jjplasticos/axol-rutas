@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ColorPalette {
-  static const primary = Color(0xFF5099f8);
+  static const primary = Color.fromARGB(255, 132, 114, 242);
   static const secondary = Color(0xFF4649a8);
   static const tertiary = Color(0xFFffa532);
   static const alternate = Color(0xFFed7098);
-  static const Color primaryBackground = Color(0xFF2c385e);
+  static const Color primaryBackground = Color.fromARGB(255, 54, 57, 72);
   static const secondaryBackground = Color(0xFFfefefe);
   static const primaryText = Color(0xFFf7fefe);
   static const secondaryText = Color(0xFF282828);
-  static final secondaryText2 = Color(0xFF282828).withOpacity(0.5);
+  static final secondaryText2 = const Color(0xFF282828).withOpacity(0.5);
 }
 
 class Typo {

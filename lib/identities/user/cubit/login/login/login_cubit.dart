@@ -5,27 +5,37 @@ import '../../../model/user.dart';
 import '../../../repository/user_repo.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginInitialState());
+  LoginCubit() : super(InitialState());
 
-  void checkLogin(String user, String password) async {
+  Future<void> checkLogin(String user, String password) async {
     try {
-      emit(LoginInitialState());
+      emit(InitialState());
       DatabaseUser databaseUser = DatabaseUser();
       LocalUser localUser = LocalUser();
       UserModel? loginDatabaseUser = await databaseUser.readDbUser(user);
       if (loginDatabaseUser != null) {
         if (loginDatabaseUser.name == user &&
             loginDatabaseUser.password == password) {
-          emit(LoginSuccessState(user: loginDatabaseUser));
+          emit(SuccessState(user: loginDatabaseUser));
           localUser.setLocalUser(loginDatabaseUser.name, loginDatabaseUser.rol);
         } else {
-          emit(LoginFailureState());
+          emit(FailureState());
         }
       } else {
-        emit(LoginFailureState());
+        emit(FailureState());
       }
     } catch (e) {
-      emit(LoginErrorState(error: e.toString()));
+      emit(ErrorState(error: e.toString()));
+    }
+  }
+
+  Future<void> load() async {
+    try {
+      emit(InitialState());
+      emit(LoadingState());
+      emit(LoadedState());
+    } catch (e) {
+      emit(ErrorState(error: e.toString()));
     }
   }
 }

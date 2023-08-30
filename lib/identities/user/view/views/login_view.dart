@@ -1,6 +1,6 @@
 import 'package:axol_rutas/identities/user/view/widgets/button_login.dart';
 import 'package:flutter/material.dart';
-import '../../cubit/login/login/login_controller.dart';
+import '../controller/login_controller.dart';
 
 import '../../../../settings/theme.dart';
 import '../widgets/logo.dart';
@@ -12,20 +12,20 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         backgroundColor: ColorPalette.primaryBackground,
         body: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Logo(),
+            Logo(),
             SizedBox(
               width: double.infinity,
               height: 210,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
-                children: const [
+                children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(24, 8, 24, 8),
                     child: TextFieldUser(),
