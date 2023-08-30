@@ -6,14 +6,15 @@ import '../../model/login_form_model.dart';
 class LoginFormCubit extends Cubit<LoginFormModel> {
   LoginFormCubit() : super(LoginFormModel.empty());
 
-  Future<void> changeTextfield(int textfieldKey, String value, int position) async {
+  Future<void> changeTextfield(
+      int textfieldKey, String value, int position) async {
     LoginFormModel form = state;
-    if (textfieldKey ==  0) {
+    if (textfieldKey == 0) {
       form.userName.value = value;
       form.userName.position = position;
       form = _validUserName(form);
     }
-    if (textfieldKey ==  1) {
+    if (textfieldKey == 1) {
       form.password.value = value;
       form.password.position = position;
       form = _validPassword(form);
@@ -25,6 +26,17 @@ class LoginFormCubit extends Cubit<LoginFormModel> {
   Future<void> changeFocus(int focus) async {
     LoginFormModel form = state;
     form.focus = focus;
+    emit(LoginFormModel.empty());
+    emit(form);
+  }
+
+  Future<void> changeVisible(bool currentObs) async {
+    LoginFormModel form = state;
+    if (currentObs) {
+      form.obs = false;
+    } else {
+      form.obs = true;
+    }
     emit(LoginFormModel.empty());
     emit(form);
   }
@@ -47,7 +59,7 @@ class LoginFormCubit extends Cubit<LoginFormModel> {
     }
     return form;
   }
-  
+
   LoginFormModel _validPassword(LoginFormModel rcForm) {
     LoginFormModel form = rcForm;
     if (form.password.value == '') {

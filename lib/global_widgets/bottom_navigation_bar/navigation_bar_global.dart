@@ -15,21 +15,19 @@ class NavigationBarGlobal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      selectedItemColor: ColorPalette.primary,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Ventas',
-          backgroundColor: ColorPalette.primary,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.inventory),
           label: 'Inventaio',
-          backgroundColor: ColorPalette.primary,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.description_outlined),
           label: 'Reporte de ventas',
-          backgroundColor: ColorPalette.primary,
         ),
       ],
       backgroundColor: ColorPalette.secondaryBackground,

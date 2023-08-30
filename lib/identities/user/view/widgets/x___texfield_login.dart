@@ -8,7 +8,7 @@ import '../../../../settings/theme.dart';
 import '../../cubit/login/login_form_cubit.dart';
 import '../../model/login_form_model.dart';
 
-class TextfieldLogin extends StatelessWidget {
+/*class TextfieldLogin extends StatelessWidget {
   final String label;
   final List<TextInputFormatter>? inputFormatter;
   final int keyFormElement;
@@ -91,4 +91,4 @@ class TextfieldLogin extends StatelessWidget {
       ],
     );
   }
-}
+}*/

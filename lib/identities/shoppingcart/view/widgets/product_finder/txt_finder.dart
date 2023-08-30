@@ -21,11 +21,14 @@ class TextFieldFinder extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-            child: TextFormField(
+            child: TextField(
               controller: controller,
               autofocus: false,
               obscureText: false,
               onChanged: (value) {
+                context.read<FinderTxtCubit>().change(value);
+              },
+              onSubmitted: (value) {
                 context.read<FinderTxtCubit>().change(value);
                 context.read<ProductFinderCubit>().productsInventory(value);
               },
@@ -46,7 +49,9 @@ class TextFieldFinder extends StatelessWidget {
             Icons.cancel,
           ),
           onPressed: () {
-            context.read<FinderTxtCubit>().clear();
+            //context.read<FinderTxtCubit>().clear();
+            context.read<FinderTxtCubit>().change('');
+            context.read<ProductFinderCubit>().productsInventory('');
           },
         )
       ],

@@ -33,7 +33,10 @@ class SalesReportView extends StatelessWidget {
               replacement: const SizedBox(
                 height: 4,
               ),
-              child: const LinearProgressIndicator(),
+              child: const LinearProgressIndicator(
+                color: ColorPalette.primary,
+                backgroundColor: ColorPalette.secondaryBackground,
+              ),
             ),
             Expanded(
                 child: Padding(

@@ -52,7 +52,10 @@ class ProductFormView extends StatelessWidget {
                     replacement: const SizedBox(
                       height: 4,
                     ),
-                    child: const CircularProgressIndicator()),
+                    child: const LinearProgressIndicator(
+                      color: ColorPalette.primary,
+                      backgroundColor: ColorPalette.secondaryBackground,
+                    )),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                   child: Row(
@@ -64,10 +67,23 @@ class ProductFormView extends StatelessWidget {
                     ],
                   ),
                 ),
-                // ignore: prefer_const_constructors
-                TextFieldQuantity(),
-                // ignore: prefer_const_constructors
-                TextFieldPrice(),
+                Container(
+                  height: 140,
+                  decoration: BoxDecoration(
+                      color: ColorPalette.secondaryBackground,
+                      borderRadius: BorderRadius.circular(8)),
+                  // ignore: prefer_const_constructors
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    // ignore: prefer_const_literals_to_create_immutables
+                    children: [
+                      // ignore: prefer_const_constructors
+                      TextFieldQuantity(),
+                      // ignore: prefer_const_constructors
+                      TextFieldPrice(),
+                    ],
+                  ),
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,

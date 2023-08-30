@@ -34,7 +34,11 @@ class CustomerSelectView extends StatelessWidget {
             children: [
               FinderCustomer(rcList: rcList),
               Visibility(
-                  visible: isLoading, child: const LinearProgressIndicator()),
+                  visible: isLoading,
+                  child: const LinearProgressIndicator(
+                    color: ColorPalette.primary,
+                    backgroundColor: ColorPalette.secondaryBackground,
+                  )),
               Expanded(child: ListviewCustomer(listData: rcList)),
               const SizedBox(height: 8),
               Row(

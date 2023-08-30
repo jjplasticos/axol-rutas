@@ -33,72 +33,75 @@ class ShoppingCartView extends StatelessWidget {
     }
 
     return Scaffold(
-          backgroundColor: ColorPalette.primaryBackground,
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(50),
-            child: AppBarGlobal(
-              title: TITLE,
-              iconButton: IconButtonReturn(
-                iconName: 'return',
-                isLoading: isLoading,
-              ),
-              iconActions: const [],
+      backgroundColor: ColorPalette.primaryBackground,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBarGlobal(
+          title: TITLE,
+          iconButton: IconButtonReturn(
+            iconName: 'return',
+            isLoading: isLoading,
+          ),
+          iconActions: const [],
+        ),
+      ),
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Visibility(
+              visible: isLoading,
+              replacement: const SizedBox(height: 4),
+              child: const LinearProgressIndicator(
+                color: ColorPalette.primary,
+                backgroundColor: ColorPalette.secondaryBackground,
+              )),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+            child: BtnCustomerName(
+              customer: customer,
+              isLoading: isLoading,
             ),
           ),
-          body: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Visibility(
-                  visible: isLoading,
-                  replacement: const SizedBox(height: 4),
-                  child: const LinearProgressIndicator()),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                child: BtnCustomerName(
-                  customer: customer,
-                  isLoading: isLoading,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('${time.day}/${time.month}/${time.year} ${time.hour}:${time.minute}',
-                        style: Typo.labelText1),
-                  ],
-                ),
-              ),
-              Padding(
-                  padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
-                  child: BtnAddProduct(
-                    isLoading: isLoading,
-                  )),
-              Expanded(
-                child: Column(children: [
-                   Expanded(
-                    child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: ListviewShoppingcart(
-                          isIconEditVisible: true,
-                          isLoading: isLoading,
-                        )),
-                  ),
-                  LblResultsForm(
-                      resultPrice: shppcView.totalPrice.toString(),
-                      resultQuantity: shppcView.totalQuantity.toString(),
-                      resultWeight: shppcView.totalWeight.toString()),
-                ]),
-                //ListviewShoppingcartController(),
-              ),
-              Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(8, 16, 8, 8),
-                  child: BtnSaveSale(isLoading: isLoading)),
-              //const BtnSaveShoppingcartController(),
-            ],
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                    '${time.day}/${time.month}/${time.year} ${time.hour}:${time.minute}',
+                    style: Typo.labelText1),
+              ],
+            ),
           ),
-        );
+          Padding(
+              padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
+              child: BtnAddProduct(
+                isLoading: isLoading,
+              )),
+          Expanded(
+            child: Column(children: [
+              Expanded(
+                child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                    child: ListviewShoppingcart(
+                      isIconEditVisible: true,
+                      isLoading: isLoading,
+                    )),
+              ),
+              LblResultsForm(
+                  resultPrice: shppcView.totalPrice.toString(),
+                  resultQuantity: shppcView.totalQuantity.toString(),
+                  resultWeight: shppcView.totalWeight.toString()),
+            ]),
+            //ListviewShoppingcartController(),
+          ),
+          Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(8, 16, 8, 8),
+              child: BtnSaveSale(isLoading: isLoading)),
+          //const BtnSaveShoppingcartController(),
+        ],
+      ),
+    );
   }
 }

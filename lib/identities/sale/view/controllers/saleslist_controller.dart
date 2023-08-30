@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, file_names
 
+import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +21,10 @@ class SaleController extends StatelessWidget {
         if (state is SListLoadingState) {
           return const Column(
             children: [
-              LinearProgressIndicator(),
+              LinearProgressIndicator(
+                color: ColorPalette.primary,
+                backgroundColor: ColorPalette.secondaryBackground,
+              ),
               Expanded(child: ListViewSales(listData: [])),
             ],
           );

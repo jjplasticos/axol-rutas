@@ -31,7 +31,10 @@ class OptionsShppcitemView extends StatelessWidget {
           Visibility(
               visible: isLoading ?? false,
               replacement: const SizedBox(height: 4),
-              child: const LinearProgressIndicator()),
+              child: const LinearProgressIndicator(
+                color: ColorPalette.primary,
+                backgroundColor: ColorPalette.secondaryBackground,
+              )),
           Expanded(
             child: Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),

@@ -1,7 +1,6 @@
 import 'package:axol_rutas/identities/user/view/pages/admin_page.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_cubit.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_state.dart';
-import 'package:axol_rutas/identities/user/view/pages/login_page.dart';
 import 'package:axol_rutas/identities/user/view/views/login_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ class LoginController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer(
-      bloc: context.read<LoginCubit>(),
+      bloc: context.read<LoginCubit>()..load(),
       listener: (context, state) {
         if (state is FailureState) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -41,11 +40,11 @@ class LoginController extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is LoadingState) {
-          return const LoginView();
+          return LoginView();
         } else if (state is LoadedState) {
-          return const LoginView();
+          return LoginView();
         } else {
-          return const LoginView();
+          return LoginView();
         }
       },
     );

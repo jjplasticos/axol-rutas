@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../settings/theme.dart';
 import '../../cubit/listview_inventory/listview_inventory_cubit.dart';
 import '../../cubit/listview_inventory/listview_inventory_state.dart';
 import '../widgets/listview_inventory.dart';
@@ -18,7 +19,10 @@ class ListviewInventoryController extends StatelessWidget {
         if (state is LoadingState) {
           return const Column(
             children: [
-              LinearProgressIndicator(),
+              LinearProgressIndicator(
+                color: ColorPalette.primary,
+                backgroundColor: ColorPalette.secondaryBackground,
+                ),
               Expanded(child: ListviewInventory(listData: [])),
             ],
           );

@@ -40,7 +40,7 @@ class AuthController extends StatelessWidget {
                 BlocProvider(create: (_) => LoginFormCubit()),
                 BlocProvider(create: (_) => LoginCubit())
               ],
-              child: const LoginController(),
+              child: LoginController(),
             )
            //LoginPage()
            );

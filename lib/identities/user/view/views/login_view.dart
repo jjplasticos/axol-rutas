@@ -12,7 +12,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
         backgroundColor: ColorPalette.primaryBackground,
         body: Column(
           mainAxisSize: MainAxisSize.max,
@@ -38,7 +38,7 @@ class LoginView extends StatelessWidget {
                     padding: EdgeInsetsDirectional.fromSTEB(24, 8, 24, 0),
                     child: ButtonLogin(),
                   ),
-                  LoginController(),
+                  //LoginController(),
                 ],
               ),
             )

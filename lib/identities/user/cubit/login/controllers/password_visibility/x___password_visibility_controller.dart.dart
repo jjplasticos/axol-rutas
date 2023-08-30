@@ -3,7 +3,7 @@ import 'package:axol_rutas/identities/user/cubit/login/controllers/password_visi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PasswordVisibilityController extends StatelessWidget {
+/*class PasswordVisibilityController extends StatelessWidget {
   const PasswordVisibilityController({super.key});
 
   @override
@@ -21,4 +21,4 @@ class PasswordVisibilityController extends StatelessWidget {
       },
     );
   }
-}
+}*/

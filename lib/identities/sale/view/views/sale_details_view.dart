@@ -26,13 +26,13 @@ class SaleDetailsView extends StatelessWidget {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: AppBarGlobal(
-            title: TITLE,
-            iconButton: IconButtonReturn(
-              iconName: 'return',
-            ),
-            iconActions: [],
-            //iconActions: ['1//${sale.uid}']
-            ),
+          title: TITLE,
+          iconButton: IconButtonReturn(
+            iconName: 'return',
+          ),
+          iconActions: [],
+          //iconActions: ['1//${sale.uid}']
+        ),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
@@ -40,8 +40,11 @@ class SaleDetailsView extends StatelessWidget {
           Visibility(
             visible: isLoading ?? false,
             replacement: const SizedBox(height: 4),
-            child: const LinearProgressIndicator(),
+            child: const LinearProgressIndicator(
+              color: ColorPalette.primary,
+              backgroundColor: ColorPalette.secondaryBackground,
             ),
+          ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 0),
             child: LabelsSaleDetails(
@@ -59,7 +62,7 @@ class SaleDetailsView extends StatelessWidget {
                     child: ListviewSaleDetail(
                       isLoading: isLoading,
                       sale: sale,
-                      )),
+                    )),
               ),
               LblResultsForm(
                   resultPrice: sale.totalPrice,

@@ -17,7 +17,6 @@ class InventoryView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ListviewInventoryCubit()),
-        //BlocProvider(create: (_) => TextFieldFinderSaleCubit()),
       ],
       child: Scaffold(
           backgroundColor: ColorPalette.primaryBackground,

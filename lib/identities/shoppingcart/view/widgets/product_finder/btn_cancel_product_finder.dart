@@ -16,9 +16,9 @@ class BtnCancelProductFinder extends StatelessWidget {
             minimumSize: const Size(double.infinity, 60),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            backgroundColor: ColorPalette.secondary),
+            backgroundColor: ColorPalette.primary),
         child: const Text(
-          'Cancelar',
+          'Cerrar',
           style: Typo.textButton,
         ),
         onPressed: () {

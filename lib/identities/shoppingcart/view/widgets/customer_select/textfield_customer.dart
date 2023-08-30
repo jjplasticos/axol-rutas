@@ -28,7 +28,6 @@ class TextfieldCustomer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //AddcustomerFormModel currentForm;
     TextEditingController textController = TextEditingController();
     FocusNode focusNode = FocusNode();
     AddcustomerFormModel form = context.read<CustomerFormCubit>().state;
@@ -64,11 +63,14 @@ class TextfieldCustomer extends StatelessWidget {
               height: 40,
               width: width ?? double.infinity,
               child: TextField(
+                cursorColor: ColorPalette.primary,
                 enabled: !isLoading,
                 inputFormatters: inputFormatter,
                 focusNode: focusNode,
                 controller: textController,
                 decoration: InputDecoration(
+                  focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorPalette.primary)),
                   isDense: true,
                   errorStyle: const TextStyle(height: 0.3),
                   errorText: textfieldForm.validation.isValid

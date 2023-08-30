@@ -22,6 +22,7 @@ class TextFieldFinderSale extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
             child: TextField(
+              cursorColor: ColorPalette.primary,
               controller: controller,
               autofocus: false,
               obscureText: false,
