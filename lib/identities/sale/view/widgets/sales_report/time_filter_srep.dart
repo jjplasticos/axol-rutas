@@ -1,3 +1,4 @@
+import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,9 +33,10 @@ class TimeFilterSRep extends StatelessWidget {
                 }
               });
           },
-          child: Text(lblTime),
+          child: Text(lblTime, style: Typo.bodyText5,),
         ),
         Switch(
+          activeColor: ColorPalette.primary,
           value: isTime,
           onChanged: (value) {
             context.read<SRepFormCubit>().changeIsTime(value);

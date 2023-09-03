@@ -73,7 +73,10 @@ class ProductFormView extends StatelessWidget {
                       color: ColorPalette.secondaryBackground,
                       borderRadius: BorderRadius.circular(8)),
                   // ignore: prefer_const_constructors
-                  child: Column(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    // ignore: prefer_const_constructors
+                    child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     // ignore: prefer_const_literals_to_create_immutables
                     children: [
@@ -83,6 +86,7 @@ class ProductFormView extends StatelessWidget {
                       TextFieldPrice(),
                     ],
                   ),
+                  ) ,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,

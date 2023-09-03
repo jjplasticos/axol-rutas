@@ -15,7 +15,7 @@ class ButtonReturnProdform extends StatelessWidget {
           minimumSize: const Size(80, 60),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          backgroundColor: ColorPalette.secondary),
+          backgroundColor: ColorPalette.primary),
       child: const Icon(Icons.keyboard_return, size: 30),
     );
   }
