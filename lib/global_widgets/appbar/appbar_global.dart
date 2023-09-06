@@ -34,7 +34,7 @@ class AppBarGlobal extends StatelessWidget {
       ),
       actions: [
         action0,
-        const Text('030923.3', style: Typo.labelText1,)
+        const Text('060923.0', style: Typo.labelText1,)
       ],
       centerTitle: true,
       elevation: 2,
