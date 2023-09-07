@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../global_widgets/appbar/appbar_global.dart';
-import '../../../../global_widgets/appbar/iconbutton_return.dart';
+import '../../../../globals/global_widgets/appbar/appbar_global.dart';
+import '../../../../globals/global_widgets/appbar/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
 import '../../cubit/shoppingcart/shppc_cubit.dart';
 import '../../model/route_customer_model.dart';
@@ -42,7 +42,6 @@ class ShoppingCartView extends StatelessWidget {
             iconName: 'return',
             isLoading: isLoading,
           ),
-          iconActions: const [],
         ),
       ),
       body: Column(

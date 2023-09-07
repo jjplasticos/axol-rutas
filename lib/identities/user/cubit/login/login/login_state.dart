@@ -54,3 +54,11 @@ class ErrorState extends LoginState {
   @override
   List<Object?> get props => [error];
 }
+
+class TestState extends LoginState {
+  final int testNumber;
+  final String testText;
+  const TestState({required this.testNumber, required this.testText});
+  @override
+  List<Object?> get props => [testNumber, testText];
+}

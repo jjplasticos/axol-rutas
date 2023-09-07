@@ -3,10 +3,10 @@ import 'package:axol_rutas/identities/sale/view/controllers/sales_report_control
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../identities/inventory/view/views/inventory_view.dart';
-import '../../identities/sale/cubit/sales_report/salesreport_cubit.dart';
-import '../../identities/sale/view/views/sales_view.dart';
-import '../../settings/theme.dart';
+import '../../../identities/inventory/view/views/inventory_view.dart';
+import '../../../identities/sale/cubit/sales_report/salesreport_cubit.dart';
+import '../../../identities/sale/view/views/sales_view.dart';
+import '../../../settings/theme.dart';
 
 class NavigationBarGlobal extends StatelessWidget {
   final int currentIndex;

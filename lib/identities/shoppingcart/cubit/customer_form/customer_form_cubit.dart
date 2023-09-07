@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../global_models/validation_form_model.dart';
+import '../../../../globals/global_models/validation_form_model.dart';
 import '../../model/addcustomer_form_model.dart';
 
 class CustomerFormCubit extends Cubit<AddcustomerFormModel> {

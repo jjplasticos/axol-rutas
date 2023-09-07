@@ -1,4 +1,4 @@
-import 'package:axol_rutas/global_widgets/global_models/textfield_model.dart';
+import 'package:axol_rutas/globals/global_widgets/global_models/textfield_model.dart';
 
 class SRepFormModel {
   TextfieldModel finder;

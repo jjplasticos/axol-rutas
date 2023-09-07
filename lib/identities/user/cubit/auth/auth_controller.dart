@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../sale/view/views/sales_view.dart';
 import '../../view/controller/login_controller.dart';
 import '../../view/pages/admin_page.dart';
-import '../../view/pages/login_page.dart';
 import '../../view/views/splash_view.dart';
 import '../login/login/login_cubit.dart';
 import '../login/login_form_cubit.dart';

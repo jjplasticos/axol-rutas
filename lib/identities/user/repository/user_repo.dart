@@ -54,4 +54,10 @@ class LocalUser extends UserRepo {
     await pref.setString(USER, newLocalUser);
     await pref.setString(ROL, newLocalRol);
   }
+
+  Future<void> removeLocalUser() async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.remove(USER);
+    await pref.remove(ROL);
+  }
 }

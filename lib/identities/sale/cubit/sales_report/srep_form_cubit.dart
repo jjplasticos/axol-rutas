@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../global_widgets/global_models/textfield_model.dart';
+import '../../../../globals/global_widgets/global_models/textfield_model.dart';
 import '../../model/srep_form_model.dart';
 
 class SRepFormCubit extends Cubit<SRepFormModel> {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../global_widgets/global_models/textfield_model.dart';
+import '../../../../../globals/global_widgets/global_models/textfield_model.dart';
 import '../../../../../settings/theme.dart';
 import '../../../cubit/customer_select/custselc_cubit/custselec_cubit.dart';
 import '../../../cubit/customer_select/finder_customer_cubit.dart';

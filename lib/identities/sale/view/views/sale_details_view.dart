@@ -3,8 +3,8 @@
 import 'package:axol_rutas/identities/sale/model/sale_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../global_widgets/appbar/appbar_global.dart';
-import '../../../../global_widgets/appbar/iconbutton_return.dart';
+import '../../../../globals/global_widgets/appbar/appbar_global.dart';
+import '../../../../globals/global_widgets/appbar/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
 import '../../../shoppingcart/view/widgets/shoppingcart/lbl_results_form.dart';
 import '../controllers/options_edit_sale_controller.dart';
@@ -30,7 +30,6 @@ class SaleDetailsView extends StatelessWidget {
           iconButton: IconButtonReturn(
             iconName: 'return',
           ),
-          iconActions: [],
           //iconActions: ['1//${sale.uid}']
         ),
       ),

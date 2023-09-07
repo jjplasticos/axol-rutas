@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../global_models/textfield_form_model.dart';
+import '../../../../../globals/global_models/textfield_form_model.dart';
 import '../../../../../settings/theme.dart';
 import '../../../cubit/shppcitem_form/shppcitem_form_cubit.dart';
 import '../../../cubit/shppcitem_form/shppcitem_view_cubit.dart';

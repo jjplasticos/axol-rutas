@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../global_widgets/appbar/appbar_global.dart';
-import '../../../../global_widgets/bottom_navigation_bar/navigation_bar_global.dart';
+import '../../../../globals/global_widgets/appbar/appbar_global.dart';
+import '../../../../globals/global_widgets/bottom_navigation_bar/navigation_bar_global.dart';
 import '../../../../settings/theme.dart';
 import '../../cubit/listview_inventory/listview_inventory_cubit.dart';
 import '../controllers/listview_inventory_controller.dart';
@@ -20,10 +20,10 @@ class InventoryView extends StatelessWidget {
       ],
       child: Scaffold(
           backgroundColor: ColorPalette.primaryBackground,
-          appBar: const PreferredSize(
+          appBar: PreferredSize(
             preferredSize: Size.fromHeight(50),
             child:
-                AppBarGlobal(title: TITLE, iconButton: null, iconActions: []),
+                AppBarGlobal(title: TITLE, iconButton: null,),
           ),
           body: Column(
             mainAxisSize: MainAxisSize.max,

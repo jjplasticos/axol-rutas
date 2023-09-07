@@ -1,4 +1,4 @@
-import '../../../global_models/textfield_form_model.dart';
+import '../../../globals/global_models/textfield_form_model.dart';
 import '../../product/model/product.dart';
 
 class ShppcitemFormModel {

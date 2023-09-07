@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../global_widgets/appbar/appbar_global.dart';
-import '../../../../global_widgets/bottom_navigation_bar/navigation_bar_global.dart';
+import '../../../../globals/global_widgets/appbar/appbar_global.dart';
+import '../../../../globals/global_widgets/bottom_navigation_bar/navigation_bar_global.dart';
 import '../../../../settings/theme.dart';
 import '../../model/sale_report_model.dart';
 import '../widgets/sales_report/finder_salesreport.dart';
@@ -24,7 +24,7 @@ class SalesReportView extends StatelessWidget {
         backgroundColor: ColorPalette.primaryBackground,
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
-          child: AppBarGlobal(title: TITLE, iconButton: null, iconActions: []),
+          child: AppBarGlobal(title: TITLE),
         ),
         body: Column(
           children: [

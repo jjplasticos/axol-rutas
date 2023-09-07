@@ -37,13 +37,22 @@ class LoginController extends StatelessWidget {
             print('LoginErrorState: ${state.error}');
           }
         }
+        if (state is TestState) {
+          if (state.testNumber == 0) {
+            final snackBar = SnackBar(content: Text(state.testText));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        }
       },
       builder: (context, state) {
         if (state is LoadingState) {
+          // ignore: prefer_const_constructors
           return LoginView();
         } else if (state is LoadedState) {
+          // ignore: prefer_const_constructors
           return LoginView();
         } else {
+          // ignore: prefer_const_constructors
           return LoginView();
         }
       },

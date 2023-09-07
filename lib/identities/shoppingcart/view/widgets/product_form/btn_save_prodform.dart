@@ -1,4 +1,4 @@
-import 'package:axol_rutas/global_models/textfield_form_model.dart';
+import 'package:axol_rutas/globals/global_models/textfield_form_model.dart';
 import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

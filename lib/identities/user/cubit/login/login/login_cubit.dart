@@ -1,6 +1,9 @@
 import 'package:axol_rutas/identities/user/cubit/login/login/login_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 
+import '../../../../location/repository/location_repo.dart';
+import '../../../../shoppingcart/model/route_customer_model.dart';
 import '../../../model/user.dart';
 import '../../../repository/user_repo.dart';
 
@@ -38,4 +41,17 @@ class LoginCubit extends Cubit<LoginState> {
       emit(ErrorState(error: e.toString()));
     }
   }
+
+  Future<void> test(int testNumber) async {
+  try {
+      emit(InitialState());
+      Position position;
+      String location;
+      position = await LocationRepo().determinePosition();
+      location = '${position.latitude},${position.longitude}';
+      emit(TestState(testNumber: testNumber, testText: location));
+    } catch (e) {
+      emit(ErrorState(error: e.toString()));
+    }
+}
 }

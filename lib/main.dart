@@ -1,4 +1,3 @@
-import 'package:axol_rutas/identities/user/view/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'identities/user/view/pages/auth_page.dart';
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/AuthPage': (context) => const AuthPage(),
         //'/HomePage': (context) => HomePage(user: context.read()),
-        '/LoginPage': (context) => const LoginPage(),
+        //'/LoginPage': (context) => const LoginPage(),
       },
     );
   }
