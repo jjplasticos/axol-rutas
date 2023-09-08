@@ -48,7 +48,7 @@ class LoginView extends StatelessWidget {
                 ),
               ],
             )),
-            Row(
+            /*Row(
               children: [
                 IconButton(
                   onPressed: () {
@@ -57,7 +57,7 @@ class LoginView extends StatelessWidget {
                   icon: Icon(Icons.science_rounded, color: ColorPalette.secondaryBackground),
                 )
               ],
-            )
+            )*/
           ],
         ));
   }
