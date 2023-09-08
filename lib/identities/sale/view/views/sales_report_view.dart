@@ -19,6 +19,10 @@ class SalesReportView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double total;
+    /*for (var salereport in ) {
+
+    }*/
     const String TITLE = 'Reporte de ventas';
     return Scaffold(
         backgroundColor: ColorPalette.primaryBackground,
@@ -50,7 +54,13 @@ class SalesReportView extends StatelessWidget {
                   ListviewSalesReport(listData: saleReport),
                 ],
               ),
-            ))
+            )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text('Total: \$', style: Typo.bodyText5,),
+              ],
+            )
           ],
         ),
         bottomNavigationBar: const NavigationBarGlobal(currentIndex: 2));
