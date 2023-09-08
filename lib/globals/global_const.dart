@@ -1,3 +1,3 @@
 class GlobalConst {
-  static const version = '060923.2';
+  static const version = '080923.0';
 }

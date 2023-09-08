@@ -29,6 +29,7 @@ class LocationRepo {
 
     if (permission == LocationPermission.deniedForever) {
         // Permissions are denied forever, handle appropriately.
+        await Geolocator.openLocationSettings();
         return Future.error(
             'Location permissions are permanently denied, we cannot request permissions.');
       }
