@@ -45,6 +45,8 @@ dependencies:
   geolocator: ^9.0.2
   intl: ^0.18.1
   permission_handler: ^10.4.5
+  pdf: ^3.10.4
+  printing: ^5.11.0
 
 dev_dependencies:
   flutter_test:
