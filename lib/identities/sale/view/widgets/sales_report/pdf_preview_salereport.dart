@@ -16,6 +16,7 @@ class PdfPreviewSaleReport extends StatelessWidget {
       appBar: AppBar(
         title: const Text('PDF Preview'),
       ),
+      
       body: PdfPreview(build: (context) => makePdf),
     );
   }
