@@ -8,7 +8,7 @@ const RESOURCES = {"assets/AssetManifest.bin": "1a8b1c45a8123388a5b569e5a21a187e
 "assets/assets/images/axolLogo.png": "5a8651d251cfc3b95aed641f0c129790",
 "assets/assets/images/logoAxol2.png": "a2f6ff3be0af1a940a7bfbdb94c64c9a",
 "assets/FontManifest.json": "aa2c5c384a3b6370e376486cdde0f6d1",
-"assets/fonts/MaterialIcons-Regular.otf": "e367273b4c7531e85f0c69f96c506dff",
+"assets/fonts/MaterialIcons-Regular.otf": "4cfd48a894183c29fb1295d170c33af0",
 "assets/fonts/Poppins-Medium.ttf": "bf59c687bc6d3a70204d3944082c5cc0",
 "assets/fonts/Poppins-Regular.ttf": "093ee89be9ede30383f39a899c485a82",
 "assets/fonts/Poppins-SemiBold.ttf": "6f1520d107205975713ba09df778f93f",
@@ -30,9 +30,9 @@ const RESOURCES = {"assets/AssetManifest.bin": "1a8b1c45a8123388a5b569e5a21a187e
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "3a0e406465d0793be3f5084a04abc1bb",
-"/": "3a0e406465d0793be3f5084a04abc1bb",
-"main.dart.js": "0316a36a5f30cbed75b7876cc87a54fb",
+"index.html": "e7c73c32d0660dcf06d3ebae3943360c",
+"/": "e7c73c32d0660dcf06d3ebae3943360c",
+"main.dart.js": "5366f1a16d3cb7b5106b5f2ae955a771",
 "manifest.json": "2f766e60e62c976de7d5f4aad4914d27",
 "version.json": "fe1bfc492b1d215df49eafccb8c43ade"};
 // The application shell files that are downloaded before a service worker can
