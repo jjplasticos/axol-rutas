@@ -70,8 +70,7 @@ class SalesReportView extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => PdfPreviewSaleReport(
-                                        makePdf: PdfSaleReport()
-                                            .pdfSalerep(saleReport),
+                                        saleReport: saleReport,
                                       )));
                         },
                         icon: const Icon(

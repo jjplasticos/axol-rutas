@@ -4,7 +4,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter/services.dart';
 
 class PdfSaleReport {
-  Future<Uint8List> pdfSalerep(List<SaleReportModel> sRepList) async {
+  Future<Uint8List> pdfSalerep(List<SaleReportModel> sRepList, PdfPageFormat format) async {
     final pdf = pw.Document();
     List<pw.Row> content = [];
     for (var element in sRepList) {
@@ -140,7 +140,7 @@ class PdfSaleReport {
             ]),
         footer: (context) => pw.Text('${context.pageNumber}'),
         margin: const pw.EdgeInsets.all(10),
-        pageFormat: PdfPageFormat.a4,
+        pageFormat: format, //PdfPageFormat.a4,
         build: (context) {
           return [
             pw.Column(
