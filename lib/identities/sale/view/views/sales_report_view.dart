@@ -1,7 +1,9 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pdf/pdf.dart';
 
 import '../../../../globals/global_widgets/appbar/appbar_global.dart';
 import '../../../../globals/global_widgets/bottom_navigation_bar/navigation_bar_global.dart';
@@ -65,7 +67,12 @@ class SalesReportView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       IconButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          /*Future<Uint8List> pdfInBytes =
+                              PdfSaleReport().pdfSalerep(
+                            saleReport,
+                            PdfPageFormat.a4,
+                          );*/
                           Navigator.push(
                               context,
                               MaterialPageRoute(

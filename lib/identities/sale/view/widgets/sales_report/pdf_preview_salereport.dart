@@ -35,7 +35,7 @@ class PdfPreviewSaleReport extends StatelessWidget {
         title: const Text('PDF Preview'),
       ),
       body: PdfPreview(
-          build: (format) => PdfSaleReport().pdfSalerep(saleReport, format),
+          build: (format) async => await PdfSaleReport().pdfSalerep(saleReport, format),
           maxPageWidth: 700,
           actions: actions,
           onError: (context, error) {
