@@ -8,7 +8,7 @@ import 'package:printing/printing.dart';
 import '../../../model/sale_report_model.dart';
 import 'pdf_salereport.dart';
 
-class PdfPreviewSaleReport extends StatelessWidget {
+/*class PdfPreviewSaleReport extends StatelessWidget {
   //final PdfPreview pdfPreview;
   //final FutureOr<Uint8List> makePdf;
   final List<SaleReportModel> saleReport;
@@ -45,4 +45,4 @@ class PdfPreviewSaleReport extends StatelessWidget {
               ),
     );
   }
-}
+}*/

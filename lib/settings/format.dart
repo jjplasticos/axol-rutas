@@ -44,4 +44,11 @@ class FormatNumber {
     
     return finalNumber;
   }
+
+  static String format2dec2(double number) {
+    String finalNumber;
+    finalNumber = NumberFormat('#,##0.00', 'en_US').format(number);
+    
+    return finalNumber;
+  }
 }

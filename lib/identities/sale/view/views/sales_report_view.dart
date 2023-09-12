@@ -72,7 +72,7 @@ class SalesReportView extends StatelessWidget {
                           Uint8List pdfInBytes =
                               await PdfSaleReport().pdfSalerep(
                             saleReport,
-                            PdfPageFormat.a4,
+                            form.time
                           );
                           final blob =
                               html.Blob([pdfInBytes], 'application/pdf');
@@ -81,7 +81,7 @@ class SalesReportView extends StatelessWidget {
                               as html.AnchorElement
                             ..href = url
                             ..style.display = 'none'
-                            ..download = 'pdf.pdf';
+                            ..download = 'reporte_ventas.pdf';
                           html.document.body!.children.add(anchor);
 
                           anchor.click();
