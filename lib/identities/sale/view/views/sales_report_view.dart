@@ -1,4 +1,5 @@
 // ignore_for_file: constant_identifier_names
+import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -68,17 +69,28 @@ class SalesReportView extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: () async {
-                          /*Future<Uint8List> pdfInBytes =
-                              PdfSaleReport().pdfSalerep(
+                          Uint8List pdfInBytes =
+                              await PdfSaleReport().pdfSalerep(
                             saleReport,
                             PdfPageFormat.a4,
-                          );*/
-                          Navigator.push(
+                          );
+                          final blob =
+                              html.Blob([pdfInBytes], 'application/pdf');
+                          final url = html.Url.createObjectUrlFromBlob(blob);
+                          final anchor = html.document.createElement('a')
+                              as html.AnchorElement
+                            ..href = url
+                            ..style.display = 'none'
+                            ..download = 'pdf.pdf';
+                          html.document.body!.children.add(anchor);
+
+                          anchor.click();
+                          /*Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => PdfPreviewSaleReport(
                                         saleReport: saleReport,
-                                      )));
+                                      )));*/
                         },
                         icon: const Icon(
                           Icons.picture_as_pdf,
