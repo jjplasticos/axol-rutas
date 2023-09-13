@@ -7,6 +7,7 @@ abstract class ProductRepo {
   final String TABLE = 'products';
   final String CODE = 'code';
   final String PRODUCT = 'attributes';
+  final String CLASS = 'class';
 }
 
 class DatabaseProducts extends ProductRepo {
@@ -32,6 +33,7 @@ class DatabaseProducts extends ProductRepo {
 
     if (productList.isNotEmpty) {
       for (element in productList) {
+        element[PRODUCT][CLASS] = element[CLASS];
         newList.add(element[PRODUCT]);
       }
     }
@@ -57,6 +59,7 @@ class DatabaseProducts extends ProductRepo {
           pieces: element[JSON_PIECES].toString(),
           type: element[JSON_TYPE].toString(),
           weight: element[JSON_WEIGHT].toString(),
+          class_: productList.first[CLASS],
           filetValues: '');
     }
     return product;
@@ -83,6 +86,7 @@ class DatabaseProducts extends ProductRepo {
           pieces: element[PRODUCT][JSON_PIECES], 
           type: element[PRODUCT][JSON_TYPE], 
           weight: element[PRODUCT][JSON_WEIGHT], 
+          class_: element[CLASS],
           filetValues: '');
         productList.add(product);
       }

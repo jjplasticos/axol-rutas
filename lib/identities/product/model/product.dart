@@ -8,6 +8,7 @@ class ProductModel {
   final String description;
   final String pieces;
   final String weight;
+  final int class_;
   final String filetValues;
 
   ProductModel(
@@ -20,6 +21,7 @@ class ProductModel {
       required this.pieces,
       required this.type,
       required this.weight,
+      required this.class_,
       required this.filetValues});
 
   static ProductModel empty() => ProductModel(
@@ -32,5 +34,6 @@ class ProductModel {
     pieces: '', 
     type: '', 
     weight: '', 
+    class_: 0,
     filetValues: '',);
 }

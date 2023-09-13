@@ -56,6 +56,7 @@ class ProductFinderCubit extends Cubit<ProductFinderState> {
           type: element['type'],
           weight: element['weight'],
           pieces: element['pices'],
+          class_: element['class'],
           filetValues: element['code'] +
               '//' +
               element['description'] +
