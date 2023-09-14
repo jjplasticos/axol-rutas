@@ -1,12 +1,11 @@
 import 'package:axol_rutas/identities/sale/model/sale_report_model.dart';
 import 'package:axol_rutas/identities/user/model/user.dart';
-import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter/services.dart';
 
 import '../../../../../settings/format.dart';
-import '../../../../../settings/theme.dart';
+import '../../../../product/model/class_product_model.dart';
 import '../../../../user/repository/user_repo.dart';
 
 class PdfSaleReport {
@@ -16,87 +15,104 @@ class PdfSaleReport {
       pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.normal);
 
   Future<Uint8List> pdfSalerep(
-      List<SaleReportModel> sRepList, DateTime date) async {
+      List<SaleReportModel> sRepList, DateTime date, List<ClassProductModel> classList) async {
     final pdf = pw.Document();
     final UserModel user = await LocalUser().getLocalUser();
     List<pw.Widget> content = [];
     double total = 0;
-    for (var element in sRepList) {
-      total = total + element.totalPrice;
-      content.add(
-          pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
+    List<int> classNumList = [];
+    String className;
+    for (var sRep in sRepList) {
+      total = total + sRep.totalPrice;
+      if (classNumList.contains(sRep.product.class_) == false) {
+        classNumList.add(sRep.product.class_);
+      }
+    }
+    for (var num in classNumList) {
+      className = classList.where((x) => x.id == num).first.text1;
+      content.add(pw.Row(
+        mainAxisAlignment: pw.MainAxisAlignment.start,
+        children: [
+          pw.Text(className, style: _body),
+        ]
+      ));
+      content.add(pw.Divider(thickness: 0.1, borderStyle: pw.BorderStyle.solid));
+      for (var sRep2 in sRepList) {
+        if (sRep2.product.class_ == num) {
+          content.add(
+            pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
         pw.Expanded(
           flex: 1,
           child: pw.Align(
             alignment: pw.Alignment.centerLeft,
-            child: pw.Text(element.product.code, style: _body),
+            child: pw.Text(sRep2.product.code, style: _body),
           ),
         ),
         pw.Expanded(
           flex: 1,
           child: pw.Align(
             alignment: pw.Alignment.centerLeft,
-            child: pw.Text(element.product.packing, style: _body),
+            child: pw.Text(sRep2.product.packing, style: _body),
           ),
         ),
         pw.Expanded(
           flex: 1,
           child: pw.Align(
             alignment: pw.Alignment.centerLeft,
-            child: pw.Text(element.product.capacity, style: _body),
+            child: pw.Text(sRep2.product.capacity, style: _body),
           ),
         ),
         pw.Expanded(
           flex: 1,
           child: pw.Align(
             alignment: pw.Alignment.centerLeft,
-            child: pw.Text(element.product.measure, style: _body),
+            child: pw.Text(sRep2.product.measure, style: _body),
           ),
         ),
         pw.Expanded(
           flex: 1,
           child: pw.Align(
             alignment: pw.Alignment.centerLeft,
-            child: pw.Text(element.product.gauge, style: _body),
+            child: pw.Text(sRep2.product.gauge, style: _body),
           ),
         ),
         pw.Expanded(
           flex: 1,
           child: pw.Align(
             alignment: pw.Alignment.centerLeft,
-            child: pw.Text(element.product.pieces, style: _body),
+            child: pw.Text(sRep2.product.pieces, style: _body),
           ),
         ),
         pw.Expanded(
           flex: 1,
-          child: pw.Align(
-            alignment: pw.Alignment.centerLeft,
-            child: pw.Text(element.quantitySold.toString(), style: _body),
+          child: pw.Center(
+            child: pw.Text(sRep2.quantitySold.toString(), style: _body),
           ),
         ),
         pw.Expanded(
           flex: 1,
           child: pw.Align(
             alignment: pw.Alignment.centerRight,
-            child: pw.Text('\$${FormatNumber.format2dec2(element.unitPrice)}', style: _body),
+            child: pw.Text('\$${FormatNumber.format2dec2(sRep2.unitPrice)}', style: _body),
           ),
         ),
         pw.Expanded(
           flex: 1,
           child: pw.Align(
             alignment: pw.Alignment.centerRight,
-            child: pw.Text('\$${FormatNumber.format2dec2(element.totalPrice)}', style: _body),
+            child: pw.Text('\$${FormatNumber.format2dec2(sRep2.totalPrice)}', style: _body),
           ),
         ),
-      ]));
+      ])
+          );
+        }
+      }
     }
     content.add(pw.Divider(thickness: 0.1, borderStyle: pw.BorderStyle.solid));
     content.add(pw.Row(
       mainAxisAlignment:pw.MainAxisAlignment.end,
       children: [
-        //pw.Expanded(child: pw.SizedBox()),
         pw.Text('IMPORTE TOTAL: \$${FormatNumber.format2dec2(total)}', style: _body),
-        //pw.SizedBox(width: 16),
       ]
     ));
 
@@ -114,13 +130,6 @@ class PdfSaleReport {
                             style: _subtitle),
                         pw.Text('VENDEDOR: ${user.name}', style: _subtitle)
                       ])),
-              /*pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
-                  children: [
-                    pw.Text('FECHA: ${date.day}/${date.month}/${date.year}',
-                        style: _subtitle),
-                    pw.Text('VENDEDOR: ${user.name}', style: _subtitle)
-                  ]),*/
               pw.Divider(
                 thickness: 1,
                 borderStyle: pw.BorderStyle.solid,
@@ -172,8 +181,7 @@ class PdfSaleReport {
                     ),
                     pw.Expanded(
                       flex: 1,
-                      child: pw.Align(
-                        alignment: pw.Alignment.centerLeft,
+                      child: pw.Center(
                         child: pw.Text('CANT. VEN.', style: _subtitle),
                       ),
                     ),

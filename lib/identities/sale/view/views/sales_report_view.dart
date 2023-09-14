@@ -10,6 +10,9 @@ import '../../../../globals/global_widgets/appbar/appbar_global.dart';
 import '../../../../globals/global_widgets/bottom_navigation_bar/navigation_bar_global.dart';
 import '../../../../settings/format.dart';
 import '../../../../settings/theme.dart';
+import '../../../product/model/class_product_model.dart';
+import '../../../product/repository/class_product_repo.dart';
+import '../../cubit/sales_report/salesreport_cubit.dart';
 import '../../cubit/sales_report/srep_form_cubit.dart';
 import '../../model/sale_report_model.dart';
 import '../../model/srep_form_model.dart';
@@ -28,6 +31,7 @@ class SalesReportView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<ClassProductModel> classList = [];
     SRepFormModel form = context.read<SRepFormCubit>().state;
     double total = 0;
     if (form.isTime) {
@@ -69,11 +73,10 @@ class SalesReportView extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: () async {
-                          Uint8List pdfInBytes =
-                              await PdfSaleReport().pdfSalerep(
-                            saleReport,
-                            form.time
-                          );
+                          classList = await ClassProductRepo().getClassList();
+                          //classList = await context.read<SalesReportCubit>().getClassList();
+                          Uint8List pdfInBytes = await PdfSaleReport()
+                              .pdfSalerep(saleReport, form.time, classList);
                           final blob =
                               html.Blob([pdfInBytes], 'application/pdf');
                           final url = html.Url.createObjectUrlFromBlob(blob);
@@ -83,7 +86,6 @@ class SalesReportView extends StatelessWidget {
                             ..style.display = 'none'
                             ..download = 'reporte_ventas.pdf';
                           html.document.body!.children.add(anchor);
-
                           anchor.click();
                           /*Navigator.push(
                               context,

@@ -1,5 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../user/model/user.dart';
+import '../../user/repository/user_repo.dart';
 import '../model/route_customer_model.dart';
 
 class RoutecustomerRepo {
@@ -13,16 +15,20 @@ class RoutecustomerRepo {
   final _supabase = Supabase.instance.client;
 
   Future<List<RouteCustomerModel>> fetchRcList(String finder) async {
+    UserModel user = await LocalUser().getLocalUser();
     List<Map<String, dynamic>> customersDB = [];
     RouteCustomerModel routcustomer;
     List<RouteCustomerModel> customers = [];
     if (finder == '') {
-      customersDB =
-          await _supabase.from(_table).select<List<Map<String, dynamic>>>();
+      customersDB = await _supabase
+          .from(_table)
+          .select<List<Map<String, dynamic>>>()
+          .eq(_vendor, user.name);
     } else {
       customersDB = await _supabase
           .from(_table)
           .select<List<Map<String, dynamic>>>()
+          .eq(_vendor, user.name)
           .ilike(_name, '%$finder%');
     }
     if (customersDB.isNotEmpty) {
@@ -58,12 +64,12 @@ class RoutecustomerRepo {
   }
 
   Future<int> availableId() async {
-    List<Map<String,dynamic>> customerIdDB = [];
+    List<Map<String, dynamic>> customerIdDB = [];
     List<int> listId = [];
     int newId = -1;
     customerIdDB =
-        await _supabase.from(_table).select<List<Map<String,dynamic>>>(_id);
-    for (var element in customerIdDB){
+        await _supabase.from(_table).select<List<Map<String, dynamic>>>(_id);
+    for (var element in customerIdDB) {
       listId.add(int.parse(element[_id].toString()));
     }
     listId.sort((a, b) => a.compareTo(b));
@@ -77,13 +83,14 @@ class RoutecustomerRepo {
     return newId;
   }
 
-  Future<void> insertRc(RouteCustomerModel routcustomer) async {
+  Future<void> insertRc(RouteCustomerModel routcustomer, String vendor) async {
     await _supabase.from(_table).insert({
       _id: routcustomer.id,
       _name: routcustomer.name,
       _location: routcustomer.location,
       _address: routcustomer.address,
-      _validation: routcustomer.validation
+      _validation: routcustomer.validation,
+      _vendor: vendor,
     });
   }
 

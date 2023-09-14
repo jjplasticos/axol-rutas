@@ -33,7 +33,7 @@ class CustomerFormviewCubit extends Cubit<CustomerFormviewState> {
       rc.id = newId;
       position = await LocationRepo().determinePosition();
       rc.location = '${position.latitude},${position.longitude}';
-      await RoutecustomerRepo().insertRc(rc);
+      await RoutecustomerRepo().insertRc(rc, vendor);
       emit(LoadedState(vendor: vendor));
       emit(SavedState());
     } catch (e) {

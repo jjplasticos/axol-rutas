@@ -1,7 +1,9 @@
 import 'package:axol_rutas/identities/sale/model/sale_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../product/model/class_product_model.dart';
 import '../../../product/model/product.dart';
+import '../../../product/repository/class_product_repo.dart';
 import '../../../product/repository/product_repo.dart';
 import '../../model/sale_report_model.dart';
 import '../../model/srep_form_model.dart';
@@ -102,5 +104,11 @@ class SalesReportCubit extends Cubit<SalesReportState> {
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }
+  }
+
+  Future<List<ClassProductModel>> getClassList() async {
+    List<ClassProductModel> classList;
+    classList = await ClassProductRepo().getClassList();
+    return classList;
   }
 }
