@@ -38,11 +38,11 @@ class TextfieldCustomer extends StatelessWidget {
     } else if (keyFormElement == 1) {
       textfieldForm = form.address;
     } else if (keyFormElement == 2) {
-      textfieldForm = form.hood;
-    } else if (keyFormElement == 3) {
       textfieldForm = form.town;
-    } else if (keyFormElement == 4) {
+    } else if (keyFormElement == 3) {
       textfieldForm = form.country;
+    } else if (keyFormElement == 4) {
+      textfieldForm = form.sector;
     }
 
     textController.value = TextEditingValue(

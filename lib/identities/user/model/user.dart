@@ -1,8 +1,15 @@
 class UserModel {
   final String name;
-  final String uid;
+  final int id;
   final String rol;
   final String password;
 
-  UserModel({required this.name, required this.uid, required this.rol, required this.password});
+  UserModel(
+      {required this.name,
+      required this.id,
+      required this.rol,
+      required this.password});
+
+  static UserModel empty() =>
+      UserModel(name: '', id: -1, rol: '', password: '');
 }

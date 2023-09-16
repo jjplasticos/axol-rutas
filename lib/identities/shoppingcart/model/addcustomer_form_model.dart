@@ -1,18 +1,19 @@
 import '../../../globals/global_models/textfield_form_model.dart';
+import '../../user/model/user.dart';
 
 class AddcustomerFormModel {
   TextfieldFormModel name;
   TextfieldFormModel address;
-  TextfieldFormModel hood;
   TextfieldFormModel town;
   TextfieldFormModel country;
-  String vendor;
+  TextfieldFormModel sector;
+  UserModel vendor;
   int focus;
 
   AddcustomerFormModel({
     required this.address,
     required this.country,
-    required this.hood,
+    required this.sector,
     required this.name,
     required this.town,
     required this.vendor,
@@ -22,10 +23,10 @@ class AddcustomerFormModel {
   static AddcustomerFormModel empty() => AddcustomerFormModel(
         address: TextfieldFormModel.initial(),
         country: TextfieldFormModel.initial(),
-        hood: TextfieldFormModel.initial(),
+        sector: TextfieldFormModel.initial(),
         name: TextfieldFormModel.initial(),
         town: TextfieldFormModel.initial(),
-        vendor: '',
+        vendor: UserModel.empty(),
         focus: -1,
       );
 }

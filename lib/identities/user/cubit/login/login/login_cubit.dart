@@ -20,7 +20,8 @@ class LoginCubit extends Cubit<LoginState> {
         if (loginDatabaseUser.name == user &&
             loginDatabaseUser.password == password) {
           emit(SuccessState(user: loginDatabaseUser));
-          localUser.setLocalUser(loginDatabaseUser.name, loginDatabaseUser.rol);
+          localUser.setLocalUser(loginDatabaseUser.name, loginDatabaseUser.rol,
+              loginDatabaseUser.id);
         } else {
           emit(FailureState());
         }
@@ -43,7 +44,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> test(int testNumber) async {
-  try {
+    try {
       emit(InitialState());
       Position position;
       String location;
@@ -53,5 +54,5 @@ class LoginCubit extends Cubit<LoginState> {
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }
-}
+  }
 }

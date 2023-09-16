@@ -1,5 +1,6 @@
 import 'package:axol_rutas/identities/shoppingcart/cubit/customer_form/customer_formview_cubit.dart';
 import 'package:axol_rutas/identities/shoppingcart/model/addcustomer_form_model.dart';
+import 'package:axol_rutas/identities/user/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,7 +11,7 @@ import '../../repository/routecustomer_repo.dart';
 import '../widgets/customer_select/textfield_customer.dart';
 
 class CustomerAddView extends StatelessWidget {
-  final String vendor;
+  final UserModel vendor;
   final bool isLoading;
   const CustomerAddView(
       {super.key, required this.vendor, required this.isLoading});
@@ -70,7 +71,7 @@ class CustomerAddView extends StatelessWidget {
                                         Expanded(
                                           child: Center(
                                             child: Text(
-                                              vendor,
+                                              vendor.name,
                                               style: Typo.bodyText6,
                                             ),
                                           ),
@@ -94,21 +95,21 @@ class CustomerAddView extends StatelessWidget {
                                     // ignore: prefer_const_constructors
                                     TextfieldCustomer(
                                       keyFormElement: 2,
-                                      label: 'Colonia:',
+                                      label: 'Municiopio:',
                                       isLoading: isLoading,
                                       isFocus: focus == 2,
                                     ),
                                     // ignore: prefer_const_constructors
                                     TextfieldCustomer(
                                       keyFormElement: 3,
-                                      label: 'Municiopio:',
+                                      label: 'Estado:',
                                       isLoading: isLoading,
                                       isFocus: focus == 3,
                                     ),
                                     // ignore: prefer_const_constructors
                                     TextfieldCustomer(
                                       keyFormElement: 4,
-                                      label: 'Estado:',
+                                      label: 'Sector:',
                                       isLoading: isLoading,
                                       isFocus: focus == 4,
                                     ),
@@ -131,7 +132,8 @@ class CustomerAddView extends StatelessWidget {
                                 id: -1,
                                 name: currentForm.name.value,
                                 location: '',
-                                address: {
+                                address: currentForm.address.value,
+                                /*{
                                   RouteCustomerModel.pAddress:
                                       currentForm.address.value,
                                   RouteCustomerModel.pHood:
@@ -140,12 +142,15 @@ class CustomerAddView extends StatelessWidget {
                                       currentForm.town.value,
                                   RouteCustomerModel.pCountry:
                                       currentForm.country.value,
-                                },
+                                },*/
                                 validation: {
                                   RouteCustomerModel.pStatus: false,
                                   RouteCustomerModel.pAdminUser: '',
                                 },
-                                vendor: vendor,
+                                vendor: vendor.id,
+                                country: currentForm.country.value,
+                                sector: currentForm.sector.value,
+                                town: currentForm.town.value,
                               );
                               context
                                   .read<CustomerFormviewCubit>()

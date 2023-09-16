@@ -17,13 +17,13 @@ class CustomerFormviewCubit extends Cubit<CustomerFormviewState> {
       emit(InitialState());
       emit(LoadingState());
       vendor = await LocalUser().getLocalUser();
-      emit(LoadedState(vendor: vendor.name));
+      emit(LoadedState(vendor: vendor));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }
   }
 
-  Future<void> save(String vendor, RouteCustomerModel rc) async {
+  Future<void> save(UserModel vendor, RouteCustomerModel rc) async {
     try{
       int newId;
       Position position;
@@ -33,7 +33,7 @@ class CustomerFormviewCubit extends Cubit<CustomerFormviewState> {
       rc.id = newId;
       position = await LocationRepo().determinePosition();
       rc.location = '${position.latitude},${position.longitude}';
-      await RoutecustomerRepo().insertRc(rc, vendor);
+      await RoutecustomerRepo().insertRc(rc, vendor.id);
       emit(LoadedState(vendor: vendor));
       emit(SavedState());
     } catch (e) {

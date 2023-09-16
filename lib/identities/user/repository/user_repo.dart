@@ -24,7 +24,7 @@ class DatabaseUser extends UserRepo {
     if (userData.isNotEmpty) {
       user = UserModel(
         name: userData.first[USER],
-        uid: userData.first[ID],
+        id: userData.first[ID],
         rol: userData.first[ROL],
         password: userData.first[PASSWORD],
       );
@@ -41,18 +41,20 @@ class LocalUser extends UserRepo {
     final pref = await SharedPreferences.getInstance();
     final String? localUser = pref.getString(USER);
     final String? localRol = pref.getString(ROL);
-    if (localUser != null && localRol != null) {
-      user = UserModel(name: localUser, uid: '', rol: localRol, password: '');
+    final int? localId = pref.getInt(ID);
+    if (localUser != null && localRol != null && localId != null) {
+      user = UserModel(name: localUser, id: localId, rol: localRol, password: '');
     } else {
-      user = UserModel(name: '', uid: '', rol: '', password: '');
+      user = UserModel(name: '', id: -1, rol: '', password: '');
     }
     return user;
   }
 
-  Future<void> setLocalUser(String newLocalUser, String newLocalRol) async {
+  Future<void> setLocalUser(String newLocalUser, String newLocalRol, int newLocalId) async {
     final pref = await SharedPreferences.getInstance();
     await pref.setString(USER, newLocalUser);
     await pref.setString(ROL, newLocalRol);
+    await pref.setInt(ID, newLocalId);
   }
 
   Future<void> removeLocalUser() async {

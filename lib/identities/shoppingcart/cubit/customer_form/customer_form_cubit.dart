@@ -1,3 +1,4 @@
+import 'package:axol_rutas/identities/user/model/user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../globals/global_models/validation_form_model.dart';
@@ -8,36 +9,36 @@ class CustomerFormCubit extends Cubit<AddcustomerFormModel> {
 
   Future<void> changeTextfield(int textfieldKey, String value, int position) async {
     AddcustomerFormModel form = state;
-    if (textfieldKey ==  0) {
+    if (textfieldKey == 0) {
       form.name.value = value;
       form.name.position = position;
       form = _validName(form);
     }
-    if (textfieldKey ==  1) {
+    if (textfieldKey == 1) {
       form.address.value = value;
       form.address.position = position;
       form = _validAddress(form);
     }
-    if (textfieldKey ==  2) {
-      form.hood.value = value;
-      form.hood.position = position;
-      form = _validHood(form);
-    }
-    if (textfieldKey ==  3) {
+    if (textfieldKey == 2) {
       form.town.value = value;
       form.town.position = position;
       form = _validTown(form);
     }
-    if (textfieldKey ==  4) {
+    if (textfieldKey == 3) {
       form.country.value = value;
       form.country.position = position;
       form = _validCountry(form);
+    }
+    if (textfieldKey == 4) {
+      form.sector.value = value;
+      form.sector.position = position;
+      form = _validSector(form);
     }
     emit(AddcustomerFormModel.empty());
     emit(form);
   }
 
-  Future<void> changeVendor(String vendor) async {
+  Future<void> changeVendor(UserModel vendor) async {
     AddcustomerFormModel form = state;
     form.vendor = vendor;
     emit(AddcustomerFormModel.empty());
@@ -55,7 +56,7 @@ class CustomerFormCubit extends Cubit<AddcustomerFormModel> {
     AddcustomerFormModel form = state;
     form = _validName(form);
     form = _validAddress(form);
-    form = _validHood(form);
+    form = _validSector(form);
     form = _validTown(form);
     form = _validCountry(form);
     emit(AddcustomerFormModel.empty());
@@ -84,13 +85,13 @@ class CustomerFormCubit extends Cubit<AddcustomerFormModel> {
     return form;
   }
 
-  AddcustomerFormModel _validHood(AddcustomerFormModel rcForm) {
+  AddcustomerFormModel _validSector(AddcustomerFormModel rcForm) {
     AddcustomerFormModel form = rcForm;
-    if (form.hood.value == '') {
-      form.hood.validation =
+    if (form.sector.value == '') {
+      form.sector.validation =
           ValidationFormModel(isValid: false, errorMessage: 'Dato no valido');
     } else {
-      form.hood.validation = ValidationFormModel.trueValid();
+      form.sector.validation = ValidationFormModel.trueValid();
     }
     return form;
   }

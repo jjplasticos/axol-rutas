@@ -7,11 +7,14 @@ import '../model/route_customer_model.dart';
 class RoutecustomerRepo {
   static const String _table = 'route_customer';
   static const String _id = 'id';
-  static const String _name = 'name';
+  static const String _name = 'customer_name';
   static const String _location = 'location';
   static const String _validation = 'validation';
   static const String _address = 'address';
   static const String _vendor = 'vendor';
+  static const String _country = RouteCustomerModel.pCountry;
+  static const String _sector = RouteCustomerModel.pSector;
+  static const String _town = RouteCustomerModel.pTown;
   final _supabase = Supabase.instance.client;
 
   Future<List<RouteCustomerModel>> fetchRcList(String finder) async {
@@ -23,12 +26,12 @@ class RoutecustomerRepo {
       customersDB = await _supabase
           .from(_table)
           .select<List<Map<String, dynamic>>>()
-          .eq(_vendor, user.name);
+          .eq(_vendor, user.id);
     } else {
       customersDB = await _supabase
           .from(_table)
           .select<List<Map<String, dynamic>>>()
-          .eq(_vendor, user.name)
+          .eq(_vendor, user.id)
           .ilike(_name, '%$finder%');
     }
     if (customersDB.isNotEmpty) {
@@ -39,7 +42,10 @@ class RoutecustomerRepo {
           location: element[_location],
           address: element[_address],
           validation: element[_validation],
-          vendor: element[_vendor].toString(),
+          vendor: element[_vendor],
+          country: element[_country],
+          sector: element[_sector] ?? '',
+          town: element[_town],
         );
         customers.add(routcustomer);
       }
@@ -83,7 +89,7 @@ class RoutecustomerRepo {
     return newId;
   }
 
-  Future<void> insertRc(RouteCustomerModel routcustomer, String vendor) async {
+  Future<void> insertRc(RouteCustomerModel routcustomer, int vendor) async {
     await _supabase.from(_table).insert({
       _id: routcustomer.id,
       _name: routcustomer.name,
@@ -91,6 +97,9 @@ class RoutecustomerRepo {
       _address: routcustomer.address,
       _validation: routcustomer.validation,
       _vendor: vendor,
+      _country: routcustomer.country,
+      _town: routcustomer.town,
+      _sector: routcustomer.sector,
     });
   }
 

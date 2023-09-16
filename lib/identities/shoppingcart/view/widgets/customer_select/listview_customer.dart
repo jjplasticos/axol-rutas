@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../settings/theme.dart';
 import '../../../model/route_customer_model.dart';
+import '../../views/rc_select_info_view.dart';
 
 class ListviewCustomer extends StatelessWidget {
   final List<RouteCustomerModel> listData;
@@ -22,6 +23,16 @@ class ListviewCustomer extends StatelessWidget {
               onPressed: () {
                 Navigator.pop<RouteCustomerModel>(context, rcCard);
               },
+              onLongPress: () {
+                showModalBottomSheet(
+                  isDismissible: true,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  enableDrag: false,
+                  context: context,
+                  builder: (context) => RcSelectInfoView(customer: rcCard),
+                );
+              },
               child: Container(
                 width: double.infinity,
                 height: 160,
@@ -37,13 +48,17 @@ class ListviewCustomer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          rcCard.id.toString(),
+                          '${rcCard.id}    ',
                           style: Typo.bodyText1,
                         ),
-                        Text(
+                        Expanded(
+                            child: Text(
                           rcCard.name,
                           style: Typo.bodyText1,
-                        ),
+                          maxLines: 1,
+                          softWrap: false,
+                          overflow: TextOverflow.ellipsis,
+                        ))
                       ],
                     ),
                     Row(
@@ -53,21 +68,14 @@ class ListviewCustomer extends StatelessWidget {
                           'Dirección: ',
                           style: Typo.bodyText6,
                         ),
-                        Text(rcCard.address[RouteCustomerModel.pAddress],
-                            style: Typo.bodyText6),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Colonia: ',
+                        Expanded(
+                            child: Text(
+                          rcCard.address,
                           style: Typo.bodyText6,
-                        ),
-                        Text(
-                          rcCard.address[RouteCustomerModel.pHood],
-                          style: Typo.bodyText6,
-                        ),
+                          maxLines: 1,
+                          softWrap: false,
+                          overflow: TextOverflow.ellipsis,
+                        ))
                       ],
                     ),
                     Row(
@@ -77,10 +85,14 @@ class ListviewCustomer extends StatelessWidget {
                           'Municipio: ',
                           style: Typo.bodyText6,
                         ),
-                        Text(
-                          rcCard.address[RouteCustomerModel.pTown],
+                        Expanded(
+                            child: Text(
+                          rcCard.town,
                           style: Typo.bodyText6,
-                        ),
+                          maxLines: 1,
+                          softWrap: false,
+                          overflow: TextOverflow.ellipsis,
+                        ))
                       ],
                     ),
                     Row(
@@ -90,10 +102,31 @@ class ListviewCustomer extends StatelessWidget {
                           'Estado: ',
                           style: Typo.bodyText6,
                         ),
-                        Text(
-                          rcCard.address[RouteCustomerModel.pCountry],
+                        Expanded(
+                            child: Text(
+                          rcCard.country,
+                          style: Typo.bodyText6,
+                          maxLines: 1,
+                          softWrap: false,
+                          overflow: TextOverflow.ellipsis,
+                        ))
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Giro: ',
                           style: Typo.bodyText6,
                         ),
+                        Expanded(
+                            child: Text(
+                          rcCard.sector,
+                          style: Typo.bodyText6,
+                          maxLines: 1,
+                          softWrap: false,
+                          overflow: TextOverflow.ellipsis,
+                        ))
                       ],
                     ),
                     Row(

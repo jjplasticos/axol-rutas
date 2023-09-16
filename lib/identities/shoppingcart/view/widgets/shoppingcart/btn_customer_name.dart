@@ -21,7 +21,7 @@ class BtnCustomerName extends StatelessWidget {
       onPressed: () {
         if (isLoading == null || isLoading == false) {
           showModalBottomSheet(
-            isDismissible: false,
+            isDismissible: true,
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
             enableDrag: false,

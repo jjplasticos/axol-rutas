@@ -2,8 +2,11 @@ class RouteCustomerModel {
   int id;
   String name;
   String location;
-  String vendor;
-  Map<String, dynamic> address;
+  int vendor;
+  String address;
+  String town;
+  String country;
+  String sector;
   Map<String, dynamic> validation;
 
   RouteCustomerModel(
@@ -11,16 +14,18 @@ class RouteCustomerModel {
       required this.name,
       required this.location,
       required this.address,
+      required this.town,
+      required this.country,
+      required this.sector,
       required this.validation,
       required this.vendor});
 
   static const String pId = 'id';
-  static const String pName = 'name';
+  static const String pName = 'customer_name';
   static const String pLocation = 'location';
   static const String pVendor = 'vendor';
-  //-----Address-----
   static const String pAddress = 'address';
-  static const String pHood = 'hood';
+  static const String pSector = 'sector';
   static const String pTown = 'town';
   static const String pCountry = 'country';
   //-----Validation-----
@@ -28,11 +33,14 @@ class RouteCustomerModel {
   static const String pAdminUser = 'user';
 
   static RouteCustomerModel empty() => RouteCustomerModel(
-    id: -1,
-    address: {},
-    location: '',
-    name: '',
-    validation: {},
-    vendor: '',
-  );
+        id: -1,
+        address: '',
+        location: '',
+        name: '',
+        validation: {},
+        vendor: -1,
+        country: '',
+        sector: '',
+        town: '',
+      );
 }

@@ -20,7 +20,7 @@ class CustomerSelectView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: 303.5,
-        height: 479.7,
+        height: 500,
         decoration: const BoxDecoration(
           color: ColorPalette.primaryBackground,
           borderRadius: BorderRadius.only(
@@ -55,7 +55,7 @@ class CustomerSelectView extends StatelessWidget {
                           minimumSize: const Size(60, 60),
                           maximumSize: const Size(double.infinity, 60)),
                       child: const Text(
-                        'Cancelar',
+                        'Regresar',
                         style: Typo.textButton,
                       ),
                     ),

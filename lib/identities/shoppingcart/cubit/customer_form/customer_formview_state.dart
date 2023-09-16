@@ -1,3 +1,4 @@
+import 'package:axol_rutas/identities/user/model/user.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class CustomerFormviewState extends Equatable {}
@@ -13,7 +14,7 @@ class LoadingState extends CustomerFormviewState {
 }
 
 class LoadedState extends CustomerFormviewState {
-  final String vendor;
+  final UserModel vendor;
   LoadedState({required this.vendor});
   @override
   List

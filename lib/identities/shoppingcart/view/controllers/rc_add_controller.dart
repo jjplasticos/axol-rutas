@@ -1,3 +1,4 @@
+import 'package:axol_rutas/identities/user/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +26,7 @@ class RcAddController extends StatelessWidget {
           if (state is LoadingState) {
             // ignore: prefer_const_constructors
             return CustomerAddView(
-              vendor: '',
+              vendor: UserModel.empty(),
               isLoading: true,
             );
           } else if (state is LoadedState) {
@@ -35,7 +36,7 @@ class RcAddController extends StatelessWidget {
             );
           } else {
             // ignore: prefer_const_constructors
-            return CustomerAddView(vendor: '', isLoading: false);
+            return CustomerAddView(vendor: UserModel.empty(), isLoading: false);
           }
         });
   }
