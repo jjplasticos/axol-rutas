@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:axol_rutas/identities/user/view/pages/admin_page.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_cubit.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_state.dart';
@@ -6,7 +8,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../sale/cubit/sales_cubit/sales_view_cubit.dart';
+import '../../../sale/view/controllers/salesview_controller.dart';
 import '../../../sale/view/views/sales_view.dart';
+import '../../cubit/vendors_list/vendors_list_cubit.dart';
+import 'vendorslist_controller.dart';
 
 class LoginController extends StatelessWidget {
   const LoginController({super.key});
@@ -22,15 +28,17 @@ class LoginController extends StatelessWidget {
         } else if (state is SuccessState) {
           final rol = state.user.rol;
           if (rol == 'admin') {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AdminPage(
-                          user: state.user,
-                        )));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => BlocProvider(
+                  create: (_) => VendorsListCubit(),
+                  child: VendorsListController(),
+                  )));
           } else if (rol == 'vendor') {
             Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const SalesView()));
+                MaterialPageRoute(builder: (context) => BlocProvider(
+                  create: (_) => SalesViewCubit(),
+                  child: SalesViewController(),
+                  )));
           }
         } else if (state is ErrorState) {
           if (kDebugMode) {

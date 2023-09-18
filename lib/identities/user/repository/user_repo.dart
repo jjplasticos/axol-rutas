@@ -10,6 +10,8 @@ abstract class UserRepo {
   final String ID = 'id';
   final String ROL = 'rol';
   final String PASSWORD = 'password';
+  final String _vendorName = 'vendor_name';
+  final String _vendorId = 'vendor_id';
 }
 
 class DatabaseUser extends UserRepo {
@@ -33,6 +35,27 @@ class DatabaseUser extends UserRepo {
     }
     return user;
   }
+
+  Future<List<UserModel>> fetchVendors() async {
+    List<UserModel> users = [];
+    UserModel user;
+    List<Map<String, dynamic>> usersDB = [];
+    usersDB = await supabase
+        .from(TABLE)
+        .select<List<Map<String, dynamic>>>()
+        .eq(ROL, 'vendor');
+    if (usersDB.isNotEmpty) {
+      for (var element in usersDB) {
+        user = UserModel(
+          name: element[USER], 
+          id: element[ID], 
+          rol: element[ROL], 
+          password: element[PASSWORD]);
+        users.add(user);
+      }
+    }
+    return users;
+  }
 }
 
 class LocalUser extends UserRepo {
@@ -43,14 +66,16 @@ class LocalUser extends UserRepo {
     final String? localRol = pref.getString(ROL);
     final int? localId = pref.getInt(ID);
     if (localUser != null && localRol != null && localId != null) {
-      user = UserModel(name: localUser, id: localId, rol: localRol, password: '');
+      user =
+          UserModel(name: localUser, id: localId, rol: localRol, password: '');
     } else {
       user = UserModel(name: '', id: -1, rol: '', password: '');
     }
     return user;
   }
 
-  Future<void> setLocalUser(String newLocalUser, String newLocalRol, int newLocalId) async {
+  Future<void> setLocalUser(
+      String newLocalUser, String newLocalRol, int newLocalId) async {
     final pref = await SharedPreferences.getInstance();
     await pref.setString(USER, newLocalUser);
     await pref.setString(ROL, newLocalRol);
@@ -61,5 +86,33 @@ class LocalUser extends UserRepo {
     final pref = await SharedPreferences.getInstance();
     await pref.remove(USER);
     await pref.remove(ROL);
+    await pref.remove(ID);
+  }
+
+  Future<UserModel> getLocalVendor() async {
+    final UserModel user;
+    final pref = await SharedPreferences.getInstance();
+    final String? localUser = pref.getString(_vendorName);
+    final int? localId = pref.getInt(_vendorId);
+    if (localUser != null&& localId != null) {
+      user =
+          UserModel(name: localUser, id: localId, rol: 'vendor', password: '');
+    } else {
+      user = UserModel(name: '', id: -1, rol: '', password: '');
+    }
+    return user;
+  }
+
+  Future<void> setLocalVendor(
+      String newLocalVendor, int newLocalId) async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setString(_vendorName, newLocalVendor);
+    await pref.setInt(_vendorId, newLocalId);
+  }
+
+  Future<void> removeLocalVendor() async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.remove(_vendorName);
+    await pref.remove(_vendorId);
   }
 }

@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../settings/format.dart';
 import '../../../../../settings/theme.dart';
 import '../../../../shoppingcart/cubit/shoppingcart/shppc_cubit.dart';
+import '../../../../user/model/user.dart';
 import '../../../cubit/sale_detail/sale_detail_cubit.dart';
 import '../../../cubit/sales_list/saleslist_cubit.dart';
 import '../../views/sale_details_view.dart';

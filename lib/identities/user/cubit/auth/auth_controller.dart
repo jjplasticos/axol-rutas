@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../sale/cubit/sales_cubit/sales_view_cubit.dart';
+import '../../../sale/view/controllers/salesview_controller.dart';
 import '../../../sale/view/views/sales_view.dart';
 import '../../view/controller/login_controller.dart';
+import '../../view/controller/vendorslist_controller.dart';
 import '../../view/pages/admin_page.dart';
 import '../../view/views/splash_view.dart';
 import '../login/login/login_cubit.dart';
 import '../login/login_form_cubit.dart';
+import '../vendors_list/vendors_list_cubit.dart';
 import 'auth_cubit.dart';
 import 'auth_state.dart';
 
@@ -23,26 +27,32 @@ class AuthController extends StatelessWidget {
         } else if (state is AuthAuthenticatedState) {
           final rol = state.user.rol;
           if (rol == 'admin') {
-            return AdminPage(
-              user: state.user,
+            return BlocProvider(
+              create: (_) => VendorsListCubit(),
+              // ignore: prefer_const_constructors
+              child: VendorsListController(),
             );
           } else if (rol == 'vendor') {
             // ignore: prefer_const_constructors
-            return SalesView();
+            return BlocProvider(
+              create: (_) => SalesViewCubit(),
+              // ignore: prefer_const_constructors
+              child: SalesViewController(),
+            );
           } else {
             return const Text('Error: no entro a ni una pagina.');
           }
         } else if (state is AuthUnuauthenticatedState) {
           return Center(
-            child: MultiBlocProvider(
-              providers: [
-                BlocProvider(create: (_) => LoginFormCubit()),
-                BlocProvider(create: (_) => LoginCubit())
-              ],
-              child: LoginController(),
-            )
-           //LoginPage()
-           );
+              child: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => LoginFormCubit()),
+              BlocProvider(create: (_) => LoginCubit())
+            ],
+            child: LoginController(),
+          )
+              //LoginPage()
+              );
         } else if (state is AuthErrorState) {
           return Center(
             child: Text(state.toString()),

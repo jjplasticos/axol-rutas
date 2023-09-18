@@ -6,6 +6,7 @@ import '../../../../shoppingcart/cubit/shoppingcart/shppc_cubit.dart';
 import '../../../../shoppingcart/cubit/shoppingcart/shppc_view_cubit.dart';
 import '../../../../shoppingcart/cubit/shoppingcart_view_cubit/shoppingcart_view_cubit.dart';
 import '../../../../shoppingcart/view/controllers/shoppingcart_controller.dart';
+import '../../../../user/model/user.dart';
 import '../../../cubit/sales_list/saleslist_cubit.dart';
 
 class FABtnAddSale extends StatelessWidget {

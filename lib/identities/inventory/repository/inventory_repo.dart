@@ -7,6 +7,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../product/repository/product_repo.dart';
 import '../../shoppingcart/model/shoppingcart_models.dart';
+import '../../user/model/user.dart';
+import '../../user/repository/user_repo.dart';
 
 abstract class InventoryRepo {
   //Tabla
@@ -33,7 +35,9 @@ class FetchInventory extends InventoryRepo {
   Future<Map<String, String>> readInventoryProducts() async {
     Map<String, String> productsMap = {};
     Map<String, dynamic> element;
-    final List inventoryList = await readInventory();
+    UserModel user;
+    user = await LocalUser().getLocalUser();
+    final List inventoryList = await readInventory(user);
 
     if (inventoryList.isNotEmpty) {
       for (element in inventoryList) {
@@ -45,7 +49,9 @@ class FetchInventory extends InventoryRepo {
 
   Future<Map<String, dynamic>> readInventoryDetails() async {
     Map<String, dynamic> inventoryDetails;
-    final List inventoryList = await readInventory();
+    UserModel user;
+    user = await LocalUser().getLocalUser();
+    final List inventoryList = await readInventory(user);
 
     if (inventoryList.isNotEmpty) {
       inventoryDetails = {
@@ -61,7 +67,9 @@ class FetchInventory extends InventoryRepo {
   Future<List<String>> readInventoryCodes() async {
     List<String> codes = [];
     Map<String, dynamic> element;
-    final List inventoryList = await readInventory();
+    UserModel user;
+    user = await LocalUser().getLocalUser();
+    final List inventoryList = await readInventory(user);
 
     if (inventoryList.isNotEmpty) {
       for (element in inventoryList) {
@@ -71,17 +79,17 @@ class FetchInventory extends InventoryRepo {
     return codes;
   }
 
-  Future<List> readInventory() async {
+  Future<List> readInventory(UserModel user) async {
     List<Map<String, dynamic>> productsList = [];
-    final String userName;
+    //final String userName;
     List inventoryList = [];
 
-    final pref = await SharedPreferences.getInstance();
-    userName = pref.getString(USER)!;
+    //final pref = await SharedPreferences.getInstance();
+    //userName = pref.getString(USER)!;
     inventoryList = await supabase
         .from(TABLE)
         .select<List<Map<String, dynamic>>>()
-        .eq(NAME, userName);
+        .eq(NAME, user.name);
     return inventoryList;
   }
 
@@ -109,6 +117,7 @@ class FetchInventory extends InventoryRepo {
     bool isExist = true;
     String stockString;
     double stock;
+    UserModel user;
 
     //Factoriza shoppingcart para no repetir las claves.
     for (var element in shoppingcart) {
@@ -120,8 +129,10 @@ class FetchInventory extends InventoryRepo {
       }
     }
 
+    user = await LocalUser().getLocalUser();
+
     //Obtiente todo el inventario del usuario desde la base de datos.
-    final List inventoryListDB = await readInventory();
+    final List inventoryListDB = await readInventory(user);
 
     //Organiza en una lista las claves de inventoryListDB, si su stock es menor
     //a cero, no los agrega a la lista.
@@ -155,10 +166,10 @@ class FetchInventory extends InventoryRepo {
     return (isExist);
   }
 
-  Future<List<InventoryModel>> getInventory() async {
+  Future<List<InventoryModel>> getInventory(UserModel user) async {
     List<InventoryModel> inventory = [];
     InventoryModel inventoryModel;
-    final List inventoryList = await readInventory();
+    final List inventoryList = await readInventory(user);
     final List<Map> products;
     List<String> codes = [];
     Map product;

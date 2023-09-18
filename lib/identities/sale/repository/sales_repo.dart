@@ -8,6 +8,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../settings/format.dart';
 import '../../product/repository/product_repo.dart';
 import '../../shoppingcart/model/shoppingcart_models.dart';
+import '../../user/model/user.dart';
 import '../model/sale_model.dart';
 import '../model/srep_form_model.dart';
 
@@ -34,23 +35,23 @@ abstract class SalesRepo {
 class DatabaseSales extends SalesRepo {
   final supabase = Supabase.instance.client;
 
-  Future<List<SaleModel>> readSalesList(String filter) async {
+  Future<List<SaleModel>> readSalesList(String filter, UserModel vendor) async {
     SaleModel sale;
     Map<String, dynamic> element;
     List<SaleModel> newList = [];
     List<SaleModel> filterSales = [];
     final List<SaleModel> finalSales;
-    final String userName;
+    //final String userName;
     List salesList = [];
     Map<String, dynamic> productsDB;
 
-    final pref = await SharedPreferences.getInstance();
-    userName = pref.getString(_user)!;
+    /*final pref = await SharedPreferences.getInstance();
+    userName = pref.getString(_user)!;*/
 
     salesList = await supabase
         .from(_table)
         .select<List<Map<String, dynamic>>>()
-        .eq(_vendor, userName);
+        .eq(_vendor, vendor.name);
 
     if (salesList.isNotEmpty) {
       for (element in salesList) {
@@ -98,11 +99,11 @@ class DatabaseSales extends SalesRepo {
     return finalSales;
   }
 
-  Future<List<SaleModel>> readListReport(SRepFormModel form) async {
+  Future<List<SaleModel>> readListReport(SRepFormModel form, UserModel user) async {
     SaleModel sale;
     Map<String, dynamic> element;
     List<SaleModel> saleList = [];
-    final String userName;
+    //final String userName;
     List<Map<String, dynamic>> salesDB = [];
     Map<String, dynamic> productsDB;
     final String finder = form.finder.text;
@@ -111,8 +112,8 @@ class DatabaseSales extends SalesRepo {
     DateTime startDate;
     DateTime endDate;
 
-    final pref = await SharedPreferences.getInstance();
-    userName = pref.getString(_user)!;
+    //final pref = await SharedPreferences.getInstance();
+    //userName = pref.getString(_user)!;
 
     if (form.isTime) {
       startDate = DateTime(form.time.year, form.time.month, form.time.day);
@@ -123,7 +124,7 @@ class DatabaseSales extends SalesRepo {
     salesDB = await supabase
         .from(_table)
         .select<List<Map<String, dynamic>>>()
-        .eq(_vendor, userName)
+        .eq(_vendor, user.name)
         .lte(_time, endTime)
         .gte(_time, startTime)
         .order(_time, ascending: true);

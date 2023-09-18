@@ -5,6 +5,8 @@ import '../../../product/model/class_product_model.dart';
 import '../../../product/model/product.dart';
 import '../../../product/repository/class_product_repo.dart';
 import '../../../product/repository/product_repo.dart';
+import '../../../user/model/user.dart';
+import '../../../user/repository/user_repo.dart';
 import '../../model/sale_report_model.dart';
 import '../../model/srep_form_model.dart';
 import '../../repository/sales_repo.dart';
@@ -27,11 +29,22 @@ class SalesReportCubit extends Cubit<SalesReportState> {
       int index;
       final String finder = form.finder.text.toLowerCase();
       List<SaleReportModel> finalSRepList = [];
+      UserModel user;
+      UserModel vendor;
+      UserModel userModel;
+      
 
       emit(InitialState());
       emit(LoadingState());
+      user = await LocalUser().getLocalUser();
+      vendor = await LocalUser().getLocalVendor();
+      if (user.rol == 'admin') {
+        userModel = vendor;
+      } else {
+        userModel = user;
+      }
       //Obtiene lista de ventas.
-      salesDB = await DatabaseSales().readListReport(form);
+      salesDB = await DatabaseSales().readListReport(form, userModel);
       //Crea una lista de claves de todos los items de todas las ventas.-
       for (var saleIn in salesDB) {
         items = saleIn.itemsShppc.values.toList();

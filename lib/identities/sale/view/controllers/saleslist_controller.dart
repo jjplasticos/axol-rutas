@@ -4,6 +4,7 @@ import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../user/model/user.dart';
 import '../widgets/sales_list/listview_sales.dart';
 import '../../cubit/sales_list/saleslist_cubit.dart';
 import '../../cubit/sales_list/saleslist_state.dart';

@@ -20,7 +20,7 @@ class InventoryView extends StatelessWidget {
       ],
       child: Scaffold(
           backgroundColor: ColorPalette.primaryBackground,
-          appBar: PreferredSize(
+          appBar: const PreferredSize(
             preferredSize: Size.fromHeight(50),
             child:
                 AppBarGlobal(title: TITLE, iconButton: null,),

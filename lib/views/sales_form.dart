@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, use_build_context_synchronously
 
-import 'package:axol_rutas/views/sales_view.dart';
 import 'package:axol_rutas/settings/format.dart';
 import 'package:axol_rutas/settings/jsonList.dart';
 import 'package:flutter/material.dart';
@@ -458,8 +457,8 @@ class _SalesPageState extends State<SalesForm> {
                       .eq('vendor', 'Daniel2');
                   Navigator.pop(context);
                   Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SalesView()));
+                  /*Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SalesView()));*/
                 },
               )),
         ],

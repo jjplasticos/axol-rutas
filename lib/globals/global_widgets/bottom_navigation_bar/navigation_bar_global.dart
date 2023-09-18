@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../identities/inventory/view/views/inventory_view.dart';
+import '../../../identities/sale/cubit/sales_cubit/sales_view_cubit.dart';
 import '../../../identities/sale/cubit/sales_report/salesreport_cubit.dart';
+import '../../../identities/sale/view/controllers/salesview_controller.dart';
 import '../../../identities/sale/view/views/sales_view.dart';
 import '../../../settings/theme.dart';
 
@@ -38,9 +40,18 @@ class NavigationBarGlobal extends StatelessWidget {
             if (currentIndex != value) {
               Navigator.pop(context);
               Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      // ignore: prefer_const_constructors
+                      builder: (context) => BlocProvider(
+                            create: (_) => SalesViewCubit(),
+                            // ignore: prefer_const_constructors
+                            child: SalesViewController(),
+                          )));
+              /*Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SalesView()),
-              );
+              );*/
             }
             break;
           case 1:
@@ -52,18 +63,16 @@ class NavigationBarGlobal extends StatelessWidget {
               );
             }
             break;
-            case 2:
+          case 2:
             if (currentIndex != value) {
               Navigator.pop(context);
               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MultiBlocProvider(
-                  providers: [
-                    BlocProvider(create: (_) => SalesReportCubit()),
-                    BlocProvider(create: (_) => SRepFormCubit()),
-                  ], 
-                  child: const SalesReportController()))
-              );
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MultiBlocProvider(providers: [
+                            BlocProvider(create: (_) => SalesReportCubit()),
+                            BlocProvider(create: (_) => SRepFormCubit()),
+                          ], child: const SalesReportController())));
             }
             break;
           default:
