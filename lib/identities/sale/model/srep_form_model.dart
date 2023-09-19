@@ -12,7 +12,7 @@ class SRepFormModel {
   });
 
   static SRepFormModel empty() => SRepFormModel(
-    finder: TextfieldModel.initial(), 
+    finder: TextfieldModel.empty(), 
     isTime: true, 
     time: DateTime.now(),
     );

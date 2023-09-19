@@ -1,46 +1,54 @@
+import 'package:axol_rutas/identities/inventory/view/widgets/finder_inventory.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../globals/global_widgets/appbar/appbar_global.dart';
+import '../../../../globals/global_widgets/appbar/iconbutton_return.dart';
 import '../../../../globals/global_widgets/bottom_navigation_bar/navigation_bar_global.dart';
 import '../../../../settings/theme.dart';
-import '../../cubit/listview_inventory/listview_inventory_cubit.dart';
-import '../controllers/listview_inventory_controller.dart';
+import '../../../user/model/user.dart';
+import '../../model/inventory_model.dart';
+import '../widgets/listview_inventory.dart';
 
 class InventoryView extends StatelessWidget {
-  const InventoryView({super.key});
+  final List<InventoryModel> listData;
+  final bool isLoading;
+  final UserModel user;
+  const InventoryView({super.key, required this.listData, required this.isLoading, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    const String TITLE = 'Inventario';
+    const String title = 'Inventario';
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => ListviewInventoryCubit()),
-      ],
-      child: Scaffold(
+    return Scaffold(
           backgroundColor: ColorPalette.primaryBackground,
-          appBar: const PreferredSize(
-            preferredSize: Size.fromHeight(50),
-            child:
-                AppBarGlobal(title: TITLE, iconButton: null,),
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(50),
+            child: AppBarGlobal(
+              title: title,
+              iconButton: user.id > -1
+                ? IconButtonReturn(
+                    iconName: 'return',
+                    isLoading: isLoading,
+                  )
+                : null,
+            ),
           ),
           body: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                  child: Container(
-                      /*
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: ColorPalette.secondaryBackground),
-                      child: const TextFieldFinderSale()*/
-                      )),
-              const Expanded(child: ListviewInventoryController()),
+              Visibility(
+                replacement: const SizedBox(height: 4,),
+                visible: isLoading,
+                child: const LinearProgressIndicator(
+                  color: ColorPalette.primary,
+                  backgroundColor: ColorPalette.secondaryBackground,
+                ),
+              ),
+              // ignore: prefer_const_constructors
+              FinderInventory(),
+              Expanded(child: ListviewInventory(listData: listData)),
             ],
           ),
-          bottomNavigationBar: const NavigationBarGlobal(currentIndex: 1)),
-    );
+          bottomNavigationBar: const NavigationBarGlobal(currentIndex: 1));
   }
 }

@@ -1,31 +1,33 @@
 import 'package:equatable/equatable.dart';
 
 import '../../../user/model/user.dart';
-import '../../model/sale_report_model.dart';
+import '../../model/inventory_model.dart';
 
-abstract class SalesReportState extends Equatable {}
+abstract class InventoryViewState extends Equatable {}
 
-class InitialState extends SalesReportState {
+class InitialState extends InventoryViewState {
   @override
   List<Object?> get props => [];
 }
 
-class LoadingState extends SalesReportState {
+class LoadingState extends InventoryViewState {
   final UserModel user;
   LoadingState({required this.user});
   @override
   List<Object?> get props => [user];
 }
 
-class LoadedState extends SalesReportState {
-  final List<SaleReportModel> saleReport;
+class LoadedState extends InventoryViewState {
   final UserModel user;
-  LoadedState({required this.saleReport, required this.user});
+  final List<InventoryModel> inventory;
+
+  LoadedState({required this.user, required this.inventory});
+
   @override
-  List<Object?> get props => [saleReport, user];
+  List<Object?> get props => [user];
 }
 
-class ErrorState extends SalesReportState {
+class ErrorState extends InventoryViewState {
   final String error;
 
   ErrorState({required this.error});

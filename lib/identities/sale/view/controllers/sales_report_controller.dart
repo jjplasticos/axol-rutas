@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../user/model/user.dart';
 import '../../cubit/sales_report/salesreport_cubit.dart';
 import '../../cubit/sales_report/salesreport_state.dart';
 import '../../model/srep_form_model.dart';
@@ -25,18 +26,21 @@ class SalesReportController extends StatelessWidget {
             return SalesReportView(
               isLoading: true,
               saleReport: const [],
+              user: state.user,
             );
           } else if (state is LoadedState) {
             // ignore: prefer_const_constructors
             return SalesReportView(
               isLoading: false,
               saleReport: state.saleReport,
+              user: state.user,
             );
           } else {
             // ignore: prefer_const_constructors
             return SalesReportView(
               isLoading: false,
               saleReport: const [],
+              user: UserModel.empty(),
             );
           }
         },

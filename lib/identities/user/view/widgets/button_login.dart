@@ -1,5 +1,3 @@
-import 'package:axol_rutas/identities/user/cubit/login/controllers/login_txt_cubit.dart';
-import 'package:axol_rutas/identities/user/view/controller/login_controller.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,10 +13,10 @@ class ButtonLogin extends StatelessWidget {
     String user;
     String password;
     FocusNode focusNode = FocusNode();
-    int focus = context.read<LoginFormCubit>().state.focus;
-    if (focus == 2) {
+    //int focus = context.read<LoginFormCubit>().state.focus;
+    /*if (focus == 2) {
       focusNode.requestFocus();
-    }
+    }*/
 
     return ElevatedButton(
       focusNode: focusNode,

@@ -24,6 +24,21 @@ class ProductModel {
       required this.class_,
       required this.filetValues});
 
+  static const String pCode = 'code';
+  static const String pAttributes = 'attributes';
+  static const String pDescrpition = 'description';
+  static const String pClass = 'class';
+  static const String jCode = 'code';
+  static const String jType = 'type';
+  static const String jGauge = 'gauge';
+  static const String jPices = 'pices';
+  static const String jWeight = 'weight';
+  static const String jMeasure = 'measure';
+  static const String jPacking = 'packing';
+  static const String jCapacity = 'capacity';
+  static const String jDescription = 'description';
+
+
   static ProductModel empty() => ProductModel(
     capacity: '', 
     code: '', 

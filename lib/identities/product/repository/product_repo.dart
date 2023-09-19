@@ -24,9 +24,9 @@ class DatabaseProducts extends ProductRepo {
 
   final supabase = Supabase.instance.client;
 
-  Future<List<Map>> readProductList(List<String> codeList) async {
+  Future<List<Map<String, dynamic>>> readProductList(List<String> codeList) async {
     Map<String, dynamic> element;
-    List<Map> newList = [];
+    List<Map<String, dynamic>> newList = [];
     List productList = [];
 
     productList = await supabase.from(TABLE).select().in_(CODE, codeList);

@@ -3,6 +3,9 @@ import 'package:axol_rutas/identities/sale/view/controllers/sales_report_control
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../identities/inventory/cubit/inventory_form_cubit.dart';
+import '../../../identities/inventory/cubit/inventory_view/inventory_view_cubit.dart';
+import '../../../identities/inventory/view/controllers/inventory_controller.dart';
 import '../../../identities/inventory/view/views/inventory_view.dart';
 import '../../../identities/sale/cubit/sales_cubit/sales_view_cubit.dart';
 import '../../../identities/sale/cubit/sales_report/salesreport_cubit.dart';
@@ -59,7 +62,13 @@ class NavigationBarGlobal extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const InventoryView()),
+                MaterialPageRoute(
+                  builder: (context) => MultiBlocProvider(providers: [
+                    BlocProvider(create: (_) => InventoryViewCubit()),
+                    BlocProvider(create: (_) => InventoryFormCubit()),
+                  // ignore: prefer_const_constructors
+                  ], child: InventoryController()),
+                ),
               );
             }
             break;

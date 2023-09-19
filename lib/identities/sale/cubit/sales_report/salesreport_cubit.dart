@@ -35,7 +35,7 @@ class SalesReportCubit extends Cubit<SalesReportState> {
       
 
       emit(InitialState());
-      emit(LoadingState());
+      
       user = await LocalUser().getLocalUser();
       vendor = await LocalUser().getLocalVendor();
       if (user.rol == 'admin') {
@@ -43,6 +43,7 @@ class SalesReportCubit extends Cubit<SalesReportState> {
       } else {
         userModel = user;
       }
+      emit(LoadingState(user: userModel));
       //Obtiene lista de ventas.
       salesDB = await DatabaseSales().readListReport(form, userModel);
       //Crea una lista de claves de todos los items de todas las ventas.-
@@ -113,7 +114,7 @@ class SalesReportCubit extends Cubit<SalesReportState> {
       } else {
         finalSRepList = sRepList;
       }
-      emit(LoadedState(saleReport: finalSRepList));
+      emit(LoadedState(saleReport: finalSRepList, user: userModel));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }

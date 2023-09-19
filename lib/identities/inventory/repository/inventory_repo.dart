@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:axol_rutas/identities/inventory/model/inventory.dart';
+import 'package:axol_rutas/identities/inventory/model/inventory_model.dart';
 import 'package:axol_rutas/identities/product/model/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -166,16 +166,23 @@ class FetchInventory extends InventoryRepo {
     return (isExist);
   }
 
-  Future<List<InventoryModel>> getInventory(UserModel user) async {
+  Future<List<InventoryModel>> getInventory(UserModel user, String find) async {
     List<InventoryModel> inventory = [];
     InventoryModel inventoryModel;
-    final List inventoryList = await readInventory(user);
-    final List<Map> products;
+    //final List inventoryList = await readInventory(user);
+    List<Map<String, dynamic>> inventoryDB = [];
+    final List<Map<String, dynamic>> productsDB;
     List<String> codes = [];
-    Map product;
+    Map<String, dynamic> productDB;
+    ProductModel product;
 
-    if (inventoryList.isNotEmpty) {
-      for (var element in inventoryList) {
+    inventoryDB = await supabase
+        .from(TABLE)
+        .select<List<Map<String, dynamic>>>()
+        .eq(NAME, user.name);
+
+    if (inventoryDB.isNotEmpty) {
+      for (var element in inventoryDB) {
         if (double.tryParse(element[STOCK].toString()) != null) {
           if (double.parse(element[STOCK].toString()) > 0) {
             codes.add(element[CODE]);
@@ -183,21 +190,53 @@ class FetchInventory extends InventoryRepo {
         }
       }
 
-      products = await DatabaseProducts().readProductList(codes);
+      productsDB = await DatabaseProducts().readProductList(codes);
 
-      for (var element in inventoryList) {
+      for (var element in inventoryDB) {
         if (double.tryParse(element[STOCK].toString()) != null) {
           if (double.parse(element[STOCK].toString()) > 0) {
-            product = products.elementAt(
-                products.indexWhere((value) => value[CODE] == element[CODE]));
+            productDB = productsDB.elementAt(
+                productsDB.indexWhere((value) => value[CODE] == element[CODE]));
+            print(productDB[ProductModel.pAttributes]
+                    [ProductModel.jCapacity]); //Algo pasa aquí!!!!!
+            product = ProductModel(
+                capacity: productDB[ProductModel.pAttributes]
+                    [ProductModel.jCapacity],
+                code: productDB[ProductModel.pAttributes][ProductModel.jCode],
+                description: productDB[ProductModel.pAttributes]
+                    [ProductModel.jDescription],
+                gauge: productDB[ProductModel.pAttributes][ProductModel.jGauge],
+                measure: productDB[ProductModel.pAttributes]
+                    [ProductModel.jMeasure],
+                packing: productDB[ProductModel.pAttributes]
+                    [ProductModel.jPacking],
+                pieces: productDB[ProductModel.pAttributes]
+                    [ProductModel.jPices],
+                type: productDB[ProductModel.pAttributes][ProductModel.jType],
+                weight: productDB[ProductModel.pAttributes]
+                    [ProductModel.jWeight],
+                class_: productDB[ProductModel.pClass],
+                filetValues: '');
             inventoryModel = InventoryModel(
-                uid: element[UID].toString(),
-                name: element[NAME].toString(),
-                retailManager: element[MANAGER].toString(),
-                code: element[CODE].toString(),
-                stock: element[STOCK].toString(),
-                properties: product);
-            inventory.add(inventoryModel);
+              uid: element[UID].toString(),
+              name: element[NAME].toString(),
+              //retailManager: element[MANAGER].toString(),
+              code: element[CODE].toString(),
+              stock: element[STOCK].toString(),
+              product: product,
+            );
+            if (find == '') {
+              inventory.add(inventoryModel);
+            } else {
+              if (inventoryModel.product.code
+                      .toLowerCase()
+                      .contains(find.toLowerCase()) ||
+                  inventoryModel.product.description
+                      .toLowerCase()
+                      .contains(find.toLowerCase())) {
+                inventory.add(inventoryModel);
+              }
+            }
           }
         }
       }

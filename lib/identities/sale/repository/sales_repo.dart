@@ -1,13 +1,8 @@
 import 'dart:convert';
 
-import 'package:axol_rutas/identities/product/model/product.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../settings/format.dart';
-import '../../product/repository/product_repo.dart';
-import '../../shoppingcart/model/shoppingcart_models.dart';
 import '../../user/model/user.dart';
 import '../model/sale_model.dart';
 import '../model/srep_form_model.dart';

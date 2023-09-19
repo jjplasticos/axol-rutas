@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../settings/theme.dart';
-import '../../model/inventory.dart';
+import '../../model/inventory_model.dart';
 
 class ListviewInventory extends StatelessWidget {
   final List<InventoryModel> listData;
@@ -31,7 +31,7 @@ class ListviewInventory extends StatelessWidget {
                     style: Typo.bodyText1,
                   ),
                   Text(
-                    elementList.properties['description'],
+                    elementList.product.description,
                     style: Typo.bodyText1,
                   ),
                   Text(

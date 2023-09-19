@@ -7,27 +7,32 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pdf/pdf.dart';
 
 import '../../../../globals/global_widgets/appbar/appbar_global.dart';
+import '../../../../globals/global_widgets/appbar/iconbutton_return.dart';
 import '../../../../globals/global_widgets/bottom_navigation_bar/navigation_bar_global.dart';
 import '../../../../settings/format.dart';
 import '../../../../settings/theme.dart';
 import '../../../product/model/class_product_model.dart';
 import '../../../product/repository/class_product_repo.dart';
+import '../../../user/model/user.dart';
 import '../../cubit/sales_report/salesreport_cubit.dart';
 import '../../cubit/sales_report/srep_form_cubit.dart';
 import '../../model/sale_report_model.dart';
 import '../../model/srep_form_model.dart';
 import '../widgets/sales_report/finder_salesreport.dart';
 import '../widgets/sales_report/listview_sales_report.dart';
-import '../widgets/sales_report/pdf_preview_salereport.dart';
 import '../widgets/sales_report/pdf_salereport.dart';
 import '../widgets/sales_report/time_filter_SRep.dart';
 
 class SalesReportView extends StatelessWidget {
   final bool isLoading;
   final List<SaleReportModel> saleReport;
+  final UserModel user;
 
   const SalesReportView(
-      {super.key, required this.isLoading, required this.saleReport});
+      {super.key,
+      required this.isLoading,
+      required this.saleReport,
+      required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +47,17 @@ class SalesReportView extends StatelessWidget {
     const String TITLE = 'Reporte de ventas';
     return Scaffold(
         backgroundColor: ColorPalette.primaryBackground,
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(50),
-          child: AppBarGlobal(title: TITLE),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
+          child: AppBarGlobal(
+            title: TITLE,
+            iconButton: user.id > -1
+                ? IconButtonReturn(
+                    iconName: 'return',
+                    isLoading: isLoading,
+                  )
+                : null,
+          ),
         ),
         body: Column(
           children: [
