@@ -171,7 +171,7 @@ class FetchInventory extends InventoryRepo {
     InventoryModel inventoryModel;
     //final List inventoryList = await readInventory(user);
     List<Map<String, dynamic>> inventoryDB = [];
-    final List<Map<String, dynamic>> productsDB;
+    List<Map<String, dynamic>> productsDB;
     List<String> codes = [];
     Map<String, dynamic> productDB;
     ProductModel product;
@@ -191,30 +191,21 @@ class FetchInventory extends InventoryRepo {
       }
 
       productsDB = await DatabaseProducts().readProductList(codes);
-
       for (var element in inventoryDB) {
         if (double.tryParse(element[STOCK].toString()) != null) {
           if (double.parse(element[STOCK].toString()) > 0) {
             productDB = productsDB.elementAt(
                 productsDB.indexWhere((value) => value[CODE] == element[CODE]));
-            print(productDB[ProductModel.pAttributes]
-                    [ProductModel.jCapacity]); //Algo pasa aquí!!!!!
             product = ProductModel(
-                capacity: productDB[ProductModel.pAttributes]
-                    [ProductModel.jCapacity],
-                code: productDB[ProductModel.pAttributes][ProductModel.jCode],
-                description: productDB[ProductModel.pAttributes]
-                    [ProductModel.jDescription],
-                gauge: productDB[ProductModel.pAttributes][ProductModel.jGauge],
-                measure: productDB[ProductModel.pAttributes]
-                    [ProductModel.jMeasure],
-                packing: productDB[ProductModel.pAttributes]
-                    [ProductModel.jPacking],
-                pieces: productDB[ProductModel.pAttributes]
-                    [ProductModel.jPices],
-                type: productDB[ProductModel.pAttributes][ProductModel.jType],
-                weight: productDB[ProductModel.pAttributes]
-                    [ProductModel.jWeight],
+                capacity: productDB[ProductModel.jCapacity],
+                code: productDB[ProductModel.jCode],
+                description: productDB[ProductModel.jDescription],
+                gauge: productDB[ProductModel.jGauge],
+                measure: productDB[ProductModel.jMeasure],
+                packing: productDB[ProductModel.jPacking],
+                pieces: productDB[ProductModel.jPices],
+                type: productDB[ProductModel.jType],
+                weight: productDB[ProductModel.jWeight],
                 class_: productDB[ProductModel.pClass],
                 filetValues: '');
             inventoryModel = InventoryModel(

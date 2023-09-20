@@ -60,7 +60,7 @@ class ButtonSaveProdform extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           backgroundColor: ColorPalette.primary),
       child: const Text(
-        'Guardar',
+        'Agregar',
         style: Typo.textButton,
       ),
     );

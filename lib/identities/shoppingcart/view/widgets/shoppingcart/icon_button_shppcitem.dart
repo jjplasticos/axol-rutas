@@ -30,7 +30,7 @@ class IconButtonShppcItem extends StatelessWidget {
           onPressed: () async {
             if (isLoading == null || isLoading == false) {
               await showModalBottomSheet(
-                  isDismissible: false,
+                  isDismissible: true,
                   isScrollControlled: true,
                   backgroundColor: ColorPalette.primaryBackground,
                   enableDrag: false,

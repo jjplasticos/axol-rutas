@@ -24,9 +24,9 @@ class InventoryViewCubit extends Cubit<InventoryViewState> {
       } else {
         userModel = user;
       }
-      emit(LoadingState(user: user));
+      emit(LoadingState(user: vendor));
       inventory = await FetchInventory().getInventory(userModel, form.finder.text);
-      emit(LoadedState(user: userModel, inventory: inventory));
+      emit(LoadedState(user: vendor, inventory: inventory));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }

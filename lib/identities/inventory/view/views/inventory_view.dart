@@ -13,31 +13,39 @@ class InventoryView extends StatelessWidget {
   final List<InventoryModel> listData;
   final bool isLoading;
   final UserModel user;
-  const InventoryView({super.key, required this.listData, required this.isLoading, required this.user});
+  const InventoryView(
+      {super.key,
+      required this.listData,
+      required this.isLoading,
+      required this.user});
 
   @override
   Widget build(BuildContext context) {
     const String title = 'Inventario';
 
     return Scaffold(
-          backgroundColor: ColorPalette.primaryBackground,
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(50),
-            child: AppBarGlobal(
-              title: title,
-              iconButton: user.id > -1
+        backgroundColor: ColorPalette.primaryBackground,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
+          child: AppBarGlobal(
+            title: title,
+            iconButton: user.id > -1
                 ? IconButtonReturn(
                     iconName: 'return',
                     isLoading: isLoading,
                   )
                 : null,
-            ),
           ),
-          body: Column(
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Visibility(
-                replacement: const SizedBox(height: 4,),
+                replacement: const SizedBox(
+                  height: 4,
+                ),
                 visible: isLoading,
                 child: const LinearProgressIndicator(
                   color: ColorPalette.primary,
@@ -49,6 +57,7 @@ class InventoryView extends StatelessWidget {
               Expanded(child: ListviewInventory(listData: listData)),
             ],
           ),
-          bottomNavigationBar: const NavigationBarGlobal(currentIndex: 1));
+        ),
+        bottomNavigationBar: const NavigationBarGlobal(currentIndex: 1));
   }
 }

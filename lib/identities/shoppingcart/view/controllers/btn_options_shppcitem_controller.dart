@@ -49,7 +49,7 @@ class BtnOptionsShppcItemController extends StatelessWidget {
             final ShoppingcartItemModel item =
               shoppingcart.elementAt(index);
           showModalBottomSheet(
-              isDismissible: false,
+              isDismissible: true,
               isScrollControlled: true,
               backgroundColor: ColorPalette.primaryBackground,
               enableDrag: false,

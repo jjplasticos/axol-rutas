@@ -192,7 +192,7 @@ class _SelectProductState extends State<SelectProduct> {
                                   IconButton(
                                     onPressed: () async {
                                       await showModalBottomSheet(
-                                          isDismissible: false,
+                                          isDismissible: true,
                                           isScrollControlled: true,
                                           backgroundColor:
                                               ColorPalette.primaryBackground,

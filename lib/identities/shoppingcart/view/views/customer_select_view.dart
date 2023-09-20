@@ -67,7 +67,7 @@ class CustomerSelectView extends StatelessWidget {
                     onPressed: () {
                       if (isLoading == false) {
                         showModalBottomSheet(
-                          isDismissible: false,
+                          isDismissible: true,
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
                           enableDrag: false,

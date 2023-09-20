@@ -14,12 +14,13 @@ class BtnAddProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ShoppingcartItemModel> shoppingcart = context.read<ShppcCubit>().state.shoppingcart;
+    List<ShoppingcartItemModel> shoppingcart =
+        context.read<ShppcCubit>().state.shoppingcart;
     return ElevatedButton(
       onPressed: () async {
-        if (isLoading == null || isLoading == false) { 
+        if (isLoading == null || isLoading == false) {
           showModalBottomSheet(
-            isDismissible: false,
+            isDismissible: true,
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
             enableDrag: false,
@@ -33,9 +34,11 @@ class BtnAddProduct extends StatelessWidget {
               );
             },
           ).then((value) {
-            context.read<ShppcCubit>().changeShppc(value);
-            context.read<ShppcViewCubit>().load();
-          //context.read<ShoppingcartCubit>().returnShoppingcart(value);
+            if (value != null) {
+              context.read<ShppcCubit>().changeShppc(value);
+              context.read<ShppcViewCubit>().load();
+              //context.read<ShoppingcartCubit>().returnShoppingcart(value);
+            }
           });
         }
       },

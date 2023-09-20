@@ -172,7 +172,7 @@ class _SalesPageState extends State<SalesForm> {
             child: ElevatedButton(
               onPressed: () async {
                 await showModalBottomSheet(
-                  isDismissible: false,
+                  isDismissible: true,
                   isScrollControlled: true,
                   backgroundColor: Colors.transparent,
                   enableDrag: false,

@@ -33,7 +33,7 @@ class ListviewProductFinder extends StatelessWidget {
           return OutlinedButton(
             onPressed: () async {
               await showModalBottomSheet(
-                  isDismissible: false,
+                  isDismissible: true,
                   isScrollControlled: true,
                   backgroundColor: ColorPalette.primaryBackground,
                   enableDrag: false,
