@@ -20,7 +20,7 @@ class InvProductFormModel {
   });
 
   static InvProductFormModel empty() => InvProductFormModel(
-    counter: TextfieldModel.empty(), 
+    counter: const TextfieldModel(position: 0, text: '0'), 
     isComplete: false, 
     isCheck: false,
     product: ProductModel.empty(), 

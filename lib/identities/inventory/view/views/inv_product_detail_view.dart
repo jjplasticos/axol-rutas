@@ -17,7 +17,7 @@ class InvProductDetailView extends StatelessWidget {
     InvProductFormModel form = context.read<InvProductFormCubit>().state;
     return Container(
         width: 303.5,
-        height: 300,
+        height: 240,
         decoration: const BoxDecoration(
           color: ColorPalette.primaryBackground,
           borderRadius: BorderRadius.only(
@@ -73,46 +73,62 @@ class InvProductDetailView extends StatelessWidget {
                                     style: Typo.bodyText1,
                                   ),
                                 ),
+                                const SizedBox(height: 16),
                                 Visibility(
                                   visible: user.rol == 'admin',
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       SizedBox(
                                         height: 40,
                                         width: 200,
-                                        child: TextField(
-                                          cursorColor: ColorPalette.primary,
-                                          // inputFormatters: inputFormatter,
-                                          //controller: textController,
-                                          decoration: const InputDecoration(
-                                            focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color:
-                                                        ColorPalette.primary)),
-                                          ),
-                                          onSubmitted: (value) {
-                                            /*context.read<CustomerFormCubit>().changeTextfield(
-                        keyFormElement,
-                        value,
-                        textController.selection.base.offset,
-                      );
-                  context.read<CustomerFormCubit>().changeFocus(nextFocus);
-                  context.read<CustomerFormviewCubit>().load();*/
-                                          },
-                                          onChanged: (value) {
-                                            /*context.read<CustomerFormCubit>().changeTextfield(
-                        keyFormElement,
-                        value,
-                        textController.selection.base.offset,
-                      );*/
-                                          },
+                                        child: Row(
+                                          children: [
+                                            IconButton(
+                                              iconSize: 40,
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                Icons.add_circle_outline,
+                                                color: ColorPalette.primary,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: TextField(
+                                                textAlign: TextAlign.center,
+                                                cursorColor:
+                                                    ColorPalette.primary,
+                                                // inputFormatters: inputFormatter,
+                                                //controller: textController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: ColorPalette
+                                                                  .primary)),
+                                                ),
+                                                onSubmitted: (value) {},
+                                                onChanged: (value) {},
+                                              ),
+                                            ),
+                                            IconButton(
+                                                iconSize: 40,
+                                                onPressed: () {},
+                                                icon: const Icon(
+                                                  Icons.remove_circle_outline,
+                                                  color: ColorPalette.primary,
+                                                ))
+                                          ],
                                         ),
                                       ),
-                                      Checkbox(
-                                        value: form.isComplete,
-                                        onChanged: (value) {},
-                                      ),
+                                      Transform.scale(
+                                        scale: 1.5,
+                                        child: Checkbox(
+                                          value: form.isComplete,
+                                          onChanged: (value) {},
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ), //description

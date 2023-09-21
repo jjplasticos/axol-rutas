@@ -14,9 +14,12 @@ class InvProductFormCubit extends Cubit<InvProductFormModel> {
     emit(form);
   }
 
-  void changeIsComplete(bool isComplete) {
+  void changeIsComplete(bool isComplete, int position){
     InvProductFormModel form = state;
     form.isComplete = isComplete;
+    if (isComplete == true) {
+      form.counter =TextfieldModel(text: form.stock.toString(), position: position);
+    }
     emit(InvProductFormModel.empty());
     emit(form);
   }
