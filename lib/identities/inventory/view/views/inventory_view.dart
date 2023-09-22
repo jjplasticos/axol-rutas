@@ -55,6 +55,17 @@ class InventoryView extends StatelessWidget {
               // ignore: prefer_const_constructors
               FinderInventory(),
               Expanded(child: ListviewInventory(listData: listData)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    color: ColorPalette.secondaryBackground,
+                    iconSize: 30,
+                    onPressed: (){}, 
+                    icon: const Icon(Icons.picture_as_pdf),
+                    ),
+                ],
+              )
             ],
           ),
         ),

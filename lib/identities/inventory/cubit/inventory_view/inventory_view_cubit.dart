@@ -26,7 +26,29 @@ class InventoryViewCubit extends Cubit<InventoryViewState> {
       }
       emit(LoadingState(user: vendor));
       inventory = await FetchInventory().getInventory(userModel, form.finder.text);
-      emit(LoadedState(user: vendor, inventory: inventory));
+      emit(LoadedState(user: vendor, inventory: inventory, isInit: false));
+    } catch (e) {
+      emit(ErrorState(error: e.toString()));
+    }
+  }
+
+  void initLoad(InventoryFormModel form) async {
+    try {
+      emit(InitialState());
+      UserModel user;
+      UserModel vendor;
+      UserModel userModel;
+      List<InventoryModel> inventory;
+      user = await LocalUser().getLocalUser();
+      vendor = await LocalUser().getLocalVendor();
+      if (user.rol == 'admin') {
+        userModel = vendor;
+      } else {
+        userModel = user;
+      }
+      emit(LoadingState(user: vendor));
+      inventory = await FetchInventory().getInventory(userModel, form.finder.text);
+      emit(LoadedState(user: vendor, inventory: inventory, isInit: true));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }

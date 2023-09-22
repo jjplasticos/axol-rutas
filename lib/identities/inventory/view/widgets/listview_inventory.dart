@@ -4,6 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../settings/theme.dart';
 import '../../cubit/inv_product/inv_product_form_cubit.dart';
 import '../../cubit/inv_product/inv_product_view_cubit.dart';
+import '../../cubit/inventory_form_cubit.dart';
+import '../../cubit/inventory_view/inventory_view_cubit.dart';
+import '../../model/inventory_diff_model.dart';
+import '../../model/inventory_form_model.dart';
 import '../../model/inventory_model.dart';
 import '../controllers/inv_product_detail_controller.dart';
 
@@ -14,6 +18,7 @@ class ListviewInventory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    InventoryFormModel form = context.read<InventoryFormCubit>().state;
     return ListView.builder(
       //padding: const EdgeInsets.only(top: 8),
       shrinkWrap: true,
@@ -36,23 +41,29 @@ class ListviewInventory extends StatelessWidget {
                     BlocProvider(create: (_) => InvProductFormCubit()),
                   ],
                   child: InvProductDtailController(
-                      product: elementList.product,
-                      stock: double.parse(elementList.stock)),
+                    index: index,
+                    diffList: form.diffList,
+                    //product: elementList.product,
+                    //stock: double.parse(elementList.stock)
+                  ),
                 ),
               ).then((value) {
-                /*final RouteCustomerModel rcModel;
-                if (value != null) {
-                  rcModel = value;
-                  context.read<ShppcCubit>().changeCustomer(rcModel);
-                  context.read<ShppcViewCubit>().load();
-                }*/
+                if (value is List<InventoryDiffModel>) {
+                  //final List<InventoryDiffModel> v = value;
+                  context.read<InventoryFormCubit>().changeDiff(value);
+                  context.read<InventoryViewCubit>().load(form);
+                }
               });
             },
             child: Container(
                 width: double.infinity,
                 height: 70,
                 decoration: BoxDecoration(
-                    color: ColorPalette.secondaryBackground,
+                    color: colorStatus(
+                      form.diffList.elementAt(index).isCheck,
+                      form.diffList.elementAt(index).stock,
+                      form.diffList.elementAt(index).actualStock,
+                    ),
                     borderRadius: BorderRadius.circular(12)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -75,5 +86,17 @@ class ListviewInventory extends StatelessWidget {
         );
       }),
     );
+  }
+
+  Color colorStatus(bool isCheck, double stock, double actualStock) {
+    if (isCheck) {
+      if (stock == actualStock) {
+        return ColorPalette.primary;
+      } else {
+        return ColorPalette.alternate;
+      }
+    } else {
+      return ColorPalette.secondaryBackground;
+    }
   }
 }

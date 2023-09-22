@@ -20,11 +20,12 @@ class LoadingState extends InventoryViewState {
 class LoadedState extends InventoryViewState {
   final UserModel user;
   final List<InventoryModel> inventory;
+  final bool isInit;
 
-  LoadedState({required this.user, required this.inventory});
+  LoadedState({required this.user, required this.inventory, required this.isInit});
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [user, inventory, isInit];
 }
 
 class ErrorState extends InventoryViewState {

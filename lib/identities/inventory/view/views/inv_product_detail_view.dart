@@ -1,20 +1,32 @@
+import 'package:axol_rutas/identities/inventory/cubit/inv_product/inv_product_view_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../settings/theme.dart';
 import '../../../user/model/user.dart';
 import '../../cubit/inv_product/inv_product_form_cubit.dart';
 import '../../model/inv_product_form_model.dart';
+import '../../model/inventory_diff_model.dart';
 
 class InvProductDetailView extends StatelessWidget {
   final UserModel user;
   final bool isLoading;
+  final List<InventoryDiffModel> diffList;
+  final int index;
   const InvProductDetailView(
-      {super.key, required this.user, required this.isLoading});
+      {super.key, required this.user, required this.isLoading, required this.diffList, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    List<InventoryDiffModel> newDiffList = [];
+    InventoryDiffModel diff;
+    double countN;
     InvProductFormModel form = context.read<InvProductFormCubit>().state;
+    TextEditingController textController = TextEditingController();
+    textController.value = TextEditingValue(
+        text: form.counter.text,
+        selection: TextSelection.collapsed(offset: form.counter.position));
     return Container(
         width: 303.5,
         height: 240,
@@ -87,7 +99,28 @@ class InvProductDetailView extends StatelessWidget {
                                           children: [
                                             IconButton(
                                               iconSize: 40,
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                if (form.isComplete == false) {
+                                                  if (double.tryParse(textController.text) == null) {
+                                                    textController.text = '0';
+                                                  }
+                                                  countN = double.parse(
+                                                      textController.text);
+                                                  countN = countN + 1;
+                                                  context
+                                                      .read<
+                                                          InvProductFormCubit>()
+                                                      .changeCounter(
+                                                        countN.toString(),
+                                                        textController.selection
+                                                            .base.offset,
+                                                      );
+                                                  context
+                                                      .read<
+                                                          InvProductViewCubit>()
+                                                      .load();
+                                                }
+                                              },
                                               icon: const Icon(
                                                 Icons.add_circle_outline,
                                                 color: ColorPalette.primary,
@@ -95,11 +128,17 @@ class InvProductDetailView extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: TextField(
+                                                enabled: !form.isComplete,
                                                 textAlign: TextAlign.center,
                                                 cursorColor:
                                                     ColorPalette.primary,
-                                                // inputFormatters: inputFormatter,
-                                                //controller: textController,
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter
+                                                      .allow(RegExp(
+                                                          r'^\d*\.?\d*$'))
+                                                ],
+                                                keyboardType: TextInputType.number,
+                                                controller: textController,
                                                 decoration:
                                                     const InputDecoration(
                                                   focusedBorder:
@@ -114,7 +153,31 @@ class InvProductDetailView extends StatelessWidget {
                                             ),
                                             IconButton(
                                                 iconSize: 40,
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  if (form.isComplete ==
+                                                      false) {
+                                                        if (double.tryParse(textController.text) == null) {
+                                                    textController.text = '0';
+                                                  }
+                                                    countN = double.parse(
+                                                        textController.text);
+                                                    countN = countN - 1;
+                                                    context
+                                                        .read<
+                                                            InvProductFormCubit>()
+                                                        .changeCounter(
+                                                          countN.toString(),
+                                                          textController
+                                                              .selection
+                                                              .base
+                                                              .offset,
+                                                        );
+                                                    context
+                                                        .read<
+                                                            InvProductViewCubit>()
+                                                        .load();
+                                                  }
+                                                },
                                                 icon: const Icon(
                                                   Icons.remove_circle_outline,
                                                   color: ColorPalette.primary,
@@ -125,8 +188,23 @@ class InvProductDetailView extends StatelessWidget {
                                       Transform.scale(
                                         scale: 1.5,
                                         child: Checkbox(
+                                          activeColor: ColorPalette.primary,
+                                          checkColor: ColorPalette.primaryText,
                                           value: form.isComplete,
-                                          onChanged: (value) {},
+                                          onChanged: (value) {
+                                            if (value != null) {
+                                              context
+                                                  .read<InvProductFormCubit>()
+                                                  .changeIsComplete(
+                                                    value,
+                                                    textController
+                                                        .selection.base.offset,
+                                                  );
+                                              context
+                                                  .read<InvProductViewCubit>()
+                                                  .load();
+                                            }
+                                          },
                                         ),
                                       )
                                     ],
@@ -144,7 +222,19 @@ class InvProductDetailView extends StatelessWidget {
                       Expanded(
                         child: OutlinedButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            diff = InventoryDiffModel(
+                              product: diffList.elementAt(index).product, 
+                              stock: diffList.elementAt(index).stock, 
+                              actualStock: double.parse(form.counter.text), 
+                              isCheck: true);
+                            for (int i = 0; i < diffList.length; i++) {
+                              if (i == index) {
+                                newDiffList.add(diff);
+                              } else {
+                                newDiffList.add(diffList.elementAt(i));
+                              }
+                            }
+                            Navigator.pop(context, newDiffList);
                           },
                           style: OutlinedButton.styleFrom(
                               backgroundColor: ColorPalette.primary,
@@ -153,7 +243,7 @@ class InvProductDetailView extends StatelessWidget {
                               minimumSize: const Size(60, 60),
                               maximumSize: const Size(double.infinity, 60)),
                           child: const Text(
-                            'Regresar',
+                            'Guardar',
                             style: Typo.textButton,
                           ),
                         ),
