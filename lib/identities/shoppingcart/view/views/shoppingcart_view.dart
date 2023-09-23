@@ -21,6 +21,9 @@ class ShoppingCartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<PopupMenuEntry> menuEntryList= [];
+    PopupMenuItem menuItem;
+
     const String TITLE = 'Formulario de ventas';
     final ShppcViewModel shppcView = context.read<ShppcCubit>().state;
     final RouteCustomerModel rc = shppcView.routeCustomer;
@@ -60,6 +63,29 @@ class ShoppingCartView extends StatelessWidget {
               customer: customer,
               isLoading: isLoading,
             ),
+          ),
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+                  color: ColorPalette.secondaryBackground,
+                  borderRadius: BorderRadius.circular(12)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(shppcView.saleType, style: Typo.bodyText6,),
+                PopupMenuButton(itemBuilder: (context) {
+                  for (var element in shppcView.saleTypeList) {
+                    menuItem = PopupMenuItem(
+                      value: element.id,
+                      child: Text(element.type),
+                      );
+                    menuEntryList.add(menuItem);
+                  }
+                  return menuEntryList;
+                },)
+              ],
+            ),
+            
           ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),

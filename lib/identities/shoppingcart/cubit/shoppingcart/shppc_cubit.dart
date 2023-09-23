@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../sale/model/sale_type_model.dart';
 import '../../model/route_customer_model.dart';
 import '../../model/shoppingcart_models.dart';
 import '../../model/shppc_view_model.dart';
@@ -32,6 +33,13 @@ class ShppcCubit extends Cubit<ShppcViewModel> {
     shppcView.totalWeight = totalWeight;
     shppcView.shoppingcart = shppc;
 
+    emit(ShppcViewModel.empty());
+    emit(shppcView);
+  }
+
+  Future<void> changeSaleType(List<SaleTypeModel> saleTypeList) async {
+    ShppcViewModel shppcView = state;
+    shppcView.saleTypeList;
     emit(ShppcViewModel.empty());
     emit(shppcView);
   }

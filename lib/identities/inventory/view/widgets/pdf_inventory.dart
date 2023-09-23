@@ -5,7 +5,7 @@ import 'package:pdf/widgets.dart' as pw;
 import '../../../user/model/user.dart';
 import '../../../user/repository/user_repo.dart';
 
-class PdfInventory {
+/*class PdfInventory {
   final pw.TextStyle _subtitle =
       pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold);
   final pw.TextStyle _body =
@@ -214,4 +214,4 @@ class PdfInventory {
         ));
     return pdf.save();
   }
-}
+}*/

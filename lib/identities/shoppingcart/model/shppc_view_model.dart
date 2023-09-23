@@ -1,3 +1,4 @@
+import '../../sale/model/sale_type_model.dart';
 import 'route_customer_model.dart';
 import 'shoppingcart_models.dart';
 
@@ -8,6 +9,8 @@ class ShppcViewModel {
   double totalWeight;
   RouteCustomerModel routeCustomer;
   DateTime dateTime;
+  List<SaleTypeModel> saleTypeList;
+  String saleType;
 
   ShppcViewModel ({
     required this.shoppingcart,
@@ -16,6 +19,8 @@ class ShppcViewModel {
     required this.totalWeight,
     required this.routeCustomer,
     required this.dateTime,
+    required this.saleTypeList,
+    required this.saleType,
   });
 
   static ShppcViewModel empty() => ShppcViewModel(
@@ -24,6 +29,8 @@ class ShppcViewModel {
     routeCustomer: RouteCustomerModel.empty(),
     totalPrice: 0,
     totalQuantity: 0,
-    totalWeight: 0,
+    totalWeight: 0, 
+    saleTypeList: [], 
+    saleType: '',
   );
 }
