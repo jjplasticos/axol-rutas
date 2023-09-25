@@ -37,9 +37,16 @@ class ShppcCubit extends Cubit<ShppcViewModel> {
     emit(shppcView);
   }
 
-  Future<void> changeSaleType(List<SaleTypeModel> saleTypeList) async {
+  Future<void> changeSaleTypeList(List<SaleTypeModel> saleTypeList) async {
     ShppcViewModel shppcView = state;
-    shppcView.saleTypeList;
+    shppcView.saleTypeList = saleTypeList;
+    emit(ShppcViewModel.empty());
+    emit(shppcView);
+  }
+
+  Future<void> changeSaleType(String saleType) async {
+    ShppcViewModel shppcView = state;
+    shppcView.saleType = saleType;
     emit(ShppcViewModel.empty());
     emit(shppcView);
   }

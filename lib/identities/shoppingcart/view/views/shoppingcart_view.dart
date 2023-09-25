@@ -1,11 +1,13 @@
 // ignore_for_file: constant_identifier_names, prefer_const_constructors
 
+import 'package:axol_rutas/identities/shoppingcart/cubit/shoppingcart/shppc_view_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../globals/global_widgets/appbar/appbar_global.dart';
 import '../../../../globals/global_widgets/appbar/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
+import '../../../sale/model/sale_type_model.dart';
 import '../../cubit/shoppingcart/shppc_cubit.dart';
 import '../../model/route_customer_model.dart';
 import '../../model/shppc_view_model.dart';
@@ -21,7 +23,7 @@ class ShoppingCartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<PopupMenuEntry> menuEntryList= [];
+    List<PopupMenuEntry> menuEntryList = [];
     PopupMenuItem menuItem;
 
     const String TITLE = 'Formulario de ventas';
@@ -64,29 +66,51 @@ class ShoppingCartView extends StatelessWidget {
               isLoading: isLoading,
             ),
           ),
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
+          Padding(
+            padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+            child: Container(
+              width: double.infinity,
+              height: 30,
+              decoration: BoxDecoration(
                   color: ColorPalette.secondaryBackground,
-                  borderRadius: BorderRadius.circular(12)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(shppcView.saleType, style: Typo.bodyText6,),
-                PopupMenuButton(itemBuilder: (context) {
-                  for (var element in shppcView.saleTypeList) {
-                    menuItem = PopupMenuItem(
-                      value: element.id,
-                      child: Text(element.type),
-                      );
-                    menuEntryList.add(menuItem);
-                  }
-                  return menuEntryList;
-                },)
-              ],
+                  borderRadius: BorderRadius.circular(4)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Text(
+                      shppcView.saleType,
+                      style: Typo.bodyText1,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 8),
+                    child: PopupMenuButton(
+                      onSelected: (value) {
+                        if (value is SaleTypeModel) {
+                          context.read<ShppcCubit>().changeSaleType(value.type);
+                          context.read<ShppcViewCubit>().load();
+                        }
+                      },
+                      itemBuilder: (context) {
+                        menuEntryList = [];
+                        for (var element in shppcView.saleTypeList) {
+                          menuItem = PopupMenuItem(
+                            value: element,
+                            child: Text(element.type),
+                          );
+                          menuEntryList.add(menuItem);
+                        }
+                        return menuEntryList;
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
-            
           ),
+
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
             child: Row(

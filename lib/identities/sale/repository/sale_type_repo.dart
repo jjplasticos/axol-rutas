@@ -21,7 +21,8 @@ class SaleTypeRepo {
     saleTypeDB = await _supabase
         .from(_table)
         .select<List<Map<String, dynamic>>>()
-        .like(_userList, '%/${user.id}/%');
+        .or('$_userList.like.%/${user.id}/%,$_userList.like.%all%');
+        //.like(_userList, '%/${user.id}/%');
 
     if (saleTypeDB.isNotEmpty) {
       for (var element in saleTypeDB) {
