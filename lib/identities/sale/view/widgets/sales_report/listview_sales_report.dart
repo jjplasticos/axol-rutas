@@ -20,7 +20,7 @@ class ListviewSalesReport extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: Container(
-            height: 150,
+            height: 165,
             width: double.infinity,
             decoration: BoxDecoration(
                 color: ColorPalette.secondaryBackground,
@@ -50,15 +50,23 @@ class ListviewSalesReport extends StatelessWidget {
                             children: [
                               Text(element.product.code, style: Typo.bodyText1),
                               Text(element.product.type, style: Typo.bodyText1),
+                            ],
+                          ),
+                          /*const SizedBox(
+                            height: 4,
+                          ),*/
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
                               Text(element.product.packing,
                                   style: Typo.bodyText1),
                               Text(element.product.capacity,
                                   style: Typo.bodyText1),
                             ],
                           ),
-                          const SizedBox(
+                          /*const SizedBox(
                             height: 4,
-                          ),
+                          ),*/
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [

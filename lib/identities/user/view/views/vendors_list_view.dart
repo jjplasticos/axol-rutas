@@ -65,21 +65,28 @@ class VendorsListView extends StatelessWidget {
                                         )));
                           }
                         },
-                        child: Container(
-                          width: double.infinity,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: ColorPalette.secondaryBackground,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(vendor.name, style: Typo.bodyText6),
-                                const Icon(Icons.arrow_forward_ios, color: ColorPalette.secondaryText,),
-                              ],
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: Container(
+                            width: double.infinity,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: ColorPalette.secondaryBackground,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(vendor.name, style: Typo.bodyText6),
+                                  const Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: ColorPalette.secondaryText,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ));

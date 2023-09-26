@@ -17,11 +17,18 @@ class PdfSaleReport {
   Future<Uint8List> pdfSalerep(
       List<SaleReportModel> sRepList, DateTime date, List<ClassProductModel> classList) async {
     final pdf = pw.Document();
-    final UserModel user = await LocalUser().getLocalUser();
+    final UserModel localUser = await LocalUser().getLocalUser();
+    final UserModel localVendor = await LocalUser().getLocalVendor();
+    final UserModel user;
     List<pw.Widget> content = [];
     double total = 0;
     List<int> classNumList = [];
     String className;
+    if (localUser.rol == 'admin') {
+      user = localVendor;
+    } else {
+      user = localUser;
+    }
     for (var sRep in sRepList) {
       total = total + sRep.totalPrice;
       if (classNumList.contains(sRep.product.class_) == false) {
@@ -30,13 +37,14 @@ class PdfSaleReport {
     }
     for (var num in classNumList) {
       className = classList.where((x) => x.id == num).first.text1;
+      content.add(pw.Divider(thickness: 0.1, borderStyle: pw.BorderStyle.solid));
       content.add(pw.Row(
         mainAxisAlignment: pw.MainAxisAlignment.start,
         children: [
           pw.Text(className, style: _body),
         ]
       ));
-      content.add(pw.Divider(thickness: 0.1, borderStyle: pw.BorderStyle.solid));
+      content.add(pw.SizedBox(height: 4));
       for (var sRep2 in sRepList) {
         if (sRep2.product.class_ == num) {
           content.add(
@@ -200,10 +208,10 @@ class PdfSaleReport {
                       ),
                     ),
                   ]),
-              pw.Divider(
+              /*pw.Divider(
                 thickness: 0.5,
                 borderStyle: pw.BorderStyle.solid,
-                ),
+                ),*/
             ]),
         footer: (context) => pw.Text('${context.pageNumber}'),
         margin: const pw.EdgeInsets.all(10),

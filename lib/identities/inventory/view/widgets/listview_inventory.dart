@@ -68,17 +68,29 @@ class ListviewInventory extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                      elementList.code,
-                      style: Typo.bodyText1,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Text(
+                        elementList.code,
+                        style: Typo.bodyText1,
+                      ),
                     ),
-                    Text(
-                      elementList.product.description,
-                      style: Typo.bodyText1,
-                    ),
-                    Text(
-                      elementList.stock,
-                      style: Typo.bodyText1,
+                    Expanded(
+                        child: Center(
+                      child: Text(
+                        elementList.product.description,
+                        style: Typo.bodyText1,
+                        maxLines: 2,
+                        softWrap: false,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Text(
+                        elementList.stock,
+                        style: Typo.bodyText1,
+                      ),
                     )
                   ],
                 )),

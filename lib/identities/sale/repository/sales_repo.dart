@@ -21,6 +21,8 @@ abstract class SalesRepo {
   final String _totalWeight = 'total_weight';
   final String _totalPrice = 'total_price';
   final String _vendor = 'vendor';
+  final String _type = SaleModel.p_type;
+  final String _note = SaleModel.p_note;
   //----
   //--Datos locales
   final String _user = 'user_name';
@@ -61,7 +63,10 @@ class DatabaseSales extends SalesRepo {
             time: element[_time].toString(),
             totalQuantity: element[_totalQuantity].toString(),
             totalWeight: element[_totalWeight].toString(),
-            totalPrice: element[_totalPrice].toString());
+            totalPrice: element[_totalPrice].toString(),
+            type: element[_type].toString(),
+            note: element[_note].toString(),
+            );
         newList.add(sale);
       }
     }
@@ -157,7 +162,10 @@ class DatabaseSales extends SalesRepo {
             time: element[_time].toString(),
             totalQuantity: element[_totalQuantity].toString(),
             totalWeight: element[_totalWeight].toString(),
-            totalPrice: element[_totalPrice].toString());
+            totalPrice: element[_totalPrice].toString(),
+            type: element[_type].toString(),
+            note: element[_note].toString(),
+            );
         saleList.add(sale);
       }
     }

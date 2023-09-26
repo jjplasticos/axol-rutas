@@ -189,13 +189,17 @@ class FetchInventory extends InventoryRepo {
           }
         }
       }
-
       productsDB = await DatabaseProducts().readProductList(codes);
+
       for (var element in inventoryDB) {
         if (double.tryParse(element[STOCK].toString()) != null) {
           if (double.parse(element[STOCK].toString()) > 0) {
-            productDB = productsDB.elementAt(
-                productsDB.indexWhere((value) => value[CODE] == element[CODE]));
+            final int ind = productsDB.indexWhere((value) {
+              return value[CODE] == element[CODE];
+            });
+            //n = n + 1;
+            //print('$n: ${element[CODE]} : $ind');
+            productDB = productsDB.elementAt(ind);
             product = ProductModel(
                 capacity: productDB[ProductModel.jCapacity],
                 code: productDB[ProductModel.jCode],
