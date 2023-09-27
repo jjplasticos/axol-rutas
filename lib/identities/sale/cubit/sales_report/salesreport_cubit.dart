@@ -26,16 +26,16 @@ class SalesReportCubit extends Cubit<SalesReportState> {
       List<SaleReportModel> sRepList = [];
       SaleReportModel saleReport;
       List<String> item;
-      int index;
+      int index = -1;
       final String finder = form.finder.text.toLowerCase();
       List<SaleReportModel> finalSRepList = [];
       UserModel user;
       UserModel vendor;
       UserModel userModel;
-      
+      bool flag;
 
       emit(InitialState());
-      
+
       user = await LocalUser().getLocalUser();
       vendor = await LocalUser().getLocalVendor();
       if (user.rol == 'admin') {
@@ -56,15 +56,30 @@ class SalesReportCubit extends Cubit<SalesReportState> {
       //Elimina las claves repetidas y obtiene la lista de los productos.
       codes = codes.toSet().toList();
       productsDB = await DatabaseProducts().getProductList(codes);
+      //print(productsDB);
       //Por cada item de los shoppingcart de cada centa de la lista...
       for (var saleIn in salesDB) {
         itemsShppc = saleIn.itemsShppc.values.toList();
         for (var itemIn in itemsShppc) {
           item = itemIn.toString().split('//');
           //si la lista de reporte de ventas no contiene la clave y no es la misma cantidad...
-          if (sRepList.where((x) => x.product.code == item[0]).isNotEmpty) {
-            index = sRepList.indexWhere((x) => x.product.code == item[0]);
-            if (sRepList.elementAt(index).unitPrice == double.parse(item[3])) {
+          final sRepListWhere =
+              sRepList.where((x) => x.product.code == item[0]);
+          if (sRepListWhere.isNotEmpty) {
+            //0.1.0
+            //if (sRepList.where((x) => x.product.code == item[0]).isNotEmpty) {
+            ////index = sRepList.indexWhere((x) => x.product.code == item[0]); //<--- prblema aquí
+            //Errro detectado: verifica si sRepList ya tiene la clave de item, pero no si es el mismo precio.
+            flag = false;
+            for (var i = 0; i < sRepListWhere.length; i++) {
+              if (sRepListWhere.elementAt(i).unitPrice ==
+                  double.parse(item[3])) {
+                flag = true;
+                index = i;
+              }
+            }
+            if (flag) {
+              //if (sRepList.elementAt(index).unitPrice == double.parse(item[3])) { //Version 0.1.0
               //Suma la cantidad de itemShppc a la cantidad del item del reporte de ventas.
               sRepList[index].quantitySold =
                   sRepList[index].quantitySold + double.parse(item[1]);
@@ -108,8 +123,8 @@ class SalesReportCubit extends Cubit<SalesReportState> {
               element.product.pieces.toLowerCase() == finder ||
               element.product.type.toLowerCase() == finder ||
               element.product.weight.toLowerCase() == finder) {
-                finalSRepList.add(element);
-              }
+            finalSRepList.add(element);
+          }
         }
       } else {
         finalSRepList = sRepList;

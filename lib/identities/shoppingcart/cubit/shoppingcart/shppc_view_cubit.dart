@@ -90,7 +90,10 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
           time: shppc.dateTime.millisecondsSinceEpoch.toString(),
           totalQuantity: shppc.totalQuantity.toString(),
           totalWeight: shppc.totalWeight.toString(),
-          totalPrice: shppc.totalPrice.toString());
+          totalPrice: shppc.totalPrice.toString(),
+          note: '',
+          type: '',
+          );
       await DatabaseSales().writeSale(sale);
 
       //Acualiza sotck

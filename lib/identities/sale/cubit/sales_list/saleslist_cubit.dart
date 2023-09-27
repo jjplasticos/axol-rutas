@@ -25,6 +25,7 @@ class SalesListCubit extends Cubit<SalesListState> {
         userModel = user;
       }
       salesList = await DatabaseSales().readSalesList(filter, userModel);
+      salesList.sort((a, b) => int.parse(b.time).compareTo(int.parse(a.time)));
       emit(SListLoadedState(salesList: salesList));
       //print('${localVendor.id}:${localVendor.name}:${salesList.length}');
     } catch (e) {

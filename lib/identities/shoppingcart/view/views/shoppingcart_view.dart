@@ -66,7 +66,8 @@ class ShoppingCartView extends StatelessWidget {
               isLoading: isLoading,
             ),
           ),
-          Padding(
+          //Para version 0.2.0:
+          /*Padding(
             padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: Container(
               width: double.infinity,
@@ -109,7 +110,7 @@ class ShoppingCartView extends StatelessWidget {
                 ],
               ),
             ),
-          ),
+          ),*/
 
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
