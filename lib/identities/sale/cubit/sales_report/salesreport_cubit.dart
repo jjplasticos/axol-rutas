@@ -71,11 +71,15 @@ class SalesReportCubit extends Cubit<SalesReportState> {
             ////index = sRepList.indexWhere((x) => x.product.code == item[0]); //<--- prblema aquí
             //Errro detectado: verifica si sRepList ya tiene la clave de item, pero no si es el mismo precio.
             flag = false;
-            for (var i = 0; i < sRepListWhere.length; i++) {
-              if (sRepListWhere.elementAt(i).unitPrice ==
-                  double.parse(item[3])) {
+            //index = -1;
+            for (var i = 0; i < sRepList.length; i++) {
+              if (sRepList.elementAt(i).unitPrice == double.parse(item[3]) &&
+                  sRepList.elementAt(i).product.code == item[0]) {
                 flag = true;
                 index = i;
+                //i = sRepList.length + 1 ;
+              } else {
+                //flag = false;
               }
             }
             if (flag) {
