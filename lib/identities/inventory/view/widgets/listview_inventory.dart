@@ -29,7 +29,7 @@ class ListviewInventory extends StatelessWidget {
           padding: const EdgeInsetsDirectional.only(top: 8),
           child: OutlinedButton(
             onPressed: () {
-              showModalBottomSheet(
+              /*showModalBottomSheet(
                 isDismissible: true,
                 isScrollControlled: true,
                 backgroundColor: Colors.transparent,
@@ -53,7 +53,7 @@ class ListviewInventory extends StatelessWidget {
                   context.read<InventoryFormCubit>().changeDiff(value);
                   context.read<InventoryViewCubit>().load(form);
                 }
-              });
+              });*/
             },
             child: Container(
                 width: double.infinity,
