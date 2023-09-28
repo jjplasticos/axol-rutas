@@ -1,5 +1,3 @@
-import '../../product/model/product.dart';
-
 class SaleModel {
   final String uid;
   final String location;
