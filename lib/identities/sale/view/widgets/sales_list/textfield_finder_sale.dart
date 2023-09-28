@@ -1,4 +1,3 @@
-import 'package:axol_rutas/identities/user/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,6 +18,10 @@ class TextFieldFinderSale extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
+        TextButton(
+          onPressed: (){},
+          child: const Text('dd/mm/aaaa'),
+        ),
         Expanded(
           child: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),

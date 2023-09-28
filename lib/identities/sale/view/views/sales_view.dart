@@ -42,10 +42,12 @@ class SalesView extends StatelessWidget {
             preferredSize: const Size.fromHeight(50),
             child: AppBarGlobal(
                 title: TITLE,
-                iconButton: (localVendor.id > -1 && isLoading == false) ? IconButtonReturn(
-                  iconName: 'return',
-                  isLoading: isLoading,
-                ) : null,
+                iconButton: (localVendor.id > -1 && isLoading == false)
+                    ? IconButtonReturn(
+                        iconName: 'return',
+                        isLoading: isLoading,
+                      )
+                    : null,
                 actions: [
                   PopupMenuButton(
                     itemBuilder: (context) => [

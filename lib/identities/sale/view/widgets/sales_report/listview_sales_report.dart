@@ -13,6 +13,7 @@ class ListviewSalesReport extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: ListView.builder(
+          
       shrinkWrap: true,
       itemCount: listData.length,
       itemBuilder: (context, index) {
