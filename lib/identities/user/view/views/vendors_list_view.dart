@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../globals/global_widgets/appbar/appbar_global.dart';
 import '../../../../globals/global_widgets/appbar/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
+import '../../../sale/cubit/sales_cubit/sale_form_cubit.dart';
 import '../../../sale/cubit/sales_cubit/sales_view_cubit.dart';
 import '../../../sale/view/controllers/salesview_controller.dart';
 import '../../../sale/view/views/sales_view.dart';
@@ -58,8 +59,14 @@ class VendorsListView extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     // ignore: prefer_const_constructors
-                                    builder: (context) => BlocProvider(
-                                          create: (_) => SalesViewCubit(),
+                                    builder: (context) => MultiBlocProvider(
+                                          providers: [
+                                            BlocProvider(
+                                                create: (_) =>
+                                                    SalesViewCubit()),
+                                            BlocProvider(
+                                                create: (_) => SaleFormCubit()),
+                                          ],
                                           // ignore: prefer_const_constructors
                                           child: SalesViewController(),
                                         )));

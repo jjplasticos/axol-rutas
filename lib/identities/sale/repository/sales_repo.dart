@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../user/model/user.dart';
+import '../model/sale_form_model.dart';
 import '../model/sale_model.dart';
 import '../model/srep_form_model.dart';
 
@@ -32,23 +33,33 @@ abstract class SalesRepo {
 class DatabaseSales extends SalesRepo {
   final supabase = Supabase.instance.client;
 
-  Future<List<SaleModel>> readSalesList(String filter, UserModel vendor) async {
+  Future<List<SaleModel>> readSalesList(UserModel vendor, SaleFormModel form) async {
     SaleModel sale;
     Map<String, dynamic> element;
     List<SaleModel> newList = [];
     List<SaleModel> filterSales = [];
     final List<SaleModel> finalSales;
-    //final String userName;
     List salesList = [];
     Map<String, dynamic> productsDB;
+    int startTime = 0;
+    int endTime = 32503708800000;
+    DateTime startDate;
+    DateTime endDate;
 
-    /*final pref = await SharedPreferences.getInstance();
-    userName = pref.getString(_user)!;*/
+    startDate =
+        DateTime(form.dateTime.year, form.dateTime.month, form.dateTime.day);
+    endDate = DateTime(
+        form.dateTime.year, form.dateTime.month, form.dateTime.day + 1);
+    startTime = startDate.millisecondsSinceEpoch;
+    endTime = endDate.millisecondsSinceEpoch;
 
     salesList = await supabase
         .from(_table)
         .select<List<Map<String, dynamic>>>()
-        .eq(_vendor, vendor.name);
+        .eq(_vendor, vendor.name)
+        .lte(_time, endTime)
+        .gte(_time, startTime)
+        .order(_time, ascending: true);
 
     if (salesList.isNotEmpty) {
       for (element in salesList) {
@@ -56,35 +67,35 @@ class DatabaseSales extends SalesRepo {
         productsDB = jsonDecode(jsonEncode(element[_product]));
 
         sale = SaleModel(
-            uid: element[_id].toString(),
-            location: element[_locaction].toString(),
-            itemsShppc: productsDB,
-            client: element[_client].toString(),
-            time: element[_time].toString(),
-            totalQuantity: element[_totalQuantity].toString(),
-            totalWeight: element[_totalWeight].toString(),
-            totalPrice: element[_totalPrice].toString(),
-            type: element[_type].toString(),
-            note: element[_note].toString(),
-            );
+          uid: element[_id].toString(),
+          location: element[_locaction].toString(),
+          itemsShppc: productsDB,
+          client: element[_client].toString(),
+          time: element[_time].toString(),
+          totalQuantity: element[_totalQuantity].toString(),
+          totalWeight: element[_totalWeight].toString(),
+          totalPrice: element[_totalPrice].toString(),
+          type: element[_type].toString(),
+          note: element[_note].toString(),
+        );
         newList.add(sale);
       }
     }
     bool isContain = false;
     DateTime time;
     String timeText;
-    if (filter != '') {
+    if (form.finder.text != '') {
       for (var item in newList) {
         time = DateTime.fromMillisecondsSinceEpoch(int.parse(item.time));
         timeText = '${time.day}/${time.month}/${time.year}';
         isContain = false;
         item.itemsShppc.forEach((key, value) {
-          if (value.toString().toLowerCase().contains(filter.toLowerCase())) {
+          if (value.toString().toLowerCase().contains(form.finder.text.toLowerCase())) {
             isContain = true;
           }
         });
-        if (item.client.toLowerCase().contains(filter.toLowerCase()) ||
-            timeText.contains(filter.toLowerCase())) {
+        if (item.client.toLowerCase().contains(form.finder.text.toLowerCase()) ||
+            timeText.contains(form.finder.text.toLowerCase())) {
           isContain = true;
         }
         if (isContain) {
@@ -99,14 +110,15 @@ class DatabaseSales extends SalesRepo {
     return finalSales;
   }
 
-  Future<List<SaleModel>> readListReport(SRepFormModel form, UserModel user) async {
+  Future<List<SaleModel>> readListReport(
+      SRepFormModel form, UserModel user) async {
     SaleModel sale;
     Map<String, dynamic> element;
     List<SaleModel> saleList = [];
     //final String userName;
     List<Map<String, dynamic>> salesDB = [];
     Map<String, dynamic> productsDB;
-    final String finder = form.finder.text;
+    //final String finder = form.finder.text;
     int startTime = 0;
     int endTime = 32503708800000;
     DateTime startDate;
@@ -155,17 +167,17 @@ class DatabaseSales extends SalesRepo {
         //Extracción de lista de productos
         productsDB = jsonDecode(jsonEncode(element[_product]));
         sale = SaleModel(
-            uid: element[_id].toString(),
-            location: element[_locaction].toString(),
-            itemsShppc: productsDB,
-            client: element[_client].toString(),
-            time: element[_time].toString(),
-            totalQuantity: element[_totalQuantity].toString(),
-            totalWeight: element[_totalWeight].toString(),
-            totalPrice: element[_totalPrice].toString(),
-            type: element[_type].toString(),
-            note: element[_note].toString(),
-            );
+          uid: element[_id].toString(),
+          location: element[_locaction].toString(),
+          itemsShppc: productsDB,
+          client: element[_client].toString(),
+          time: element[_time].toString(),
+          totalQuantity: element[_totalQuantity].toString(),
+          totalWeight: element[_totalWeight].toString(),
+          totalPrice: element[_totalPrice].toString(),
+          type: element[_type] ?? '',
+          note: element[_note].toString(),
+        );
         saleList.add(sale);
       }
     }
@@ -201,6 +213,7 @@ class DatabaseSales extends SalesRepo {
       _totalQuantity: sale.totalQuantity,
       _totalWeight: sale.totalWeight,
       _product: sale.itemsShppc,
+      _type: sale.type,
     });
   }
 

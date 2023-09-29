@@ -8,11 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/format.dart';
 import '../../../../../settings/theme.dart';
-import '../../../../shoppingcart/cubit/shoppingcart/shppc_cubit.dart';
-import '../../../../user/model/user.dart';
 import '../../../cubit/sale_detail/sale_detail_cubit.dart';
-import '../../../cubit/sales_list/saleslist_cubit.dart';
-import '../../views/sale_details_view.dart';
+import '../../../cubit/sales_cubit/sales_view_cubit.dart';
+import '../../../model/sale_form_model.dart';
 
 class ListViewSales extends StatelessWidget {
   final List<SaleModel> listData;
@@ -109,7 +107,7 @@ class ListViewSales extends StatelessWidget {
                                       )
                                     //SaleDetailsView(sale: elementList),
                               )).then((value) {
-                            context.read<SalesListCubit>().getSalesList('');
+                            context.read<SalesViewCubit>().load(SaleFormModel.empty());
                           });
                         },
                         icon: const Icon(

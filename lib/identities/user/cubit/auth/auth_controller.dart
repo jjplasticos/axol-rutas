@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../sale/cubit/sales_cubit/sale_form_cubit.dart';
 import '../../../sale/cubit/sales_cubit/sales_view_cubit.dart';
 import '../../../sale/view/controllers/salesview_controller.dart';
 import '../../../sale/view/views/sales_view.dart';
@@ -34,8 +35,11 @@ class AuthController extends StatelessWidget {
             );
           } else if (rol == 'vendor') {
             // ignore: prefer_const_constructors
-            return BlocProvider(
-              create: (_) => SalesViewCubit(),
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => SalesViewCubit()),
+                BlocProvider(create: (_) => SaleFormCubit()),
+              ],
               // ignore: prefer_const_constructors
               child: SalesViewController(),
             );

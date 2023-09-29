@@ -63,6 +63,10 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
         throw Exception('Seleccione un cliente valido.');
       }
 
+      if (shppc.saleType == '') {
+        throw Exception('Tipo de venta no vaido.');
+      }
+
       Position position = await LocationRepo().determinePosition();
 
       //Actualiza el inventario de la base de datos
@@ -92,7 +96,7 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
           totalWeight: shppc.totalWeight.toString(),
           totalPrice: shppc.totalPrice.toString(),
           note: '',
-          type: '',
+          type: shppc.saleType,
           );
       await DatabaseSales().writeSale(sale);
 

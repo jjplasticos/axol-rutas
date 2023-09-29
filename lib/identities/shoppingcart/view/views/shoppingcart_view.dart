@@ -67,7 +67,8 @@ class ShoppingCartView extends StatelessWidget {
             ),
           ),
           //Para version 0.2.0:
-          /*Padding(
+          //Seleccionador de tipo de venta.
+          Padding(
             padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: Container(
               width: double.infinity,
@@ -110,8 +111,7 @@ class ShoppingCartView extends StatelessWidget {
                 ],
               ),
             ),
-          ),*/
-
+          ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
             child: Row(

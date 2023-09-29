@@ -33,6 +33,7 @@ class SalesReportCubit extends Cubit<SalesReportState> {
       UserModel vendor;
       UserModel userModel;
       bool flag;
+      String saleType;
 
       emit(InitialState());
 
@@ -59,6 +60,16 @@ class SalesReportCubit extends Cubit<SalesReportState> {
       //print(productsDB);
       //Por cada item de los shoppingcart de cada centa de la lista...
       for (var saleIn in salesDB) {
+        if (saleIn.type == '') {
+          saleType = 'CONTADO ${userModel.name.toUpperCase()}';
+        } else {
+          if (saleIn.type == 'FACTURA' || saleIn.type == 'REMISION') {
+            saleType =
+                '${saleIn.type}: (${saleIn.client.split(':').first})${saleIn.client.split(':').last}';
+          } else {
+            saleType = saleIn.type;
+          }
+        }
         itemsShppc = saleIn.itemsShppc.values.toList();
         for (var itemIn in itemsShppc) {
           item = itemIn.toString().split('//');
@@ -74,7 +85,8 @@ class SalesReportCubit extends Cubit<SalesReportState> {
             //index = -1;
             for (var i = 0; i < sRepList.length; i++) {
               if (sRepList.elementAt(i).unitPrice == double.parse(item[3]) &&
-                  sRepList.elementAt(i).product.code == item[0]) {
+                  sRepList.elementAt(i).product.code == item[0] &&
+                  sRepList.elementAt(i).saleType == saleIn.type) {
                 flag = true;
                 index = i;
                 //i = sRepList.length + 1 ;
@@ -99,6 +111,7 @@ class SalesReportCubit extends Cubit<SalesReportState> {
                 quantitySold: double.parse(item[1]),
                 unitPrice: double.parse(item[3]),
                 totalPrice: double.parse(item[1]) * double.parse(item[3]),
+                saleType: saleType,
               );
               sRepList.add(saleReport);
             }
@@ -111,6 +124,7 @@ class SalesReportCubit extends Cubit<SalesReportState> {
               quantitySold: double.parse(item[1]),
               unitPrice: double.parse(item[3]),
               totalPrice: double.parse(item[1]) * double.parse(item[3]),
+              saleType: saleType,
             );
             sRepList.add(saleReport);
           }

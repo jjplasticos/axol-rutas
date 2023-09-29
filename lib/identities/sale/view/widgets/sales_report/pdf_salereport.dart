@@ -14,16 +14,20 @@ class PdfSaleReport {
   final pw.TextStyle _body =
       pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.normal);
 
-  Future<Uint8List> pdfSalerep(
-      List<SaleReportModel> sRepList, DateTime date, List<ClassProductModel> classList) async {
+  Future<Uint8List> pdfSalerep(List<SaleReportModel> sRepList, DateTime date,
+      List<ClassProductModel> classList) async {
     final pdf = pw.Document();
     final UserModel localUser = await LocalUser().getLocalUser();
     final UserModel localVendor = await LocalUser().getLocalVendor();
     final UserModel user;
     List<pw.Widget> content = [];
     double total = 0;
+    double subtotal = 0;
     List<int> classNumList = [];
     String className;
+    Map<String, Map<int, dynamic>> typeMap = {};
+    List<SaleReportModel> sRepsInMap = [];
+
     if (localUser.rol == 'admin') {
       user = localVendor;
     } else {
@@ -34,95 +38,123 @@ class PdfSaleReport {
       if (classNumList.contains(sRep.product.class_) == false) {
         classNumList.add(sRep.product.class_);
       }
-    }
-    for (var num in classNumList) {
-      className = classList.where((x) => x.id == num).first.text1;
-      content.add(pw.Divider(thickness: 0.1, borderStyle: pw.BorderStyle.solid));
-      content.add(pw.Row(
-        mainAxisAlignment: pw.MainAxisAlignment.start,
-        children: [
-          pw.Text(className, style: _body),
-        ]
-      ));
-      content.add(pw.SizedBox(height: 4));
-      for (var sRep2 in sRepList) {
-        if (sRep2.product.class_ == num) {
-          content.add(
-            pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-        pw.Expanded(
-          flex: 1,
-          child: pw.Align(
-            alignment: pw.Alignment.centerLeft,
-            child: pw.Text(sRep2.product.code, style: _body),
-          ),
-        ),
-        pw.Expanded(
-          flex: 1,
-          child: pw.Align(
-            alignment: pw.Alignment.centerLeft,
-            child: pw.Text(sRep2.product.packing, style: _body),
-          ),
-        ),
-        pw.Expanded(
-          flex: 1,
-          child: pw.Align(
-            alignment: pw.Alignment.centerLeft,
-            child: pw.Text(sRep2.product.capacity, style: _body),
-          ),
-        ),
-        pw.Expanded(
-          flex: 1,
-          child: pw.Align(
-            alignment: pw.Alignment.centerLeft,
-            child: pw.Text(sRep2.product.measure, style: _body),
-          ),
-        ),
-        pw.Expanded(
-          flex: 1,
-          child: pw.Align(
-            alignment: pw.Alignment.centerLeft,
-            child: pw.Text(sRep2.product.gauge, style: _body),
-          ),
-        ),
-        pw.Expanded(
-          flex: 1,
-          child: pw.Align(
-            alignment: pw.Alignment.centerLeft,
-            child: pw.Text(sRep2.product.pieces, style: _body),
-          ),
-        ),
-        pw.Expanded(
-          flex: 1,
-          child: pw.Center(
-            child: pw.Text(sRep2.quantitySold.toString(), style: _body),
-          ),
-        ),
-        pw.Expanded(
-          flex: 1,
-          child: pw.Align(
-            alignment: pw.Alignment.centerRight,
-            child: pw.Text('\$${FormatNumber.format2dec2(sRep2.unitPrice)}', style: _body),
-          ),
-        ),
-        pw.Expanded(
-          flex: 1,
-          child: pw.Align(
-            alignment: pw.Alignment.centerRight,
-            child: pw.Text('\$${FormatNumber.format2dec2(sRep2.totalPrice)}', style: _body),
-          ),
-        ),
-      ])
-          );
+      /*if (typeList.contains(sRep.saleType) == false) {
+        typeList.add(sRep.saleType);
+      }*/
+      if (typeMap.keys.contains(sRep.saleType) == false) {
+        sRepsInMap = [];
+        subtotal = 0;
+        for (var sRepIn in sRepList) {
+          if (sRepIn.saleType == sRep.saleType) {
+            subtotal = subtotal + sRepIn.totalPrice;
+            sRepsInMap.add(sRepIn);
+          }
         }
+        typeMap[sRep.saleType] = {0: sRepsInMap, 1: subtotal};
       }
     }
-    content.add(pw.Divider(thickness: 0.1, borderStyle: pw.BorderStyle.solid));
-    content.add(pw.Row(
-      mainAxisAlignment:pw.MainAxisAlignment.end,
-      children: [
-        pw.Text('IMPORTE TOTAL: \$${FormatNumber.format2dec2(total)}', style: _body),
-      ]
-    ));
+
+    typeMap.forEach((key, value) {
+      content.add(pw.Text(key));
+      for (var num in classNumList) {
+        //Agrega división de clase de producto
+        className = classList.where((x) => x.id == num).first.text1;
+        content
+            .add(pw.Divider(thickness: 0.1, borderStyle: pw.BorderStyle.solid));
+        content.add(
+            pw.Row(mainAxisAlignment: pw.MainAxisAlignment.start, children: [
+          pw.Text(className, style: _body),
+        ]));
+        content.add(pw.SizedBox(height: 4));
+        for (var sRep2 in value[0]) {
+          if (sRep2.product.class_ == num) {
+            //Agrega producto
+            content.add(pw.Row(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Expanded(
+                    flex: 1,
+                    child: pw.Align(
+                      alignment: pw.Alignment.centerLeft,
+                      child: pw.Text(sRep2.product.code, style: _body),
+                    ),
+                  ),
+                  pw.Expanded(
+                    flex: 1,
+                    child: pw.Align(
+                      alignment: pw.Alignment.centerLeft,
+                      child: pw.Text(sRep2.product.packing, style: _body),
+                    ),
+                  ),
+                  pw.Expanded(
+                    flex: 1,
+                    child: pw.Align(
+                      alignment: pw.Alignment.centerLeft,
+                      child: pw.Text(sRep2.product.capacity, style: _body),
+                    ),
+                  ),
+                  pw.Expanded(
+                    flex: 1,
+                    child: pw.Align(
+                      alignment: pw.Alignment.centerLeft,
+                      child: pw.Text(sRep2.product.measure, style: _body),
+                    ),
+                  ),
+                  pw.Expanded(
+                    flex: 1,
+                    child: pw.Align(
+                      alignment: pw.Alignment.centerLeft,
+                      child: pw.Text(sRep2.product.gauge, style: _body),
+                    ),
+                  ),
+                  pw.Expanded(
+                    flex: 1,
+                    child: pw.Align(
+                      alignment: pw.Alignment.centerLeft,
+                      child: pw.Text(sRep2.product.pieces, style: _body),
+                    ),
+                  ),
+                  pw.Expanded(
+                    flex: 1,
+                    child: pw.Center(
+                      child:
+                          pw.Text(sRep2.quantitySold.toString(), style: _body),
+                    ),
+                  ),
+                  pw.Expanded(
+                    flex: 1,
+                    child: pw.Align(
+                      alignment: pw.Alignment.centerRight,
+                      child: pw.Text(
+                          '\$${FormatNumber.format2dec2(sRep2.unitPrice)}',
+                          style: _body),
+                    ),
+                  ),
+                  pw.Expanded(
+                    flex: 1,
+                    child: pw.Align(
+                      alignment: pw.Alignment.centerRight,
+                      child: pw.Text(
+                          '\$${FormatNumber.format2dec2(sRep2.totalPrice)}',
+                          style: _body),
+                    ),
+                  ),
+                ]));
+          }
+        }
+      }
+      content
+          .add(pw.Divider(thickness: 0.1, borderStyle: pw.BorderStyle.solid));
+      content
+          .add(pw.Row(mainAxisAlignment: pw.MainAxisAlignment.end, children: [
+        pw.Text('IMPORTE: \$${FormatNumber.format2dec2(value[1])}',
+            style: _body),
+      ]));
+      content.add(pw.SizedBox(height: 16));
+    });
+    content.add(pw.Row(mainAxisAlignment: pw.MainAxisAlignment.end, children: [
+      pw.Text('IMPORTE TOTAL: \$${FormatNumber.format2dec2(total)}', style: _body),
+    ]));
 
     //final ByteData bytes = await rootBundle.load('assets/phone.png');
     //final Uint8List byteList = bytes.buffer.asUint8List();
@@ -141,7 +173,7 @@ class PdfSaleReport {
               pw.Divider(
                 thickness: 1,
                 borderStyle: pw.BorderStyle.solid,
-                ),
+              ),
               pw.Row(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
@@ -220,11 +252,9 @@ class PdfSaleReport {
           return [
             pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: content
-                ),
+                children: content),
           ];
-        }
-        ));
+        }));
     return pdf.save();
   }
 }

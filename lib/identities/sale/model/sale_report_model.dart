@@ -6,6 +6,7 @@ class SaleReportModel {
   double quantitySold;
   final double unitPrice;
   double totalPrice;
+  final String saleType;
   
   SaleReportModel({
     required this.product,
@@ -13,6 +14,7 @@ class SaleReportModel {
     required this.quantitySold,
     required this.unitPrice,
     required this.totalPrice,
+    required this.saleType,
   });
 
   static SaleReportModel empty() => SaleReportModel(
@@ -21,5 +23,6 @@ class SaleReportModel {
     quantitySold: 0, 
     unitPrice: 0, 
     totalPrice: 0,
+    saleType: ''
     );
 }

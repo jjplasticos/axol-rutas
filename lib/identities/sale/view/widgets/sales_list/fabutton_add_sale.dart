@@ -6,8 +6,8 @@ import '../../../../shoppingcart/cubit/shoppingcart/shppc_cubit.dart';
 import '../../../../shoppingcart/cubit/shoppingcart/shppc_view_cubit.dart';
 import '../../../../shoppingcart/cubit/shoppingcart_view_cubit/shoppingcart_view_cubit.dart';
 import '../../../../shoppingcart/view/controllers/shoppingcart_controller.dart';
-import '../../../../user/model/user.dart';
-import '../../../cubit/sales_list/saleslist_cubit.dart';
+import '../../../cubit/sales_cubit/sales_view_cubit.dart';
+import '../../../model/sale_form_model.dart';
 
 class FABtnAddSale extends StatelessWidget {
   const FABtnAddSale({super.key});
@@ -28,7 +28,7 @@ class FABtnAddSale extends StatelessWidget {
                 child: const ShoppingcartController(),
               ),
             )).then((value) {
-          context.read<SalesListCubit>().getSalesList('');
+          context.read<SalesViewCubit>().load(SaleFormModel.empty());
         });
       },
       backgroundColor: ColorPalette.primary,

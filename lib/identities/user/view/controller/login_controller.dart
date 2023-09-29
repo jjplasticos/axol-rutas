@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../sale/cubit/sales_cubit/sale_form_cubit.dart';
 import '../../../sale/cubit/sales_cubit/sales_view_cubit.dart';
 import '../../../sale/view/controllers/salesview_controller.dart';
 import '../../../sale/view/views/sales_view.dart';
@@ -28,17 +29,24 @@ class LoginController extends StatelessWidget {
         } else if (state is SuccessState) {
           final rol = state.user.rol;
           if (rol == 'admin') {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => BlocProvider(
-                  create: (_) => VendorsListCubit(),
-                  child: VendorsListController(),
-                  )));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                          create: (_) => VendorsListCubit(),
+                          child: VendorsListController(),
+                        )));
           } else if (rol == 'vendor') {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => BlocProvider(
-                  create: (_) => SalesViewCubit(),
-                  child: SalesViewController(),
-                  )));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MultiBlocProvider(
+                          providers: [
+                            BlocProvider(create: (_) => SalesViewCubit()),
+                            BlocProvider(create: (_) => SaleFormCubit()),
+                          ],
+                          child: SalesViewController(),
+                        )));
           }
         } else if (state is ErrorState) {
           if (kDebugMode) {

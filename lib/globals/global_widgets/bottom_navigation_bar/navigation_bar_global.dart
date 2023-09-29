@@ -7,6 +7,7 @@ import '../../../identities/inventory/cubit/inventory_form_cubit.dart';
 import '../../../identities/inventory/cubit/inventory_view/inventory_view_cubit.dart';
 import '../../../identities/inventory/view/controllers/inventory_controller.dart';
 import '../../../identities/inventory/view/views/inventory_view.dart';
+import '../../../identities/sale/cubit/sales_cubit/sale_form_cubit.dart';
 import '../../../identities/sale/cubit/sales_cubit/sales_view_cubit.dart';
 import '../../../identities/sale/cubit/sales_report/salesreport_cubit.dart';
 import '../../../identities/sale/view/controllers/salesview_controller.dart';
@@ -46,8 +47,11 @@ class NavigationBarGlobal extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       // ignore: prefer_const_constructors
-                      builder: (context) => BlocProvider(
-                            create: (_) => SalesViewCubit(),
+                      builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider(create: (_) => SalesViewCubit()),
+                              BlocProvider(create: (_) => SaleFormCubit()),
+                            ],
                             // ignore: prefer_const_constructors
                             child: SalesViewController(),
                           )));
@@ -66,7 +70,7 @@ class NavigationBarGlobal extends StatelessWidget {
                   builder: (context) => MultiBlocProvider(providers: [
                     BlocProvider(create: (_) => InventoryViewCubit()),
                     BlocProvider(create: (_) => InventoryFormCubit()),
-                  // ignore: prefer_const_constructors
+                    // ignore: prefer_const_constructors
                   ], child: InventoryController()),
                 ),
               );
