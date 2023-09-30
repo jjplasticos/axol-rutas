@@ -85,8 +85,7 @@ class SalesReportCubit extends Cubit<SalesReportState> {
             //index = -1;
             for (var i = 0; i < sRepList.length; i++) {
               if (sRepList.elementAt(i).unitPrice == double.parse(item[3]) &&
-                  sRepList.elementAt(i).product.code == item[0] &&
-                  sRepList.elementAt(i).saleType == saleIn.type) {
+                  sRepList.elementAt(i).product.code == item[0]) {
                 flag = true;
                 index = i;
                 //i = sRepList.length + 1 ;
