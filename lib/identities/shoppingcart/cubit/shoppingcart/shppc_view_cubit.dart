@@ -64,7 +64,7 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
       }
 
       if (shppc.saleType == '') {
-        throw Exception('Tipo de venta no vaido.');
+        throw Exception('Tipo de venta no valido.');
       }
 
       Position position = await LocationRepo().determinePosition();
