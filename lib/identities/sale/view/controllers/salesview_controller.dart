@@ -6,6 +6,7 @@ import '../../cubit/sales_cubit/sale_form_cubit.dart';
 import '../../cubit/sales_cubit/sales_view_cubit.dart';
 import '../../cubit/sales_cubit/sales_view_state.dart';
 import '../../model/sale_form_model.dart';
+import '../../repository/sale_repo_hive.dart';
 import '../views/sales_view.dart';
 
 class SalesViewController extends StatelessWidget {

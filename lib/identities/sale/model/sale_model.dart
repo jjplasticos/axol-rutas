@@ -1,3 +1,6 @@
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
+
 class SaleModel {
   final String uid;
   final String location;
@@ -46,3 +49,9 @@ class SaleModel {
       type: '',
       note: '');
 }
+
+/*@HiveType(typeId: 0)
+class SaleObjHive extends HiveObject{
+  @HiveField(0)
+  String uid;
+}*/

@@ -4,6 +4,7 @@ import '../../../user/model/user.dart';
 import '../../../user/repository/user_repo.dart';
 import '../../model/sale_form_model.dart';
 import '../../model/sale_model.dart';
+import '../../repository/sale_repo_hive.dart';
 import '../../repository/sales_repo.dart';
 import 'sales_view_state.dart';
 
@@ -29,6 +30,9 @@ class SalesViewCubit extends Cubit<SalesViewState> {
       }
       salesList = await DatabaseSales().readSalesList(userModel, form);
       //UserModel localVendor = await LocalUser().getLocalVendor();
+      
+      SaleRepoHive().initBoxes(userModel, form);
+
       emit(LoadedState(user: user, salesList: salesList));
     } catch (e) {
       emit(ErrorState(error: e.toString()));

@@ -10,6 +10,7 @@ import '../../../user/model/user.dart';
 import '../../../user/repository/user_repo.dart';
 import '../../../user/view/pages/auth_page.dart';
 import '../../model/sale_model.dart';
+import '../../repository/sale_repo_hive.dart';
 import '../widgets/sales_list/fabutton_add_sale.dart';
 import '../widgets/sales_list/listview_sales.dart';
 import '../widgets/sales_list/textfield_finder_sale.dart';
@@ -58,8 +59,11 @@ class SalesView extends StatelessWidget {
                       },
                       child: const Text('Logout'),
                     ),
-                    const PopupMenuItem(
+                    PopupMenuItem(
                       child: Text(GlobalConst.version),
+                      onTap: () {
+                        SaleRepoHive().testHive();
+                      },
                     )
                   ],
                 )
