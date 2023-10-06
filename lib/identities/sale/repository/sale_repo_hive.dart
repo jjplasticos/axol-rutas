@@ -7,6 +7,18 @@ import '../model/sale_model.dart';
 import 'sales_repo.dart';
 
 class SaleRepoHive {
+  final String _id = SaleModel.p_id;
+  final String _location = SaleModel.p_location;
+  final String _clientName = SaleModel.p_client;
+  final String _time = SaleModel.p_time;
+  final String _vendor = 'vendor';
+  final String _totalPrice = SaleModel.p_totalPrice;
+  final String _totalQuantity = SaleModel.p_totalQuantity;
+  final String _totalWeight = SaleModel.p_totalWeight;
+  final String _productList = SaleModel.p_itemsShoppc;
+  final String _type = SaleModel.p_type;
+  final String _note = SaleModel.p_note;
+
   void initBoxes(UserModel vendor, SaleFormModel form) async {
     List<SaleModel> salesDB;
 
@@ -16,12 +28,26 @@ class SaleRepoHive {
     print('Length salesDB: ${salesDB.length}');
     await saleBox.clear();
     for (var saleIn in salesDB) {
-      saleBox.put(saleIn.uid, saleIn.uid);
+      saleBox.put(
+        saleIn.uid,
+        {
+          _id: saleIn.uid,
+          _location: saleIn.location,
+          _clientName: saleIn.client,
+          _time: saleIn.time,
+          _totalPrice: saleIn.totalPrice,
+          _totalQuantity: saleIn.totalQuantity,
+          _totalWeight: saleIn.totalWeight,
+          _productList: saleIn.itemsShppc,
+          _type: saleIn.type,
+          _note: saleIn.note
+        },
+      );
     }
-    /*var box = Hive.box('myBox');
-    box.put('name', 'David');
-    var name = box.get('name');
-    print('Name: $name');*/
+  }
+
+  void updateDB(UserModel vendor) async {
+    
   }
 
   void testHive() async {
@@ -36,11 +62,10 @@ class SaleRepoHive {
       print('$i : $value');
       i = i + 1;
     }
-    
   }
 }
 
-class SaleAdapter extends TypeAdapter<SaleModel> {
+/*class SaleAdapter extends TypeAdapter<SaleModel> {
   @override
   final typeId = 1;
 
@@ -73,4 +98,4 @@ class SaleAdapter extends TypeAdapter<SaleModel> {
     writer.write(obj.totalWeight);
     writer.write(obj.type);
   }
-}
+}*/
