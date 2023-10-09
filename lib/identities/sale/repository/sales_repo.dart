@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../user/model/user.dart';
+import '../cubit/sales_cubit/sales_view_cubit.dart';
 import '../model/sale_form_model.dart';
 import '../model/sale_model.dart';
 import '../model/srep_form_model.dart';
@@ -221,5 +222,18 @@ class DatabaseSales extends SalesRepo {
     await supabase.from(_table).delete().eq(_id, id);
   }
 
-  read() {}
+  void initRealTime() async {
+    supabase.channel('public:sales').on(
+      RealtimeListenTypes.postgresChanges,
+      ChannelFilter(
+        event: '*',
+        schema: 'public',
+        table: 'sales',
+      ),
+      (payload, [ref]){
+        print('payload: ${payload.toString()}');
+        SalesViewCubit().load(SaleFormModel.empty());
+      }
+    ).subscribe();
+  }
 }

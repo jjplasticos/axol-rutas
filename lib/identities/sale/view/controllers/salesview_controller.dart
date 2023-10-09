@@ -1,5 +1,9 @@
+import 'dart:js';
+
+import 'package:axol_rutas/views/sales_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../user/model/user.dart';
 import '../../cubit/sales_cubit/sale_form_cubit.dart';
@@ -14,17 +18,17 @@ class SalesViewController extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final supabase = Supabase.instance.client;
     return BlocConsumer<SalesViewCubit, SalesViewState>(
-      bloc: context.read<SalesViewCubit>()..load(SaleFormModel.empty()),
-      listener: (context, state) {
+      bloc: context.read<SalesViewCubit>()..init(SaleFormModel.empty()),
+      listener: (context, state) async {
         if (state is ErrorState) {
           final snackBar = SnackBar(content: Text(state.error));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
-        /*if (state is InitialFormState) {
-          context.read<SaleFormCubit>().changeFinder('', 0);
-          context.read<SaleFormCubit>().changeTime(DateTime.now());
-        }*/
+        if (state is InitialState) {
+          context.read<SalesViewCubit>().load(SaleFormModel.empty());
+        }
       },
       builder: (context, state) {
         if (state is LoadingState) {

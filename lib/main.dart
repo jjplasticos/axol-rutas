@@ -1,8 +1,6 @@
-import 'package:axol_rutas/identities/sale/repository/sale_repo_hive.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'identities/sale/model/sale_model.dart';
 import 'identities/user/view/pages/auth_page.dart';
 
 Future<void> main() async {
@@ -17,7 +15,6 @@ Future<void> main() async {
   await Hive.initFlutter();
   //Hive.registerAdapter(SaleAdapter()); 
   await Hive.openBox('saleBox');
-  
 
   runApp(const MyApp());
 }
