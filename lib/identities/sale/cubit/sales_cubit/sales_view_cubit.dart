@@ -29,10 +29,10 @@ class SalesViewCubit extends Cubit<SalesViewState> {
       } else {
         userModel = user;
       }
-      salesList = await DatabaseSales().readSalesList(userModel, form);
+      salesList = await DatabaseSales().readSalesList(userModel, form, null);
       //UserModel localVendor = await LocalUser().getLocalVendor();
 
-      SaleRepoHive().initBoxes(userModel, form);
+      SaleRepoHive().initBoxes(userModel);
 
       emit(LoadedState(user: user, salesList: salesList));
     } catch (e) {
@@ -46,10 +46,10 @@ class SalesViewCubit extends Cubit<SalesViewState> {
       UserModel localVendor;
       UserModel user;
       UserModel userModel;
-      final supabase = Supabase.instance.client;
+      //final supabase = Supabase.instance.client;
 
       //emit(InitialState());
-      await supabase.removeAllChannels();
+      /*await supabase.removeAllChannels();
       supabase.channel('public:sales').on(
           RealtimeListenTypes.postgresChanges,
           ChannelFilter(
@@ -58,9 +58,9 @@ class SalesViewCubit extends Cubit<SalesViewState> {
             table: 'sales',
           ), (payload, [ref]) {
         print('payload: ${payload.toString()}');
-        emit(InitialState());
-        //context.read<SalesViewCubit>().load(SaleFormModel.empty());
-      }).subscribe();
+        emit(InitialState()); // para refrescar la vista.
+      }).subscribe();*/
+
       emit(LoadingState());
 
       //DatabaseSales().initRealTime();
@@ -71,10 +71,10 @@ class SalesViewCubit extends Cubit<SalesViewState> {
       } else {
         userModel = user;
       }
-      salesList = await DatabaseSales().readSalesList(userModel, form);
+      salesList = await DatabaseSales().readSalesList(userModel, form, null);
       //UserModel localVendor = await LocalUser().getLocalVendor();
 
-      SaleRepoHive().initBoxes(userModel, form);
+      SaleRepoHive().initBoxes(userModel);
 
       emit(LoadedState(user: user, salesList: salesList));
     } catch (e) {

@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../globals/global_widgets/global_models/textfield_model.dart';
 import '../../user/model/user.dart';
 import '../model/sale_form_model.dart';
 import '../model/sale_model.dart';
@@ -19,13 +20,17 @@ class SaleRepoHive {
   final String _type = SaleModel.p_type;
   final String _note = SaleModel.p_note;
 
-  void initBoxes(UserModel vendor, SaleFormModel form) async {
+  void initBoxes(UserModel vendor) async {
     List<SaleModel> salesDB;
+    SaleFormModel formModel = SaleFormModel(
+      finder: TextfieldModel.empty(),
+      dateTime: DateTime.now(),
+    );
 
     var saleBox = Hive.box('saleBox');
 
-    salesDB = await DatabaseSales().readSalesList(vendor, form);
-    print('Length salesDB: ${salesDB.length}');
+    salesDB = await DatabaseSales().readSalesList(vendor, formModel, 30);
+    //print('Length salesDB: ${salesDB.length}');
     await saleBox.clear();
     for (var saleIn in salesDB) {
       saleBox.put(
@@ -47,8 +52,7 @@ class SaleRepoHive {
   }
 
   void updateDB(UserModel vendor) async {
-    
-  }
+  } 
 
   void testHive() async {
     var saleBox = Hive.box('saleBox');
@@ -64,38 +68,3 @@ class SaleRepoHive {
     }
   }
 }
-
-/*class SaleAdapter extends TypeAdapter<SaleModel> {
-  @override
-  final typeId = 1;
-
-  @override
-  SaleModel read(BinaryReader reader) {
-    return SaleModel(
-      uid: reader.read(),
-      client: reader.read(),
-      itemsShppc: reader.read(),
-      location: reader.read(),
-      note: reader.read(),
-      time: reader.read(),
-      totalPrice: reader.read(),
-      totalQuantity: reader.read(),
-      totalWeight: reader.read(),
-      type: reader.read(),
-      );
-  }
-
-  @override
-  void write(BinaryWriter writer, SaleModel obj) {
-    writer.write(obj.uid);
-    writer.write(obj.client);
-    writer.write(obj.itemsShppc);
-    writer.write(obj.location);
-    writer.write(obj.note);
-    writer.write(obj.time);
-    writer.write(obj.totalPrice);
-    writer.write(obj.totalQuantity);
-    writer.write(obj.totalWeight);
-    writer.write(obj.type);
-  }
-}*/

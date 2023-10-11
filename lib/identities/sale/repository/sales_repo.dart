@@ -34,7 +34,8 @@ abstract class SalesRepo {
 class DatabaseSales extends SalesRepo {
   final supabase = Supabase.instance.client;
 
-  Future<List<SaleModel>> readSalesList(UserModel vendor, SaleFormModel form) async {
+  Future<List<SaleModel>> readSalesList(
+      UserModel vendor, SaleFormModel form, int? range) async {
     SaleModel sale;
     Map<String, dynamic> element;
     List<SaleModel> newList = [];
@@ -44,6 +45,8 @@ class DatabaseSales extends SalesRepo {
     Map<String, dynamic> productsDB;
     int startTime = 0;
     int endTime = 32503708800000;
+    const int dayMilli = 86400000;
+    int initTime;
     DateTime startDate;
     DateTime endDate;
 
@@ -54,6 +57,11 @@ class DatabaseSales extends SalesRepo {
     startTime = startDate.millisecondsSinceEpoch;
     endTime = endDate.millisecondsSinceEpoch;
 
+    if (range != null) {
+      initTime = dayMilli * range;
+      startTime = startTime - initTime;
+    }
+    
     salesList = await supabase
         .from(_table)
         .select<List<Map<String, dynamic>>>()
@@ -91,11 +99,16 @@ class DatabaseSales extends SalesRepo {
         timeText = '${time.day}/${time.month}/${time.year}';
         isContain = false;
         item.itemsShppc.forEach((key, value) {
-          if (value.toString().toLowerCase().contains(form.finder.text.toLowerCase())) {
+          if (value
+              .toString()
+              .toLowerCase()
+              .contains(form.finder.text.toLowerCase())) {
             isContain = true;
           }
         });
-        if (item.client.toLowerCase().contains(form.finder.text.toLowerCase()) ||
+        if (item.client
+                .toLowerCase()
+                .contains(form.finder.text.toLowerCase()) ||
             timeText.contains(form.finder.text.toLowerCase())) {
           isContain = true;
         }
@@ -125,9 +138,6 @@ class DatabaseSales extends SalesRepo {
     DateTime startDate;
     DateTime endDate;
 
-    //final pref = await SharedPreferences.getInstance();
-    //userName = pref.getString(_user)!;
-
     if (form.isTime) {
       startDate = DateTime(form.time.year, form.time.month, form.time.day);
       endDate = DateTime(form.time.year, form.time.month, form.time.day + 1);
@@ -141,27 +151,6 @@ class DatabaseSales extends SalesRepo {
         .lte(_time, endTime)
         .gte(_time, startTime)
         .order(_time, ascending: true);
-    /*if (finder != '') {
-      for (var saleIn in salesDB) {
-        final Map<String, dynamic> mapProduct = saleIn[_product];
-        final List listProduct = mapProduct.values.toList();
-        for (var element in listProduct) {
-          if (element.toString().contains(finder) == false) {
-            ///////////////
-          }
-        }
-      }
-    } else {
-      /*salesDB = await supabase
-          .from(_table)
-          .select<List<Map<String, dynamic>>>()
-          .eq(_vendor, userName)
-          //.ilike(_client, '%$finder%')
-          //.ilike('$_product:', '%$finder%')
-          .lte(_time, endTime)
-          .gte(_time, startTime)
-          .order(_time, ascending: true);*/
-    }*/
 
     if (salesDB.isNotEmpty) {
       for (element in salesDB) {
@@ -222,18 +211,22 @@ class DatabaseSales extends SalesRepo {
     await supabase.from(_table).delete().eq(_id, id);
   }
 
-  void initRealTime() async {
-    supabase.channel('public:sales').on(
-      RealtimeListenTypes.postgresChanges,
-      ChannelFilter(
-        event: '*',
-        schema: 'public',
-        table: 'sales',
-      ),
-      (payload, [ref]){
-        print('payload: ${payload.toString()}');
-        SalesViewCubit().load(SaleFormModel.empty());
-      }
-    ).subscribe();
+  Future<void> initRealTime(UserModel user) async {
+    
+    await supabase.removeAllChannels();
+    
+    supabase.channel('public:sync:${user.id}').on(
+        RealtimeListenTypes.postgresChanges,
+        ChannelFilter(
+          event: '*',
+          schema: 'public',
+          table: 'sync',
+        ), (payload, [ref]) {
+          if (int.parse(payload['new']['edited_by'].toString()) != user.id){
+            print('payload: ${payload.toString()}');
+          }
+        //Agregar que hacer los datos recibidos.
+    }).subscribe();
+    print(supabase.getChannels().first.socket.endPointURL);
   }
 }

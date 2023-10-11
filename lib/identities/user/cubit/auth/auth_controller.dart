@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../sale/cubit/sales_cubit/sale_form_cubit.dart';
 import '../../../sale/cubit/sales_cubit/sales_view_cubit.dart';
+import '../../../sale/repository/sale_repo_hive.dart';
+import '../../../sale/repository/sales_repo.dart';
 import '../../../sale/view/controllers/salesview_controller.dart';
 import '../../../sale/view/views/sales_view.dart';
 import '../../view/controller/login_controller.dart';
@@ -28,12 +30,15 @@ class AuthController extends StatelessWidget {
         } else if (state is AuthAuthenticatedState) {
           final rol = state.user.rol;
           if (rol == 'admin') {
+            DatabaseSales().initRealTime(state.user);
             return BlocProvider(
               create: (_) => VendorsListCubit(),
               // ignore: prefer_const_constructors
               child: VendorsListController(),
             );
           } else if (rol == 'vendor') {
+            DatabaseSales().initRealTime(state.user);
+            SaleRepoHive().initBoxes(state.user);
             // ignore: prefer_const_constructors
             return MultiBlocProvider(
               providers: [
