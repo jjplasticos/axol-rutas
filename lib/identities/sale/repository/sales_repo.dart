@@ -23,8 +23,8 @@ abstract class SalesRepo {
   final String _totalWeight = 'total_weight';
   final String _totalPrice = 'total_price';
   final String _vendor = 'vendor';
-  final String _type = SaleModel.p_type;
-  final String _note = SaleModel.p_note;
+  final String _type = SaleModel.pType;
+  final String _note = SaleModel.pNote;
   //----
   //--Datos locales
   final String _user = 'user_name';
@@ -86,6 +86,7 @@ class DatabaseSales extends SalesRepo {
           totalPrice: element[_totalPrice].toString(),
           type: element[_type].toString(),
           note: element[_note].toString(),
+          status: ''
         );
         newList.add(sale);
       }
@@ -167,6 +168,7 @@ class DatabaseSales extends SalesRepo {
           totalPrice: element[_totalPrice].toString(),
           type: element[_type] ?? '',
           note: element[_note].toString(),
+          status: ''
         );
         saleList.add(sale);
       }
@@ -188,7 +190,7 @@ class DatabaseSales extends SalesRepo {
     return isExist;
   }
 
-  Future<void> writeSale(SaleModel sale) async {
+  Future<void> insertSale(SaleModel sale) async {
     final String userName;
     final pref = await SharedPreferences.getInstance();
     userName = pref.getString(_user)!;

@@ -97,8 +97,9 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
           totalPrice: shppc.totalPrice.toString(),
           note: '',
           type: shppc.saleType,
+          status: '',
           );
-      await DatabaseSales().writeSale(sale);
+      await DatabaseSales().insertSale(sale);
 
       //Acualiza sotck
       await Future.forEach(stockInventory.entries, (entry) async {

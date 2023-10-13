@@ -9,17 +9,19 @@ class SaleModel {
   final String totalPrice;
   final String type;
   final String note;
+  final String status;
 
-  static const String p_id = 'id';
-  static const String p_location = 'location';
-  static const String p_itemsShoppc = 'product_list';
-  static const String p_client = 'client_name';
-  static const String p_time = 'time';
-  static const String p_totalQuantity = 'total_quantity';
-  static const String p_totalWeight = 'total_weight';
-  static const String p_totalPrice = 'total_price';
-  static const String p_type = 'type';
-  static const String p_note = 'note';
+  static const String pId = 'id';
+  static const String pLocation = 'location';
+  static const String pItemsShoppc = 'product_list';
+  static const String pClient = 'client_name';
+  static const String pTime = 'time';
+  static const String pTotalQuantity = 'total_quantity';
+  static const String pTotalWeight = 'total_weight';
+  static const String pTotalPrice = 'total_price';
+  static const String pType = 'type';
+  static const String pNote = 'note';
+  static const String pStatus = 'status';
 
   SaleModel({
     required this.uid,
@@ -32,6 +34,7 @@ class SaleModel {
     required this.totalPrice,
     required this.type,
     required this.note,
+    required this.status,
   });
 
   static SaleModel empty() => SaleModel(
@@ -44,11 +47,5 @@ class SaleModel {
       totalWeight: '',
       totalPrice: '',
       type: '',
-      note: '');
+      note: '', status: '');
 }
-
-/*@HiveType(typeId: 0)
-class SaleObjHive extends HiveObject{
-  @HiveField(0)
-  String uid;
-}*/
