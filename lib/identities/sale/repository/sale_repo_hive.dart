@@ -39,7 +39,7 @@ class SaleRepoHive {
     //var saleBox = Hive.box('saleBox');
 
     salesDB = await DatabaseSales().readSalesList(vendor, formModel, 30);
-    //print('Length salesDB: ${salesDB.length}');
+    
     await _saleBox.clear();
     for (var saleIn in salesDB) {
       _saleBox.put(saleIn.uid, _saleToMap(saleIn, _sync));
@@ -54,6 +54,7 @@ class SaleRepoHive {
     );
     List<SaleModel> sales = [];
     SaleModel sale;
+    Map<String, dynamic> map;
 
     for (var element in _saleBox.values) {
       if (element is SaleModel) {
@@ -68,8 +69,21 @@ class SaleRepoHive {
       }
     }
     for (int i = 0; i < _saleBox.length; i++) {
-      sale = _saleBox.getAt(i);
-      if (salesDB.where((y) => y.uid == sale.uid).isEmpty) {
+      map = _saleBox.getAt(i);
+      sale = SaleModel(
+        uid: map[_id],
+        client: map[_clientName],
+        itemsShppc: map[_productList],
+        location: map[_location],
+        note: map[_note],
+        time: map[_time],
+        totalPrice: map[_totalPrice],
+        totalQuantity: map[_totalQuantity],
+        totalWeight: map[_totalWeight],
+        type: map[_type],
+        status: map[_status],
+      );
+      if (salesDB.where((y) => y.uid == sale.uid).isEmpty && sale.status == _sync) {
         _saleBox.deleteAt(i);
       }
     }
@@ -104,6 +118,18 @@ class SaleRepoHive {
       if (sales.elementAt(i).status == _delete) {
         //Elimina en la base de datos
       }
+    }
+  }
+
+  void insert(SaleModel sale) async {
+    if (_saleBox.values.where((x) => x.uid == sale.uid).isEmpty) {
+      _saleBox.add(_saleToMap(sale, _insert));
+    }
+  }
+
+  void printValues() async {
+    for (var element in _saleBox.values) {
+      print(element);
     }
   }
 

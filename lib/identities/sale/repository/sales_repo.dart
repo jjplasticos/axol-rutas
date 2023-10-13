@@ -8,6 +8,7 @@ import '../cubit/sales_cubit/sales_view_cubit.dart';
 import '../model/sale_form_model.dart';
 import '../model/sale_model.dart';
 import '../model/srep_form_model.dart';
+import 'sale_repo_hive.dart';
 
 abstract class SalesRepo {
   //--Base de datos
@@ -217,18 +218,19 @@ class DatabaseSales extends SalesRepo {
     
     await supabase.removeAllChannels();
     
-    supabase.channel('public:sync:${user.id}').on(
+    supabase.channel('public:sales:${user.id}').on(
         RealtimeListenTypes.postgresChanges,
         ChannelFilter(
           event: '*',
           schema: 'public',
-          table: 'sync',
+          table: 'sales',
         ), (payload, [ref]) {
-          if (int.parse(payload['new']['edited_by'].toString()) != user.id){
-            print('payload: ${payload.toString()}');
+          print(payload.toString());
+          if (payload['new']['vendor'].toString() != user.name){
+            SaleRepoHive().synDown(user);
+            print('Entro');
           }
         //Agregar que hacer los datos recibidos.
     }).subscribe();
-    print(supabase.getChannels().first.socket.endPointURL);
   }
 }
