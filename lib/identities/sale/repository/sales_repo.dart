@@ -26,6 +26,7 @@ abstract class SalesRepo {
   final String _vendor = 'vendor';
   final String _type = SaleModel.pType;
   final String _note = SaleModel.pNote;
+  final String _lastEdit = SaleModel.pLastEdit;
   //----
   //--Datos locales
   final String _user = 'user_name';
@@ -87,7 +88,8 @@ class DatabaseSales extends SalesRepo {
           totalPrice: element[_totalPrice].toString(),
           type: element[_type].toString(),
           note: element[_note].toString(),
-          status: ''
+          status: '',
+          lastEdit: element[_lastEdit],
         );
         newList.add(sale);
       }
@@ -169,7 +171,8 @@ class DatabaseSales extends SalesRepo {
           totalPrice: element[_totalPrice].toString(),
           type: element[_type] ?? '',
           note: element[_note].toString(),
-          status: ''
+          status: '',
+          lastEdit: element[_lastEdit],
         );
         saleList.add(sale);
       }
@@ -207,6 +210,7 @@ class DatabaseSales extends SalesRepo {
       _totalWeight: sale.totalWeight,
       _product: sale.itemsShppc,
       _type: sale.type,
+      
     });
   }
 
@@ -224,11 +228,12 @@ class DatabaseSales extends SalesRepo {
           event: '*',
           schema: 'public',
           table: 'sales',
+          filter: 'vendor=eq.${user.name}'
         ), (payload, [ref]) {
           print(payload.toString());
-          if (payload['new']['vendor'].toString() != user.name){
+          if (payload['new']['last_edit'].toString().split(',').first != user.name){
             SaleRepoHive().synDown(user);
-            print('Entro');
+            SaleRepoHive().printValues();
           }
         //Agregar que hacer los datos recibidos.
     }).subscribe();

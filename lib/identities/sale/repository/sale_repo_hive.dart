@@ -20,6 +20,7 @@ class SaleRepoHive {
   final String _type = SaleModel.pType;
   final String _note = SaleModel.pNote;
   final String _status = SaleModel.pStatus;
+  final String _lastEdit = SaleModel.pLastEdit;
 
   //status const
   final String _sync = 'sync';
@@ -66,6 +67,11 @@ class SaleRepoHive {
     for (var saleIn in salesDB) {
       if (sales.where((x) => x.uid == saleIn.uid).isEmpty) {
         _saleBox.put(saleIn.uid, _saleToMap(saleIn, _sync));
+      } else {
+        for (int i = 0; i < _saleBox.length; i++) {
+          if (_saleBox.getAt(i)[_lastEdit].toString().split(',').last)
+           _saleBox.putAt(i, value)
+        }
       }
     }
     for (int i = 0; i < _saleBox.length; i++) {
@@ -82,6 +88,7 @@ class SaleRepoHive {
         totalWeight: map[_totalWeight],
         type: map[_type],
         status: map[_status],
+        lastEdit: map[_lastEdit],
       );
       if (salesDB.where((y) => y.uid == sale.uid).isEmpty && sale.status == _sync) {
         _saleBox.deleteAt(i);

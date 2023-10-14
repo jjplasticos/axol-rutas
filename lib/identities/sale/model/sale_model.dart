@@ -10,6 +10,7 @@ class SaleModel {
   final String type;
   final String note;
   final String status;
+  final String lastEdit;
 
   static const String pId = 'id';
   static const String pLocation = 'location';
@@ -22,6 +23,7 @@ class SaleModel {
   static const String pType = 'type';
   static const String pNote = 'note';
   static const String pStatus = 'status';
+  static const String pLastEdit = 'last_edit';
 
   SaleModel({
     required this.uid,
@@ -35,6 +37,7 @@ class SaleModel {
     required this.type,
     required this.note,
     required this.status,
+    required this.lastEdit,
   });
 
   static SaleModel empty() => SaleModel(
@@ -47,5 +50,8 @@ class SaleModel {
       totalWeight: '',
       totalPrice: '',
       type: '',
-      note: '', status: '');
+      note: '', 
+      status: '',
+      lastEdit: '',
+      );
 }
