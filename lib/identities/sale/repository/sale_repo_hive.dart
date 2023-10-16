@@ -40,7 +40,7 @@ class SaleRepoHive {
     //var saleBox = Hive.box('saleBox');
 
     salesDB = await DatabaseSales().readSalesList(vendor, formModel, 30);
-    
+
     await _saleBox.clear();
     for (var saleIn in salesDB) {
       _saleBox.put(saleIn.uid, _saleToMap(saleIn, _sync));
@@ -56,7 +56,9 @@ class SaleRepoHive {
     List<SaleModel> sales = [];
     SaleModel sale;
     Map<String, dynamic> map;
-
+    int? timeEditLocal;
+    int? timeEditDb;
+    
     for (var element in _saleBox.values) {
       if (element is SaleModel) {
         sales.add(element);
@@ -64,16 +66,32 @@ class SaleRepoHive {
     }
     salesDB = await DatabaseSales().readSalesList(vendor, formModel, 30);
 
+    //Por cada elemento de la lista de ventas tomada de la base de datos
+    //compara con cada elemento de las ventas en la base de datos local.
     for (var saleIn in salesDB) {
+      //Si la id del elemento de saleDB no existe en la base local,
+      //la inserta en la base de datos local.
       if (sales.where((x) => x.uid == saleIn.uid).isEmpty) {
         _saleBox.put(saleIn.uid, _saleToMap(saleIn, _sync));
       } else {
+        //De lo contrario, si la id existe, verifica que no se haya modificado
+        //comparando sus ultimos tiempos de edicion. Si el tiempo de la base 
+        //de datos local es menor al de la nube, actualiza la venta.
         for (int i = 0; i < _saleBox.length; i++) {
-          if (_saleBox.getAt(i)[_lastEdit].toString().split(',').last)
-           _saleBox.putAt(i, value)
+          timeEditDb = int.tryParse(saleIn.lastEdit.split(',').last);
+          timeEditLocal = int.tryParse(
+              _saleBox.getAt(i)[_lastEdit].toString().split(',').last);
+          if (timeEditDb != null && timeEditLocal != null) {
+            if (timeEditDb > timeEditLocal) {
+              _saleBox.putAt(i, _saleToMap(saleIn, _sync));
+            }
+          }
         }
       }
     }
+    //Compara cada venta de la base local con las ventas de la nube,
+    //alguna venta no existe en la nube, la elimina de la base de datos
+    //lcoal.
     for (int i = 0; i < _saleBox.length; i++) {
       map = _saleBox.getAt(i);
       sale = SaleModel(
@@ -90,7 +108,8 @@ class SaleRepoHive {
         status: map[_status],
         lastEdit: map[_lastEdit],
       );
-      if (salesDB.where((y) => y.uid == sale.uid).isEmpty && sale.status == _sync) {
+      if (salesDB.where((y) => y.uid == sale.uid).isEmpty &&
+          sale.status == _sync) {
         _saleBox.deleteAt(i);
       }
     }
