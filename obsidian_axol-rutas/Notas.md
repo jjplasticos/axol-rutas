@@ -1,3 +1,7 @@
+---
+cssclasses: 
+cehckbox: false
+---
 - [ ] Cambiar el atributo location de sale por un objeto ^091023a
 - [ ] Cambiar el atributo de shoppingcart de sale por un objeto ^091023b
 - [ ] Cambiar atributo cliente de sale por un objeto ^091023c
@@ -6,4 +10,5 @@
 - [ ] Cambiar atributo de time de sales de la base de datos a int ^091023f
 - [ ] Cambiar atributo stock de inventory por double ^091023g
 
- 
+
+
