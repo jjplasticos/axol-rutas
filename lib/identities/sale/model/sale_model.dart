@@ -3,7 +3,7 @@ class SaleModel {
   final String location;
   final Map<String, dynamic> itemsShppc;
   final String client;
-  final String time;
+  final int time;
   final String totalQuantity;
   final String totalWeight;
   final String totalPrice;
@@ -45,7 +45,7 @@ class SaleModel {
       location: '',
       itemsShppc: {},
       client: '',
-      time: '',
+      time: 0,
       totalQuantity: '',
       totalWeight: '',
       totalPrice: '',

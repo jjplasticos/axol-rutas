@@ -82,7 +82,7 @@ class DatabaseSales extends SalesRepo {
           location: element[_locaction].toString(),
           itemsShppc: productsDB,
           client: element[_client].toString(),
-          time: element[_time].toString(),
+          time: int.parse(element[_time]),
           totalQuantity: element[_totalQuantity].toString(),
           totalWeight: element[_totalWeight].toString(),
           totalPrice: element[_totalPrice].toString(),
@@ -99,7 +99,7 @@ class DatabaseSales extends SalesRepo {
     String timeText;
     if (form.finder.text != '') {
       for (var item in newList) {
-        time = DateTime.fromMillisecondsSinceEpoch(int.parse(item.time));
+        time = DateTime.fromMillisecondsSinceEpoch(item.time);
         timeText = '${time.day}/${time.month}/${time.year}';
         isContain = false;
         item.itemsShppc.forEach((key, value) {
@@ -165,7 +165,7 @@ class DatabaseSales extends SalesRepo {
           location: element[_locaction].toString(),
           itemsShppc: productsDB,
           client: element[_client].toString(),
-          time: element[_time].toString(),
+          time: int.parse(element[_time]),
           totalQuantity: element[_totalQuantity].toString(),
           totalWeight: element[_totalWeight].toString(),
           totalPrice: element[_totalPrice].toString(),
@@ -202,7 +202,7 @@ class DatabaseSales extends SalesRepo {
     await supabase.from(_table).insert({
       _id: sale.uid,
       _client: sale.client,
-      _time: sale.time,
+      _time: sale.time.toString(),
       _locaction: sale.location,
       _vendor: userName,
       _totalPrice: sale.totalPrice,

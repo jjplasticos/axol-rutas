@@ -5,7 +5,7 @@ import '../../../../../settings/theme.dart';
 import 'link_location.dart';
 
 class LabelsSaleDetails extends StatelessWidget {
-  final String dateTime;
+  final int dateTime;
   final String uid;
   final String location;
   final String custumer;
@@ -19,7 +19,7 @@ class LabelsSaleDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateTime time = DateTime.fromMillisecondsSinceEpoch(int.parse(dateTime));
+    final DateTime time = DateTime.fromMillisecondsSinceEpoch(dateTime);
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [

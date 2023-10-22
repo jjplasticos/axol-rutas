@@ -14,8 +14,21 @@
               "type": "empty",
               "state": {}
             }
+          },
+          {
+            "id": "6ec3f03d2170b7c1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Axol rutas.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -81,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "SaleRepoHive.md",
+                "file": "Axol rutas.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -98,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "SaleRepoHive.md",
+                "file": "Axol rutas.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -121,7 +134,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "SaleRepoHive.md"
+                "file": "Axol rutas.md"
               }
             }
           }
@@ -142,8 +155,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "e6d86209910c55a7",
+  "active": "6ec3f03d2170b7c1",
   "lastOpenFiles": [
+    "Axol rutas.md",
     "Untitled.md",
     "SaleRepoHive.md",
     "SaleModel.md",
