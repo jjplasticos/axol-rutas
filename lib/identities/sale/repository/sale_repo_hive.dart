@@ -153,34 +153,44 @@ class SaleRepoHive {
     }
   }
 
-  Future<List<SaleModel>> fetchSaleList(DateTime date) async {
+  Future<List<SaleModel>> fetchSaleList(SaleFormModel form) async {
     List<SaleModel> saleList = [];
     SaleModel sale;
     int startTime;
     int endTime;
     const int dayMilli = 86400000;
+    bool isContain = false;
+    Map<String,dynamic> map;
 
-    startTime = date.millisecondsSinceEpoch;
+    startTime = form.dateTime.millisecondsSinceEpoch;
     endTime = startTime + dayMilli;
 
     for (var element in _saleBox.values) {
-      if (element is Map<String, dynamic>) {
-        if (element[_time] > startTime && element[_time] < endTime) {
-          sale = SaleModel(
-            uid: element[_id],
-            location: element[_location],
-            itemsShppc: element[_productList],
-            client: element[_clientName],
-            time: element[_time],
-            totalQuantity: element[_totalQuantity].toString(),
-            totalWeight: element[_totalWeight].toString(),
-            totalPrice: element[_totalPrice].toString(),
-            type: element[_type],
-            note: element[_note],
-            status: element[_status],
-            lastEdit: element[_lastEdit].toString(),
-          );
+      isContain = false;
+      map = element;
+      sale = _mapToSale(map);
+      if (element is Map<String, dynamic> &&
+          element[_time] > startTime &&
+          element[_time] < endTime) {
+        if (form.finder.text == '') {
           saleList.add(sale);
+        } else {
+          element[_productList].itemsShppc.forEach((key, value) {
+            if (value
+                .toString()
+                .toLowerCase()
+                .contains(form.finder.text.toLowerCase())) {
+              isContain = true;
+              saleList.add(sale);
+            }
+          });
+          if (element[_clientName]
+              .toLowerCase()
+              .contains(form.finder.text.toLowerCase())) {
+            isContain = true;
+            saleList.add(sale);
+          }
+          if (isContain) {}
         }
       }
     }
@@ -188,7 +198,6 @@ class SaleRepoHive {
     return saleList;
 
     //Falta ponerlo en los metodos que lo usarn para poder probarlo.
-  
   }
 
   void printValues() async {
@@ -227,5 +236,23 @@ class SaleRepoHive {
       _lastEdit: sale.lastEdit,
     };
     return map;
+  }
+
+  SaleModel _mapToSale(Map<String, dynamic> map) {
+    SaleModel sale = SaleModel(
+      uid: map[_id],
+      location: map[_location],
+      itemsShppc: map[_productList],
+      client: map[_clientName],
+      time: map[_time],
+      totalQuantity: map[_totalQuantity].toString(),
+      totalWeight: map[_totalWeight].toString(),
+      totalPrice: map[_totalPrice].toString(),
+      type: map[_type],
+      note: map[_note],
+      status: map[_status],
+      lastEdit: map[_lastEdit].toString(),
+    );
+    return sale;
   }
 }

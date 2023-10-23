@@ -29,8 +29,8 @@ class SalesViewCubit extends Cubit<SalesViewState> {
       } else {
         userModel = user;
       }
-      salesList = await DatabaseSales().readSalesList(userModel, form, null);
-      //UserModel localVendor = await LocalUser().getLocalVendor();
+      salesList = await SaleRepoHive().fetchSaleList(form);
+      //salesList = await DatabaseSales().readSalesList(userModel, form, null);
 
       SaleRepoHive().initBoxes(userModel);
 
@@ -71,8 +71,8 @@ class SalesViewCubit extends Cubit<SalesViewState> {
       } else {
         userModel = user;
       }
-      salesList = await DatabaseSales().readSalesList(userModel, form, null);
-      //UserModel localVendor = await LocalUser().getLocalVendor();
+      salesList = await SaleRepoHive().fetchSaleList(form);
+      //salesList = await DatabaseSales().readSalesList(userModel, form, null);
 
       SaleRepoHive().initBoxes(userModel);
 
