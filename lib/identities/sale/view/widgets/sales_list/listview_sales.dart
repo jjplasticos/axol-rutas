@@ -29,7 +29,7 @@ class ListViewSales extends StatelessWidget {
       itemBuilder: ((context, index) {
         final elementList = listData[index];
         final DateTime time =
-            DateTime.fromMillisecondsSinceEpoch(int.parse(elementList.time));
+            DateTime.fromMillisecondsSinceEpoch(elementList.time);
         return Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
           child: Container(

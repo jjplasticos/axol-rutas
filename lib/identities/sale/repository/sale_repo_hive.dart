@@ -58,7 +58,7 @@ class SaleRepoHive {
     Map<String, dynamic> map;
     int? timeEditLocal;
     int? timeEditDb;
-    
+
     for (var element in _saleBox.values) {
       if (element is SaleModel) {
         sales.add(element);
@@ -75,7 +75,7 @@ class SaleRepoHive {
         _saleBox.put(saleIn.uid, _saleToMap(saleIn, _sync));
       } else {
         //De lo contrario, si la id existe, verifica que no se haya modificado
-        //comparando sus ultimos tiempos de edicion. Si el tiempo de la base 
+        //comparando sus ultimos tiempos de edicion. Si el tiempo de la base
         //de datos local es menor al de la nube, actualiza la venta.
         for (int i = 0; i < _saleBox.length; i++) {
           timeEditDb = int.tryParse(saleIn.lastEdit.split(',').last);
@@ -90,7 +90,7 @@ class SaleRepoHive {
       }
     }
     //Compara cada venta de la base local con las ventas de la nube,
-    //alguna venta no existe en la nube, la elimina de la base de datos
+    //si alguna venta no existe en la nube, la elimina de la base de datos
     //lcoal.
     for (int i = 0; i < _saleBox.length; i++) {
       map = _saleBox.getAt(i);
@@ -153,6 +153,44 @@ class SaleRepoHive {
     }
   }
 
+  Future<List<SaleModel>> fetchSaleList(DateTime date) async {
+    List<SaleModel> saleList = [];
+    SaleModel sale;
+    int startTime;
+    int endTime;
+    const int dayMilli = 86400000;
+
+    startTime = date.millisecondsSinceEpoch;
+    endTime = startTime + dayMilli;
+
+    for (var element in _saleBox.values) {
+      if (element is Map<String, dynamic>) {
+        if (element[_time] > startTime && element[_time] < endTime) {
+          sale = SaleModel(
+            uid: element[_id],
+            location: element[_location],
+            itemsShppc: element[_productList],
+            client: element[_clientName],
+            time: element[_time],
+            totalQuantity: element[_totalQuantity].toString(),
+            totalWeight: element[_totalWeight].toString(),
+            totalPrice: element[_totalPrice].toString(),
+            type: element[_type],
+            note: element[_note],
+            status: element[_status],
+            lastEdit: element[_lastEdit].toString(),
+          );
+          saleList.add(sale);
+        }
+      }
+    }
+
+    return saleList;
+
+    //Falta ponerlo en los metodos que lo usarn para poder probarlo.
+  
+  }
+
   void printValues() async {
     for (var element in _saleBox.values) {
       print(element);
@@ -186,6 +224,7 @@ class SaleRepoHive {
       _type: sale.type,
       _note: sale.note,
       _status: status,
+      _lastEdit: sale.lastEdit,
     };
     return map;
   }

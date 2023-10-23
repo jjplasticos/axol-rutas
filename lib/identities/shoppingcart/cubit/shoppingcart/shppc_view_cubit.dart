@@ -87,18 +87,19 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
         i++;
       }
       SaleModel sale = SaleModel(
-          uid: idSale,
-          location: '${position.latitude},${position.longitude}',
-          itemsShppc: products,
-          client: '${shppc.routeCustomer.id}: ${shppc.routeCustomer.name}',
-          time: shppc.dateTime.millisecondsSinceEpoch.toString(),
-          totalQuantity: shppc.totalQuantity.toString(),
-          totalWeight: shppc.totalWeight.toString(),
-          totalPrice: shppc.totalPrice.toString(),
-          note: '',
-          type: shppc.saleType,
-          status: '',
-          );
+        uid: idSale,
+        location: '${position.latitude},${position.longitude}',
+        itemsShppc: products,
+        client: '${shppc.routeCustomer.id}: ${shppc.routeCustomer.name}',
+        time: shppc.dateTime.millisecondsSinceEpoch,
+        totalQuantity: shppc.totalQuantity.toString(),
+        totalWeight: shppc.totalWeight.toString(),
+        totalPrice: shppc.totalPrice.toString(),
+        note: '',
+        type: shppc.saleType,
+        status: '',
+        lastEdit: '',
+      );
       await DatabaseSales().insertSale(sale);
 
       //Acualiza sotck

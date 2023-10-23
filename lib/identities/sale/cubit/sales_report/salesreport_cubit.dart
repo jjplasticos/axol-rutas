@@ -106,7 +106,7 @@ class SalesReportCubit extends Cubit<SalesReportState> {
               saleReport = SaleReportModel(
                 product: product,
                 dateTime:
-                    DateTime.fromMillisecondsSinceEpoch(int.parse(saleIn.time)),
+                    DateTime.fromMillisecondsSinceEpoch(saleIn.time),
                 quantitySold: double.parse(item[1]),
                 unitPrice: double.parse(item[3]),
                 totalPrice: double.parse(item[1]) * double.parse(item[3]),
@@ -119,7 +119,7 @@ class SalesReportCubit extends Cubit<SalesReportState> {
             saleReport = SaleReportModel(
               product: product,
               dateTime:
-                  DateTime.fromMillisecondsSinceEpoch(int.parse(saleIn.time)),
+                  DateTime.fromMillisecondsSinceEpoch(saleIn.time),
               quantitySold: double.parse(item[1]),
               unitPrice: double.parse(item[3]),
               totalPrice: double.parse(item[1]) * double.parse(item[3]),
