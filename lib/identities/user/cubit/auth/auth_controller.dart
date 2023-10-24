@@ -30,7 +30,8 @@ class AuthController extends StatelessWidget {
         } else if (state is AuthAuthenticatedState) {
           final rol = state.user.rol;
           if (rol == 'admin') {
-            DatabaseSales().initRealTime(state.user);
+            //DatabaseSales().initRealTime(state.user);
+            //SaleRepoHive().initBoxes(state.user);
             return BlocProvider(
               create: (_) => VendorsListCubit(),
               // ignore: prefer_const_constructors

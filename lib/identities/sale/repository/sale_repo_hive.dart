@@ -159,45 +159,48 @@ class SaleRepoHive {
     int startTime;
     int endTime;
     const int dayMilli = 86400000;
-    bool isContain = false;
     Map<String,dynamic> map;
 
+    //Pasa fecha DateTime a milisegundos.
     startTime = form.dateTime.millisecondsSinceEpoch;
     endTime = startTime + dayMilli;
 
+    //Por cada elemento de los valores de la base de datos local
+    //compara si es un map y está entre los rangos de timepo establecidos
+    //para el filtro de fecha. Si es así, verifica si el buscador esta vacío,
+    // y de ser así agrega el elemenot a la lista; de lo contrario, verifica
+    //antes que concuerde con los filtros del buscador para agregar el elemento
+    //a la lista  que retornaa.
     for (var element in _saleBox.values) {
-      isContain = false;
       map = element;
       sale = _mapToSale(map);
       if (element is Map<String, dynamic> &&
           element[_time] > startTime &&
           element[_time] < endTime) {
+            //print('flag1');
         if (form.finder.text == '') {
           saleList.add(sale);
+          //print('falg2');
         } else {
+          //print('flag3');
           element[_productList].itemsShppc.forEach((key, value) {
             if (value
                 .toString()
                 .toLowerCase()
                 .contains(form.finder.text.toLowerCase())) {
-              isContain = true;
               saleList.add(sale);
             }
           });
           if (element[_clientName]
               .toLowerCase()
               .contains(form.finder.text.toLowerCase())) {
-            isContain = true;
             saleList.add(sale);
           }
-          if (isContain) {}
         }
       }
     }
 
     return saleList;
-
-    //Falta ponerlo en los metodos que lo usarn para poder probarlo.
   }
 
   void printValues() async {
