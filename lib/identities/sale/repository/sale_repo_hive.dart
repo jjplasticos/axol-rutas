@@ -47,7 +47,7 @@ class SaleRepoHive {
     }
   }
 
-  void synDown(UserModel vendor) async {
+  void synDown(UserModel vendor) async {  
     List<SaleModel> salesDB;
     SaleFormModel formModel = SaleFormModel(
       finder: TextfieldModel.empty(),
@@ -60,10 +60,11 @@ class SaleRepoHive {
     int? timeEditDb;
 
     for (var element in _saleBox.values) {
-      if (element is SaleModel) {
-        sales.add(element);
+      if (element is Map<String,dynamic>) {
+        sales.add(_mapToSale(element));
       }
     }
+    
     salesDB = await DatabaseSales().readSalesList(vendor, formModel, 30);
 
     //Por cada elemento de la lista de ventas tomada de la base de datos
@@ -89,6 +90,7 @@ class SaleRepoHive {
         }
       }
     }
+
     //Compara cada venta de la base local con las ventas de la nube,
     //si alguna venta no existe en la nube, la elimina de la base de datos
     //lcoal.
@@ -121,10 +123,11 @@ class SaleRepoHive {
     SaleModel sale;
 
     for (var element in _saleBox.values) {
-      if (element is SaleModel) {
-        sales.add(element);
+      if (element is Map<String,dynamic>) {
+        sales.add(_mapToSale(element));
       }
     }
+    
     for (int i = 0; i < sales.length; i++) {
       sale = sales.elementAt(i);
       if (sale.status == _update) {
