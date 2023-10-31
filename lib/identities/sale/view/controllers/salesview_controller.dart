@@ -20,7 +20,7 @@ class SalesViewController extends StatelessWidget {
   Widget build(BuildContext context) {
     //final supabase = Supabase.instance.client;
     return BlocConsumer<SalesViewCubit, SalesViewState>(
-      bloc: context.read<SalesViewCubit>()..init(SaleFormModel.empty()),
+      bloc: context.read<SalesViewCubit>()..load(SaleFormModel.empty()),
       listener: (context, state) async {
         if (state is ErrorState) {
           final snackBar = SnackBar(content: Text(state.error));

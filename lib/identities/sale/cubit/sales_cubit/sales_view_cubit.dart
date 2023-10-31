@@ -30,7 +30,7 @@ class SalesViewCubit extends Cubit<SalesViewState> {
       salesList = await SaleRepoHive().fetchSaleList(form);
       //salesList = await DatabaseSales().readSalesList(userModel, form, null);
 
-      SaleRepoHive().initBoxes(userModel);
+      //SaleRepoHive().initBoxes(userModel);
       
       emit(LoadedState(user: user, salesList: salesList));
     } catch (e) {
@@ -57,7 +57,7 @@ class SalesViewCubit extends Cubit<SalesViewState> {
       salesList = await SaleRepoHive().fetchSaleList(form);
       //salesList = await DatabaseSales().readSalesList(userModel, form, null);
 
-      SaleRepoHive().initBoxes(userModel);
+      //SaleRepoHive().initBoxes(userModel);
       emit(LoadedState(user: user, salesList: salesList));
     } catch (e) {
       emit(ErrorState(error: e.toString()));

@@ -230,9 +230,9 @@ class DatabaseSales extends SalesRepo {
           table: 'sales',
           filter: 'vendor=eq.${user.name}'
         ), (payload, [ref]) {
-          //print('payload: $payload');
+          print('payload: $payload');
           if (payload['new']['last_edit'].toString().split(',').first != user.name){
-            SaleRepoHive().synDown(user);
+            SaleRepoHive().syncDown(user);
             //SaleRepoHive().printValues();
           }
         //Agregar que hacer los datos recibidos.

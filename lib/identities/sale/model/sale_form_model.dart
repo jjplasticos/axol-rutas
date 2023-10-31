@@ -11,6 +11,6 @@ class SaleFormModel {
 
   static SaleFormModel empty() => SaleFormModel(
         finder: TextfieldModel.empty(),
-        dateTime: DateTime.now(),
+        dateTime: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
       );
 }

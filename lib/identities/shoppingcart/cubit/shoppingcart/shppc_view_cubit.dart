@@ -7,6 +7,7 @@ import '../../../inventory/repository/inventory_repo.dart';
 import '../../../location/repository/location_repo.dart';
 import '../../../sale/model/sale_model.dart';
 import '../../../sale/model/sale_type_model.dart';
+import '../../../sale/repository/sale_repo_hive.dart';
 import '../../../sale/repository/sale_type_repo.dart';
 import '../../../sale/repository/sales_repo.dart';
 import '../../../user/model/user.dart';
@@ -100,7 +101,8 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
         status: '',
         lastEdit: '',
       );
-      await DatabaseSales().insertSale(sale);
+      await SaleRepoHive().insert(sale);
+      //await DatabaseSales().insertSale(sale); //Cambiar a Hive 
 
       //Acualiza sotck
       await Future.forEach(stockInventory.entries, (entry) async {

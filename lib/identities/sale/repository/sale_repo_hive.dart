@@ -30,14 +30,9 @@ class SaleRepoHive {
 
   final _saleBox = Hive.box('saleBox');
 
-  void initBoxes(UserModel vendor) async {
+  void initBoxes(UserModel vendor) async {  
     List<SaleModel> salesDB;
-    SaleFormModel formModel = SaleFormModel(
-      finder: TextfieldModel.empty(),
-      dateTime: DateTime.now(),
-    );
-
-    //var saleBox = Hive.box('saleBox');
+    SaleFormModel formModel = SaleFormModel.empty();
 
     salesDB = await DatabaseSales().readSalesList(vendor, formModel, 30);
 
@@ -47,7 +42,7 @@ class SaleRepoHive {
     }
   }
 
-  void synDown(UserModel vendor) async {  
+  void syncDown(UserModel vendor) async {  
     List<SaleModel> salesDB;
     SaleFormModel formModel = SaleFormModel(
       finder: TextfieldModel.empty(),
@@ -150,8 +145,8 @@ class SaleRepoHive {
     }
   }
 
-  void insert(SaleModel sale) async {
-    if (_saleBox.values.where((x) => x.uid == sale.uid).isEmpty) {
+  Future<void> insert(SaleModel sale) async {
+    if (_saleBox.values.where((x) => x[_id] == sale.uid).isEmpty) {
       _saleBox.add(_saleToMap(sale, _insert));
     }
   }
@@ -178,12 +173,12 @@ class SaleRepoHive {
       map = element;
       sale = _mapToSale(map);
       if (element is Map<String, dynamic> &&
-          element[_time] > startTime &&
-          element[_time] < endTime) {
+          element[_time] >= startTime &&
+          element[_time] <= endTime) {
             //print('flag1');
         if (form.finder.text == '') {
           saleList.add(sale);
-          //print('falg2');
+          print('falg2');
         } else {
           //print('flag3');
           element[_productList].itemsShppc.forEach((key, value) {
@@ -202,11 +197,13 @@ class SaleRepoHive {
         }
       }
     }
-
+    print(saleList.length);
+    printValues();
     return saleList;
   }
 
   void printValues() async {
+    print('Tamaño de _saleBox: ${_saleBox.length}');
     for (var element in _saleBox.values) {
       print(element);
     }
