@@ -40,7 +40,8 @@ class LoginController extends StatelessWidget {
                         )));
           } else if (rol == 'vendor') {
             DatabaseSales().initRealTime(state.user);
-            SaleRepoHive().initBoxes(state.user);
+            SaleRepoHive().syncDown(state.user);
+            //SaleRepoHive().adminInitBox(state.user);
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(

@@ -13,8 +13,14 @@ Future<void> main() async {
   );
 
   await Hive.initFlutter();
-  //Hive.registerAdapter(SaleAdapter()); 
-  await Hive.openBox('saleBox');
+
+  if (await Hive.boxExists('saleBox') == true) {
+    if (Hive.isBoxOpen('saleBox') == false) {
+      await Hive.openBox('saleBox');
+    }
+  } else {
+    await Hive.openBox('saleBox');
+  }
 
   runApp(const MyApp());
 }

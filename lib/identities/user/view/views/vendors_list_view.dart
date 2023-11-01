@@ -58,7 +58,7 @@ class VendorsListView extends StatelessWidget {
                           if (isLoading == false) {
                             LocalUser().setLocalVendor(vendor.name, vendor.id);
                             DatabaseSales().initRealTime(vendor);
-                            SaleRepoHive().initBoxes(vendor);
+                            SaleRepoHive().adminInitBox(vendor);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

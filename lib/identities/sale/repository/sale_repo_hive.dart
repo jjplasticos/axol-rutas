@@ -30,7 +30,7 @@ class SaleRepoHive {
 
   final _saleBox = Hive.box('saleBox');
 
-  void initBoxes(UserModel vendor) async {  
+  void adminInitBox(UserModel vendor) async {
     List<SaleModel> salesDB;
     SaleFormModel formModel = SaleFormModel.empty();
 
@@ -42,24 +42,32 @@ class SaleRepoHive {
     }
   }
 
-  void syncDown(UserModel vendor) async {  
+  void syncDown(UserModel vendor) async {
     List<SaleModel> salesDB;
-    SaleFormModel formModel = SaleFormModel(
-      finder: TextfieldModel.empty(),
-      dateTime: DateTime.now(),
-    );
+    SaleFormModel formModel = SaleFormModel.empty();
     List<SaleModel> sales = [];
     SaleModel sale;
-    Map<String, dynamic> map;
+    Map<String, dynamic> map = {};
+    Map<String, dynamic> subMapStr;
+    Map<dynamic, dynamic> subMapDyn;
+    List<Map<String, dynamic>> mapsList = [];
     int? timeEditLocal;
     int? timeEditDb;
 
     for (var element in _saleBox.values) {
-      if (element is Map<String,dynamic>) {
+      if (element is Map<dynamic, dynamic>) {
+        map = element.map((key, value) => MapEntry(key.toString(), value));
+        /*for (var entry in element.entries) {
+          map[entry.key.toString()] = entry.value;
+        }*/
+        mapsList.add(map);
+        sales.add(_mapToSale(map));
+      } else if (element is Map<String, dynamic>) {
         sales.add(_mapToSale(element));
+        mapsList.add(element);
       }
     }
-    
+
     salesDB = await DatabaseSales().readSalesList(vendor, formModel, 30);
 
     //Por cada elemento de la lista de ventas tomada de la base de datos
@@ -89,12 +97,20 @@ class SaleRepoHive {
     //Compara cada venta de la base local con las ventas de la nube,
     //si alguna venta no existe en la nube, la elimina de la base de datos
     //lcoal.
+
     for (int i = 0; i < _saleBox.length; i++) {
-      map = _saleBox.getAt(i);
+      map = mapsList.elementAt(i);
+      if (map[_productList] is Map<dynamic, dynamic>) {
+        subMapDyn = map[_productList];
+        subMapStr =
+          subMapDyn.map((key, value) => MapEntry(key.toString(), value));
+      } else {
+        subMapStr = map[_productList];
+      }
       sale = SaleModel(
         uid: map[_id],
         client: map[_clientName],
-        itemsShppc: map[_productList],
+        itemsShppc: subMapStr,
         location: map[_location],
         note: map[_note],
         time: map[_time],
@@ -110,6 +126,7 @@ class SaleRepoHive {
         _saleBox.deleteAt(i);
       }
     }
+    printValues();
   }
 
   void syncUp() async {
@@ -118,11 +135,11 @@ class SaleRepoHive {
     SaleModel sale;
 
     for (var element in _saleBox.values) {
-      if (element is Map<String,dynamic>) {
+      if (element is Map<String, dynamic>) {
         sales.add(_mapToSale(element));
       }
     }
-    
+
     for (int i = 0; i < sales.length; i++) {
       sale = sales.elementAt(i);
       if (sale.status == _update) {
@@ -157,7 +174,7 @@ class SaleRepoHive {
     int startTime;
     int endTime;
     const int dayMilli = 86400000;
-    Map<String,dynamic> map;
+    Map<String, dynamic> map;
 
     //Pasa fecha DateTime a milisegundos.
     startTime = form.dateTime.millisecondsSinceEpoch;
@@ -175,10 +192,10 @@ class SaleRepoHive {
       if (element is Map<String, dynamic> &&
           element[_time] >= startTime &&
           element[_time] <= endTime) {
-            //print('flag1');
+        //print('flag1');
         if (form.finder.text == '') {
           saleList.add(sale);
-          print('falg2');
+          //print('falg2');
         } else {
           //print('flag3');
           element[_productList].itemsShppc.forEach((key, value) {
@@ -197,8 +214,7 @@ class SaleRepoHive {
         }
       }
     }
-    print(saleList.length);
-    printValues();
+    //print(saleList.length);
     return saleList;
   }
 
@@ -242,10 +258,19 @@ class SaleRepoHive {
   }
 
   SaleModel _mapToSale(Map<String, dynamic> map) {
+    Map<dynamic, dynamic> subMapDyn;
+    Map<String, dynamic> subMapStr;
+    if (map[_productList] is Map<dynamic, dynamic>) {
+      subMapDyn = map[_productList];
+      subMapStr =
+          subMapDyn.map((key, value) => MapEntry(key.toString(), value));
+    } else {
+      subMapStr = map[_productList];
+    }
     SaleModel sale = SaleModel(
       uid: map[_id],
       location: map[_location],
-      itemsShppc: map[_productList],
+      itemsShppc: subMapStr,
       client: map[_clientName],
       time: map[_time],
       totalQuantity: map[_totalQuantity].toString(),

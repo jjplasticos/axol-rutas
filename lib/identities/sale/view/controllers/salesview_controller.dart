@@ -23,7 +23,7 @@ class SalesViewController extends StatelessWidget {
       bloc: context.read<SalesViewCubit>()..load(SaleFormModel.empty()),
       listener: (context, state) async {
         if (state is ErrorState) {
-          final snackBar = SnackBar(content: Text(state.error));
+          final snackBar = SnackBar(content: Text('SalesViewController: ${state.error}'));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
         if (state is InitialState) {

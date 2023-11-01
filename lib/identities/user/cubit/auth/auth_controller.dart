@@ -30,8 +30,6 @@ class AuthController extends StatelessWidget {
         } else if (state is AuthAuthenticatedState) {
           final rol = state.user.rol;
           if (rol == 'admin') {
-            //DatabaseSales().initRealTime(state.user);
-            //SaleRepoHive().initBoxes(state.user);
             return BlocProvider(
               create: (_) => VendorsListCubit(),
               // ignore: prefer_const_constructors
@@ -39,7 +37,8 @@ class AuthController extends StatelessWidget {
             );
           } else if (rol == 'vendor') {
             DatabaseSales().initRealTime(state.user);
-            SaleRepoHive().initBoxes(state.user);
+            SaleRepoHive().syncDown(state.user);
+            //SaleRepoHive().adminInitBox(state.user);
             // ignore: prefer_const_constructors
             return MultiBlocProvider(
               providers: [
