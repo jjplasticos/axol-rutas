@@ -57,9 +57,6 @@ class SaleRepoHive {
     for (var element in _saleBox.values) {
       if (element is Map<dynamic, dynamic>) {
         map = element.map((key, value) => MapEntry(key.toString(), value));
-        /*for (var entry in element.entries) {
-          map[entry.key.toString()] = entry.value;
-        }*/
         mapsList.add(map);
         sales.add(_mapToSale(map));
       } else if (element is Map<String, dynamic>) {
@@ -103,7 +100,7 @@ class SaleRepoHive {
       if (map[_productList] is Map<dynamic, dynamic>) {
         subMapDyn = map[_productList];
         subMapStr =
-          subMapDyn.map((key, value) => MapEntry(key.toString(), value));
+            subMapDyn.map((key, value) => MapEntry(key.toString(), value));
       } else {
         subMapStr = map[_productList];
       }
@@ -187,18 +184,18 @@ class SaleRepoHive {
     //antes que concuerde con los filtros del buscador para agregar el elemento
     //a la lista  que retornaa.
     for (var element in _saleBox.values) {
-      map = element;
+      if (element is Map<dynamic,dynamic>) {
+        map = element.map((key, value) => MapEntry(key.toString(), value));
+      } else {
+        map = element;
+      }
       sale = _mapToSale(map);
-      if (element is Map<String, dynamic> &&
-          element[_time] >= startTime &&
-          element[_time] <= endTime) {
-        //print('flag1');
+      if (map[_time] >= startTime &&
+          map[_time] <= endTime) {
         if (form.finder.text == '') {
           saleList.add(sale);
-          //print('falg2');
         } else {
-          //print('flag3');
-          element[_productList].itemsShppc.forEach((key, value) {
+          map[_productList].itemsShppc.forEach((key, value) {
             if (value
                 .toString()
                 .toLowerCase()
@@ -206,7 +203,7 @@ class SaleRepoHive {
               saleList.add(sale);
             }
           });
-          if (element[_clientName]
+          if (map[_clientName]
               .toLowerCase()
               .contains(form.finder.text.toLowerCase())) {
             saleList.add(sale);
@@ -283,4 +280,6 @@ class SaleRepoHive {
     );
     return sale;
   }
+
+  //Map<String, dynamic> _mapDynToStr() {}
 }
