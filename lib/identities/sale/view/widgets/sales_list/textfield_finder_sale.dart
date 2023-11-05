@@ -76,9 +76,9 @@ class TextFieldFinderSale extends StatelessWidget {
         ),
         IconButton(
           iconSize: 30,
-          color: ColorPalette.secondaryText,
+          color: ColorPalette.secondaryText2,
           icon: const Icon(
-            Icons.cancel,
+            Icons.cancel_outlined,
           ),
           onPressed: () {
             context.read<SaleFormCubit>().changeFinder('', 0);

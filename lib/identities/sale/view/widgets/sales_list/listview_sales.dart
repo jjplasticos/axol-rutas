@@ -18,6 +18,7 @@ class ListViewSales extends StatelessWidget {
   final String lbl_WEIGHT_UNIT = 'kg';
   final String lbl_WEIGHT = 'Peso total';
   final String lbl_PRICE = 'Precio total';
+  final bool _isSync = true;
 
   const ListViewSales({super.key, required this.listData});
 
@@ -32,187 +33,161 @@ class ListViewSales extends StatelessWidget {
             DateTime.fromMillisecondsSinceEpoch(elementList.time);
         return Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
-          child: Container(
-            width: double.infinity,
-            height: 140,
-            decoration: BoxDecoration(
-                color: ColorPalette.secondaryBackground,
-                borderRadius: BorderRadius.circular(12)),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.75,
-                      height: 60,
-                      decoration: const BoxDecoration(
-                          color: ColorPalette.secondaryBackground,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                          )),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                8, 8, 0, 0),
-                            child: Text(
-                              elementList.client.toString(),
-                              style: Typo.bodyText1,
-                            ),
+          child: Opacity(
+            opacity: _isSync ? 1 : 0.5,
+            child: Container(
+              width: double.infinity,
+              height: 130,
+              decoration: BoxDecoration(
+                  color: ColorPalette.secondaryBackground,
+                  borderRadius: BorderRadius.circular(12)),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 4, 4, 0),
+                          child: Text(
+                            elementList.client.toString(),
+                            style: Typo.bodyText1,
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 4, 0, 0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 4, 4, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                '${time.day}/${time.month}/${time.year} ${time.hour}:${time.minute}',
+                                style: Typo.bodyText2,
+                              ),
+                              Text(
+                                elementList.uid.toString().split('-').first,
+                                style: Typo.bodyText2,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '${time.day}/${time.month}/${time.year} ${time.hour}:${time.minute}',
-                                    //FormatDate.dmy(elementList.time.toString()),
-                                    style: Typo.bodyText2,
+                                    FormatNumber.decimal(double.parse(
+                                        elementList.totalQuantity.toString())),
+                                    style: Typo.bodyText3,
                                   ),
                                   Text(
-                                    elementList.uid.toString().split('-').first,
-                                    style: Typo.bodyText2,
+                                    lbl_QUANTITY,
+                                    style: Typo.labelText2,
                                   ),
                                 ],
                               ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                        onPressed: () async {
-                          await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context_) =>
-                                    MultiBlocProvider(
-                                      providers: [
-                                        BlocProvider(create: (_) => SaleDetailCubit()),
-                                        BlocProvider(create: (_) => OptionsEditSaleCubit()),
-                                        //BlocProvider(create: (_) => ShppcCubit()),
-                                      ] ,
-                                      child: SaleDetailController(sale: elementList),
-                                      )
-                                    //SaleDetailsView(sale: elementList),
-                              )).then((value) {
-                            context.read<SalesViewCubit>().load(SaleFormModel.empty());
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.navigate_next,
-                          size: 30,
-                        ))
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.24,
-                      height: 80,
-                      decoration: const BoxDecoration(
-                        color: ColorPalette.secondaryBackground,
-                        borderRadius:
-                            BorderRadius.only(bottomLeft: Radius.circular(16)),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            FormatNumber.decimal(double.parse(
-                                elementList.totalQuantity.toString())),
-                            style: Typo.bodyText3,
-                          ),
-                          Text(
-                            lbl_QUANTITY,
-                            style: Typo.labelText2,
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      height: 80,
-                      decoration: const BoxDecoration(
-                        color: ColorPalette.secondaryBackground,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                FormatNumber.decimal(double.parse(
-                                    elementList.totalWeight.toString())),
-                                style: Typo.bodyText3,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        FormatNumber.decimal(double.parse(
+                                            elementList.totalWeight
+                                                .toString())),
+                                        style: Typo.bodyText3,
+                                      ),
+                                      Text(
+                                        lbl_WEIGHT_UNIT,
+                                        style: Typo.bodyText3,
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    lbl_WEIGHT,
+                                    style: Typo.labelText2,
+                                  )
+                                ],
                               ),
-                              Text(
-                                lbl_WEIGHT_UNIT,
-                                style: Typo.bodyText3,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        '\$',
+                                        style: Typo.bodyText3,
+                                      ),
+                                      Text(
+                                        FormatNumber.decimal(double.parse(
+                                            elementList.totalPrice.toString())),
+                                        style: Typo.bodyText3,
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    lbl_PRICE,
+                                    style: Typo.labelText2,
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          Text(
-                            lbl_WEIGHT,
-                            style: Typo.labelText2,
-                          )
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.38,
-                      height: 80,
-                      decoration: const BoxDecoration(
-                        color: ColorPalette.secondaryBackground,
-                        borderRadius:
-                            BorderRadius.only(bottomRight: Radius.circular(16)),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 4, 4, 0),
+                        child: //Icono de estado
+                            _isSync
+                                ? const Icon(Icons.cloud_done_outlined,
+                                    color: ColorPalette.alternate2)
+                                : const Icon(Icons.cloud_off_outlined,
+                                    color: ColorPalette.alternate),
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                '\$',
-                                style: Typo.bodyText3,
-                              ),
-                              Text(
-                                FormatNumber.decimal(double.parse(
-                                    elementList.totalPrice.toString())),
-                                style: Typo.bodyText3,
-                              ),
-                            ],
+                      //Boton de detalles
+                      Expanded(
+                        child: IconButton(
+                          onPressed: () async {
+                            await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context_) => MultiBlocProvider(
+                                          providers: [
+                                            BlocProvider(
+                                                create: (_) =>
+                                                    SaleDetailCubit()),
+                                            BlocProvider(
+                                                create: (_) =>
+                                                    OptionsEditSaleCubit()),
+                                          ],
+                                          child: SaleDetailController(
+                                              sale: elementList),
+                                        ))).then((value) {
+                              context
+                                  .read<SalesViewCubit>()
+                                  .load(SaleFormModel.empty());
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.navigate_next,
+                            size: 30,
                           ),
-                          Text(
-                            lbl_PRICE,
-                            style: Typo.labelText2,
-                          )
-                        ],
+                        ),
                       ),
-                    )
-                  ],
-                )
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );

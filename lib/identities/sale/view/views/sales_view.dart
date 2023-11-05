@@ -19,6 +19,7 @@ class SalesView extends StatelessWidget {
   final bool isLoading;
   final UserModel user;
   final List<SaleModel> listData;
+  final bool _isSync = false;
   const SalesView({
     super.key,
     required this.isLoading,
@@ -46,6 +47,14 @@ class SalesView extends StatelessWidget {
                     )
                   : null,
               actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    _isSync ? Icons.cloud_done : Icons.cloud_upload,
+                    color: ColorPalette.primaryText,
+                    size: 30,
+                  ),
+                ),
                 PopupMenuButton(
                   itemBuilder: (context) => [
                     PopupMenuItem(
@@ -67,10 +76,6 @@ class SalesView extends StatelessWidget {
                     )
                   ],
                 )
-                /*IconButton(onPressed: () {
-                    
-                  }, 
-                  icon: const Icon(Icons.menu))*/
               ]),
         ),
         body: Column(
