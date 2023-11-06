@@ -24,6 +24,12 @@ class SaleModel {
   static const String pNote = 'note';
   static const String pStatus = 'status';
   static const String pLastEdit = 'last_edit';
+  
+  //---Status---
+  static const String stSync = 'sync';
+  static const String stInsert = 'insert';
+  static const String stUpdate = 'update';
+  static const String stDelete = 'delete';
 
   SaleModel({
     required this.uid,

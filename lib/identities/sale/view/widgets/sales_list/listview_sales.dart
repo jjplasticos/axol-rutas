@@ -19,6 +19,7 @@ class ListViewSales extends StatelessWidget {
   final String lbl_WEIGHT = 'Peso total';
   final String lbl_PRICE = 'Precio total';
   final bool _isSync = true;
+  final String _sync = SaleModel.stSync;
 
   const ListViewSales({super.key, required this.listData});
 
@@ -34,7 +35,7 @@ class ListViewSales extends StatelessWidget {
         return Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
           child: Opacity(
-            opacity: _isSync ? 1 : 0.5,
+            opacity: elementList.status == _sync ? 1 : 0.5,
             child: Container(
               width: double.infinity,
               height: 130,
@@ -148,7 +149,7 @@ class ListViewSales extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 4, 4, 0),
                         child: //Icono de estado
-                            _isSync
+                            elementList.status == _sync
                                 ? const Icon(Icons.cloud_done_outlined,
                                     color: ColorPalette.alternate2)
                                 : const Icon(Icons.cloud_off_outlined,
