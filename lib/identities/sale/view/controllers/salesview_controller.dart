@@ -36,18 +36,21 @@ class SalesViewController extends StatelessWidget {
             isLoading: true,
             user: UserModel.empty(),
             listData: const [],
+            salesNotSync: 0,
           );
         } else if (state is LoadedState) {
           return SalesView(
             isLoading: false,
             user: state.user,
             listData: state.salesList,
+            salesNotSync: state.nSaleNotSync,
           );
         } else {
           return SalesView(
             isLoading: false,
             user: UserModel.empty(),
             listData: const [],
+            salesNotSync: 0,
           );
         }
       },

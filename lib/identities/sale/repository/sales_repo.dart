@@ -196,6 +196,8 @@ class DatabaseSales extends SalesRepo {
 
   Future<void> insertSale(SaleModel sale) async {
     final String userName;
+    final DateTime dateTime = DateTime.now();
+    final int timeMilli = dateTime.millisecondsSinceEpoch;
     final pref = await SharedPreferences.getInstance();
     userName = pref.getString(_user)!;
 
@@ -210,7 +212,7 @@ class DatabaseSales extends SalesRepo {
       _totalWeight: sale.totalWeight,
       _product: sale.itemsShppc,
       _type: sale.type,
-      
+      _lastEdit: '$userName,$timeMilli',
     });
   }
 
@@ -230,7 +232,7 @@ class DatabaseSales extends SalesRepo {
           table: 'sales',
           filter: 'vendor=eq.${user.name}'
         ), (payload, [ref]) {
-          print('payload: $payload');
+          //print('payload: $payload');
           if (payload['new']['last_edit'].toString().split(',').first != user.name){
             SaleRepoHive().syncDown(user);
             //SaleRepoHive().printValues();

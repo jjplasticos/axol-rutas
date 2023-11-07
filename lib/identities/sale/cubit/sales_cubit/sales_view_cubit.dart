@@ -16,8 +16,8 @@ class SalesViewCubit extends Cubit<SalesViewState> {
       UserModel localVendor;
       UserModel user;
       UserModel userModel;
+      int nSaleNotSync;
 
-      //emit(InitialState());
       emit(LoadingState());
 
       user = await LocalUser().getLocalUser();
@@ -28,11 +28,10 @@ class SalesViewCubit extends Cubit<SalesViewState> {
         userModel = user;
       }
       salesList = await SaleRepoHive().fetchSaleList(form);
-      //salesList = await DatabaseSales().readSalesList(userModel, form, null);
+      nSaleNotSync = await SaleRepoHive().fetchNSaleNotSync();
 
-      //SaleRepoHive().initBoxes(userModel);
-      
-      emit(LoadedState(user: user, salesList: salesList));
+
+      emit(LoadedState(user: user, salesList: salesList, nSaleNotSync: nSaleNotSync));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }
@@ -44,6 +43,7 @@ class SalesViewCubit extends Cubit<SalesViewState> {
       UserModel localVendor;
       UserModel user;
       UserModel userModel;
+      int nSaleNotSync;
 
       emit(LoadingState());
 
@@ -55,10 +55,9 @@ class SalesViewCubit extends Cubit<SalesViewState> {
         userModel = user;
       }
       salesList = await SaleRepoHive().fetchSaleList(form);
-      //salesList = await DatabaseSales().readSalesList(userModel, form, null);
-
-      //SaleRepoHive().initBoxes(userModel);
-      emit(LoadedState(user: user, salesList: salesList));
+      nSaleNotSync = await SaleRepoHive().fetchNSaleNotSync();
+      
+      emit(LoadedState(user: user, salesList: salesList, nSaleNotSync: nSaleNotSync));
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }

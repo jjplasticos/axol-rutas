@@ -23,11 +23,12 @@ class LoadingState extends SalesViewState {
 class LoadedState extends SalesViewState {
   final UserModel user;
   final List<SaleModel> salesList;
+  final int nSaleNotSync;
 
-  LoadedState({required this.user, required this.salesList});
+  LoadedState({required this.user, required this.salesList, required this.nSaleNotSync});
 
   @override
-  List<Object?> get props => [user, salesList];
+  List<Object?> get props => [user, salesList, nSaleNotSync];
 }
 
 class ErrorState extends SalesViewState {

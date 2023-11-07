@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../globals/global_const.dart';
 import '../../../../globals/global_widgets/appbar/appbar_global.dart';
@@ -9,6 +10,8 @@ import '../../../../settings/theme.dart';
 import '../../../user/model/user.dart';
 import '../../../user/repository/user_repo.dart';
 import '../../../user/view/pages/auth_page.dart';
+import '../../cubit/sales_cubit/sales_view_cubit.dart';
+import '../../model/sale_form_model.dart';
 import '../../model/sale_model.dart';
 import '../../repository/sale_repo_hive.dart';
 import '../widgets/sales_list/fabutton_add_sale.dart';
@@ -19,18 +22,26 @@ class SalesView extends StatelessWidget {
   final bool isLoading;
   final UserModel user;
   final List<SaleModel> listData;
-  final bool _isSync = false;
+  final int salesNotSync;
   const SalesView({
     super.key,
     required this.isLoading,
     required this.user,
     required this.listData,
+    required this.salesNotSync,
   });
 
   @override
   Widget build(BuildContext context) {
     // ignore: constant_identifier_names
     const String TITLE = 'Ventas';
+    final bool isSync;
+    
+    if (salesNotSync > 0) {
+      isSync = false;
+    } else {
+      isSync = true;
+    }
 
     return Scaffold(
         backgroundColor: ColorPalette.primaryBackground,
@@ -48,9 +59,12 @@ class SalesView extends StatelessWidget {
                   : null,
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await SaleRepoHive().syncUp();
+                    context.read<SalesViewCubit>().load(SaleFormModel.empty());
+                  },
                   icon: Icon(
-                    _isSync ? Icons.cloud_done : Icons.cloud_upload,
+                    isSync ? Icons.cloud_done : Icons.cloud_upload,
                     color: ColorPalette.primaryText,
                     size: 30,
                   ),

@@ -123,16 +123,21 @@ class SaleRepoHive {
         _saleBox.deleteAt(i);
       }
     }
-    printValues();
+    //printValues();
   }
 
-  void syncUp() async {
+  Future<void> syncUp() async {
     bool exist = false;
     List<SaleModel> sales = [];
     SaleModel sale;
-
+    Map<String,dynamic> map;
+    print('flag0');
+    
     for (var element in _saleBox.values) {
-      if (element is Map<String, dynamic>) {
+      if (element is Map<dynamic, dynamic>) {
+        map = element.map((key, value) => MapEntry(key.toString(), value));
+        sales.add(_mapToSale(map));
+      } else if (element is Map<String, dynamic>) {
         sales.add(_mapToSale(element));
       }
     }
@@ -146,10 +151,11 @@ class SaleRepoHive {
         //Busca si el id existe en la base de datos
         exist = await DatabaseSales().checkExistSale(sale.uid);
         if (exist) {
+          //Si existe cambia a sync
+          _saleBox.putAt(i, _saleToMap(sale, _sync));
+        } else {
           //Si no existe inserta en la base de datos
           await DatabaseSales().insertSale(sale);
-        } else {
-          //Si existe cambia a sync
           _saleBox.putAt(i, _saleToMap(sale, _sync));
         }
       }
@@ -184,14 +190,13 @@ class SaleRepoHive {
     //antes que concuerde con los filtros del buscador para agregar el elemento
     //a la lista  que retornaa.
     for (var element in _saleBox.values) {
-      if (element is Map<dynamic,dynamic>) {
+      if (element is Map<dynamic, dynamic>) {
         map = element.map((key, value) => MapEntry(key.toString(), value));
       } else {
         map = element;
       }
       sale = _mapToSale(map);
-      if (map[_time] >= startTime &&
-          map[_time] <= endTime) {
+      if (map[_time] >= startTime && map[_time] <= endTime) {
         if (form.finder.text == '') {
           saleList.add(sale);
         } else {
@@ -213,6 +218,24 @@ class SaleRepoHive {
     }
     //print(saleList.length);
     return saleList;
+  }
+
+  Future<int> fetchNSaleNotSync() async {
+    int n = 0;
+    Map<String, dynamic> map;
+
+    for (var element in _saleBox.values) {
+      if (element is Map<dynamic, dynamic>) {
+        map = element.map((key, value) => MapEntry(key.toString(), value));
+      } else {
+        map = element;
+      }
+      if (map[_status] != _sync) {
+        n = n + 1;
+      }
+    }
+
+    return n;
   }
 
   void printValues() async {
@@ -280,6 +303,4 @@ class SaleRepoHive {
     );
     return sale;
   }
-
-  //Map<String, dynamic> _mapDynToStr() {}
 }
