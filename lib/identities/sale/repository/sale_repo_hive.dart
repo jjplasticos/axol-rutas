@@ -30,7 +30,7 @@ class SaleRepoHive {
 
   final _saleBox = Hive.box('saleBox');
 
-  void adminInitBox(UserModel vendor) async {
+  Future<void> adminInitBox(UserModel vendor) async {
     List<SaleModel> salesDB;
     SaleFormModel formModel = SaleFormModel.empty();
 

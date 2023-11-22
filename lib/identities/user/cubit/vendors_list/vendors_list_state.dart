@@ -20,7 +20,16 @@ class LoadedState extends VendorsListState {
   final List<UserModel> vendors;
   const LoadedState({required this.vendors});
   @override
-  List<Object?> get props => [vendors];
+  List<Object?> get props => [
+        vendors,
+      ];
+}
+
+class NextView extends VendorsListState {
+  final bool status;
+  const NextView({required this.status});
+  @override
+  List<Object?> get props => [status];
 }
 
 class ErrorState extends VendorsListState {

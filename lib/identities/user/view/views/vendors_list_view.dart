@@ -25,11 +25,7 @@ class VendorsListView extends StatelessWidget {
   Widget build(BuildContext context) {
     const String title = 'Vendedores';
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => VendorsListCubit()),
-      ],
-      child: Scaffold(
+    return Scaffold(
           backgroundColor: ColorPalette.primaryBackground,
           appBar: const PreferredSize(
             preferredSize: Size.fromHeight(50),
@@ -54,12 +50,13 @@ class VendorsListView extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final vendor = listData[index];
                     return OutlinedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (isLoading == false) {
                             LocalUser().setLocalVendor(vendor.name, vendor.id);
                             DatabaseSales().initRealTime(vendor);
-                            SaleRepoHive().adminInitBox(vendor);
-                            Navigator.push(
+                            context.read<VendorsListCubit>().preload(vendor);
+                            //await SaleRepoHive().adminInitBox(vendor);
+                            /*Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     // ignore: prefer_const_constructors
@@ -73,7 +70,7 @@ class VendorsListView extends StatelessWidget {
                                           ],
                                           // ignore: prefer_const_constructors
                                           child: SalesViewController(),
-                                        )));
+                                        )));*/
                           }
                         },
                         child: Padding(
@@ -108,7 +105,6 @@ class VendorsListView extends StatelessWidget {
           )
 
           //bottomNavigationBar: const NavigationBarGlobal(currentIndex: 0),
-          ),
-    );
+          );
   }
 }
