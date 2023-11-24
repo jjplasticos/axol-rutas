@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import '../../model/user.dart';
 
@@ -27,7 +28,7 @@ class LoadedState extends VendorsListState {
 
 class NextView extends VendorsListState {
   final bool status;
-  const NextView({required this.status});
+  NextView({required this.status});
   @override
   List<Object?> get props => [status];
 }

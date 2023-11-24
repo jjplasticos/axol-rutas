@@ -1,4 +1,5 @@
 import 'package:axol_rutas/identities/user/model/user.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../sale/repository/sale_repo_hive.dart';
@@ -25,7 +26,7 @@ class VendorsListCubit extends Cubit<VendorsListState> {
       emit(InitialState());
       emit(LoadingState());
       await SaleRepoHive().adminInitBox(vendor);
-      emit(const NextView(status: true));
+      emit(NextView(status: true));
       print('flag 2');
     } catch (e) {
       emit(ErrorState(error: e.toString()));
