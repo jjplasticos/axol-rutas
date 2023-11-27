@@ -54,6 +54,7 @@ class SalesReportView extends StatelessWidget {
                 ? IconButtonReturn(
                     iconName: 'return',
                     isLoading: isLoading,
+                    route: '/VendorsListController',
                   )
                 : null,
           ),

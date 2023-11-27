@@ -15,21 +15,14 @@ class VendorsListController extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<VendorsListCubit, VendorsListState>(
       bloc: context.read<VendorsListCubit>()..load(),
-      listenWhen: (previous, current) {
-        print('listWhen: ${previous.toString()}');
-        print('listWhen: ${current.toString()}');
-        return true;
-      },
       listener: (context, state) {
-        print('flag0');
         if (state is ErrorState) {
           final snackBar = SnackBar(content: Text(state.error));
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
         if (state is NextView) {
-          if (state.status == true) {
-            print('flag 1');
-            Navigator.push(
+          Navigator.pushNamed(context, '/SalesViewController');
+          /*Navigator.push(
                 context,
                 MaterialPageRoute(
                     // ignore: prefer_const_constructors
@@ -40,8 +33,7 @@ class VendorsListController extends StatelessWidget {
                           ],
                           // ignore: prefer_const_constructors
                           child: SalesViewController(),
-                        )));
-          }
+                        )));*/
         }
       },
       builder: (context, state) {

@@ -26,8 +26,7 @@ class VendorsListCubit extends Cubit<VendorsListState> {
       emit(InitialState());
       emit(LoadingState());
       await SaleRepoHive().adminInitBox(vendor);
-      emit(NextView(status: true));
-      print('flag 2');
+      emit(NextView());
     } catch (e) {
       emit(ErrorState(error: e.toString()));
     }

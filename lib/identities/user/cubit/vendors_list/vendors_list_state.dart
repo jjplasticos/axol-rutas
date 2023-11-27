@@ -27,10 +27,8 @@ class LoadedState extends VendorsListState {
 }
 
 class NextView extends VendorsListState {
-  final bool status;
-  NextView({required this.status});
   @override
-  List<Object?> get props => [status];
+  List<Object?> get props => [];
 }
 
 class ErrorState extends VendorsListState {
