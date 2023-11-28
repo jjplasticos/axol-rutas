@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../sale/cubit/sales_cubit/sale_form_cubit.dart';
-import '../../../sale/cubit/sales_cubit/sales_view_cubit.dart';
-import '../../../sale/view/controllers/salesview_controller.dart';
 import '../../cubit/vendors_list/vendors_list_cubit.dart';
 import '../../cubit/vendors_list/vendors_list_state.dart';
 import '../views/vendors_list_view.dart';
