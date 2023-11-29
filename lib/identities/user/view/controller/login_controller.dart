@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:axol_rutas/identities/user/view/pages/admin_page.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_cubit.dart';
 import 'package:axol_rutas/identities/user/cubit/login/login/login_state.dart';
 import 'package:axol_rutas/identities/user/view/views/login_view.dart';
@@ -13,7 +12,6 @@ import '../../../sale/cubit/sales_cubit/sales_view_cubit.dart';
 import '../../../sale/repository/sale_repo_hive.dart';
 import '../../../sale/repository/sales_repo.dart';
 import '../../../sale/view/controllers/salesview_controller.dart';
-import '../../../sale/view/views/sales_view.dart';
 import '../../cubit/vendors_list/vendors_list_cubit.dart';
 import 'vendorslist_controller.dart';
 
@@ -67,13 +65,10 @@ class LoginController extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is LoadingState) {
-          // ignore: prefer_const_constructors
           return LoginView();
         } else if (state is LoadedState) {
-          // ignore: prefer_const_constructors
           return LoginView();
         } else {
-          // ignore: prefer_const_constructors
           return LoginView();
         }
       },

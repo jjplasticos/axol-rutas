@@ -1,5 +1,4 @@
 import 'package:axol_rutas/identities/user/model/user.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../sale/repository/sale_repo_hive.dart';

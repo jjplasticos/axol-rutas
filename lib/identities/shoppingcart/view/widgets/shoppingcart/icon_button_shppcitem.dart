@@ -5,10 +5,8 @@ import '../../../../../settings/theme.dart';
 import '../../../cubit/options_shppc_item/options_shppcitem_cubit.dart';
 import '../../../cubit/shoppingcart/shppc_cubit.dart';
 import '../../../cubit/shoppingcart/shppc_view_cubit.dart';
-import '../../../cubit/shoppingcart_cubit.dart';
 import '../../../model/shoppingcart_models.dart';
 import '../../controllers/btn_options_shppcitem_controller.dart';
-import '../../views/options_shppcitem_view.dart';
 
 class IconButtonShppcItem extends StatelessWidget {
   final bool isVisible;

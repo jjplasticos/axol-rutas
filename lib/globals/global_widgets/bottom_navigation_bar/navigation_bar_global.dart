@@ -6,12 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../identities/inventory/cubit/inventory_form_cubit.dart';
 import '../../../identities/inventory/cubit/inventory_view/inventory_view_cubit.dart';
 import '../../../identities/inventory/view/controllers/inventory_controller.dart';
-import '../../../identities/inventory/view/views/inventory_view.dart';
 import '../../../identities/sale/cubit/sales_cubit/sale_form_cubit.dart';
 import '../../../identities/sale/cubit/sales_cubit/sales_view_cubit.dart';
 import '../../../identities/sale/cubit/sales_report/salesreport_cubit.dart';
 import '../../../identities/sale/view/controllers/salesview_controller.dart';
-import '../../../identities/sale/view/views/sales_view.dart';
 import '../../../settings/theme.dart';
 
 class NavigationBarGlobal extends StatelessWidget {

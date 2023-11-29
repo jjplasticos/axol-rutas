@@ -1,4 +1,3 @@
-import 'package:axol_rutas/identities/shoppingcart/model/shoppingcart_models.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class OptionsShppcItemState extends Equatable {}

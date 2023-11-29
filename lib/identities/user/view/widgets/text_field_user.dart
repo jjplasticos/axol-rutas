@@ -1,9 +1,7 @@
-import 'package:axol_rutas/identities/user/cubit/login/controllers/login_txt_cubit.dart';
 import 'package:axol_rutas/settings/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../globals/global_models/textfield_form_model.dart';
 import '../../cubit/login/login/login_cubit.dart';
 import '../../cubit/login/login_form_cubit.dart';
 import '../../model/login_form_model.dart';

@@ -1,10 +1,10 @@
 // ignore_for_file: constant_identifier_names
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pdf/pdf.dart';
 
 import '../../../../globals/global_widgets/appbar/appbar_global.dart';
 import '../../../../globals/global_widgets/appbar/iconbutton_return.dart';

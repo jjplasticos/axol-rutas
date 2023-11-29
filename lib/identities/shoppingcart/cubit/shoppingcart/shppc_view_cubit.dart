@@ -9,7 +9,6 @@ import '../../../sale/model/sale_model.dart';
 import '../../../sale/model/sale_type_model.dart';
 import '../../../sale/repository/sale_repo_hive.dart';
 import '../../../sale/repository/sale_type_repo.dart';
-import '../../../sale/repository/sales_repo.dart';
 import '../../../user/model/user.dart';
 import '../../model/shppc_view_model.dart';
 import 'shppc_view_state.dart';

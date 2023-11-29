@@ -1,16 +1,10 @@
-import 'dart:js';
-
-import 'package:axol_rutas/views/sales_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../user/model/user.dart';
-import '../../cubit/sales_cubit/sale_form_cubit.dart';
 import '../../cubit/sales_cubit/sales_view_cubit.dart';
 import '../../cubit/sales_cubit/sales_view_state.dart';
 import '../../model/sale_form_model.dart';
-import '../../repository/sale_repo_hive.dart';
 import '../views/sales_view.dart';
 
 class SalesViewController extends StatelessWidget {

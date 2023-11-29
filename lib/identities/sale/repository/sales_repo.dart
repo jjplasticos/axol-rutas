@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../user/model/user.dart';
-import '../cubit/sales_cubit/sales_view_cubit.dart';
 import '../model/sale_form_model.dart';
 import '../model/sale_model.dart';
 import '../model/srep_form_model.dart';

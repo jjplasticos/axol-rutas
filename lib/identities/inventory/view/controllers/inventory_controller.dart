@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../globals/global_widgets/global_models/textfield_model.dart';
 import '../../cubit/inventory_form_cubit.dart';
 import '../../cubit/inventory_view/inventory_view_cubit.dart';
 import '../../cubit/inventory_view/inventory_view_state.dart';

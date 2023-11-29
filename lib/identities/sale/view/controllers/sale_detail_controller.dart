@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubit/sale_detail/sale_detail_cubit.dart';
 import '../../cubit/sale_detail/sale_detail_state.dart';
-import '../../model/sale_model.dart';
 import '../views/sale_details_view.dart';
 
 class SaleDetailController extends StatelessWidget {

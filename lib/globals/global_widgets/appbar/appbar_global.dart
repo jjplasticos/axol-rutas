@@ -1,4 +1,3 @@
-import 'package:axol_rutas/globals/global_widgets/appbar/iconbutton_actions.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../settings/theme.dart';
@@ -21,8 +20,6 @@ class AppBarGlobal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final IconButtonActions action0;
-    const String EMPTY = '0';
     List<Widget> actionsList;
     if (actions != null) {
       actionsList = actions!;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../settings/format.dart';
 import '../../../../../settings/theme.dart';
 import 'link_location.dart';
 

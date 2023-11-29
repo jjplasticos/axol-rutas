@@ -1,4 +1,3 @@
-import 'package:axol_rutas/identities/user/cubit/login/login/login_cubit.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class PasswordVisibilityState extends Equatable {}

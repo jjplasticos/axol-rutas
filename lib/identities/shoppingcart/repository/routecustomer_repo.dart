@@ -55,7 +55,6 @@ class RoutecustomerRepo {
 
   Future<bool> existId(String id) async {
     List<Map<String, dynamic>> customersDB = [];
-    List<RouteCustomerModel> customers = [];
     bool exist;
     customersDB = await _supabase
         .from(_table)

@@ -1,14 +1,11 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:axol_rutas/identities/sale/cubit/options_edit_sale/options_edit_sale_cubit.dart';
 import 'package:axol_rutas/identities/sale/model/sale_model.dart';
-import 'package:axol_rutas/identities/sale/view/controllers/sale_detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../settings/format.dart';
 import '../../../../../settings/theme.dart';
-import '../../../cubit/sale_detail/sale_detail_cubit.dart';
 import '../../../cubit/sales_cubit/sales_view_cubit.dart';
 import '../../../model/sale_form_model.dart';
 
@@ -18,7 +15,6 @@ class ListViewSales extends StatelessWidget {
   final String lbl_WEIGHT_UNIT = 'kg';
   final String lbl_WEIGHT = 'Peso total';
   final String lbl_PRICE = 'Precio total';
-  final bool _isSync = true;
   final String _sync = SaleModel.stSync;
 
   const ListViewSales({super.key, required this.listData});

@@ -2,7 +2,6 @@ import 'package:axol_rutas/identities/inventory/model/inventory_diff_model.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../product/model/product.dart';
 import '../../../user/model/user.dart';
 import '../../cubit/inv_product/inv_product_form_cubit.dart';
 import '../../cubit/inv_product/inv_product_view_cubit.dart';

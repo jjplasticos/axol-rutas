@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../settings/theme.dart';
-import '../../../../shoppingcart/model/shoppingcart_models.dart';
 import '../../../model/sale_model.dart';
 
 class ListviewSaleDetail extends StatelessWidget {

@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../settings/theme.dart';
-import '../../cubit/inv_product/inv_product_form_cubit.dart';
-import '../../cubit/inv_product/inv_product_view_cubit.dart';
 import '../../cubit/inventory_form_cubit.dart';
-import '../../cubit/inventory_view/inventory_view_cubit.dart';
-import '../../model/inventory_diff_model.dart';
 import '../../model/inventory_form_model.dart';
 import '../../model/inventory_model.dart';
-import '../controllers/inv_product_detail_controller.dart';
 
 class ListviewInventory extends StatelessWidget {
   final List<InventoryModel> listData;

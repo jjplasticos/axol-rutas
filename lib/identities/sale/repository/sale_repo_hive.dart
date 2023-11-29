@@ -1,7 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../../globals/global_widgets/global_models/textfield_model.dart';
 import '../../user/model/user.dart';
 import '../model/sale_form_model.dart';
 import '../model/sale_model.dart';
@@ -12,7 +11,6 @@ class SaleRepoHive {
   final String _location = SaleModel.pLocation;
   final String _clientName = SaleModel.pClient;
   final String _time = SaleModel.pTime;
-  final String _vendor = 'vendor';
   final String _totalPrice = SaleModel.pTotalPrice;
   final String _totalQuantity = SaleModel.pTotalQuantity;
   final String _totalWeight = SaleModel.pTotalWeight;

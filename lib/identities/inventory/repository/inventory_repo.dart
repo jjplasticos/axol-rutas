@@ -80,7 +80,6 @@ class FetchInventory extends InventoryRepo {
   }
 
   Future<List> readInventory(UserModel user) async {
-    List<Map<String, dynamic>> productsList = [];
     //final String userName;
     List inventoryList = [];
 

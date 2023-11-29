@@ -2,14 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../globals/global_widgets/appbar/appbar_global.dart';
-import '../../../../globals/global_widgets/appbar/iconbutton_return.dart';
 import '../../../../settings/theme.dart';
-import '../../../sale/cubit/sales_cubit/sale_form_cubit.dart';
-import '../../../sale/cubit/sales_cubit/sales_view_cubit.dart';
-import '../../../sale/repository/sale_repo_hive.dart';
 import '../../../sale/repository/sales_repo.dart';
-import '../../../sale/view/controllers/salesview_controller.dart';
-import '../../../sale/view/views/sales_view.dart';
 import '../../cubit/vendors_list/vendors_list_cubit.dart';
 import '../../model/user.dart';
 import '../../repository/user_repo.dart';

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../../../location/repository/location_repo.dart';
-import '../../../../shoppingcart/model/route_customer_model.dart';
 import '../../../model/user.dart';
 import '../../../repository/user_repo.dart';
 
