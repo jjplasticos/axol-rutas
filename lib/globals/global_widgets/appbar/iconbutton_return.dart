@@ -5,9 +5,9 @@ import '../../../../../../settings/theme.dart';
 class IconButtonReturn extends StatelessWidget {
   final String? iconName;
   final bool? isLoading;
-  final String? route;
+  final String route;
 
-  const IconButtonReturn({super.key, required this.iconName, this.isLoading, this.route});
+  const IconButtonReturn({super.key, required this.iconName, this.isLoading, required this.route});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class IconButtonReturn extends StatelessWidget {
           onPressed: () {
             if (isLoading == null || isLoading == false) {
                 //Navigator.pop(context);
-                Navigator.pushReplacementNamed(context, route!);
+                Navigator.pushReplacementNamed(context, route);
             }
           },
           icon: const Icon(

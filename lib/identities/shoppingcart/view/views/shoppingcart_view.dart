@@ -46,6 +46,7 @@ class ShoppingCartView extends StatelessWidget {
           iconButton: IconButtonReturn(
             iconName: 'return',
             isLoading: isLoading,
+            route: '/SalesViewController',
           ),
         ),
       ),

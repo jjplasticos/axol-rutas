@@ -36,7 +36,7 @@ class SalesView extends StatelessWidget {
     // ignore: constant_identifier_names
     const String TITLE = 'Ventas';
     final bool isSync;
-    
+
     if (salesNotSync > 0) {
       isSync = false;
     } else {
@@ -55,6 +55,7 @@ class SalesView extends StatelessWidget {
                   ? IconButtonReturn(
                       iconName: 'return',
                       isLoading: isLoading,
+                      route: '/VendorsListController',
                     )
                   : null,
               actions: [

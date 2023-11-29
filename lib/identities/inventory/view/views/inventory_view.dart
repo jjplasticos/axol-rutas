@@ -33,6 +33,7 @@ class InventoryView extends StatelessWidget {
                 ? IconButtonReturn(
                     iconName: 'return',
                     isLoading: isLoading,
+                    route: '/VendorsListController',
                   )
                 : null,
           ),

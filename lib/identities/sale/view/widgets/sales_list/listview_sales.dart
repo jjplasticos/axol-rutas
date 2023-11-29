@@ -159,7 +159,10 @@ class ListViewSales extends StatelessWidget {
                       Expanded(
                         child: IconButton(
                           onPressed: () async {
-                            await Navigator.push(
+                            await Navigator.pushNamed(
+                                    context, '/SaleDetailController',
+                                    arguments: {'sale': elementList})
+                                /*Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context_) => MultiBlocProvider(
@@ -173,7 +176,8 @@ class ListViewSales extends StatelessWidget {
                                           ],
                                           child: SaleDetailController(
                                               sale: elementList),
-                                        ))).then((value) {
+                                        )))*/
+                                .then((value) {
                               context
                                   .read<SalesViewCubit>()
                                   .load(SaleFormModel.empty());

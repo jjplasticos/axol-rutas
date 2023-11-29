@@ -29,6 +29,7 @@ class SaleDetailsView extends StatelessWidget {
           title: TITLE,
           iconButton: IconButtonReturn(
             iconName: 'return',
+            route: '/SalesViewController',
           ),
           //iconActions: ['1//${sale.uid}']
         ),
