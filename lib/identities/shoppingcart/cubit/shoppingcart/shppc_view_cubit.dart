@@ -47,6 +47,8 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
       final Map<String, String> stockInventory;
       double updatedStock;
       final String idSale = const Uuid().v4();
+      final UserModel user;
+      final int time = DateTime.now().millisecondsSinceEpoch;
 
       //emit(InitialState());
       emit(LoadingState());
@@ -54,6 +56,7 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
       //Valida si las cantidades de stock no serán menores a cero una vez se
       //actualice.
       isUpgradable = await FetchInventory().checkAllStock(shppc.shoppingcart);
+      user = await LocalUser().getLocalUser();
 
       if (isUpgradable == false) {
         throw Exception('Stock insuficiente en un producto.');
@@ -98,7 +101,7 @@ class ShppcViewCubit extends Cubit<ShppcViewState> {
         note: '',
         type: shppc.saleType,
         status: '',
-        lastEdit: '',
+        lastEdit: '${user.name},$time',
       );
       await SaleRepoHive().insert(sale);
       //await DatabaseSales().insertSale(sale); //Cambiar a Hive 
